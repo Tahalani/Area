@@ -19,9 +19,12 @@ export default function Area() {
   ));
 
   const GitHUbConnection = () => {
-    window.location.href = 'http://localhost:8080/api/auth/github?token=' + localStorage.getItem('token');
+    window.location.href = 'http://163.172.134.80:8080/api/auth/github?token=' + localStorage.getItem('token');
   }
 
+  const MicrosoftConnection = () => {
+    window.location.href = 'http://163.172.134.80:8080/api/auth/microsoft?token=' + localStorage.getItem('token');
+  }
 
   return (
     <>
@@ -39,6 +42,7 @@ export default function Area() {
               </button>
             </div>
             <Button style={{ fontFamily: 'merriweather' }} className="text-[30px] text-black font-bold mt-[80px]" onClick={GitHUbConnection}>GITHUB(Oh le bouton de zinzin)</Button>
+            <Button style={{ fontFamily: 'merriweather' }} className="text-[30px] text-black font-bold mt-[80px]" onClick={MicrosoftConnection}>MICROCRO(Oh le bouton de zinzin)</Button>
             <div className="navbar-end"></div>
 
           </div>

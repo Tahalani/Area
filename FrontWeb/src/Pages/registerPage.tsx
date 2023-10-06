@@ -27,7 +27,7 @@ export default function Register() {
     };
     console.log(data);
     axios
-      .post("http://localhost:8080/api/auth/register/", data)
+      .post("http://163.172.134.80:8080/api/auth/register/", data)
       .then(() => {
         navigate('/loginPage');
       })

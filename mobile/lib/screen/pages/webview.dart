@@ -34,7 +34,7 @@ class _WebViewPageState extends State<WebViewPage> {
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
             print(request.url);
-            if (request.url.startsWith('http://localhost:8080')) {
+            if (request.url.startsWith('http://163.172.134.80:8080')) {
               setState(() {
                 _isLoadingPage = true;
               });
