@@ -26,4 +26,4 @@ jobs:
               docker-compose down
               docker volume prune -af
               docker-compose build
-              docker-compose up --detach
+              docker-compose up -d
