@@ -1,0 +1,42 @@
+version: '3'
+
+volumes:
+  db-data:
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - back
+
+  server:
+    build:
+      context: ./Back/
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '8080:3000'
+    environment:
+      DB_HOST: db
+    networks:
+      - back
+    depends_on:
+      - db
+
+  client_web:
+    build:
+      context: ./FrontWeb/
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '8081:5173'
+
+networks:
+  back:
