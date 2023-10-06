@@ -22,7 +22,7 @@ export class MicrosoftController {
   async MicrosoftAuth(@Req() req: any, @Res() res: Response) {
     const userToken = req.query.token;
     res.redirect(
-      `https://login.microsoftonline.com/${tenant_id}/oauth2/v2.0/authorize?client_id=${Microsoft_CLIENT_ID}&response_type=code&redirect_uri=http://163.172.134.80:8080/api/auth/Microsoft/callback&response_mode=query&scope=Calendars.ReadWrite User.Read Mail.ReadWrite`,
+      `https://login.microsoftonline.com/${tenant_id}/oauth2/v2.0/authorize?client_id=${Microsoft_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:8080/api/auth/Microsoft/callback&response_mode=query&scope=Calendars.ReadWrite User.Read Mail.ReadWrite`,
     );
   }
 
@@ -32,7 +32,7 @@ export class MicrosoftController {
 
     const response = await axios.post(
       'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-      `client_id=${Microsoft_CLIENT_ID}&client_secret=${Microsoft_CLIENT_SECRET}&code=${req.query.code}&redirect_uri=http://163.172.134.80:8080/api/auth/Microsoft/callback&grant_type=authorization_code`,
+      `client_id=${Microsoft_CLIENT_ID}&client_secret=${Microsoft_CLIENT_SECRET}&code=${req.query.code}&redirect_uri=http://localhost:8080/api/auth/Microsoft/callback&grant_type=authorization_code`,
       {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -102,7 +102,7 @@ export class MicrosoftController {
     //   console.error('Erreur :', error);
     // }
 
-    res.redirect(`http://163.172.134.80:8081/AreaPage`);
+    res.redirect(`http://localhost:8081/AreaPage`);
   }
 
   @Post('WebHook/Microsoft')

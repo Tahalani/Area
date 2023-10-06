@@ -6,6 +6,7 @@ import { UserEntity } from 'src/entity/user.entity';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 import { ReactionGithub } from './reactionGithub';
+import { DataPullRequest } from './github.dto';
 
 config();
 
@@ -69,17 +70,17 @@ export class GitHubService {
       this.saveToken(userMail, code, 'github');
       const GitHubAccesstoken = await getGitHubToken({ code: code });
 
-      const dataPullRequest = {
-        owner: "SloWayyy",
+      const dataPullRequest: DataPullRequest = {
+        owner: 'Slowayyy',
         repo: "areaTest",
         title: "test",
         body: "test",
         head: "test",
         base: "main",
         maintainer_can_modify: true
-      };
-      console.log("githubaccestoken: ", GitHubAccesstoken);
-      this.reactionGithub.createPullRequest("SloWayyy", dataPullRequest, GitHubAccesstoken);
+      }
+
+      this.reactionGithub.createPullRequest("Slowayyy", dataPullRequest, GitHubAccesstoken);
     }
 
     private async saveToken(email: string, token: string, serviceName: string) {

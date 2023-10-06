@@ -43,7 +43,7 @@ export class GoogleController implements OnModuleInit {
     const userToken = await this.googleService.registerGoogleUser(req.user);
     await this.googleService.saveToken(req);
     res.redirect(
-      `http://163.172.134.80:8081/auth/succes?token=${userToken.access_token}`,
+      `http://localhost:8081/auth/succes?token=${userToken.access_token}`,
     );
     return;
   }

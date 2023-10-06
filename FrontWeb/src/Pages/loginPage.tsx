@@ -21,7 +21,7 @@ export default function Login() {
       password: password
     };
     console.log(data);
-    const url = 'http://163.172.134.80:8080/api/auth/login/'
+    const url = 'http://localhost:8080/api/auth/login/';
   
     axios.post(url, data)
     .then(response => {
