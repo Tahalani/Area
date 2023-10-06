@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 import { UserEntity } from 'src/entity/user.entity';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
+import { ReactionGithub } from './reactionGithub';
 
 config();
 
@@ -61,14 +62,26 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
 
 @Injectable()
 export class GitHubService {
+    constructor(private readonly reactionGithub: ReactionGithub) {}
     async addService(request: any): Promise<void> {
       const userMail = request.query.state; // grace à ca on sait qui a fait la demande
       const code = request.query.code; // a voir si il faut garder code ou access token
 
-      this.saveToken(userMail, code, 'github');
-      // const GitHubAccesstoken = await getGitHubToken({ code: code });   Recupere le token
-    }
+      const dataPullRequest = {
+        owner: "Slowayyy",
+        repo: "areaTest",
+        title: "test",
+        body: "test",
+        head: "test",
+        base: "main",
+        maintainer_can_modify: true
+      }
 
+      this.saveToken(userMail, code, 'github');
+      const GitHubAccesstoken = await getGitHubToken({ code: code });
+      console.log("githubaccestoken: ", GitHubAccesstoken);
+      this.reactionGithub.createPullRequest("Slowayyy", dataPullRequest, GitHubAccesstoken);
+    }
 
     private async saveToken(email: string, token: string, serviceName: string) {
       const user = await UserEntity.findOneBy({ email: email });
