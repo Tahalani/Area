@@ -24,17 +24,21 @@ class Services {
 
 class Action {
   final String actionName;
+  final List<String>? actionParameters;
 
   Action({
     required this.actionName,
+    this.actionParameters,
   });
 }
 
 class Reaction {
   final String reactionName;
+  final List<String>? reactionParameters;
 
   Reaction({
     required this.reactionName,
+    this.reactionParameters,
   });
 }
 
@@ -44,17 +48,31 @@ List<Services> services = [
     actionName: [
       Action(
         actionName: "TW Action 1",
+        actionParameters: [
+          "TW Action 1 Param 1",
+          "TW Action 1 Param 2",
+        ],
       ),
       Action(
         actionName: "TW Action 2",
+        actionParameters: [
+          "TW Action 2 Param 1",
+        ],
       )
     ],
     reactionName: [
       Reaction(
         reactionName: "TW Reaction 1",
+        reactionParameters: [
+          "TW Reaction 1 Param 1",
+          "TW Reaction 1 Param 2",
+        ],
       ),
       Reaction(
         reactionName: "TW Reaction 2",
+        reactionParameters: [
+          "TW Reaction 2 Param 1",
+        ],
       )
     ],
     image: Image.asset("assets/images/twitter.png", height: 30, width: 30),
@@ -112,17 +130,31 @@ List<Services> services = [
     actionName: [
       Action(
         actionName: "Action Discord 1",
+        actionParameters: [
+          "Action Discord 1 Param 1",
+          "Action Discord 1 Param 2",
+        ],
       ),
       Action(
         actionName: "Action Discord 2",
+        actionParameters: [
+          "Action Discord 2 Param 1",
+        ],
       ),
     ],
     reactionName: [
       Reaction(
         reactionName: "Reaction Discord 1",
+        reactionParameters: [
+          "Reaction Discord 1 Param 1",
+          "Reaction Discord 1 Param 2",
+        ],
       ),
       Reaction(
         reactionName: "Reaction Discord 2",
+        reactionParameters: [
+          "Reaction Discord 2 Param 1",
+        ],
       ),
     ],
     image: Image.asset(
@@ -236,6 +268,24 @@ class _MyAreasState extends State<MyAreas> {
     );
   }
 
+  Widget FieldActionParameters(Action action) {
+    if (action.actionParameters == null) {
+      return const SizedBox();
+    }
+    return Column(
+      children: [
+        for (String? param in action.actionParameters!)
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Enter $param data',
+            ),
+            onChanged: (value) {
+            },
+          ),
+      ],
+    );
+  }
+
   Widget FieldAction() {
     return Card(
       elevation: 5,
@@ -270,6 +320,20 @@ class _MyAreasState extends State<MyAreas> {
               hint: const Text('Sélectionnez une action'),
             ),
           ),
+          for (Action action in services
+              .firstWhere((service) => service.serviceName == selectedService1)
+              .actionName)
+            Visibility(
+              visible: selectedAction == action.actionName,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    FieldActionParameters(action),
+                  ],
+                ),
+              ),
+            ),
         ],
       ),
     );
