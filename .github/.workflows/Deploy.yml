@@ -1,0 +1,46 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: SSH Deploy
+        uses: kostya-ten/ssh-server-deploy@v4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          private_key: ${{ secrets.CLONE_KEY }}
+          scp_source: .
+          scp_target: .
+          after_script: |
+            docker-compose down
+            docker volume prune -af
+            docker-compose build
+            docker-compose up --wait
+
+    push_to_mirror:
+        name: "Pushing"
+        if: ${{ github.event_name == 'push' }}; then
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+            with:
+                fetch-depth: 0
+            - id: push_to_mirror
+            uses: pixta-dev/repository-mirroring-action@v1
+            with:
+                target_repo_url:
+                ${{ secrets.MIRROR_URL }}
+                ssh_private_key:
+                ${{ secrets.CLONE_KEY }}
