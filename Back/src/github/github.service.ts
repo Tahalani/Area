@@ -66,21 +66,20 @@ export class GitHubService {
     async addService(request: any): Promise<void> {
       const userMail = request.query.state; // grace à ca on sait qui a fait la demande
       const code = request.query.code; // a voir si il faut garder code ou access token
+      this.saveToken(userMail, code, 'github');
+      const GitHubAccesstoken = await getGitHubToken({ code: code });
 
       const dataPullRequest = {
-        owner: "Slowayyy",
+        owner: "SloWayyy",
         repo: "areaTest",
         title: "test",
         body: "test",
         head: "test",
         base: "main",
         maintainer_can_modify: true
-      }
-
-      this.saveToken(userMail, code, 'github');
-      const GitHubAccesstoken = await getGitHubToken({ code: code });
+      };
       console.log("githubaccestoken: ", GitHubAccesstoken);
-      this.reactionGithub.createPullRequest("Slowayyy", dataPullRequest, GitHubAccesstoken);
+      this.reactionGithub.createPullRequest("SloWayyy", dataPullRequest, GitHubAccesstoken);
     }
 
     private async saveToken(email: string, token: string, serviceName: string) {
