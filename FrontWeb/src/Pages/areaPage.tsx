@@ -23,7 +23,7 @@ export default function Area() {
   }
 
   const MicrosoftConnection = () => {
-    window.location.href = 'http://163.172.134.80:8080/api/auth/microsoft?token=' + localStorage.getItem('token');
+    window.location.href = 'http://163.172.134.80:8080/api/auth/Microsoft?token=' + localStorage.getItem('token');
   }
 
   return (

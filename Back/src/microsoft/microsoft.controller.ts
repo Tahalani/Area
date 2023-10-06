@@ -14,11 +14,11 @@ const Microsoft_CLIENT_SECRET = 'X7c8Q~x6G2Rvm.d1GFTcE_QXfEIjN97VHvBM1dr.';
 
 // const access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ii1LSTNROW5OUjdiUm9meG1lWm9YcWJIWkdldyJ9.eyJhdWQiOiIzZDU5N2RhMi01OWFkLTRmY2YtYmRlMy1mOWE4ZjEzNmUwMWYiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vOTAxY2I0Y2EtYjg2Mi00MDI5LTkzMDYtZTVjZDBmNmQ5Zjg2L3YyLjAiLCJpYXQiOjE2OTYzNTk0MTMsIm5iZiI6MTY5NjM1OTQxMywiZXhwIjoxNjk2MzY0OTkxLCJhaW8iOiJBV1FBbS84VUFBQUFSc2o0V0d2L1RDMGdrQTEvWUp2bDFDM0FzNEdlb3VkMFp4ZGtvaFhWaXR0WWFER0dBTjhJT3B6N0NQVXo2Y2tzdnFCWGNSaUN0T0t3UnpXREdwUVRsRndNR1NkaTBpVmZuUFA0dXFURnExQzZiMWo0MWxDOVp0MzdwNHptQ2t3byIsImF6cCI6IjNkNTk3ZGEyLTU5YWQtNGZjZi1iZGUzLWY5YThmMTM2ZTAxZiIsImF6cGFjciI6IjEiLCJuYW1lIjoiSm9uYXRoYW4gWWFrYW4iLCJvaWQiOiJlY2UxOWJlNS05YzI3LTRjYjktYWZjNC1iMmZmMDk2ZDQzZDMiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqb25hdGhhbi55YWthbkBlcGl0ZWNoLmV1IiwicmgiOiIwLkFYUUF5clFja0dLNEtVQ1RCdVhORDIyZmhxSjlXVDJ0V2M5UHZlUDVxUEUyNEI5MEFGcy4iLCJzY3AiOiJGb3JlY2FzdC5SZWFkIiwic3ViIjoia0Exb1RQaVVmZmY0c3RLRE12V2kzWG5hRy1FbnB3NERLYVBKNGhhdjd2WSIsInRpZCI6IjkwMWNiNGNhLWI4NjItNDAyOS05MzA2LWU1Y2QwZjZkOWY4NiIsInV0aSI6Ilk5VXdhMUV6b2s2SmRXZHo2WjlhQUEiLCJ2ZXIiOiIyLjAifQ.HWZlQSfGSIF4tL2I_icHvjLA95aWn77OOjhRVqrNLG1d0AV62m5nm4NyMQ8u_NG5Uerb04qeaHD54wDRT_bNLHio2YoT6xMz-y85TG2Q13sIbXo_i5PjaZohRo5KotxpmlN_5OWxEcATILLIYhu-4LTIEOJLVIzmBQZ1oV8PBc8W2jvwAMJtzmQX7Ya9YxhM_UeAc7fykoJcswRuNOM48FhNxCOSRW9RWOntIJ297ga7lxyMAItrqZ7Aa_uxemtyuikZfB8N5XJRoMDBo5rS81bC3OkoH96mbKLebzqZIm5XJDErmEyDmgjaNnGDyxXLwpdNTMc5du7l9CrdyQFpMA"
 
-@Controller('api/auth')
+@Controller('api')
 export class MicrosoftController {
   constructor(private readonly MicrosoftService: MicrosoftService) {}
 
-  @Get('Microsoft')
+  @Get('auth/Microsoft')
   async MicrosoftAuth(@Req() req: any, @Res() res: Response) {
     const userToken = req.query.token;
     res.redirect(
@@ -26,7 +26,7 @@ export class MicrosoftController {
     );
   }
 
-  @Get('Microsoft/callback')
+  @Get('auth/Microsoft/callback')
   async MicrosoftAuthCallback(@Req() req: any, @Res() res: Response) {
     console.log('JE RECOIS CALLBACK le code: ', req.query.code);
 
@@ -105,7 +105,7 @@ export class MicrosoftController {
     res.redirect(`http://163.172.134.80:8081/AreaPage`);
   }
 
-  @Post('Microsoft/WebHook')
+  @Post('WebHook/Microsoft')
   async MicrosoftWebhook(@Req() req: any, @Res() res: Response) {
     try {
       console.log('je recois un truc la ??', req);
