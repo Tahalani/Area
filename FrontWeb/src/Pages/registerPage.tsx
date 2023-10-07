@@ -72,7 +72,7 @@ export default function Register() {
               style={{ fontFamily: "Arial" }}
               className="btn btn-active text-white"
               onClick={() => getClientToken(name, surname, email, password)}
-            > 
+            >
               {" "}
               {t("SignUp")}{" "}
             </button>
