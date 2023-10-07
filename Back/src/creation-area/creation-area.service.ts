@@ -5,6 +5,9 @@ import { UserEntity } from '../entity/user.entity';
 import { ActionEntity } from '../entity/action.entity';
 import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionEntity } from 'src/entity/reaction.entity';
+import { ActionArray } from '../dto/area.dto';
+import { UserServiceEntity } from 'src/entity/userService.entity';
+
 
 @Injectable()
 export class CreationAreaService {
@@ -29,16 +32,24 @@ export class CreationAreaService {
         return reaction;
     }
 
+    async getUserToken(user: UserEntity, action: ActionEntity) : Promise<UserServiceEntity | null> {
+        const userServices = await UserServiceEntity.findOne({where: { user: user, service: action.service} });
+        return userServices;
+    }
+
     async createArea(areaData: areaDto) : Promise<string>{
         // TODO check auth of the client
         console.log("area: ", areaData);
         const user: UserEntity | null  = await this.getUser(areaData.token);
         if (user === null)
             return "42 User not found";
-
+        
+        
         const action: ActionEntity | null = await this.getAction(areaData.id_Action);
         if (action === null)
-            return "410 Action not found";
+        return "410 Action not found";
+
+        const userServices = await this.getUserToken(user, action);
 
         const reaction: ReactionEntity | null = await this.getReaction(areaData.id_Reaction);
         if (reaction === null)
@@ -58,6 +69,7 @@ export class CreationAreaService {
           area.args_action = areaData.argsAction;
           area.args_reaction = areaData.argsReaction;
           await AreaEntity.save(area);
+          ActionArray[action.id].func(token, "test");
           return 'This action adds a new area';
         } catch (error) {
           console.log("error saving area: ", error);

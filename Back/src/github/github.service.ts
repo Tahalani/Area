@@ -7,8 +7,7 @@ import { ServiceEntity } from 'src/entity/service.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 import { ReactionGithub } from './reactionGithub';
 import { ActionGithub } from './actionGithub';
-import { DataPullRequest, OnPush, GitHubUser } from './github.dto';
-import { decode } from 'jsonwebtoken';
+import { OnPush } from './github.dto';
 
 config();
 
