@@ -34,7 +34,7 @@ export class AuthController {
   @Get('profile')
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: Profile })
-  getProfile(@Request() req: Request): Promise<Profile | undefined> {
+  getProfile(@Request() req: Request): Promise<Profile> {
     return this.authService.profileUser(req);
   }
 }

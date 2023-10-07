@@ -58,9 +58,9 @@ export class AuthService {
     };
   }
 
-  async profileUser(req: any): Promise<Profile | undefined> {
-    const user = await UserEntity.findOneBy({ id: req.sub });
-    if (user === null) return undefined;
+  async profileUser(req: any): Promise<Profile> {
+    const user = await UserEntity.findOneBy({ id: req.user.sub });
+    if (user === null) throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
     return { name: user.name, surname: user.surname, email: user.email };
   }
 }
