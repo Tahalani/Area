@@ -43,7 +43,15 @@ export default function Register() {
   return (
     <>
       <div className="flex bg-white flex-col h-screen lg:flex-row">
-        <div className="flex-grow w-1/2 bg-white card rounded-box place-items-center mt-[91px]">
+        <div className="flex-grow w-1/2 bg-white card rounded-box place-items-center mt-[70px]">
+          <div className="w-1/2 bg-white card rounded-box place-items-center">
+            <button style={{ fontFamily: 'Arial' }}
+              className="btn btn-active text-white"
+              onClick={() => navigate('/loginPage')}
+              >
+              {t("login")}
+            </button>
+          </div>
           <h1 style={{ fontFamily: "merriweather" }} className="text-[75px] font-bold text-black">{t("RegisterMsg")}</h1>
           <p style={{ fontFamily: "merriweather" }} className="text-[20px]"> {" "} {t("RegisterBrief")} </p>
           <div className="form-control w-1/2 max-w-xl"></div>
