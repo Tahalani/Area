@@ -7,10 +7,12 @@ import {
     PrimaryColumn,
     OneToOne,
     ManyToOne,
+    OneToMany,
   } from 'typeorm';
 
 import { ServiceEntity } from './service.entity';
 import { UserEntity } from './user.entity';
+import { AreaEntity } from './area.entity';
 
 @Entity('Action')
 @Unique(['description'])
@@ -19,8 +21,8 @@ export class ActionEntity extends BaseEntity {
   @PrimaryColumn()
   id: number;
 
-  @OneToOne(() => UserEntity, (user) => user.id)
-  user: UserEntity;
+  @OneToMany(() => AreaEntity, (area) => area.id)
+  areas: AreaEntity[];
 
   @Column()
   description: string;

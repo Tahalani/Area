@@ -5,7 +5,10 @@ import {
   BaseEntity,
   Unique,
   Check,
+  OneToMany,
 } from 'typeorm';
+
+import { AreaEntity } from './area.entity';
 
 @Entity('User')
 @Unique(['email'])
@@ -21,6 +24,9 @@ export class UserEntity extends BaseEntity {
 
   @Column()
   surname: string;
+
+  @OneToMany(() => AreaEntity, (area) => area.user)
+  areas: AreaEntity[];
 
   @Column()
   email: string;

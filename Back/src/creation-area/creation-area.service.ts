@@ -30,31 +30,38 @@ export class CreationAreaService {
     }
 
     async createArea(areaData: areaDto) : Promise<string>{
+        // TODO check auth of the client
         console.log("area: ", areaData);
         const user: UserEntity | null  = await this.getUser(areaData.token);
         if (user === null)
-            return "User not found";
+            return "42 User not found";
 
         const action: ActionEntity | null = await this.getAction(areaData.id_Action);
         if (action === null)
-            return "Action not found";
+            return "410 Action not found";
 
         const reaction: ReactionEntity | null = await this.getReaction(areaData.id_Reaction);
         if (reaction === null)
-            return "Reaction not found";
+            return "854 Reaction not found";
 
-        const area: AreaEntity = AreaEntity.create();
-        area.user = user;
-        area.action = action;
-        area.reaction = reaction;
-        area.args_action = areaData.args_action;
-        area.args_reaction = areaData.args_reaction;
+        console.log("user: ", user);
+        console.log("action: ", action);
+        console.log("reaction: ", reaction);
+        console.log("areaData.args_action: ", areaData.argsAction);
+        console.log("areaData.args_reaction: ", areaData.argsReaction);
+
         try {
-            await AreaEntity.save(area);
-            return 'This action adds a new area';
+          const area: AreaEntity = AreaEntity.create();
+          area.user = user;
+          area.action = action;
+          area.reaction = reaction;
+          area.args_action = areaData.argsAction;
+          area.args_reaction = areaData.argsReaction;
+          await AreaEntity.save(area);
+          return 'This action adds a new area';
         } catch (error) {
-            console.log(error)
-            return "Error saving area";
+          console.log("error saving area: ", error);
+          return "Error saving area";
         }
     }
 }
