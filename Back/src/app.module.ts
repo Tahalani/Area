@@ -11,6 +11,8 @@ import { GoogleModule } from './google/google.module';
 import { AuthModule } from './auth/auth.module';
 import { GithubModule } from './github/github.module';
 import * as dotenv from 'dotenv';
+import { MicrosoftService } from './microsoft/microsoft.service';
+import { MicrosoftController } from './microsoft/microsoft.controller';
 
 dotenv.config();
 
@@ -21,7 +23,7 @@ dotenv.config();
       host: process.env.DB_HOST,
       port: 5432,
       username: 'postgres',
-      password: 'helloworld',
+      password: 'helloworld', // TODO ENV VARIABLE
       database: 'postgres',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
@@ -31,7 +33,7 @@ dotenv.config();
         host: 'smtp.outlook.com',
         auth: {
           user: "AreaEpitech@outlook.com",
-          pass: "PSGLDC2023"
+          pass: "PSGLDC2023" // TODO ENV VARIABLE
         }
       }}),
     JwtModule.register({
@@ -43,7 +45,7 @@ dotenv.config();
     GoogleModule,
     GithubModule
   ],
-  controllers: [AppController, MailingController],
-  providers: [AppService, MailingService],
+  controllers: [AppController, MailingController, MicrosoftController],
+  providers: [AppService, MailingService, MicrosoftService],
 })
 export class AppModule {}
