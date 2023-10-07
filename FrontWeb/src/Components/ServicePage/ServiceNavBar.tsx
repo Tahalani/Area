@@ -30,7 +30,7 @@ function ServiceNavbar() {
       </div>
     </div>
     <div className="bg-third h-0.5">
-      <div className="w-1/4 ml-[37%] border-2 border-white"></div>
+      <div className="w-1/4 ml-[37%] border-2 border-black"></div>
     </div>
     </>
   );
