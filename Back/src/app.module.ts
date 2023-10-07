@@ -13,6 +13,7 @@ import { GithubModule } from './github/github.module';
 import * as dotenv from 'dotenv';
 import { MicrosoftService } from './microsoft/microsoft.service';
 import { MicrosoftController } from './microsoft/microsoft.controller';
+import { SmeeModule } from './smee/smee.module';
 
 dotenv.config();
 
@@ -43,7 +44,8 @@ dotenv.config();
     }),
     AuthModule,
     GoogleModule,
-    GithubModule
+    GithubModule,
+    SmeeModule,
   ],
   controllers: [AppController, MailingController, MicrosoftController],
   providers: [AppService, MailingService, MicrosoftService],

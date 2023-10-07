@@ -6,6 +6,24 @@ import { DataIssue } from './github.dto';
 @Injectable()
 export class ReactionGithub {
 
+    async getInfoUser(accessToken: string | string[] | undefined) {
+        const octokit = new Octokit({
+            auth: accessToken,
+        })
+
+        const info = await octokit.request('GET /user', {
+            headers: {
+              'Authorization': `Bearer ${accessToken}`,
+              'X-GitHub-Api-Version': '2022-11-28'
+            }
+        }).then((res: any) => {
+            return res.data;
+        }).catch((err: any) => {
+            console.log(err);
+        });
+        return info;
+    }
+
     async getRepo(owner: string, accessToken: string | string[] | undefined) {
         const octokit = new Octokit({
             auth: accessToken,
@@ -18,7 +36,6 @@ export class ReactionGithub {
               'X-GitHub-Api-Version': '2022-11-28'
             }
         }).then((res: any) => {
-            console.log("RES: ", res.data);
             return res;
         }).catch((err: any) => {
             console.log(err);

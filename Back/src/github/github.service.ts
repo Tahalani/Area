@@ -6,45 +6,13 @@ import { UserEntity } from 'src/entity/user.entity';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 import { ReactionGithub } from './reactionGithub';
-import { DataPullRequest } from './github.dto';
+import { ActionGithub } from './actionGithub';
+import { DataPullRequest, OnPush, GitHubUser } from './github.dto';
+import { decode } from 'jsonwebtoken';
 
 config();
 
-
-export interface GitHubUser {
-  login: string;
-  id: number;
-  node_id: string;
-  avatar_url: string;
-  gravatar_id: string;
-  url: string;
-  html_url: string;
-  followers_url: string;
-  following_url: string;
-  gists_url: string;
-  starred_url: string;
-  subscriptions_url: string;
-  organizations_url: string;
-  repos_url: string;
-  events_url: string;
-  received_events_url: string;
-  type: string;
-  site_admin: boolean;
-  name: string;
-  company: null;
-  blog: string;
-  location: string;
-  email: null;
-  hireable: null;
-  bio: null;
-  twitter_username: null;
-  public_repos: number;
-  public_gists: number;
-  followers: number;
-  following: number;
-  created_at: Date;
-  updated_at: Date;
-}
+const jwt = require('jsonwebtoken');
 
 async function getGitHubToken({ code }: { code: string }): Promise<string | string[] | undefined> {
   const githubToken = await axios
@@ -63,24 +31,35 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
 
 @Injectable()
 export class GitHubService {
-    constructor(private readonly reactionGithub: ReactionGithub) {}
+    constructor(private readonly reactionGithub: ReactionGithub, private readonly actionGithub: ActionGithub) {}
     async addService(request: any): Promise<void> {
       const userMail = request.query.state; // grace à ca on sait qui a fait la demande
       const code = request.query.code; // a voir si il faut garder code ou access token
       this.saveToken(userMail, code, 'github');
       const GitHubAccesstoken = await getGitHubToken({ code: code });
+      // const dataPullRequest: DataPullRequest = {
+      //   owner: 'Slowayyy',
+      //   repo: "areaTest",
+      //   title: "test",
+      //   body: "test",
+      //   head: "test",
+      //   base: "main",
+      //   maintainer_can_modify: true
+      // }
 
-      const dataPullRequest: DataPullRequest = {
-        owner: 'Slowayyy',
-        repo: "areaTest",
-        title: "test",
-        body: "test",
-        head: "test",
-        base: "main",
-        maintainer_can_modify: true
+      // this.reactionGithub.createPullRequest("Slowayyy", dataPullRequest, GitHubAccesstoken);
+
+      const info = await this.reactionGithub.getInfoUser(GitHubAccesstoken);
+
+      console.log("INFO: ", info);
+
+      const onPush : OnPush = {
+        owner: info.login,
+        repo: "areaTest"
       }
 
-      this.reactionGithub.createPullRequest("Slowayyy", dataPullRequest, GitHubAccesstoken);
+      this.actionGithub.onPush(GitHubAccesstoken, onPush);
+
     }
 
     private async saveToken(email: string, token: string, serviceName: string) {

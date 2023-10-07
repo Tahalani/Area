@@ -51,11 +51,10 @@ export class GitHubController implements OnModuleInit {
   }
 
   @ApiExcludeEndpoint()
-  @Post('WebHook/GitHub')
+  @Post('Webhook/GitHub')
   // mettre un guardd
   async GitHubWebhook(@Req() req: any, @Res() res: Response) {
     console.log('JE RECOIS WEBHOOK: ', req);
-
     res.send(req.user);
   }
 }
