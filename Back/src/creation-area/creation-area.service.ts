@@ -30,8 +30,8 @@ export class CreationAreaService {
     }
 
     async createArea(areaData: areaDto) : Promise<string>{
-        // TODO check auth of the client
-        console.log("area: ", areaData);
+        // TODO check auth of the client et qu'il soit connecté au services
+
         const user: UserEntity | null  = await this.getUser(areaData.token);
         if (user === null)
             return "42 User not found";
@@ -44,11 +44,8 @@ export class CreationAreaService {
         if (reaction === null)
             return "854 Reaction not found";
 
-        console.log("user: ", user);
-        console.log("action: ", action);
-        console.log("reaction: ", reaction);
-        console.log("areaData.args_action: ", areaData.argsAction);
-        console.log("areaData.args_reaction: ", areaData.argsReaction);
+        if (areaData.argsAction === null || areaData.argsReaction === null)
+            return "854 argsAction or argsReaction is null";
 
         try {
           const area: AreaEntity = AreaEntity.create();
@@ -58,6 +55,7 @@ export class CreationAreaService {
           area.args_action = areaData.argsAction;
           area.args_reaction = areaData.argsReaction;
           await AreaEntity.save(area);
+
           return 'This action adds a new area';
         } catch (error) {
           console.log("error saving area: ", error);
