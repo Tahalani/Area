@@ -15,21 +15,21 @@ config();
 
 @Controller('api')
 // mettre un guard
-export class GitHubController implements OnModuleInit {
+export class GitHubController {
   constructor(private readonly gitHubService: GitHubService) {}
 
-  async onModuleInit() {
-    const service: ServiceEntity = ServiceEntity.create();
-    service.name = 'github';
-    service.description = 'github service';
-    service.logo_url =
-      'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
-    try {
-      await service.save();
-    } catch (error) {
-      console.log(service.name + ' service already exists');
-    }
-  }
+  // async onModuleInit() {
+  //   const service: ServiceEntity = ServiceEntity.create();
+  //   service.name = 'github';
+  //   service.description = 'github service';
+  //   service.logo_url =
+  //     'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
+  //   try {
+  //     await service.save();
+  //   } catch (error) {
+  //     console.log(service.name + ' service already exists');
+  //   }
+  // }
 
   @ApiOkResponse({
     description: 'Endpoint to redirect to github authentification',
@@ -45,7 +45,7 @@ export class GitHubController implements OnModuleInit {
 
   @ApiExcludeEndpoint()
   @Get('auth/GitHub/callback')
-  async GitHubAuthCallback(@Req() req: Request, @Res() res: Response) {
+  async GitHubAuthCallback(@Req() req: any, @Res() res: Response) {
     this.gitHubService.addService(req);
     res.redirect(`http://localhost:8081/AreaPage`);
   }

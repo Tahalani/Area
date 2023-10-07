@@ -14,6 +14,8 @@ import * as dotenv from 'dotenv';
 import { MicrosoftService } from './microsoft/microsoft.service';
 import { MicrosoftController } from './microsoft/microsoft.controller';
 import { SmeeModule } from './smee/smee.module';
+import { InitService } from './initialization/initiService';
+import { CreationAreaModule } from './creation-area/creation-area.module';
 
 dotenv.config();
 
@@ -46,8 +48,9 @@ dotenv.config();
     GoogleModule,
     GithubModule,
     SmeeModule,
+    CreationAreaModule,
   ],
   controllers: [AppController, MailingController, MicrosoftController],
-  providers: [AppService, MailingService, MicrosoftService],
+  providers: [AppService, MailingService, MicrosoftService, InitService],
 })
 export class AppModule {}
