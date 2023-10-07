@@ -6,13 +6,13 @@ on:
       - main
   push:
     branches:
-        - main
+      - main
 
 jobs:
   push_to_mirror:
     name: Push repository to mirror
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || github.event_name == 'push'
     steps:
       - name: Repository checkout
         uses: actions/checkout@v3
