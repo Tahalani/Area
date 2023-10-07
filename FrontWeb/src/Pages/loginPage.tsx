@@ -35,7 +35,15 @@ export default function Login() {
   return (
     <>
       <div className="flex bg-white flex-col h-screen lg:flex-row">
-        <div className="flex-grow w-1/2 bg-white card rounded-box place-items-center mt-[166px]">
+        <div className="flex-grow w-1/2 bg-white card rounded-box place-items-center mt-[120px]">
+          <div className="w-1/2 bg-white card rounded-box place-items-center">
+            <button style={{ fontFamily: 'Arial' }}
+              className="btn btn-active text-white"
+              onClick={() => navigate('/registerPage')}
+              >
+              {t("register")}
+            </button>
+          </div>
           <h1 style={{ fontFamily: 'merriweather' }} className="text-[75px] font-bold text-black">{t("WelcomeMsg")}</h1>
           <p style={{ fontFamily: 'merriweather' }} className="text-[20px]">
             {t("CatchPhrase")}

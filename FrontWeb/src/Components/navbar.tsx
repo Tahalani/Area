@@ -19,7 +19,7 @@ function Navbar() {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal space-x-10 text-gray-900">
-            <li><a style={{ fontFamily: 'merriweather'}} className="text-[25px]"><Link to="/areaPage">Area's</Link></a></li>
+            <li><a style={{ fontFamily: 'merriweather'}} className="text-[25px]"><Link to="/areaPage">Services</Link></a></li>
             <li><a style={{ fontFamily: 'merriweather'}} className="text-[25px]"><Link to="/profilPage">{t("profil")}</Link></a></li>
             <li><a style={{ fontFamily: 'merriweather'}} className="text-[25px]"><Link to="/settingPage">{t("setting")}</Link></a></li>
           </ul>
