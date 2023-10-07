@@ -8,6 +8,11 @@ export default function Service() {
     window.location.href = '/loginPage';
   }
   console.log(localStorage.getItem('token'));
+  const GitHUbConnection = () => {
+    window.location.href =
+      'http://localhost:8080/api/auth/github?token=' +
+      localStorage.getItem('token');
+  }
   return (
     <>
     <Navigationbar/>
@@ -18,7 +23,7 @@ export default function Service() {
           </div>
           <div className="">
             <p style={{ fontFamily: 'merriweather', lineHeight: '1.2' }} className="mt-2 mb-2 text-[30px] text-black">{selectedService.bottomText}</p>
-            <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]">Connect</button>
+            <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={GitHUbConnection}>Connect</button>
           </div>
         </div>
         <div className="bg-white h-2/3 w-screen">

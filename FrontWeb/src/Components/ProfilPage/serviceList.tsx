@@ -1,6 +1,6 @@
 export interface HorizontalRectangleData {
-  title: string;
+  name: string;
   secondTitle: string;
-  imageSrc: string;
+  logo_url: string;
   description: string;
 }

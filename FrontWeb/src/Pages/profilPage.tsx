@@ -37,9 +37,9 @@ export default function Profil() {
   const horizontalRectangles = horizontalRectangleData.map((item, index) => (
     <HorizontalRectangle
       key={index}
-      title={item.title}
+      name={item.name}
       secondTitle={item.secondTitle}
-      imageSrc={item.imageSrc}
+      logo_url={item.logo_url}
       description={item.description}
     />
   ));
