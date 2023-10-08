@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 interface SquareProps {
   topImage: string;
   bottomText: string;
-  linkTo: string;
+  description: string;
 }
 
 const getRandomColor = () => {
@@ -16,11 +16,11 @@ const getRandomColor = () => {
   return color;
 };
 
-const Square: React.FC<SquareProps> = ({ topImage, bottomText, linkTo }) => {
+const Square: React.FC<SquareProps> = ({ topImage, bottomText, description }) => {
   const backgroundColor = getRandomColor();
 
   return (
-    <Link to={linkTo}>
+    <Link to="/servicePage">
       <div style={{ borderRadius: "10%", backgroundColor, width: "200px", height: "200px", boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)" }}>
         <div style={{ fontFamily: 'merriweather', height: "50%", display: "flex", alignItems: "center", justifyContent: "center" }} className="pt-8">
           <img src={topImage} alt="Image en haut" style={{ maxWidth: "100%", maxHeight: "100%" }} />

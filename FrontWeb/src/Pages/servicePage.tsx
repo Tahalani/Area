@@ -31,8 +31,8 @@ export default function Service() {
         <div className="bg-white h-2/3 w-screen">
           <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Area's</h1>
           <div className="flex justify-center items-center space-x-10 mb-[2%]">
-            <ServiceCase topImage="./src/assets/github.png" bottomText="Pull request" linkTo='/inAreaPage'/>
-            <ServiceCase topImage="./src/assets/acer.png" bottomText="Air Monitor" linkTo='/inAreaPage' />
+            {/* <ServiceCase topImage="./src/assets/github.png" bottomText="Pull request" linkTo='/inAreaPage'/>
+            <ServiceCase topImage="./src/assets/acer.png" bottomText="Air Monitor" linkTo='/inAreaPage' /> */}
           </div>
         </div>
       </div>
