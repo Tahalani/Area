@@ -7,11 +7,13 @@
         "actions": [{
             "name":"push_on_repository",
             "description":"A push is made on a repository",
-            "parameters": [{"actionId": 1, "numberArgs": 1}, "repository_name"]
+            "actionId": 1,
+            "parameters": [{"repo": "repository_name"}]
                 } , {
             "name":"pull_request_on_repository",
             "description":"A pull_request is made on a repository",
-            "parameters": [{"actionId": 2, "numberArgs": 1}, "repository_name"]
+            "actionId": 2,
+            "parameters": [{"repo": "repository_name"}]
                 }] ,
         "reactions": [{
             "name":"like_message",
