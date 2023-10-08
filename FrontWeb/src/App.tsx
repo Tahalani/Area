@@ -14,6 +14,7 @@ import i18n from "../translate.tsx";
 import { clientTokenContext } from "../context";
 import { useState } from "react";
 import { ServiceProvider } from "./ServiceContext";
+import { Navigate } from "react-router-dom";
 
 function App() {
   const [clientToken, setClientToken] = useState("");
@@ -34,6 +35,7 @@ function App() {
               <Route path="/inAreaPage" element={<InArea />} />
               <Route path="/auth/succes" element={<AuthSuccess />} />
               <Route path="/" element={<Home />} />
+              <Route path="*" element={<Navigate to="/homePage" />} />
             </RouterRoutes>
           </BrowserRouter>
         </clientTokenContext.Provider>

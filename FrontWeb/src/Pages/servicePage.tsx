@@ -3,10 +3,10 @@ import ServiceCase from "../Components/AreaPage/service.tsx";
 import { useServiceContext } from "../ServiceContext";
 
 export default function Service() {
-  const { selectedService } = useServiceContext();
   if (localStorage.getItem('token') == null) {
     window.location.href = '/loginPage';
   }
+  const { selectedService } = useServiceContext();
   console.log(localStorage.getItem('token'));
   const GitHUbConnection = () => {
     window.location.href =

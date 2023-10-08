@@ -2,10 +2,10 @@ import Navigationbar from "../Components/ServicePage/ServiceNavBar.tsx";
 import { useServiceContext } from "../ServiceContext";
 
 export default function InArea() {
-  const { selectedService } = useServiceContext();
   if (localStorage.getItem('token') == null) {
     window.location.href = '/loginPage';
   }
+  const { selectedService } = useServiceContext();
 
   return (
     <>
