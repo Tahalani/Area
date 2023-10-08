@@ -1,5 +1,5 @@
 export interface AreaData {
-    title: string;
-    imageSrc: string;
+    name: string;
+    logo_url: string;
     linkTo: string;
   }

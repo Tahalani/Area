@@ -5,7 +5,12 @@ import {
   BaseEntity,
   Unique,
   Check,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
+
+import { ActionEntity } from './action.entity';
+import { ReactionEntity } from './reaction.entity';
 
 @Entity('Service')
 @Unique(['name'])
@@ -22,4 +27,10 @@ export class ServiceEntity extends BaseEntity {
 
   @Column()
   logo_url: string;
+
+  @OneToMany(() => ActionEntity, (action) => action.service)
+  actions: ActionEntity[];
+
+  @OneToMany(() => ReactionEntity, (reaction) => reaction.service)
+  reactions: ReactionEntity[];
 }

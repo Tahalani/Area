@@ -10,7 +10,7 @@ import { Inject } from '@nestjs/common';
       provide: 'SmeeClientToken',
       useValue: new Client({
         source: 'https://smee.io/iDDj9mJTxmyCHTV',
-        target: 'http://localhost:3000/api/auth/GitHub/webhook',
+        target: 'http://localhost:3000/api/Webhook/GitHub',
         logger: console,
       }),
     },
@@ -22,7 +22,7 @@ export class SmeeModule {
     const events = smeeClient.start();
 
     events.on('message', (message: string) => {
-      console.log('Message reçu:', message);
+      console.log('Message reçu:');
       // Faites ici le traitement que vous souhaitez effectuer avec le message reçu
     });
   }

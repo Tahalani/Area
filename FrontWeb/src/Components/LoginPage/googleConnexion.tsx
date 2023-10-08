@@ -5,7 +5,7 @@ const GoogleConnexion = () => {
   const { t } = useTranslation();
 
   const GoogleConnexion = () => {
-    window.location.href = "http://localhost:8080/api/auth/google";
+    window.location.href = 'http://localhost:8080/api/auth/google';
   };
   return (
     <div className="form-control w-1/2 max-w-xl mt-10">
