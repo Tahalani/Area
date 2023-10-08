@@ -6,6 +6,7 @@ import Home from "./Pages/homePage.tsx";
 import Setting from "./Pages/settingPage.tsx";
 import Profil from "./Pages/profilPage.tsx";
 import Area from "./Pages/areaPage.tsx";
+import InArea from "./Pages/inAreaPage.tsx";
 import Service from "./Pages/servicePage.tsx";
 import AuthSuccess from "./Pages/auth/succesPage.tsx";
 import { I18nextProvider } from "react-i18next";
@@ -13,6 +14,7 @@ import i18n from "../translate.tsx";
 import { clientTokenContext } from "../context";
 import { useState } from "react";
 import { ServiceProvider } from "./ServiceContext";
+import { Navigate } from "react-router-dom";
 
 function App() {
   const [clientToken, setClientToken] = useState("");
@@ -30,8 +32,10 @@ function App() {
               <Route path="/areaPage" element={<Area />} />
               <Route path="/settingPage" element={<Setting />} />
               <Route path="/servicePage" element={<Service />} />
+              <Route path="/inAreaPage" element={<InArea />} />
               <Route path="/auth/succes" element={<AuthSuccess />} />
               <Route path="/" element={<Home />} />
+              <Route path="*" element={<Navigate to="/homePage" />} />
             </RouterRoutes>
           </BrowserRouter>
         </clientTokenContext.Provider>

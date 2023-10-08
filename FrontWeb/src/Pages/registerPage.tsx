@@ -12,6 +12,7 @@ export default function Register() {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getClientToken = (
     name: string,
@@ -29,9 +30,13 @@ export default function Register() {
     axios
       .post('http://localhost:8080/api/auth/register/', data)
       .then(() => {
+        setErrorMessage('');
         navigate('/loginPage');
       })
       .catch((error) => {
+        if (error.response) {
+          setErrorMessage(error.response.data.message);
+        }
         console.error('Erreur lors de la requête :', error);
       });
   };
@@ -67,6 +72,9 @@ export default function Register() {
           </div>
           <InputConnexion text="Email" setVar={setEmail} />
           <InputPassword text={t("Password")} setVar={setPassword} />
+          {errorMessage && (
+            <p style={{ color: 'red' }}>{errorMessage}</p>
+          )}
           <div className="form-control w-full max-w-xl mt-10">
             <button
               style={{ fontFamily: "Arial" }}

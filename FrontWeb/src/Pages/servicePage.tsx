@@ -4,10 +4,10 @@ import { useServiceContext } from "../ServiceContext";
 import axios from 'axios';
 
 export default function Service() {
-  const { selectedService } = useServiceContext();
   if (localStorage.getItem('token') == null) {
     window.location.href = '/loginPage';
   }
+  const { selectedService } = useServiceContext();
   console.log(localStorage.getItem('token'));
   const GitHUbConnection = () => {
     window.location.href =
@@ -15,33 +15,11 @@ export default function Service() {
       localStorage.getItem('token');
   }
 
-  const createArea = () => {
-    console.log("createArea")
-    axios.post('http://localhost:8080/api/area/create', {
-      token: localStorage.getItem('token'),
-      id_Action: 1,
-      id_Reaction: 1,
-      argsAction: {
-        repo: "areaTest",
-      },
-      argsReaction: {
-        to: "djmehde@gmail.com",
-        text: "test42",
-      }
-    })
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.error('Erreur lors de la requête :', error);
-    });
-  }
-
   return (
     <>
     <Navigationbar/>
       <div className="h-screen relative">
-        <div className="bg-third h-2/3 w-screen">
+        <div className="bg-third h-2/4 w-screen">
           <div style={{ fontFamily: 'merriweather', height: "50%", display: "flex", alignItems: "center", justifyContent: "center" }} className="pt-8">
             <img src={selectedService.topImage} alt="Image en haut" style={{ maxWidth: "100%", maxHeight: "100%" }} />
           </div>
@@ -52,10 +30,10 @@ export default function Service() {
           </div>
         </div>
         <div className="bg-white h-2/3 w-screen">
-          <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Services</h1>
+          <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Area's</h1>
           <div className="flex justify-center items-center space-x-10 mb-[2%]">
-            <ServiceCase topImage="./src/assets/acer.png" bottomText="Air Monitor" linkTo='/servicePage' />
-            <ServiceCase topImage="./src/assets/acer.png" bottomText="Air Monitor" linkTo='/servicePage' />
+            <ServiceCase topImage="./src/assets/github.png" bottomText="Pull request" linkTo='/inAreaPage'/>
+            <ServiceCase topImage="./src/assets/acer.png" bottomText="Air Monitor" linkTo='/inAreaPage' />
           </div>
         </div>
       </div>
