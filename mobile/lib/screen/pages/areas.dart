@@ -221,11 +221,18 @@ class _MyAreasState extends State<MyAreas> {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         children: [
           ListTile(
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(
+                width: 2,
+                color: Color.fromRGBO(30, 41, 133, 1),
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
             title: DropdownButton<String>(
               value: selectedService1,
               onChanged: (String? newValue) {
@@ -371,7 +378,7 @@ class _MyAreasState extends State<MyAreas> {
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         children: [
