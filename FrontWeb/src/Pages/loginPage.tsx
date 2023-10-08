@@ -11,6 +11,7 @@ export default function Login() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getClientToken = (
     email: string,
@@ -26,9 +27,13 @@ export default function Login() {
     axios.post(url, data)
     .then(response => {
         localStorage.setItem('token', response.data.access_token);
+        setErrorMessage('');
         navigate('/profilPage');
     })
     .catch(error => {
+      if (error.response) {
+        setErrorMessage(error.response.data.message);
+      }
       console.error('Erreur lors de la requête :', error);
     });
   };
@@ -65,6 +70,9 @@ export default function Login() {
               </span>
             </label>
           </div>
+          {errorMessage && (
+            <p style={{ color: 'red' }}>{errorMessage}</p>
+          )}
           <div className="form-control w-full max-w-xl mt-10">
             <button style={{ fontFamily: 'Arial' }}
               className="btn btn-active text-white"
