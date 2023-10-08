@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MyAreas extends StatefulWidget {
   final String token;
@@ -9,6 +11,7 @@ class MyAreas extends StatefulWidget {
 }
 
 class Services {
+  final int id = 0;
   final String serviceName;
   final List<Action> actionName;
   final List<Reaction> reactionName;
@@ -165,14 +168,116 @@ List<Services> services = [
   ),
 ];
 
+class SOCIAL_SERVICES {
+  final int id;
+  final String serviceName;
+  final Image image;
+
+  SOCIAL_SERVICES({
+    required this.id,
+    required this.serviceName,
+    required this.image,
+  });
+}
+
+class Field {
+  final String key;
+  final String field;
+  TextEditingController controller = TextEditingController();
+
+  Field({
+    required this.key,
+    required this.controller,
+    required this.field,
+  });
+}
+
+class ACTION {
+  final int id;
+  final String description;
+  final List<Field> fields;
+
+  ACTION({
+    required this.id,
+    required this.description,
+    required this.fields,
+  });
+}
+
 class _MyAreasState extends State<MyAreas> {
+  List<SOCIAL_SERVICES> scocialService = [];
+  List<ACTION> action = [];
+  List<Field> args_action = [];
   String? selectedService1;
   String? selectedAction;
   String? selectedService2;
   String? selectedReaction;
   TextEditingController areaTitleController = TextEditingController();
 
+  Future<List<SOCIAL_SERVICES>> fetchServices(String token) {
+    var url = "http://163.172.134.80:8080/api/services/get";
+    var headers = {'Authorization': 'Bearer ${widget.token}'};
+    return http.get(Uri.parse(url), headers: headers).then((response) {
+      if (response.statusCode == 200) {
+        final services = jsonDecode(response.body);
+        return services.map<SOCIAL_SERVICES>((service) {
+          return SOCIAL_SERVICES(
+            id: service['id'],
+            serviceName: service['name'],
+            image: Image.network(
+              service['logo_url'],
+              height: 30,
+              width: 30,
+            ),
+          );
+        }).toList();
+      } else {
+        throw Exception('Failed to load services');
+      }
+    });
+  }
+
+  Future<List<ACTION>> fetchAction(String token, int serviceId) {
+    List<Field> tmp = [];
+    var url = "http://163.172.134.80:8080/api/actions/get?serviceId=$serviceId";
+    var headers = {'Authorization': 'Bearer ${widget.token}'};
+    return http.get(Uri.parse(url), headers: headers).then((response) {
+      if (response.statusCode == 200) {
+        final actions = jsonDecode(response.body);
+        return actions.map<ACTION>((action) {
+          final args = jsonDecode(action['args_action']);
+          Map<String, dynamic> myMap = args[0];
+          myMap.forEach((key, value) {
+            tmp.add(Field(
+              key: key,
+              controller: TextEditingController(text: "kevin"),
+              field: value,
+            ));
+          });
+          args_action = tmp;
+          tmp = [];
+          return ACTION(
+            id: action['id'],
+            description: action['description'],
+            fields: args_action,
+          );
+        }).toList();
+      } else {
+        throw Exception('Failed to load actions');
+      }
+    });
+  }
+
   @override
+  void initState() {
+    super.initState();
+    fetchServices(widget.token).then((value) {
+      setState(() {
+        scocialService = value;
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(254, 254, 241, 1),
@@ -213,11 +318,11 @@ class _MyAreasState extends State<MyAreas> {
                 ),
                 FieldServiceAction(),
                 if (selectedService1 != null) FieldAction(),
-                if (selectedAction != null) FieldServiceReaction(),
-                if (selectedService2 != null)
-                  FieldReaction()
-                else
-                  const SizedBox(),
+                // if (selectedAction != null) FieldServiceReaction(),
+                // if (selectedService2 != null)
+                //   FieldReaction()
+                // else
+                //   const SizedBox(),
               ],
             ),
           ),
@@ -244,8 +349,8 @@ class _MyAreasState extends State<MyAreas> {
                   selectedReaction = null;
                 });
               },
-              items: services.map<DropdownMenuItem<String>>(
-                (Services service) {
+              items: scocialService.map<DropdownMenuItem<String>>(
+                (SOCIAL_SERVICES service) {
                   return DropdownMenuItem<String>(
                     value: service.serviceName,
                     child: Row(
@@ -268,25 +373,42 @@ class _MyAreasState extends State<MyAreas> {
     );
   }
 
-  Widget FieldActionParameters(Action action) {
-    if (action.actionParameters == null) {
+  Widget FieldActionParameters(ACTION action) {
+    if (action.fields.isEmpty) {
       return const SizedBox();
     }
     return Column(
       children: [
-        for (String? param in action.actionParameters!)
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Enter $param data',
+        for (Field field in action.fields)
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: field.field,
+              ),
+              onChanged: (text) {
+                setState(() {
+                  field.controller.text = text;
+                });
+              },
             ),
-            onChanged: (value) {
-            },
           ),
       ],
     );
   }
 
   Widget FieldAction() {
+    fetchAction(
+            widget.token,
+            scocialService
+                .firstWhere(
+                    (service) => service.serviceName == selectedService1)
+                .id)
+        .then((value) {
+      setState(() {
+        action = value;
+      });
+    });
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -303,15 +425,11 @@ class _MyAreasState extends State<MyAreas> {
                   selectedReaction = null;
                 });
               },
-              items: services
-                  .firstWhere(
-                      (service) => service.serviceName == selectedService1)
-                  .actionName
-                  .map<DropdownMenuItem<String>>(
-                (Action action) {
+              items: action.map<DropdownMenuItem<String>>(
+                (ACTION action) {
                   return DropdownMenuItem<String>(
-                    value: action.actionName,
-                    child: Text(action.actionName),
+                    value: action.description,
+                    child: Text(action.description),
                   );
                 },
               ).toList(),
@@ -320,20 +438,16 @@ class _MyAreasState extends State<MyAreas> {
               hint: const Text('Sélectionnez une action'),
             ),
           ),
-          for (Action action in services
-              .firstWhere((service) => service.serviceName == selectedService1)
-              .actionName)
+          for (ACTION action in action)
             Visibility(
-              visible: selectedAction == action.actionName,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
+              visible: selectedAction == action.description,
+              child:
+                Column(
                   children: [
                     FieldActionParameters(action),
                   ],
                 ),
               ),
-            ),
         ],
       ),
     );
