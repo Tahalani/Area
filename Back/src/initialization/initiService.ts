@@ -13,7 +13,7 @@ export class InitService implements OnModuleInit {
         'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png';
         await serviceGoogle.save();
       } catch (error) {
-        console.log("error service google: ", error);
+        console.log("error service google already exist");
       }
 
       try {
@@ -25,7 +25,7 @@ export class InitService implements OnModuleInit {
           await serviceGithub.save();
           }
       catch (error) {
-          console.log("error: service github: ", error);
+          console.log("error: service github already exist");
       }
 
       try {
@@ -37,7 +37,7 @@ export class InitService implements OnModuleInit {
         await serviceMail.save();
       }
       catch (error) {
-        console.log("error service mail: ", error);
+        console.log("error service mail alrdey exist");
       }
 
       try {
@@ -48,7 +48,7 @@ export class InitService implements OnModuleInit {
         reactionMail.service = await ServiceEntity.findOneOrFail({ where: { name: 'mail' } });
         await reactionMail.save();
       } catch (error) {
-          console.log("error reaction mail: ", error);
+          console.log("Error reaction 1 already exist");
       }
 
     try {
@@ -59,7 +59,7 @@ export class InitService implements OnModuleInit {
       actionPush.service = await ServiceEntity.findOneOrFail({ where: { name: 'github' } });
       await actionPush.save();
     } catch (error) {
-      console.log("error action push: ", error);
+      console.log("error action 1 already exist");
     }
   }
 }

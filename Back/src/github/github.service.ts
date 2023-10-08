@@ -50,7 +50,7 @@ export class GitHubService {
 
       const info = await this.reactionGithub.getInfoUser(GitHubAccesstoken);
 
-      console.log("INFO: ", info);
+      // console.log("INFO: ", info);
 
       const onPush : OnPush = {
         owner: info.login,

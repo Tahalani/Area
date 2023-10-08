@@ -4,7 +4,6 @@ import { Octokit } from '@octokit/rest';
 
 @Injectable()
 export class ActionGithub {
-
     async onPush(GitHubAccesstoken: string | string[] | undefined, arg: OnPush) {
 
         const octokit = new Octokit({
