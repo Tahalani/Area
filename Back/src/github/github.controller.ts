@@ -3,8 +3,6 @@ import { Response } from 'express';
 import { GitHubService } from './github.service';
 import { config } from 'dotenv';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { OnModuleInit } from '@nestjs/common';
-import { ServiceEntity } from 'src/entity/service.entity';
 import {
   ApiExcludeEndpoint,
   ApiOkResponse,
@@ -54,7 +52,7 @@ export class GitHubController {
   @Post('Webhook/GitHub')
   // mettre un guardd
   async GitHubWebhook(@Req() req: any, @Res() res: Response) {
-    console.log('JE RECOIS WEBHOOK: ', req);
+    this.gitHubService.webhookHandling(req);
     res.send(req.user);
   }
 }

@@ -20,14 +20,18 @@ export default function Service() {
     axios.post('http://localhost:8080/api/area/create', {
       token: localStorage.getItem('token'),
       id_Action: 1,
-      id_Reaction: 1,
+      id_Reaction: 2,
       argsAction: {
         repo: "areaTest",
       },
       argsReaction: {
-        to: "djmehde@gmail.com",
-        text: "test42",
-      }
+        repo: "areaTest",
+        title: "test",
+        body: "test",
+        head: "test",
+        base: "main",
+        maintainer_can_modify: true
+      },
     })
     .then(response => {
       console.log(response.data);

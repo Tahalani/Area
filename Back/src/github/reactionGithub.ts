@@ -1,29 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Octokit } from '@octokit/rest';
 import { DataPullRequest} from './github.dto';
-import { DataIssue } from './github.dto';
+import { UserServiceEntity } from 'src/entity/userService.entity';
 
 @Injectable()
 export class ReactionGithub {
-
-    async getInfoUser(accessToken: string | string[] | undefined) {
-        const octokit = new Octokit({
-            auth: accessToken,
-        })
-
-        const info = await octokit.request('GET /user', {
-            headers: {
-              'Authorization': `Bearer ${accessToken}`,
-              'X-GitHub-Api-Version': '2022-11-28'
-            }
-        }).then((res: any) => {
-            return res.data;
-        }).catch((err: any) => {
-            console.log(err);
-        });
-        return info;
-    }
-
     async getRepo(owner: string, accessToken: string | string[] | undefined) {
         const octokit = new Octokit({
             auth: accessToken,
@@ -42,21 +23,21 @@ export class ReactionGithub {
         });
     }
 
-    async createIssue(owner: string, data: DataIssue, accessToken: string | string[] | undefined) {
+    async createIssue(userService: UserServiceEntity, arg: any) {
         const octokit = new Octokit({
-            auth: accessToken,
+            auth: userService.token,
         })
 
-        await octokit.request('POST /repos/' + owner + '/' + data.repo + '/issues', {
-            owner: owner,
-            repo: data.repo,
-            title: data.title,
-            body: data.body,
-            assignees: data.assignees,
-            milestone: data.milestone,
-            labels: data.labels,
+        await octokit.request('POST /repos/' + userService.serviceIdentifier + '/' + arg.repo + '/issues', {
+            owner: userService.serviceIdentifier,
+            repo: arg.repo,
+            title: arg.title,
+            body: arg.body,
+            assignees: arg.assignees,
+            milestone: arg.milestone,
+            labels: arg.labels,
             headers: {
-              'Authorization': `Bearer ${accessToken}`,
+              'Authorization': `Bearer ${userService.token}`,
               'X-GitHub-Api-Version': '2022-11-28'
             }
         }).then((res) => {
@@ -67,28 +48,31 @@ export class ReactionGithub {
         });
     }
 
-    async createPullRequest(owner: string, data: DataPullRequest, accessToken: string | string[] | undefined) {
+    async createPullRequest(userService: UserServiceEntity, arg: any) {
         const octokit = new Octokit({
-            auth: accessToken,
+            auth: userService.token,
         })
 
-        await octokit.request('POST /repos/' + owner + '/' + data.repo + '/pulls', {
-            owner: owner,
-            repo: data.repo,
-            title: data.title,
-            body: data.body,
-            head: data.head,
-            base: data.base,
-            maintainer_can_modify: data.maintainer_can_modify,
+        console.log("ARG: ", arg);
+        console.log("CREATE PULL REQUEST");
+
+        await octokit.request('POST /repos/' + userService.serviceIdentifier + '/' + arg.repo + '/pulls', {
+            owner: userService.serviceIdentifier,
+            repo: arg.repo,
+            title: arg.title,
+            body: arg.body,
+            head: arg.head,
+            base: arg.base,
+            maintainer_can_modify: arg.maintainer_can_modify,
             headers: {
-              'Authorization': `Bearer ${accessToken}`,
+              'Authorization': `Bearer ${userService.token}`,
               'X-GitHub-Api-Version': '2022-11-28'
             }
         }).then((res: any) => {
-            console.log("RES: ", res.data);
+            console.log("RES PR: ", res.data);
             return res;
         }).catch((err: any) => {
-            console.log(err);
+            console.log("BAD PR: ", err);
         });
     }
 }
