@@ -26,7 +26,6 @@ export default function Service() {
           <div className="">
             <p style={{ fontFamily: 'merriweather', lineHeight: '1.2' }} className="mt-2 mb-2 text-[30px] text-black">{selectedService.bottomText}</p>
             <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={GitHUbConnection}>Connect</button>
-            <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={createArea}>Create AreaAAAAAAAA</button>
           </div>
         </div>
         <div className="bg-white h-2/3 w-screen">
