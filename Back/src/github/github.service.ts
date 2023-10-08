@@ -114,8 +114,6 @@ export class GitHubService {
         return null;
       }
 
-      console.log("area: ", area);
-
       for (const element of area) {
         const args_action = JSON.parse(JSON.stringify(element.args_action));
         if (args_action.repo === repo)
