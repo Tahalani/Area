@@ -357,7 +357,7 @@ class _MyAreasState extends State<MyAreas> {
                   child: TextField(
                     controller: areaTitleController,
                     decoration: const InputDecoration(
-                      hintText: 'Titre AREA',
+                      hintText: 'AREA\'s title',
                     ),
                   ),
                 ),
@@ -410,7 +410,7 @@ class _MyAreasState extends State<MyAreas> {
               ).toList(),
               isExpanded: true,
               style: const TextStyle(fontSize: 16, color: Colors.black),
-              hint: const Text('Sélectionnez un service'),
+              hint: const Text('Select a service'),
             ),
           ),
         ],
@@ -480,7 +480,7 @@ class _MyAreasState extends State<MyAreas> {
               ).toList(),
               isExpanded: true,
               style: const TextStyle(fontSize: 16, color: Colors.black),
-              hint: const Text('Sélectionnez une action'),
+              hint: const Text('Select an action'),
             ),
           ),
           for (ACTION action in action)
@@ -593,7 +593,7 @@ class _MyAreasState extends State<MyAreas> {
               ).toList(),
               isExpanded: true,
               style: const TextStyle(fontSize: 16, color: Colors.black),
-              hint: const Text('Sélectionnez une reaction'),
+              hint: const Text('Select a reaction'),
             ),
           ),
           for (REACTION reaction in reaction)
