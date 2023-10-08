@@ -2,43 +2,37 @@ import { OnModuleInit } from '@nestjs/common';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { ActionEntity } from 'src/entity/action.entity';
 import { ReactionEntity } from 'src/entity/reaction.entity';
+import { promises as fsPromises } from 'fs';
+
 
 export class InitService implements OnModuleInit {
-    async onModuleInit() {
+  
+  async onModuleInit() {
+    async function createService(serviceInfo: any) {
       try {
-        const serviceGoogle: ServiceEntity = ServiceEntity.create();
-        serviceGoogle.name = 'google';
-        serviceGoogle.description = 'google authentification';
-        serviceGoogle.logo_url =
-        'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png';
-        await serviceGoogle.save();
+        const existingService = await ServiceEntity.findOne({ where: { name: serviceInfo.name.toLowerCase() } });
+        if (existingService) return;
+        
+        const serviceEntity = ServiceEntity.create();
+        serviceEntity.name = serviceInfo.name.toLowerCase();
+        serviceEntity.description = serviceInfo.description;
+        serviceEntity.logo_url = serviceInfo.logo_url;
+        await serviceEntity.save();
+        console.log(`Service ${serviceInfo.name} créé avec succès.`);
       } catch (error) {
-        console.log("error service google already exist");
+        console.log(`Erreur lors de la création du service ${serviceInfo.name}:`, error.message);
       }
+    }
 
-      try {
-        const serviceGithub: ServiceEntity = ServiceEntity.create();
-        serviceGithub.name = 'github';
-        serviceGithub.description = 'github service';
-        serviceGithub.logo_url =
-        'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
-          await serviceGithub.save();
-          }
-      catch (error) {
-          console.log("error: service github already exist");
+    try {
+      const jsonData = await fsPromises.readFile('./about.json', 'utf-8');
+      const config = JSON.parse(jsonData);
+      for (const serviceInfo of config.server.services) {
+        await createService(serviceInfo);
       }
-
-      try {
-        const serviceMail: ServiceEntity = ServiceEntity.create();
-        serviceMail.name = 'mail';
-        serviceMail.description = 'mail service';
-        serviceMail.logo_url =
-        'https://icon-library.com/images/mail-icon-png-white/mail-icon-png-white-18.jpg';
-        await serviceMail.save();
-      }
-      catch (error) {
-        console.log("error service mail alrdey exist");
-      }
+    } catch (error) {
+      console.error('Erreur lors de la lecture de about.json :', error);
+    }
 
       try {
         const reactionMail: ReactionEntity = ReactionEntity.create();
