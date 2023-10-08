@@ -204,10 +204,24 @@ class ACTION {
   });
 }
 
+class REACTION {
+  final int id;
+  final String description;
+  final List<Field> fields;
+
+  REACTION({
+    required this.id,
+    required this.description,
+    required this.fields,
+  });
+}
+
 class _MyAreasState extends State<MyAreas> {
   List<SOCIAL_SERVICES> scocialService = [];
   List<ACTION> action = [];
   List<Field> args_action = [];
+  List<REACTION> reaction = [];
+  List<Field> args_reaction = [];
   String? selectedService1;
   String? selectedAction;
   String? selectedService2;
@@ -250,7 +264,7 @@ class _MyAreasState extends State<MyAreas> {
           myMap.forEach((key, value) {
             tmp.add(Field(
               key: key,
-              controller: TextEditingController(text: "kevin"),
+              controller: TextEditingController(),
               field: value,
             ));
           });
@@ -264,6 +278,37 @@ class _MyAreasState extends State<MyAreas> {
         }).toList();
       } else {
         throw Exception('Failed to load actions');
+      }
+    });
+  }
+
+  Future<List<REACTION>> fetchReaction(String token) {
+    List<Field> tmp = [];
+    var url = "http://163.172.134.80:8080/api/reactions/get";
+    var headers = {'Authorization': 'Bearer ${widget.token}'};
+    return http.get(Uri.parse(url), headers: headers).then((response) {
+      if (response.statusCode == 200) {
+        final reactions = jsonDecode(response.body);
+        return reactions.map<REACTION>((reaction) {
+          final args = jsonDecode(reaction['args_reaction']);
+          Map<String, dynamic> myMap = args[0];
+          myMap.forEach((key, value) {
+            tmp.add(Field(
+              key: key,
+              controller: TextEditingController(),
+              field: value,
+            ));
+          });
+          args_reaction = tmp;
+          tmp = [];
+          return REACTION(
+            id: reaction['id'],
+            description: reaction['description'],
+            fields: args_reaction,
+          );
+        }).toList();
+      } else {
+        throw Exception('Failed to load reactions');
       }
     });
   }
@@ -318,7 +363,7 @@ class _MyAreasState extends State<MyAreas> {
                 ),
                 FieldServiceAction(),
                 if (selectedService1 != null) FieldAction(),
-                // if (selectedAction != null) FieldServiceReaction(),
+                if (selectedAction != null) FieldReaction(),
                 // if (selectedService2 != null)
                 //   FieldReaction()
                 // else
@@ -441,13 +486,12 @@ class _MyAreasState extends State<MyAreas> {
           for (ACTION action in action)
             Visibility(
               visible: selectedAction == action.description,
-              child:
-                Column(
-                  children: [
-                    FieldActionParameters(action),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  FieldActionParameters(action),
+                ],
               ),
+            ),
         ],
       ),
     );
@@ -494,7 +538,36 @@ class _MyAreasState extends State<MyAreas> {
     );
   }
 
+    Widget FieldRectionParameters(REACTION reaction) {
+    if (reaction.fields.isEmpty) {
+      return const SizedBox();
+    }
+    return Column(
+      children: [
+        for (Field field in reaction.fields)
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: field.field,
+              ),
+              onChanged: (text) {
+                setState(() {
+                  field.controller.text = text;
+                });
+              },
+            ),
+          ),
+      ],
+    );
+  }
+
   Widget FieldReaction() {
+    fetchReaction(widget.token).then((value) {
+      setState(() {
+        reaction = value;
+      });
+    });
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -510,15 +583,11 @@ class _MyAreasState extends State<MyAreas> {
                   selectedReaction = newValue;
                 });
               },
-              items: services
-                  .firstWhere(
-                      (service) => service.serviceName == selectedService2)
-                  .reactionName
-                  .map<DropdownMenuItem<String>>(
-                (Reaction reaction) {
+              items: reaction.map<DropdownMenuItem<String>>(
+                (REACTION reaction) {
                   return DropdownMenuItem<String>(
-                    value: reaction.reactionName,
-                    child: Text(reaction.reactionName),
+                    value: reaction.description,
+                    child: Text(reaction.description),
                   );
                 },
               ).toList(),
@@ -527,6 +596,15 @@ class _MyAreasState extends State<MyAreas> {
               hint: const Text('Sélectionnez une reaction'),
             ),
           ),
+          for (REACTION reaction in reaction)
+            Visibility(
+              visible: selectedReaction == reaction.description,
+              child: Column(
+                children: [
+                  FieldRectionParameters(reaction),
+                ],
+              ),
+            ),
         ],
       ),
     );
