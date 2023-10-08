@@ -6,6 +6,7 @@ import {
     OneToOne,
     JoinColumn,
     ManyToOne,
+    RelationId,
   } from 'typeorm';
 
 import { ActionEntity } from './action.entity';
@@ -23,10 +24,15 @@ export class AreaEntity extends BaseEntity {
   @ManyToOne(() => ActionEntity, (action) => action.id)
   action: ActionEntity;
 
+  @RelationId((area: AreaEntity) => area.action)
+  actionId: number;
+
   @ManyToOne(() => ReactionEntity, (reaction) => reaction.id)
   reaction: ReactionEntity;
 
-  //add object in column
+  @RelationId((area: AreaEntity) => area.reaction)
+  reactionId: number;
+
   @Column({ type: 'jsonb' })
   args_action: Object;
 

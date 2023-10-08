@@ -71,7 +71,7 @@ class _MyRegisterState extends State<MyRegister> {
           lastNameborder == Colors.red) {
         return;
       }
-      var url = Uri.parse('http://localhost:8080/api/auth/register');
+      var url = Uri.parse('http://163.172.134.80:8080/api/auth/register');
       var response = await http.post(url,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',

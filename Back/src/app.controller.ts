@@ -26,7 +26,14 @@ export class AppController {
         host: clientIp
       }
     };
+    config.server = {
+      current_time: Math.floor(new Date().getTime() / 1000),
+      ...config.server
+    };
+
     const updatedConfig = { ...clientInfo, ...config };
+
+    return updatedConfig;
 
     return updatedConfig;
   }
