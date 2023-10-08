@@ -173,7 +173,9 @@ class _MyAreasState extends State<MyAreas> {
         backgroundColor: Colors.black,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              (selectedReaction != null) ? print("Can ADD") : print("Can't ADD");
+            },
             icon: const Icon(Icons.add),
           ),
         ],
