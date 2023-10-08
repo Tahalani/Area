@@ -44,7 +44,7 @@ class _WebViewPageState extends State<WebViewPage> {
           },
         ),
       )
-      ..loadRequest(Uri.parse('http://10.0.2.2:8080/api/auth/google'));
+      ..loadRequest(Uri.parse('http://163.172.134.80:8080/api/auth/google'));
     super.initState();
   }
 
