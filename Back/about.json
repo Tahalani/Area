@@ -1,0 +1,30 @@
+{
+"server": {
+    "services": [{
+        "name":"GitHub",
+        "description":"GitHub service",
+        "logo_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+        "actions": [{
+            "name":"push_on_repository",
+            "description":"A push is made on a repository",
+            "parameters": [{"actionId": 1, "numberArgs": 1}, "repository_name"]
+                } , {
+            "name":"pull_request_on_repository",
+            "description":"A pull_request is made on a repository",
+            "parameters": [{"actionId": 2, "numberArgs": 1}, "repository_name"]
+                }] ,
+        "reactions": [{
+            "name":"like_message",
+            "description":"The user likes a message"
+                }]
+        },{
+        "name": "Google",
+        "description": "Google service",
+        "logo_url": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+        },{
+        "name": "Mail",
+        "description": "Mail service",
+        "logo_url": "https://icon-library.com/images/mail-icon-png-white/mail-icon-png-white-18.jpg"
+        }]
+    }
+}

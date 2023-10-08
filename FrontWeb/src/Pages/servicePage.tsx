@@ -19,8 +19,8 @@ export default function Service() {
     console.log("createArea")
     axios.post('http://localhost:8080/api/area/create', {
       token: localStorage.getItem('token'),
-      nameAction: 1,
-      nameReaction: 1,
+      id_Action: 1,
+      id_Reaction: 1,
       argsAction: {
         repo: "areaTest",
       },
@@ -48,7 +48,7 @@ export default function Service() {
           <div className="">
             <p style={{ fontFamily: 'merriweather', lineHeight: '1.2' }} className="mt-2 mb-2 text-[30px] text-black">{selectedService.bottomText}</p>
             <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={GitHUbConnection}>Connect</button>
-            <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={createArea}>Create Area</button>
+            <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={createArea}>Create AreaAAAAAAAA</button>
           </div>
         </div>
         <div className="bg-white h-2/3 w-screen">
