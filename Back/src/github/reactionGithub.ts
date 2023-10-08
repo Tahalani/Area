@@ -63,7 +63,7 @@ export class ReactionGithub {
             body: arg.body,
             head: arg.head,
             base: arg.base,
-            maintainer_can_modify: arg.maintainer_can_modify,
+            maintainer_can_modify: true,
             headers: {
               'Authorization': `Bearer ${userService.token}`,
               'X-GitHub-Api-Version': '2022-11-28'

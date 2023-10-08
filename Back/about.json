@@ -6,19 +6,22 @@
         "logo_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
         "actions": [{
             "name":"push_on_repository",
-            "description":"A push is made on a repository",
             "actionId": 1,
-            "parameters": [{"repo": "repository_name"}]
-                } , {
-            "name":"pull_request_on_repository",
-            "description":"A pull_request is made on a repository",
-            "actionId": 2,
-            "parameters": [{"repo": "repository_name"}]
+            "description":"A push is made on a repository",
+            "params": [{"repo": "repository_name"}]
                 }] ,
         "reactions": [{
-            "name":"like_message",
-            "description":"The user likes a message"
-                }]
+            "name":"create_issue",
+            "reactionId": 1,
+            "description":"Create an issue on a repository",
+            "params": [{"repo": "repository_name", "title": "issue_title", "body": "issue_body", "assignees": "issue_assignees", "milestone":"milestones","labels": "issue_labels"}]
+                },{
+            "name":"create_pull_request",
+            "reactionId": 2,
+            "description":"Create a pull request on a repository",
+            "params": [{"repo": "repository_name", "title": "pull_request_title", "body": "pull_request_body", "head": "pull_request_head", "base": "pull_request_base"}]
+                }
+            ]
         },{
         "name": "Google",
         "description": "Google service",
@@ -26,7 +29,13 @@
         },{
         "name": "Mail",
         "description": "Mail service",
-        "logo_url": "https://icon-library.com/images/mail-icon-png-white/mail-icon-png-white-18.jpg"
+        "logo_url": "https://icon-library.com/images/mail-icon-png-white/mail-icon-png-white-18.jpg",
+        "reactions": [{
+            "name":"send_mail",
+            "reactionId": 3,
+            "description":"Send a mail",
+            "params": [{"to": "mail_to", "subject": "mail_subject", "body": "mail_body"}]
+                }]
         }]
     }
 }
