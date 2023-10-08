@@ -8,6 +8,7 @@ import {
   Unique,
   Index,
   JoinColumn,
+  RelationId,
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { ServiceEntity } from './service.entity';
@@ -24,9 +25,15 @@ export class UserServiceEntity extends BaseEntity {
   @JoinColumn()
   user: UserEntity;
 
+  @RelationId((userService: UserServiceEntity) => userService.user)
+  userId: number;
+
   @ManyToOne(() => ServiceEntity, (service) => service.id)
   @JoinColumn()
   service: ServiceEntity;
+
+  @Column()
+  serviceIdentifier: string;
 
   @Column()
   token: string;

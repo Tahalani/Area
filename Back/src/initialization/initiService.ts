@@ -6,13 +6,12 @@ import { promises as fsPromises } from 'fs';
 
 
 export class InitService implements OnModuleInit {
-  
+
   async onModuleInit() {
     async function createService(serviceInfo: any) {
       try {
         const existingService = await ServiceEntity.findOne({ where: { name: serviceInfo.name.toLowerCase() } });
         if (existingService) return;
-        
         const serviceEntity = ServiceEntity.create();
         serviceEntity.name = serviceInfo.name.toLowerCase();
         serviceEntity.description = serviceInfo.description;
@@ -34,16 +33,36 @@ export class InitService implements OnModuleInit {
       console.error('Erreur lors de la lecture de about.json :', error);
     }
 
-      try {
-        const reactionMail: ReactionEntity = ReactionEntity.create();
-        reactionMail.id = 1;
-        reactionMail.description = 'mail';
-        reactionMail.nbr_args = 2;
-        reactionMail.service = await ServiceEntity.findOneOrFail({ where: { name: 'mail' } });
-        await reactionMail.save();
-      } catch (error) {
-          console.log("Error reaction 1 already exist");
-      }
+    try {
+      const ReactionCreateIssue: ReactionEntity = ReactionEntity.create();
+      ReactionCreateIssue.id = 1;
+      ReactionCreateIssue.description = 'create issue';
+      ReactionCreateIssue.nbr_args = 6;
+      ReactionCreateIssue.service = await ServiceEntity.findOneOrFail({ where: { name: 'github' } });
+      await ReactionCreateIssue.save();
+    } catch (error) {
+      console.log("Error reaction 1 already exist");
+    }
+    try {
+      const ReactionCreatePullRequest: ReactionEntity = ReactionEntity.create();
+      ReactionCreatePullRequest.id = 2;
+      ReactionCreatePullRequest.description = 'create pull request';
+      ReactionCreatePullRequest.nbr_args = 6;
+      ReactionCreatePullRequest.service = await ServiceEntity.findOneOrFail({ where: { name: 'github' } });
+      await ReactionCreatePullRequest.save();
+    } catch (error) {
+      console.log("Error reaction 2 already exist");
+    }
+    try {
+      const reactionMail: ReactionEntity = ReactionEntity.create();
+      reactionMail.id = 3;
+      reactionMail.description = 'mail';
+      reactionMail.nbr_args = 2;
+      reactionMail.service = await ServiceEntity.findOneOrFail({ where: { name: 'mail' } });
+      await reactionMail.save();
+    } catch (error) {
+        console.log("Error reaction 3 already exist");
+    }
 
     try {
       const actionPush: ActionEntity = ActionEntity.create();

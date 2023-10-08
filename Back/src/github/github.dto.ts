@@ -18,11 +18,6 @@ export type DataIssue = {
     labels: string[]
 }
 
-export type OnPush = {
-    owner: string,
-    repo: string,
-}
-
 export interface GitHubUser {
     login: string;
     id: number;

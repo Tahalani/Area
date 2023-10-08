@@ -34,9 +34,8 @@ export class CreationAreaService {
     return reaction;
   }
 
-  async getUserToken(user: UserEntity, action: ActionEntity ): Promise<UserServiceEntity | null> {
-    // console.log('user: ', user);
-    // console.log('action: ', action);
+  async getUserService(user: UserEntity, action: ActionEntity ): Promise<UserServiceEntity | null> {
+
     const userServices = await UserServiceEntity.findOneBy({
       user: { id: user.id },
       service: { id: action.serviceId },
@@ -45,27 +44,22 @@ export class CreationAreaService {
   }
 
   async createArea(areaData: areaDto): Promise<string> {
-    // TODO check auth of the client
-    // console.log('area: ', areaData);
+
     const user: UserEntity | null = await this.getUser(areaData.token);
-    if (user === null) return '42 User not found';
-    const action: ActionEntity | null = await this.getAction(
-      areaData.id_Action,
-    );
-    if (action === null) return '410 Action not found';
+    if (user === null)
+      return '42 User not found';
 
-    const userServices = await this.getUserToken(user, action);
+    const action: ActionEntity | null = await this.getAction(areaData.id_Action);
+    if (action === null)
+      return '410 Action not found';
 
-    const reaction: ReactionEntity | null = await this.getReaction(
-      areaData.id_Reaction,
-    );
-    if (reaction === null) return '854 Reaction not found';
+    const userServices = await this.getUserService(user, action);
+    if (userServices === null)
+      return '412 User service not found';
 
-    console.log('user: ', user);
-    console.log('action: ', action);
-    console.log('reaction: ', reaction);
-    console.log('areaData.args_action: ', areaData.argsAction);
-    console.log('areaData.args_reaction: ', areaData.argsReaction);
+    const reaction: ReactionEntity | null = await this.getReaction(areaData.id_Reaction);
+    if (reaction === null)
+      return '854 Reaction not found';
 
     try {
       const area: AreaEntity = AreaEntity.create();
@@ -74,12 +68,11 @@ export class CreationAreaService {
       area.reaction = reaction;
       area.args_action = areaData.argsAction;
       area.args_reaction = areaData.argsReaction;
+
       await AreaEntity.save(area);
-      console.log("token === ",userServices?.token);
-        console.log("action id ", action.id);
         const Action = new ActionArray
-        console.log("test === ", test);
-        Action.map[action.id](userServices?.token, {owner: user.name, repo: "areaTest"});
+        console.log("userService dans area: ", userServices);
+        Action.map[action.id](userServices, areaData.argsAction);
       return 'This action adds a new area';
     } catch (error) {
       console.log('error saving area: ', error);

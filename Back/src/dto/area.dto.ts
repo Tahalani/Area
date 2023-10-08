@@ -1,4 +1,6 @@
 import { ActionGithub } from 'src/github/actionGithub';
+import { ReactionGithub } from 'src/github/reactionGithub';
+import { MailingReaction } from 'src/mailing/mailing.reaction';
 
 export class areaDto {
   token: string;
@@ -8,10 +10,21 @@ export class areaDto {
   argsReaction: object;
 }
 
-
 export class ActionArray {
-  private readonly obj = new ActionGithub();
-  map: {[key: number]: (arg0: any, arg1: any) => any}  = {
-    1: this.obj.onPush,
+
+  private readonly githubAction = new ActionGithub();
+
+  map: {[key: number]: (userService: any, arg: any) => any}  = {
+    1: this.githubAction.onPush,
+  };
+}
+
+export class ReactionArray {
+
+  private readonly GithubReaction = new ReactionGithub();
+
+  map: {[key: number]: (userService: any, arg: any) => any}  = {
+    1: this.GithubReaction.createIssue,
+    2: this.GithubReaction.createPullRequest,
   };
 }
