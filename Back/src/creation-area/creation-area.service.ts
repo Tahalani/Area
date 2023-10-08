@@ -44,6 +44,7 @@ export class CreationAreaService {
     return userServices;
   }
 
+
   async createArea(areaData: areaDto): Promise<string> {
     // TODO check auth of the client
     // console.log('area: ', areaData);
@@ -84,6 +85,7 @@ export class CreationAreaService {
     } catch (error) {
       console.log('error saving area: ', error);
       return 'Error saving area';
+
     }
   }
 }

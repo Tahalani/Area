@@ -33,7 +33,7 @@ export default function Service() {
       console.log(response.data);
     })
     .catch(error => {
-      console.error('Erreur lors de la requÃªte :', error);
+      console.error('Erreur lors de la requête :', error);
     });
   }
 
