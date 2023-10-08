@@ -5,8 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { MailingController } from './mailing/mailing.controller';
-import { MailingService } from './mailing/mailing.service';
+import { MailingReaction } from './mailing/mailing.reaction';
 import { GoogleModule } from './google/google.module';
 import { AuthModule } from './auth/auth.module';
 import { GithubModule } from './github/github.module';
@@ -16,6 +15,7 @@ import { MicrosoftController } from './microsoft/microsoft.controller';
 import { SmeeModule } from './smee/smee.module';
 import { InitService } from './initialization/initiService';
 import { CreationAreaModule } from './creation-area/creation-area.module';
+import { FrontDataModule } from './front-data/front-data.module';
 
 dotenv.config();
 
@@ -49,8 +49,9 @@ dotenv.config();
     GithubModule,
     SmeeModule,
     CreationAreaModule,
+    FrontDataModule,
   ],
-  controllers: [AppController, MailingController, MicrosoftController],
-  providers: [AppService, MailingService, MicrosoftService, InitService],
+  controllers: [AppController, MicrosoftController],
+  providers: [AppService, MailingReaction, MicrosoftService, InitService],
 })
 export class AppModule {}

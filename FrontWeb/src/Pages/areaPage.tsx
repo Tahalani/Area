@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navigationbar from "../Components/navbar.tsx";
 import ServiceCase from "../Components/AreaPage/service.tsx";
 import Search from "../Components/AreaPage/search.tsx";
-import { areaData } from "../AreaServiceData.tsx";
 
 type ServiceData = {
   logo_url: string;
   name: string;
   description: string;
+  id: number;
 };
 
 export default function Area() {
@@ -19,10 +19,10 @@ export default function Area() {
   const [services, setServices] = useState<ServiceData[]>([]);
 
   const getServices = () => {
-    axios.get('http://localhost:8080/About.json')
+    axios.get('http://localhost:8080/api/services/get')
       .then(response => {
-        console.log(response.data.server.services);
-        setServices(response.data.server.services);
+        console.log(response.data);
+        setServices(response.data);
       })
       .catch(error => {
         console.error('Erreur lors de la requête :', error);
@@ -45,6 +45,7 @@ export default function Area() {
               topImage={service.logo_url}
               bottomText={service.name}
               description={service.description}
+              serviceId={service.id}
             />
           ))}
         </div>

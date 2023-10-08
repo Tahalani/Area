@@ -26,6 +26,9 @@ export class ActionEntity extends BaseEntity {
   // areas: AreaEntity[];
 
   @Column()
+  name: string;
+
+  @Column()
   description: string;
 
   @ManyToOne(() => ServiceEntity, (service) => service.id)
@@ -36,4 +39,7 @@ export class ActionEntity extends BaseEntity {
 
   @Column()
   nbr_args: number;
+
+  @Column({ type: 'jsonb' })
+  args_action: Object;
 }

@@ -19,6 +19,9 @@ export class ReactionEntity extends BaseEntity {
   @PrimaryColumn()
   id: number;
 
+  @Column()
+  name: string;
+
   @OneToMany(() => AreaEntity, (area) => area.id)
   areas: AreaEntity[];
 
@@ -30,4 +33,7 @@ export class ReactionEntity extends BaseEntity {
 
   @Column()
   nbr_args: number;
+
+  @Column({ type: 'jsonb' })
+  args_reaction: Object;
 }

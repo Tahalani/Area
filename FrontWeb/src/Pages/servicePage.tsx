@@ -1,26 +1,50 @@
 import Navigationbar from "../Components/ServicePage/ServiceNavBar.tsx";
-import ServiceCase from "../Components/AreaPage/service.tsx";
+import Card from "../Components/ServicePage/card.tsx";
 import { useServiceContext } from "../ServiceContext";
 import axios from 'axios';
+import { useState, useEffect } from 'react';
+
+type ActionData = {
+  id: number;
+  name: string;
+  args_action: string;
+  description: string;
+  serviceId: number;
+};
 
 export default function Service() {
   if (localStorage.getItem('token') == null) {
     window.location.href = '/loginPage';
   }
   const { selectedService } = useServiceContext();
-  console.log(localStorage.getItem('token'));
+  const [services, setServices] = useState<ActionData[]>([]);
+
   const GitHUbConnection = () => {
     window.location.href =
       'http://localhost:8080/api/auth/github?token=' +
       localStorage.getItem('token');
   }
+  const url = 'http://localhost:8080/api/actions/get?serviceId=' + selectedService.serviceId;
+  const getServices = () => {
+    axios.get(url)
+      .then(response => {
+        setServices(response.data);
+      })
+      .catch(error => {
+        console.error('Erreur lors de la requête :', error);
+      });
+  }
+
+  useEffect(() => {
+    getServices();
+  }, []);
 
   return (
     <>
     <Navigationbar/>
       <div className="h-screen relative">
         <div className="bg-third h-2/4 w-screen">
-          <div style={{ fontFamily: 'merriweather', height: "50%", display: "flex", alignItems: "center", justifyContent: "center" }} className="pt-8">
+          <div style={{ fontFamily: 'merriweather' }} className="flex items-center justify-center h-1/2 pt-8">
             <img src={selectedService.topImage} alt="Image en haut" style={{ maxWidth: "100%", maxHeight: "100%" }} />
           </div>
           <div className="">
@@ -31,8 +55,16 @@ export default function Service() {
         <div className="bg-white h-2/3 w-screen">
           <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Area's</h1>
           <div className="flex justify-center items-center space-x-10 mb-[2%]">
-            {/* <ServiceCase topImage="./src/assets/github.png" bottomText="Pull request" linkTo='/inAreaPage'/>
-            <ServiceCase topImage="./src/assets/acer.png" bottomText="Air Monitor" linkTo='/inAreaPage' /> */}
+          {services.map((service, index) => (
+            <Card
+              key={index}
+              id={service.id}
+              name={service.name}
+              args_action={service.args_action}
+              description={service.description}
+              serviceId={service.serviceId}
+            />
+          ))}
           </div>
         </div>
       </div>

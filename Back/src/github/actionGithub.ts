@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { OnPush } from './github.dto';
 import { Octokit } from '@octokit/rest';
+import { UserServiceEntity } from 'src/entity/userService.entity';
 
 @Injectable()
 export class ActionGithub {
-    async onPush(GitHubAccesstoken: string | string[] | undefined, arg: OnPush) {
+    async onPush(userService: UserServiceEntity, arg: any) {
 
         const octokit = new Octokit({
-          auth: GitHubAccesstoken,
+          auth: userService.token,
         })
 
         try {
-          await octokit.request('POST /repos/' + arg.owner + '/' + arg.repo + '/hooks', {
-            owner: arg.owner,
+          await octokit.request('POST /repos/' + userService.serviceIdentifier + '/' + arg.repo + '/hooks', {
+            owner: userService.serviceIdentifier,
             repo: arg.repo,
             name: 'web',
             active: true,
@@ -30,7 +30,7 @@ export class ActionGithub {
             }
           })
         } catch (error) {
-          console.log("Failed to create webhook");
+          console.log("Already created");
         }
       }
 }

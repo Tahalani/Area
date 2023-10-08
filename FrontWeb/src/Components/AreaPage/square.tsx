@@ -5,6 +5,7 @@ interface SquareProps {
   topImage: string;
   bottomText: string;
   description: string;
+  serviceId: number;
 }
 
 const getRandomColor = () => {
@@ -16,7 +17,7 @@ const getRandomColor = () => {
   return color;
 };
 
-const Square: React.FC<SquareProps> = ({ topImage, bottomText, description }) => {
+const Square: React.FC<SquareProps> = ({ topImage, bottomText }) => {
   const backgroundColor = getRandomColor();
 
   return (
