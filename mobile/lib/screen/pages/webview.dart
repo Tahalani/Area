@@ -11,50 +11,70 @@ class WebViewPage extends StatefulWidget {
 }
 
 class _WebViewPageState extends State<WebViewPage> {
-  late WebViewController _controller;
+  WebViewController? _controller;
   late double _progress;
-  bool _isLoadingPage = false;
   String? token;
 
   @override
   void initState() {
     _progress = 0;
-    _controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(Colors.white)
-      ..setUserAgent('Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N)')
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            setState(() {
-              _progress = progress / 100;
-            });
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://are4-51.com:8081')) {
-              Uri uri = Uri.parse(request.url);
-              setState(() {
-                token = uri.queryParameters['token'];
-                _isLoadingPage = true;
-              });
-              return NavigationDecision.prevent;
-            }
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(Uri.parse('https://are4-51.com:8080/api/auth/google'));
+    // _controller = WebViewController()
+    //   ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    //   ..setBackgroundColor(Colors.white)
+    //   ..setUserAgent('Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N)')
+    //   ..setNavigationDelegate(
+    //     NavigationDelegate(
+    //       onProgress: (int progress) {
+    //         setState(() {
+    //           _progress = progress / 100;
+    //         });
+    //       },
+    //       onPageStarted: (String url) {},
+    //       onPageFinished: (String url) {},
+    //       onWebResourceError: (WebResourceError error) {},
+    //       onNavigationRequest: (NavigationRequest request) {
+    //         if (request.url.startsWith('https://are4-51.com:8081')) {
+    //           Uri uri = Uri.parse(request.url);
+    //           setState(() {
+    //             token = uri.queryParameters['token'];
+    //             _isLoadingPage = true;
+    //           });
+    //           return NavigationDecision.prevent;
+    //         }
+    //         return NavigationDecision.navigate;
+    //       },
+    //     ),
+    //   )
+    //   ..loadRequest(Uri.parse('https://are4-51.com:8080/api/auth/google'));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoadingPage) {
-      Navigator.pop(context, token);
-    }
+    _controller ??= WebViewController()
+        ..setJavaScriptMode(JavaScriptMode.unrestricted)
+        ..setBackgroundColor(Colors.white)
+        ..setUserAgent('Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N)')
+        ..setNavigationDelegate(
+          NavigationDelegate(
+            onProgress: (int progress) {
+            },
+            onPageStarted: (String url) {},
+            onPageFinished: (String url) {},
+            onWebResourceError: (WebResourceError error) {},
+            onNavigationRequest: (NavigationRequest request) {
+              if (request.url.startsWith('https://are4-51.com:8081')) {
+                Uri uri = Uri.parse(request.url);
+                token = uri.queryParameters['token'];
+                Navigator.pop(context, token);
+                return NavigationDecision.prevent;
+              }
+              return NavigationDecision.navigate;
+            },
+          ),
+        )
+        ..loadRequest(Uri.parse('https://are4-51.com:8080/api/auth/google'));
+
     final theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
@@ -70,7 +90,7 @@ class _WebViewPageState extends State<WebViewPage> {
           ),
         ),
         body: WebViewWidget(
-          controller: _controller,
+          controller: _controller!,
         ));
   }
 }
