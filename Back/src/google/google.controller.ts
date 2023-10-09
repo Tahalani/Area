@@ -33,7 +33,7 @@ export class GoogleController {
     const userToken = await this.googleService.registerGoogleUser(req.user);
     await this.googleService.saveToken(req);
     res.redirect(
-      `http://${process.env.DNS_NAME}:8081/auth/succes?token=${userToken.access_token}`,
+      `${process.env.DNS_NAME}:8081/auth/succes?token=${userToken.access_token}`,
     );
     return;
   }
