@@ -5,13 +5,16 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { google } from 'googleapis';
+import { config } from 'dotenv';
+
+config();
 
 @Injectable()
 export class GoogleGuard implements CanActivate {
   oauth2 = new google.auth.OAuth2(
     '807256344858-vibjvo13976sh2nrf1mg4g7rbqhn5jjn.apps.googleusercontent.com',
     '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',
-    'http://localhost:8080/api/auth/google/callback',
+    `${process.env.DNS_NAME}:8080/api/auth/google/callback`,
   );
 
   url = this.oauth2.generateAuthUrl({

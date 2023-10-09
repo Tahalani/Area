@@ -16,19 +16,6 @@ config();
 export class GitHubController {
   constructor(private readonly gitHubService: GitHubService) {}
 
-  // async onModuleInit() {
-  //   const service: ServiceEntity = ServiceEntity.create();
-  //   service.name = 'github';
-  //   service.description = 'github service';
-  //   service.logo_url =
-  //     'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
-  //   try {
-  //     await service.save();
-  //   } catch (error) {
-  //     console.log(service.name + ' service already exists');
-  //   }
-  // }
-
   @ApiOkResponse({
     description: 'Endpoint to redirect to github authentification',
   })
@@ -36,8 +23,9 @@ export class GitHubController {
   @UseGuards(AuthGuard)
   @Get('auth/GitHub')
   async GitHubAuth(@Req() req: any, @Res() res: Response) {
+    const redirect_url = `${process.env.DNS_NAME}:8080/api/auth/GitHub/callback`
     res.redirect(
-      `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${process.env.gitHubRedirectURL}&scope=repo,read:user,read:org&state=${req.user.email}`,
+      `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${redirect_url}&scope=repo,read:user,read:org&state=${req.user.email}`,
     );
   }
 
@@ -45,7 +33,7 @@ export class GitHubController {
   @Get('auth/GitHub/callback')
   async GitHubAuthCallback(@Req() req: any, @Res() res: Response) {
     this.gitHubService.addService(req);
-    res.redirect(`http://localhost:8081/AreaPage`);
+    res.redirect(`${process.env.DNS_NAME}:8081/AreaPage`);
   }
 
   @ApiExcludeEndpoint()
