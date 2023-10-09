@@ -9,7 +9,7 @@ const AuthSuccess: React.FC = () => {
       localStorage.setItem('token', token); // Stockez le token dans le localStorage
     }
     console.log('VOICI LE TOKEN apres', localStorage.getItem('token'));
-    window.location.href = 'http://localhost:8081/profilPage'; // Redirigez l'utilisateur vers la page d'accueil
+    window.location.href = 'http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8081/profilPage'; // Redirigez l'utilisateur vers la page d'accueil
   }, []);
 
   return (
