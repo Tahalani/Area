@@ -32,6 +32,14 @@ class Field {
     required this.controller,
     required this.field,
   });
+
+  void setControllerValue(String newValue) {
+    controller.text = newValue;
+  }
+
+  String getControllerValue() {
+    return controller.text;
+  }
 }
 
 class ACTION {
@@ -155,6 +163,24 @@ class _MyAreasState extends State<MyAreas> {
     });
   }
 
+  void addArea() {
+    if (areaTitleController.text.isEmpty) {
+      return;
+    }
+    print("Area title: ${areaTitleController.text}");
+    print("Service 1: $selectedService1");
+    print("Action: $selectedAction");
+    print("Reaction: $selectedReaction");
+    print("Action parameters:");
+    for (Field field in args_action) {
+      print("${field.key}: ${field.controller.text}");
+    }
+    print("Reaction parameters:");
+    for (Field field in args_reaction) {
+      print("${field.key}: ${field.controller.text}");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -174,7 +200,7 @@ class _MyAreasState extends State<MyAreas> {
         actions: [
           IconButton(
             onPressed: () {
-              (selectedReaction != null) ? print("Can ADD") : print("Can't ADD");
+              (selectedReaction != null) ? addArea() : print("Can't ADD");
             },
             icon: const Icon(Icons.add),
           ),
@@ -282,9 +308,7 @@ class _MyAreasState extends State<MyAreas> {
                 hintText: field.field,
               ),
               onChanged: (text) {
-                setState(() {
-                  field.controller.text = text;
-                });
+                setState(() {});
               },
             ),
           ),
