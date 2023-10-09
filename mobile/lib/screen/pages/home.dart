@@ -152,7 +152,7 @@ class _myHomeState extends State<myHome> {
       backgroundColor: const Color.fromRGBO(254, 254, 241, 1),
       appBar: AppBar(
         title: const Text('Home'),
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromRGBO(30, 41, 133, 1),
         actions: [
           IconButton(
               onPressed: () {
@@ -188,7 +188,7 @@ class _myHomeState extends State<myHome> {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: Color.fromRGBO(30, 41, 133, 1),
             ),
             child: Text(
               'Services',

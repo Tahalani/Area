@@ -220,7 +220,7 @@ class _MyAreasState extends State<MyAreas> {
       backgroundColor: const Color.fromRGBO(254, 254, 241, 1),
       appBar: AppBar(
         title: const Text('Areas'),
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromRGBO(30, 41, 133, 1),
         actions: [
           IconButton(
             onPressed: () {

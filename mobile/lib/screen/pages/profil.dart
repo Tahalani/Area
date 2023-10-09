@@ -68,7 +68,7 @@ class _MyProfilState extends State<MyProfil> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil'),
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromRGBO(30, 41, 133, 1),
         actions: [
           IconButton(
               onPressed: () {
