@@ -51,7 +51,7 @@ class _WebViewConnectState extends State<WebViewConnect> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CONNEXIONNN'),
+        title: const Text('Connexion'),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(6.0),
           child: LinearProgressIndicator(

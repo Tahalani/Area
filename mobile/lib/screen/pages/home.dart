@@ -117,6 +117,12 @@ List<Services> services = [
     url: "https://are4-51.com:8080/api/auth/GitHub",
     callbackUrl: "https://are4-51.com:8081",
   ),
+  Services(
+    serviceName: "Outlook",
+    image: Image.asset("assets/images/outlook.png"),
+    url: "https://are4-51.com:8080/api/auth/Outlook",
+    callbackUrl: "https://are4-51.com:8081",
+  ),
 ];
 
 void showDeleteConfirmationDialog(BuildContext context, int id) {
