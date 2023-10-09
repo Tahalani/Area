@@ -8,6 +8,7 @@ import { ActionOutlook } from './actionOutlook';
 import { Octokit } from '@octokit/rest';
 import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionArray } from 'src/dto/area.dto';
+import { JwtService } from '@nestjs/jwt';
 
 config();
 
@@ -33,11 +34,15 @@ export class OutlookService {
   constructor(
     private readonly reactionGithub: ReactionOutlook,
     private readonly actionOutlook: ActionOutlook,
+    private readonly jwtService: JwtService,
   ) {}
 
   async addService(request: any): Promise<void> {
     const token = request.query.state;
-    const decode = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('token: ', token);
+    const decode = this.jwtService.verify(token);
+    // const decode = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('decode: ', decode);
     const email = decode.email;
     const code = request.query.code;
     this.saveToken(email, code, 'github');
@@ -64,7 +69,7 @@ export class OutlookService {
       const userService = UserServiceEntity.create();
       userService.user = user;
       userService.service = service;
-      userService.serviceIdentifier = user.email;
+      userService.serviceIdentifier = user.email; // TODO change
       userService.token = OutlookToken.toString();
       await userService.save();
     } catch (error) {
