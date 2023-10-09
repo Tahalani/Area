@@ -10,8 +10,6 @@ import { GoogleModule } from './google/google.module';
 import { AuthModule } from './auth/auth.module';
 import { GithubModule } from './github/github.module';
 import * as dotenv from 'dotenv';
-import { MicrosoftService } from './microsoft/microsoft.service';
-import { MicrosoftController } from './microsoft/microsoft.controller';
 import { SmeeModule } from './smee/smee.module';
 import { InitService } from './initialization/initiService';
 import { CreationAreaModule } from './creation-area/creation-area.module';
@@ -53,7 +51,7 @@ dotenv.config();
     CreationAreaModule,
     FrontDataModule,
   ],
-  controllers: [AppController, MicrosoftController],
-  providers: [AppService, MailingReaction, MicrosoftService, InitService],
+  controllers: [AppController],
+  providers: [AppService, MailingReaction, InitService],
 })
 export class AppModule {}

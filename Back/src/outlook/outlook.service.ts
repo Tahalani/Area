@@ -1,6 +1,4 @@
-import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import * as querystring from 'querystring';
 import { config } from 'dotenv';
 import { UserEntity } from 'src/entity/user.entity';
 import { ServiceEntity } from 'src/entity/service.entity';
@@ -15,25 +13,18 @@ config();
 
 const jwt = require('jsonwebtoken');
 
-async function getGitHubToken({
-  code,
-}: {
-  code: string;
-}): Promise<string | string[] | undefined> {
-  const githubToken = await axios
-    .post(
-      `https://github.com/login/oauth/access_token?client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}&code=${code}`,
-    )
-    .then((res) => res.data)
-    .catch((error) => {
-      throw error;
-    });
-  const decoded = querystring.parse(githubToken);
-  const accessToken = decoded.access_token;
-  return accessToken;
+async function getOutlookToken(code: string): Promise<string | string[] | undefined> {
+  const response = await axios.post(
+    'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+    `client_id=${process.env.Microsoft_CLIENT_ID}&client_secret=${process.env.Microsoft_CLIENT_SECRET}&code=${code}&redirect_uri=${process.env.redirect_url}&grant_type=authorization_code`,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    },
+  );
+  return response.data.access_token;
 }
-
-@Injectable()
 export class OutlookService {
   map: { [key: string]: number } = {
     push: 1,
@@ -44,39 +35,15 @@ export class OutlookService {
     private readonly actionOutlook: ActionOutlook,
   ) {}
 
-  async getInfoUser(accessToken: string | string[] | undefined) {
-    const octokit = new Octokit({
-      auth: accessToken,
-    });
-
-    const info = await octokit
-      .request('GET /user', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'X-GitHub-Api-Version': '2022-11-28',
-        },
-      })
-      .then((res: any) => {
-        return res.data;
-      })
-      .catch((err: any) => {
-        console.log(err);
-      });
-    return info;
-  }
-
   async addService(request: any): Promise<void> {
-    const userMail = request.query.state; // grace à ca on sait qui a fait la demande
-    const code = request.query.code; // a voir si il faut garder code ou access token
-    const GitHubAccesstoken = await getGitHubToken({ code: code });
-    if (GitHubAccesstoken === undefined) {
-      console.error('Error getting token');
-      return;
-    }
-    this.saveToken(userMail, GitHubAccesstoken.toString(), 'github');
+    const token = request.query.state;
+    const decode = jwt.verify(token, process.env.JWT_SECRET);
+    const email = decode.email;
+    const code = request.query.code;
+    this.saveToken(email, code, 'github');
   }
 
-  private async saveToken(email: string, token: string, serviceName: string) {
+  private async saveToken(email: string, code: string, serviceName: string) {
     const user = await UserEntity.findOneBy({ email: email });
     const service = await ServiceEntity.findOneBy({ name: serviceName });
     if (user === null) {
@@ -88,18 +55,20 @@ export class OutlookService {
       return;
     }
 
-    const infoUser = await this.getInfoUser(token);
-
-    const userService = UserServiceEntity.create();
-    userService.user = user;
-    userService.service = service;
-    userService.serviceIdentifier = infoUser.login;
-    userService.token = token;
-
+    const OutlookToken = await getOutlookToken(code);
+    if (OutlookToken === undefined) {
+      console.error('Error getting token outlook');
+      return;
+    }
     try {
+      const userService = UserServiceEntity.create();
+      userService.user = user;
+      userService.service = service;
+      userService.serviceIdentifier = user.email;
+      userService.token = OutlookToken.toString();
       await userService.save();
     } catch (error) {
-      console.error('Error saving token');
+      console.error('Error saving token outlook');
       return;
     }
   }
