@@ -164,20 +164,44 @@ class _MyAreasState extends State<MyAreas> {
   }
 
   void addArea() {
+    bool done = true;
     if (areaTitleController.text.isEmpty) {
       return;
     }
     print("Area title: ${areaTitleController.text}");
-    print("Service 1: $selectedService1");
-    print("Action: $selectedAction");
-    print("Reaction: $selectedReaction");
-    print("Action parameters:");
-    for (Field field in args_action) {
-      print("${field.key}: ${field.controller.text}");
+    ACTION action_args =
+        action.firstWhere((action) => action.description == selectedAction);
+    REACTION reaction_args = reaction
+        .firstWhere((reaction) => reaction.description == selectedReaction);
+
+    print("Action id: ${action_args.id}");
+    print("Action name: ${action_args.description}");
+    for (Field field in action_args.fields) {
+      if (field.getControllerValue().isEmpty) {
+        done = false;
+      }
+      print("${field.key}: ${field.getControllerValue()}");
     }
-    print("Reaction parameters:");
-    for (Field field in args_reaction) {
-      print("${field.key}: ${field.controller.text}");
+
+    print("Reaction id: ${reaction_args.id}");
+    print("Reaction name: ${reaction_args.description}");
+    for (Field field in reaction_args.fields) {
+      if (field.getControllerValue().isEmpty) {
+        done = false;
+      }
+      print("${field.key}: ${field.getControllerValue()}");
+    }
+
+    if (done) {
+      print("Done");
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill all fields'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 1),
+        ),
+      );
     }
   }
 
@@ -294,13 +318,13 @@ class _MyAreasState extends State<MyAreas> {
     );
   }
 
-  Widget FieldActionParameters(ACTION action) {
-    if (action.fields.isEmpty) {
+  Widget FieldActionParameters(ACTION actions) {
+    if (actions.fields.isEmpty) {
       return const SizedBox();
     }
     return Column(
       children: [
-        for (Field field in action.fields)
+        for (Field field in actions.fields)
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
@@ -308,7 +332,14 @@ class _MyAreasState extends State<MyAreas> {
                 hintText: field.field,
               ),
               onChanged: (text) {
-                setState(() {});
+                setState(() {
+                  action
+                      .firstWhere(
+                          (action) => action.description == selectedAction)
+                      .fields
+                      .firstWhere((champs) => champs.field == field.field)
+                      .setControllerValue(text);
+                });
               },
             ),
           ),
@@ -317,17 +348,6 @@ class _MyAreasState extends State<MyAreas> {
   }
 
   Widget FieldAction() {
-    fetchAction(
-            widget.token,
-            scocialService
-                .firstWhere(
-                    (service) => service.serviceName == selectedService1)
-                .id)
-        .then((value) {
-      setState(() {
-        action = value;
-      });
-    });
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -342,6 +362,17 @@ class _MyAreasState extends State<MyAreas> {
                 setState(() {
                   selectedAction = newValue;
                   selectedReaction = null;
+                  fetchAction(
+                          widget.token,
+                          scocialService
+                              .firstWhere((service) =>
+                                  service.serviceName == selectedService1)
+                              .id)
+                      .then((value) {
+                    setState(() {
+                      action = value;
+                    });
+                  });
                 });
               },
               items: action.map<DropdownMenuItem<String>>(
@@ -357,12 +388,12 @@ class _MyAreasState extends State<MyAreas> {
               hint: const Text('Select an action'),
             ),
           ),
-          for (ACTION action in action)
+          for (ACTION actions in action)
             Visibility(
-              visible: selectedAction == action.description,
+              visible: selectedAction == actions.description,
               child: Column(
                 children: [
-                  FieldActionParameters(action),
+                  FieldActionParameters(actions),
                 ],
               ),
             ),
@@ -371,13 +402,13 @@ class _MyAreasState extends State<MyAreas> {
     );
   }
 
-  Widget FieldRectionParameters(REACTION reaction) {
-    if (reaction.fields.isEmpty) {
+  Widget FieldRectionParameters(REACTION reactions) {
+    if (reactions.fields.isEmpty) {
       return const SizedBox();
     }
     return Column(
       children: [
-        for (Field field in reaction.fields)
+        for (Field field in reactions.fields)
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
@@ -386,7 +417,12 @@ class _MyAreasState extends State<MyAreas> {
               ),
               onChanged: (text) {
                 setState(() {
-                  field.controller.text = text;
+                  reaction
+                      .firstWhere((reaction) =>
+                          reaction.description == selectedReaction)
+                      .fields
+                      .firstWhere((champs) => champs.field == field.field)
+                      .setControllerValue(text);
                 });
               },
             ),
@@ -396,11 +432,6 @@ class _MyAreasState extends State<MyAreas> {
   }
 
   Widget FieldReaction() {
-    fetchReaction(widget.token).then((value) {
-      setState(() {
-        reaction = value;
-      });
-    });
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -413,6 +444,11 @@ class _MyAreasState extends State<MyAreas> {
               value: selectedReaction,
               onChanged: (String? newValue) {
                 setState(() {
+                  fetchReaction(widget.token).then((value) {
+                    setState(() {
+                      reaction = value;
+                    });
+                  });
                   selectedReaction = newValue;
                 });
               },
