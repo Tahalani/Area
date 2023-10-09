@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screen/component/dialoglogout.dart';
+import 'package:mobile/screen/component/webviewconnect.dart';
 
 class myHome extends StatefulWidget {
   final String token;
@@ -99,11 +100,13 @@ class Services {
   final String serviceName;
   final Image image;
   final String url;
+  final String callbackUrl;
 
   Services({
     required this.serviceName,
     required this.image,
     required this.url,
+    required this.callbackUrl,
   });
 }
 
@@ -112,6 +115,7 @@ List<Services> services = [
     serviceName: "Github",
     image: Image.asset("assets/images/github.png"),
     url: "https://are4-51.com:8080/api/auth/GitHub",
+    callbackUrl: "https://are4-51.com:8081",
   ),
 ];
 
@@ -228,7 +232,14 @@ class _myHomeState extends State<myHome> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    print("Pressed");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WebViewConnect(
+                                  apiUrl: service.url,
+                                  urlCallBack: service.callbackUrl,
+                                  token: widget.token,
+                                )));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(30, 41, 133, 1),
