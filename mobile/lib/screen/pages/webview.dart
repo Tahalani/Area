@@ -14,6 +14,7 @@ class _WebViewPageState extends State<WebViewPage> {
   late WebViewController _controller;
   late double _progress;
   bool _isLoadingPage = false;
+  String? token;
 
   @override
   void initState() {
@@ -33,9 +34,12 @@ class _WebViewPageState extends State<WebViewPage> {
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            print(request.url);
             if (request.url.startsWith('https://are4-51.com:8081')) {
-              print('blocking navigation to $request}');
+              Uri uri = Uri.parse(request.url);
+              setState(() {
+                token = uri.queryParameters['token'];
+                _isLoadingPage = true;
+              });
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
@@ -49,7 +53,7 @@ class _WebViewPageState extends State<WebViewPage> {
   @override
   Widget build(BuildContext context) {
     if (_isLoadingPage) {
-      Navigator.pop(context);
+      Navigator.pop(context, token);
     }
     final theme = Theme.of(context);
     return Scaffold(

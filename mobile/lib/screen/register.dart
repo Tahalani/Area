@@ -216,25 +216,25 @@ class _MyRegisterState extends State<MyRegister> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ServiceButton(
-                          onPressed: () {},
-                          path: 'google.png',
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        ServiceButton(
-                          onPressed: () {},
-                          path: 'facebook.png',
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     ServiceButton(
+                    //       onPressed: () {},
+                    //       path: 'google.png',
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     ServiceButton(
+                    //       onPressed: () {},
+                    //       path: 'facebook.png',
+                    //     ),
+                    //   ],
+                    // ),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
