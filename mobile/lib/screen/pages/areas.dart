@@ -292,6 +292,17 @@ class _MyAreasState extends State<MyAreas> {
                   selectedService1 = newValue;
                   selectedAction = null;
                   selectedReaction = null;
+                  fetchAction(
+                          widget.token,
+                          scocialService
+                              .firstWhere((service) =>
+                                  service.serviceName == selectedService1)
+                              .id)
+                      .then((value) {
+                    setState(() {
+                      action = value;
+                    });
+                  });
                 });
               },
               items: scocialService.map<DropdownMenuItem<String>>(
@@ -371,6 +382,11 @@ class _MyAreasState extends State<MyAreas> {
                       .then((value) {
                     setState(() {
                       action = value;
+                    });
+                  });
+                  fetchReaction(widget.token).then((value) {
+                    setState(() {
+                      reaction = value;
                     });
                   });
                 });
