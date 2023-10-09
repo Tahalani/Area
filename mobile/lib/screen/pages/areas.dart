@@ -166,35 +166,33 @@ class _MyAreasState extends State<MyAreas> {
   void addArea() {
     bool done = true;
     if (areaTitleController.text.isEmpty) {
-      return;
+      done = false;
     }
-    print("Area title: ${areaTitleController.text}");
     ACTION action_args =
         action.firstWhere((action) => action.description == selectedAction);
     REACTION reaction_args = reaction
         .firstWhere((reaction) => reaction.description == selectedReaction);
 
-    print("Action id: ${action_args.id}");
-    print("Action name: ${action_args.description}");
-    for (Field field in action_args.fields) {
-      if (field.getControllerValue().isEmpty) {
-        done = false;
-      }
-      print("${field.key}: ${field.getControllerValue()}");
-    }
+    // print("Area title: ${areaTitleController.text}");
+    // print("Action id: ${action_args.id}");
+    // print("Action name: ${action_args.description}");
+    // for (Field field in action_args.fields) {
+    //   if (field.getControllerValue().isEmpty) {
+    //     done = false;
+    //   }
+    //   print("${field.key}: ${field.getControllerValue()}");
+    // }
 
-    print("Reaction id: ${reaction_args.id}");
-    print("Reaction name: ${reaction_args.description}");
-    for (Field field in reaction_args.fields) {
-      if (field.getControllerValue().isEmpty) {
-        done = false;
-      }
-      print("${field.key}: ${field.getControllerValue()}");
-    }
+    // print("Reaction id: ${reaction_args.id}");
+    // print("Reaction name: ${reaction_args.description}");
+    // for (Field field in reaction_args.fields) {
+    //   if (field.getControllerValue().isEmpty) {
+    //     done = false;
+    //   }
+    //   print("${field.key}: ${field.getControllerValue()}");
+    // }
 
-    if (done) {
-      print("Done");
-    } else {
+    if (!done) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please fill all fields'),
@@ -202,7 +200,24 @@ class _MyAreasState extends State<MyAreas> {
           duration: Duration(seconds: 1),
         ),
       );
+      return;
     }
+
+    Map<String, dynamic> myJson = {
+      "token": widget.token,
+      // "title": areaTitleController.text,
+      "id_Action": action_args.id,
+      "id_Reaction": reaction_args.id,
+      "argsAction": {
+        for (Field field in action_args.fields)
+          field.key: field.getControllerValue()
+      },
+      "argsReaction": {
+        for (Field field in reaction_args.fields)
+          field.key: field.getControllerValue()
+      },
+    };
+    print(jsonEncode(myJson));
   }
 
   @override
