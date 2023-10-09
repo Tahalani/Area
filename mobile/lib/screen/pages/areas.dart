@@ -79,7 +79,7 @@ class _MyAreasState extends State<MyAreas> {
   TextEditingController areaTitleController = TextEditingController();
 
   Future<List<SOCIAL_SERVICES>> fetchServices(String token) {
-    var url = "http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8080/api/services/get";
+    var url = "https://are4-51.com:8080/api/services/get";
     var headers = {'Authorization': 'Bearer ${widget.token}'};
     return http.get(Uri.parse(url), headers: headers).then((response) {
       if (response.statusCode == 200) {
@@ -103,7 +103,7 @@ class _MyAreasState extends State<MyAreas> {
 
   Future<List<ACTION>> fetchAction(String token, int serviceId) {
     List<Field> tmp = [];
-    var url = "http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8080/api/actions/get?serviceId=$serviceId";
+    var url = "https://are4-51.com:8080/api/actions/get?serviceId=$serviceId";
     var headers = {'Authorization': 'Bearer ${widget.token}'};
     return http.get(Uri.parse(url), headers: headers).then((response) {
       if (response.statusCode == 200) {
@@ -134,7 +134,7 @@ class _MyAreasState extends State<MyAreas> {
 
   Future<List<REACTION>> fetchReaction(String token) {
     List<Field> tmp = [];
-    var url = "http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8080/api/reactions/get";
+    var url = "https://are4-51.com:8080/api/reactions/get";
     var headers = {'Authorization': 'Bearer ${widget.token}'};
     return http.get(Uri.parse(url), headers: headers).then((response) {
       if (response.statusCode == 200) {

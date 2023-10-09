@@ -34,7 +34,7 @@ class _WebViewPageState extends State<WebViewPage> {
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
             print(request.url);
-            if (request.url.startsWith('http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8081')) {
+            if (request.url.startsWith('https://are4-51.com:8081')) {
               print('blocking navigation to $request}');
               return NavigationDecision.prevent;
             }
@@ -42,7 +42,7 @@ class _WebViewPageState extends State<WebViewPage> {
           },
         ),
       )
-      ..loadRequest(Uri.parse('http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8080/api/auth/google'));
+      ..loadRequest(Uri.parse('https://are4-51.com:8080/api/auth/google'));
     super.initState();
   }
 

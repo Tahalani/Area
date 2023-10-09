@@ -27,7 +27,7 @@ class UserProfile {
 
 class _MyProfilState extends State<MyProfil> {
   Future<UserProfile> fetchUser(String token) async {
-    var url = "http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8080/api/auth/profile";
+    var url = "https://are4-51.com:8080/api/auth/profile";
     var headers = {'Authorization': 'Bearer ${widget.token}'};
     var response = await http.get(Uri.parse(url), headers: headers);
     if (response.statusCode == 200) {
