@@ -16,6 +16,7 @@ import { SmeeModule } from './smee/smee.module';
 import { InitService } from './initialization/initiService';
 import { CreationAreaModule } from './creation-area/creation-area.module';
 import { FrontDataModule } from './front-data/front-data.module';
+import { OutlookModule } from './outlook/outlook.module';
 
 dotenv.config();
 
@@ -42,7 +43,7 @@ dotenv.config();
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '5h' },
     }),
     AuthModule,
     GoogleModule,

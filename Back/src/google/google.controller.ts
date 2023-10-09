@@ -32,7 +32,6 @@ export class GoogleController {
   async googleAuthRedirect(@Req() req: any, @Res() res: Response) {
     const userToken = await this.googleService.registerGoogleUser(req.user);
     await this.googleService.saveToken(req);
-    console.log(`${process.env.DNS_NAME}:8081/auth/succes?token=${userToken.access_token}`);
     res.redirect(
       `${process.env.DNS_NAME}:8081/auth/succes?token=${userToken.access_token}`,
     );
