@@ -27,7 +27,7 @@ export default function Register() {
     };
     console.log(data);
     axios
-      .post('http://localhost:8080/api/auth/register/', data)
+      .post('http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8080/api/auth/register/', data)
       .then(() => {
         navigate('/loginPage');
       })

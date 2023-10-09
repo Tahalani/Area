@@ -21,7 +21,7 @@ export default function Login() {
       password: password
     };
     console.log(data);
-    const url = 'http://localhost:8080/api/auth/login/';
+    const url = 'http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8080/api/auth/login/';
   
     axios.post(url, data)
     .then(response => {
