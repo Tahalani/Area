@@ -34,17 +34,15 @@ class _WebViewPageState extends State<WebViewPage> {
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
             print(request.url);
-            if (request.url.startsWith('http://localhost:8080')) {
-              setState(() {
-                _isLoadingPage = true;
-              });
+            if (request.url.startsWith('http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8081')) {
+              print('blocking navigation to $request}');
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
           },
         ),
       )
-      ..loadRequest(Uri.parse('http://163.172.134.80:8080/api/auth/google'));
+      ..loadRequest(Uri.parse('http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8080/api/auth/google'));
     super.initState();
   }
 

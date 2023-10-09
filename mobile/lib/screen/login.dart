@@ -44,7 +44,7 @@ class _MyLoginState extends State<MyLogin> {
         return;
       }
 
-      var url = Uri.parse('http://163.172.134.80:8080/api/auth/login');
+      var url = Uri.parse('http://884d1376-a185-41a0-a373-f1359376749e.pub.instances.scw.cloud:8080/api/auth/login');
       var response = await http.post(url,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
