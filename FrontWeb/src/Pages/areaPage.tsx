@@ -20,7 +20,7 @@ export default function Area() {
 
   const MicrosoftConnection = () => {
     window.location.href =
-      'https://are4-51.com:8080/api/auth/Microsoft?token=' +
+      'https://are4-51.com:8080/api/auth/Outlook?token=' +
       localStorage.getItem('token');
   }
 

@@ -42,10 +42,11 @@ export class OutlookController {
   @Get('auth/Outlook/callback')
   async OutlookAuthCallback(@Req() req: any, @Res() res: Response) {
     console.log('JE RECOIS CALLBACK le code: ', req);
+    const redirect_url = `${process.env.DNS_NAME}:8080/api/auth/Outlook/callback`;
 
     const response = await axios.post(
       'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-      `client_id=${Microsoft_CLIENT_ID}&client_secret=${Microsoft_CLIENT_SECRET}&code=${req.query.code}&redirect_uri=http://163.172.134.80:8080/api/auth/Microsoft/callback&grant_type=authorization_code`,
+      `client_id=${Microsoft_CLIENT_ID}&client_secret=${Microsoft_CLIENT_SECRET}&code=${req.query.code}&redirect_uri=${redirect_url}&grant_type=authorization_code`,
       {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
