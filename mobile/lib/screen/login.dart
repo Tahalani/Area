@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import './component/input.dart';
 import 'component/servicebutton.dart';
@@ -174,17 +176,12 @@ class _MyLoginState extends State<MyLogin> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ServiceButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, 'Webview');
+                          onPressed: () async {
+                            final token = await Navigator.pushNamed(context, 'Webview');
+                            (token != null) ? print("token : ${token}") : print('null');
+                            Navigator.pushNamed(context, 'home', arguments: token);
                           },
                           path: 'google.png',
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        ServiceButton(
-                          onPressed: () {},
-                          path: 'facebook.png',
                         ),
                       ],
                     ),
