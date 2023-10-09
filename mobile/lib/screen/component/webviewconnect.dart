@@ -1,20 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class Services {
-  final String serviceName;
-  final Image image;
-  final String url;
-  final String callbackUrl;
-
-  Services({
-    required this.serviceName,
-    required this.image,
-    required this.url,
-    required this.callbackUrl,
-  });
-}
-
 class WebViewConnect extends StatefulWidget {
   final String token;
   final String apiUrl;
