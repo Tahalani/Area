@@ -173,25 +173,6 @@ class _MyAreasState extends State<MyAreas> {
     REACTION reaction_args = reaction
         .firstWhere((reaction) => reaction.description == selectedReaction);
 
-    // print("Area title: ${areaTitleController.text}");
-    // print("Action id: ${action_args.id}");
-    // print("Action name: ${action_args.description}");
-    // for (Field field in action_args.fields) {
-    //   if (field.getControllerValue().isEmpty) {
-    //     done = false;
-    //   }
-    //   print("${field.key}: ${field.getControllerValue()}");
-    // }
-
-    // print("Reaction id: ${reaction_args.id}");
-    // print("Reaction name: ${reaction_args.description}");
-    // for (Field field in reaction_args.fields) {
-    //   if (field.getControllerValue().isEmpty) {
-    //     done = false;
-    //   }
-    //   print("${field.key}: ${field.getControllerValue()}");
-    // }
-
     if (!done) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -217,7 +198,8 @@ class _MyAreasState extends State<MyAreas> {
           field.key: field.getControllerValue()
       },
     };
-    print(jsonEncode(myJson));
+    var body = jsonEncode(myJson);
+    print(body);
   }
 
   @override
