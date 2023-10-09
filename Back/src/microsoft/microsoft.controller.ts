@@ -45,28 +45,32 @@ export class MicrosoftController {
       subject: 'Réunion importante PSK MEHDI IL EST TROP RELOU ',
       start: {
         dateTime: '2023-10-07T15:00:00',
-        timeZone: 'UTC'
+        timeZone: 'UTC',
       },
       end: {
         dateTime: '2023-10-07T16:00:00',
-        timeZone: 'UTC'
-      }
+        timeZone: 'UTC',
+      },
     };
 
     const url = 'https://graph.microsoft.com/v1.0/me/events';
 
-    axios.post(url, eventDetails, {
-      headers: {
-        'Authorization': `Bearer ${access_token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      console.log('Événement créé avec succès:', response.data);
-    })
-    .catch(error => {
-      console.error('Erreur lors de la création de l\'événement:', error.response.data);
-    })
+    axios
+      .post(url, eventDetails, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => {
+        console.log('Événement créé avec succès:', response.data);
+      })
+      .catch((error) => {
+        console.error(
+          "Erreur lors de la création de l'événement:",
+          error.response.data,
+        );
+      });
 
     // const createSubscription = async (accessToken: any) => {
     //   console.log("je suis dans createSubscription")
@@ -100,7 +104,7 @@ export class MicrosoftController {
     //   console.error('Erreur :', error);
     // }
 
-    res.redirect(`http://localhost:8081/AreaPage`);
+    res.redirect(`https://are4-51.com:8081/AreaPage`);
   }
 
   @Post('WebHook/Microsoft')

@@ -1,7 +1,7 @@
 // smee.module.ts
 
 import { Module } from '@nestjs/common';
-import Client = require("smee-client")
+import Client = require('smee-client');
 import { Inject } from '@nestjs/common';
 
 @Module({
@@ -10,7 +10,7 @@ import { Inject } from '@nestjs/common';
       provide: 'SmeeClientToken',
       useValue: new Client({
         source: 'https://smee.io/iDDj9mJTxmyCHTV',
-        target: 'http://localhost:3000/api/Webhook/GitHub',
+        target: 'https://are4-51.com:3000/api/Webhook/GitHub',
         logger: console,
       }),
     },
