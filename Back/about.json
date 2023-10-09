@@ -39,7 +39,13 @@
         },{
         "name": "Outlook",
         "description": "Outlook service",
-        "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png"
+        "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png",
+        "reactions":[{
+            "name": "create_event",
+            "reactionId": 4,
+            "description": "Create an event in your calendar",
+            "params": [{"title": "event_title", "start": "event_start(format: YYYY/MM/DD)", "end": "event_end(format: YYYY/MM/DD)"}]
+            }]
         }]
     }
 }

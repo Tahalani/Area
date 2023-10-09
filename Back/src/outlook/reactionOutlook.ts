@@ -1,101 +1,40 @@
 import { Injectable } from '@nestjs/common';
-import { Octokit } from '@octokit/rest';
-// import { DataPullRequest } from './outlook.dto';
 import { UserServiceEntity } from 'src/entity/userService.entity';
+import axios from 'axios';
 
 @Injectable()
 export class ReactionOutlook {
-  async getRepo(owner: string, accessToken: string | string[] | undefined) {
-    const octokit = new Octokit({
-      auth: accessToken,
-    });
+  async createEvent(userService: UserServiceEntity, arg: any) {
 
-    await octokit
-      .request('GET /user/repos', {
-        username: owner,
+    const access_token = userService.token;
+
+    const eventDetails = {
+      subject: `${arg.title}`,
+      start: {
+        dateTime: `${arg.start}T15:00:00`,
+        timeZone: 'UTC',
+      },
+      end: {
+        dateTime: `${arg.end}T15:00:00`,
+        timeZone: 'UTC',
+      },
+    };
+    const url = 'https://graph.microsoft.com/v1.0/me/events';
+    axios
+      .post(url, eventDetails, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'X-GitHub-Api-Version': '2022-11-28',
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
         },
       })
-      .then((res: any) => {
-        return res;
+      .then((response) => {
+        console.log('Événement créé avec succès:', response.data);
       })
-      .catch((err: any) => {
-        console.log(err);
+      .catch((error) => {
+        console.error(
+          "Erreur lors de la création de l'événement:",
+          error.response.data,
+        );
       });
-  }
-
-  async createIssue(userService: UserServiceEntity, arg: any) {
-    const octokit = new Octokit({
-      auth: userService.token,
-    });
-
-    await octokit
-      .request(
-        'POST /repos/' +
-          userService.serviceIdentifier +
-          '/' +
-          arg.repo +
-          '/issues',
-        {
-          owner: userService.serviceIdentifier,
-          repo: arg.repo,
-          title: arg.title,
-          body: arg.body,
-          assignees: arg.assignees,
-          milestone: arg.milestone,
-          labels: arg.labels,
-          headers: {
-            Authorization: `Bearer ${userService.token}`,
-            'X-GitHub-Api-Version': '2022-11-28',
-          },
-        },
-      )
-      .then((res) => {
-        console.log('RES: ', res.data);
-        return res;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  async createPullRequest(userService: UserServiceEntity, arg: any) {
-    const octokit = new Octokit({
-      auth: userService.token,
-    });
-
-    console.log('ARG: ', arg);
-    console.log('CREATE PULL REQUEST');
-
-    await octokit
-      .request(
-        'POST /repos/' +
-          userService.serviceIdentifier +
-          '/' +
-          arg.repo +
-          '/pulls',
-        {
-          owner: userService.serviceIdentifier,
-          repo: arg.repo,
-          title: arg.title,
-          body: arg.body,
-          head: arg.head,
-          base: arg.base,
-          maintainer_can_modify: true,
-          headers: {
-            Authorization: `Bearer ${userService.token}`,
-            'X-GitHub-Api-Version': '2022-11-28',
-          },
-        },
-      )
-      .then((res: any) => {
-        console.log('RES PR: ', res.data);
-        return res;
-      })
-      .catch((err: any) => {
-        console.log('BAD PR: ', err);
-      });
-  }
+    }
 }

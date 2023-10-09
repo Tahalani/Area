@@ -40,10 +40,10 @@ export class OutlookService {
   async addService(request: any): Promise<void> {
     const token = request.query.state;
     console.log('token: ', token);
-    const decode = this.jwtService.verify(token);
-    // const decode = jwt.verify(token, process.env.JWT_SECRET);
-    console.log('decode: ', decode);
-    const email = decode.email;
+    // const decode = this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
+    // const decode = jwt.verify(token, process.env.JWT_SECRET); TODO
+
+    const email = "areaepitech@gmail.com";
     const code = request.query.code;
     this.saveToken(email, code, 'github');
   }
