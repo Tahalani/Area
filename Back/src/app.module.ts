@@ -48,6 +48,7 @@ dotenv.config();
     AuthModule,
     GoogleModule,
     GithubModule,
+    OutlookModule,
     SmeeModule,
     CreationAreaModule,
     FrontDataModule,
