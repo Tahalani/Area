@@ -30,9 +30,8 @@ export class OutlookController {
   @Get('auth/Outlook')
   async OutlookAuth(@Req() req: any, @Res() res: Response) {
     const redirect_url = `${process.env.DNS_NAME}:8080/api/auth/Outlook/callback`;
-    const userToken = req.query.token;
     res.redirect(
-      `https://login.microsoftonline.com/${tenant_id}/oauth2/v2.0/authorize?client_id=${process.env.Microsoft_CLIENT_ID}&response_type=code&redirect_uri=${redirect_url}&response_mode=query&scope=Calendars.ReadWrite User.Read Mail.ReadWrite&state=${userToken}}`,
+      `https://login.microsoftonline.com/${tenant_id}/oauth2/v2.0/authorize?client_id=${process.env.Microsoft_CLIENT_ID}&response_type=code&redirect_uri=${redirect_url}&response_mode=query&scope=Calendars.ReadWrite User.Read Mail.ReadWrite&state=${req.user.email}}`,
     );
   }
 
