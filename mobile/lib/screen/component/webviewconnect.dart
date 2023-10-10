@@ -38,6 +38,7 @@ class _WebViewConnectState extends State<WebViewConnect> {
             onWebResourceError: (WebResourceError error) {},
             onNavigationRequest: (NavigationRequest request) {
               if (request.url.startsWith(widget.urlCallBack)) {
+                print("URL: ${request.url}");
                 Navigator.pop(context);
                 return NavigationDecision.prevent;
               }
@@ -45,7 +46,7 @@ class _WebViewConnectState extends State<WebViewConnect> {
             },
           ),
         )
-        ..loadRequest(Uri.parse(widget.apiUrl),
+        ..loadRequest(Uri.parse("${widget.apiUrl}?token=${widget.token}"),
             method: LoadRequestMethod.get, headers: headers);
     }
     final theme = Theme.of(context);
