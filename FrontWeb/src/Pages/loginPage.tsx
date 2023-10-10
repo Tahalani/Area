@@ -22,7 +22,7 @@ export default function Login() {
       password: password
     };
     console.log(data);
-    const url = 'https://are4-51.com:8080/api/auth/login/';
+    const url = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/login/';
   
     axios.post(url, data)
     .then(response => {

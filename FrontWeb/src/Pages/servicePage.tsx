@@ -21,7 +21,7 @@ export default function Service() {
 
   const GitHUbConnection = () => {
     window.location.href =
-      'https://are4-51.com:8080/api/auth/github?token=' +
+    import.meta.env.VITE_DNS_NAME + ':8080/api/auth/github?token=' +
       localStorage.getItem('token');
   }
   const url = 'https://are4-51.com:8080/api/actions/get?serviceId=' + selectedService.serviceId;

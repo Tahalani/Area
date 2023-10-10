@@ -24,6 +24,7 @@ async function getOutlookToken(code: string): Promise<string | string[] | undefi
       },
     },
   );
+  // TODO
   return response.data.access_token;
 }
 export class OutlookService {
@@ -38,14 +39,9 @@ export class OutlookService {
   ) {}
 
   async addService(request: any): Promise<void> {
-    const token = request.query.state;
-    console.log('token: ', token);
-    // const decode = this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
-    // const decode = jwt.verify(token, process.env.JWT_SECRET); TODO
-
-    const email = "areaepitech@gmail.com";
+    const email = request.query.state;
     const code = request.query.code;
-    this.saveToken(email, code, 'github');
+    this.saveToken(email, code, 'outlook');
   }
 
   private async saveToken(email: string, code: string, serviceName: string) {
@@ -60,7 +56,8 @@ export class OutlookService {
       return;
     }
 
-    const OutlookToken = await getOutlookToken(code);
+    // const OutlookToken = await getOutlookToken(code);
+    const OutlookToken = "await getOutlookToken(code)";
     if (OutlookToken === undefined) {
       console.error('Error getting token outlook');
       return;
@@ -69,7 +66,7 @@ export class OutlookService {
       const userService = UserServiceEntity.create();
       userService.user = user;
       userService.service = service;
-      userService.serviceIdentifier = user.email; // TODO change
+      userService.serviceIdentifier = "TODO user.email"; // TODO change
       userService.token = OutlookToken.toString();
       await userService.save();
     } catch (error) {
