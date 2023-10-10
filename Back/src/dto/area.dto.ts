@@ -3,7 +3,6 @@ import { ReactionGithub } from 'src/github/reactionGithub';
 import { MailingReaction } from 'src/mailing/mailing.reaction';
 
 export class areaDto {
-  token: string;
   id_Action: number;
   id_Reaction: number;
   argsAction: object;

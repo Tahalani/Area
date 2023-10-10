@@ -18,7 +18,6 @@ export default function Service() {
   const createArea = () => {
     console.log("createArea")
     axios.post(import.meta.env.VITE_DNS_NAME + ':8080/api/area/create', {
-      token: localStorage.getItem('token'),
       id_Action: 1,
       id_Reaction: 2,
       argsAction: {
@@ -32,7 +31,7 @@ export default function Service() {
         base: "main",
         maintainer_can_modify: true
       },
-    })
+    }, {headers: {authorization: "Bearer " + localStorage.getItem('token')}})
     .then(response => {
       console.log(response.data);
     })
