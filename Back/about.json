@@ -1,51 +1,56 @@
 {
-"server": {
-    "services": [{
-        "name":"GitHub",
-        "description":"GitHub service",
-        "logo_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
-        "actions": [{
-            "name":"push_on_repository",
-            "actionId": 1,
-            "description":"A push is made on a repository",
-            "params": [{"repo": "repository_name"}]
-                }] ,
-        "reactions": [{
-            "name":"create_issue",
-            "reactionId": 1,
-            "description":"Create an issue on a repository",
-            "params": [{"repo": "repository_name", "title": "issue_title", "body": "issue_body", "assignees": "issue_assignees", "milestone":"milestones","labels": "issue_labels"}]
-                },{
-            "name":"create_pull_request",
-            "reactionId": 2,
-            "description":"Create a pull request on a repository",
-            "params": [{"repo": "repository_name", "title": "pull_request_title", "body": "pull_request_body", "head": "pull_request_head", "base": "pull_request_base"}]
-                }
-            ]
-        },{
-        "name": "Google",
-        "description": "Google service",
-        "logo_url": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-        },{
-        "name": "Mail",
-        "description": "Mail service",
-        "logo_url": "https://icon-library.com/images/mail-icon-png-white/mail-icon-png-white-18.jpg",
-        "reactions": [{
-            "name":"send_mail",
-            "reactionId": 3,
-            "description":"Send a mail",
-            "params": [{"to": "mail_to", "subject": "mail_subject", "body": "mail_body"}]
+    "server": {
+        "services": [{
+            "name":"GitHub",
+            "description":"GitHub service",
+            "logo_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            "actions": [{
+                "name":"push_on_repository",
+                "actionId": 1,
+                "description":"A push is made on a repository",
+                "params": [{"repo": "repository_name"}]
+                    }, {
+                "name":"pull_request_on_repository",
+                "actionId": 2,
+                "description":"A pull request is made on a repository",
+                "params": [{"repo": "repository_name"}]
+                    }],
+            "reactions": [{
+                "name":"create_issue",
+                "reactionId": 1,
+                "description":"Create an issue on a repository",
+                "params": [{"repo": "repository_name", "title": "issue_title", "body": "issue_body", "assignees": "issue_assignees", "milestone":"milestones","labels": "issue_labels"}]
+                    },{
+                "name":"create_pull_request",
+                "reactionId": 2,
+                "description":"Create a pull request on a repository",
+                "params": [{"repo": "repository_name", "title": "pull_request_title", "body": "pull_request_body", "head": "pull_request_head", "base": "pull_request_base"}]
+                    }
+                ]
+            },{
+            "name": "Google",
+            "description": "Google service",
+            "logo_url": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+            },{
+            "name": "Mail",
+            "description": "Mail service",
+            "logo_url": "https://icon-library.com/images/mail-icon-png-white/mail-icon-png-white-18.jpg",
+            "reactions": [{
+                "name":"send_mail",
+                "reactionId": 3,
+                "description":"Send a mail",
+                "params": [{"to": "mail_to", "subject": "mail_subject", "body": "mail_body"}]
+                    }]
+            },{
+            "name": "Outlook",
+            "description": "Outlook service",
+            "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png",
+            "reactions":[{
+                "name": "create_event",
+                "reactionId": 4,
+                "description": "Create an event in your calendar",
+                "params": [{"title": "event_title", "start": "event_start(format: YYYY/MM/DD)", "end": "event_end(format: YYYY/MM/DD)"}]
                 }]
-        },{
-        "name": "outlook",
-        "description": "Outlook service",
-        "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png",
-        "reactions":[{
-            "name": "create_event",
-            "reactionId": 4,
-            "description": "Create an event in your calendar",
-            "params": [{"title": "event_title", "start": "event_start(format: YYYY/MM/DD)", "end": "event_end(format: YYYY/MM/DD)"}]
             }]
-        }]
-    }
+        }
 }
