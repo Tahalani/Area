@@ -10,9 +10,8 @@ import { UserServiceEntity } from 'src/entity/userService.entity';
 
 @Injectable()
 export class CreationAreaService {
-  async getUser(token: string): Promise<UserEntity | null> {
-    const userData: any = decode(token);
-    const user = await UserEntity.findOneBy({ email: userData.email });
+  async getUser(email: string): Promise<UserEntity | null> {
+    const user = await UserEntity.findOneBy({ email: email });
     return user;
   }
 
@@ -44,9 +43,9 @@ export class CreationAreaService {
   }
 
 
-  async createArea(areaData: areaDto): Promise<string> {
+  async createArea(areaData: areaDto, req: any): Promise<string> {
 
-    const user: UserEntity | null = await this.getUser(areaData.token);
+    const user: UserEntity | null = await this.getUser(req.user.email);
     if (user === null)
       return '42 User not found';
 
