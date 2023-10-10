@@ -24,6 +24,7 @@ async function getOutlookToken(code: string): Promise<string | string[] | undefi
       },
     },
   );
+  // TODO
   return response.data.access_token;
 }
 export class OutlookService {
@@ -55,7 +56,8 @@ export class OutlookService {
       return;
     }
 
-    const OutlookToken = await getOutlookToken(code);
+    // const OutlookToken = await getOutlookToken(code);
+    const OutlookToken = "await getOutlookToken(code)";
     if (OutlookToken === undefined) {
       console.error('Error getting token outlook');
       return;
