@@ -5,24 +5,26 @@ import { useServiceContext } from "../../ServiceContext.js";
 interface SquareProps {
   topImage: string;
   bottomText: string;
-  linkTo: string;
+  description: string;
+  serviceId: number;
 }
 
 const ServiceCase: React.FC<SquareProps> = ({
   topImage,
   bottomText,
-  linkTo,
+  description,
+  serviceId,
 }) => {
   const { setService } = useServiceContext();
 
   const handleServiceClick = () => {
-    setService({ topImage, bottomText });
+    setService({ topImage, bottomText, description, serviceId });
   };
 
   return (
     <div>
       <div onClick={handleServiceClick}>
-        <Square topImage={topImage} bottomText={bottomText} linkTo={linkTo} />
+        <Square topImage={topImage} bottomText={bottomText} description={description} serviceId={serviceId} />
       </div>
     </div>
   );
