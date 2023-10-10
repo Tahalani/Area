@@ -1,6 +1,6 @@
 import { Controller, Get, Req } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiProperty } from '@nestjs/swagger';
 import { promises as fsPromises } from 'fs';
 import { Request } from 'express';
 
@@ -15,6 +15,7 @@ export class AppController {
   }
 
   @Get('about.json')
+  @ApiOkResponse({ description: 'Return about.json' })
   async sendAbout(@Req() request: Request): Promise<any> {
     const jsonData = await fsPromises.readFile('./about.json', 'utf-8');
     const config = JSON.parse(jsonData);
@@ -32,8 +33,6 @@ export class AppController {
     };
 
     const updatedConfig = { ...clientInfo, ...config };
-
-    return updatedConfig;
 
     return updatedConfig;
   }
