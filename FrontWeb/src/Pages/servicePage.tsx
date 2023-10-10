@@ -61,25 +61,24 @@ export default function Service() {
             {/* )} */}
           </div>
         </div>
-
         <div className="bg-white h-2/3 w-screen">
-          {/* {connected && (
-            <> */}
-              <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Area's</h1>
-              <div className="flex justify-center items-center space-x-10 mb-[2%]">
-                {services.map((service, index) => (
-                  <Card
-                    key={index}
-                    id={service.id}
-                    name={service.name}
-                    args_action={service.args_action}
-                    description={service.description}
-                    serviceId={service.serviceId}
-                  />
-                ))}
-              </div>
-            {/* </>
-          )} */}
+          {services && services.length != 10 && (
+        <>
+          <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Area's</h1>
+          <div className="flex justify-center items-center space-x-10 mb-[2%]">
+            {services.map((service, index) => (
+              <Card
+                key={index}
+                id={service.id}
+                name={service.name}
+                args_action={service.args_action}
+                description={service.description}
+                serviceId={service.serviceId}
+              />
+            ))}
+          </div>
+        </>
+      )}
         </div>
       </div>
     </>

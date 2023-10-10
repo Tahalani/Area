@@ -18,17 +18,43 @@ export default function ReactionPage() {
     setTextInputValues({ ...textInputValues });
   }
 
+  const createArea = () => {
+    console.log("createArea")
+    axios.post('http://localhost:8080/api/area/create', {
+      token: localStorage.getItem('token'),
+      id_Action: 1,
+      id_Reaction: 2,
+      argsAction: {
+        repo: "areaTest",
+      },
+      argsReaction: {
+        repo: "areaTest",
+        title: "test",
+        body: "test",
+        head: "test",
+        base: "main",
+        maintainer_can_modify: true
+      },
+    })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Erreur lors de la requete :', error);
+    });
+  }
+
   const handleSubmit = () => {
     console.log(textInputValues);
-    // console.log(selectedService);
+    createArea();
   }
 
   return (
     <>
     <Navigationbar/>
-      <div className="h-screen relative">
+      <div className="bg-main h-screen relative">
         <div className="bg-main h-2/4 w-screen">
-          <div style={{ fontFamily: 'merriweather' }} className="flex items-center justify-center pt-6 flex-col ">
+          <div style={{ fontFamily: 'merriweather' }} className="bg-main flex items-center justify-center pt-6 flex-col ">
             <div>
             <ul>
               {parsedItems.map((item, index) => (
