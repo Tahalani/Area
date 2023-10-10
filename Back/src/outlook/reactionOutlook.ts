@@ -4,18 +4,20 @@ import axios from 'axios';
 
 @Injectable()
 export class ReactionOutlook {
-  async createEvent(userService: UserServiceEntity, arg: any) {
+  async createEvent(userService: any, arg: any) {
 
-    const access_token = userService.token;
+    console.log('userService :', userService[0].token);
+
+    const access_token = userService[0].token;
 
     const eventDetails = {
       subject: `${arg.title}`,
       start: {
-        dateTime: `${arg.start}T15:00:00`,
+        dateTime: `${arg.start}T10:00:00`,
         timeZone: 'UTC',
       },
       end: {
-        dateTime: `${arg.end}T15:00:00`,
+        dateTime: `${arg.end}T17:00:00`,
         timeZone: 'UTC',
       },
     };

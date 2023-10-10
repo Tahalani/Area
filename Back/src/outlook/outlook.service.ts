@@ -98,65 +98,65 @@ export class OutlookService {
     }
   }
 
-  async getUserService(
-    serviceIdentifier: string,
-  ): Promise<UserServiceEntity | null> {
-    const userService = await UserServiceEntity.findOneBy({
-      serviceIdentifier: serviceIdentifier,
-    });
-    if (userService === null) {
-      console.error('User not found (', serviceIdentifier, ')');
-      return null;
-    }
-    return userService;
-  }
+  // async getUserService(
+  //   serviceIdentifier: string,
+  // ): Promise<UserServiceEntity | null> {
+  //   const userService = await UserServiceEntity.findBy({
+  //     serviceIdentifier: serviceIdentifier,
+  //   });
+  //   if (userService === null) {
+  //     console.error('User not found (', serviceIdentifier, ')');
+  //     return null;
+  //   }
+  //   return userService;
+  // }
 
-  async getArea(
-    userService: UserServiceEntity,
-    event: string,
-    repo: string,
-  ): Promise<AreaEntity | null> {
-    const area = await AreaEntity.find({
-      where: {
-        user: { id: userService.userId },
-        action: { id: this.map[event] },
-      },
-    });
+  // async getArea(
+  //   userService: UserServiceEntity,
+  //   event: string,
+  //   repo: string,
+  // ): Promise<AreaEntity | null> {
+  //   const area = await AreaEntity.find({
+  //     where: {
+  //       user: { id: userService.userId },
+  //       action: { id: this.map[event] },
+  //     },
+  //   });
 
-    if (area === null) {
-      console.error('Area not found (', userService, event, ')');
-      return null;
-    }
+  //   if (area === null) {
+  //     console.error('Area not found (', userService, event, ')');
+  //     return null;
+  //   }
 
-    for (const element of area) {
-      const args_action = JSON.parse(JSON.stringify(element.args_action));
-      if (args_action.repo === repo) return element;
-    }
-    return null;
-  }
+  //   for (const element of area) {
+  //     const args_action = JSON.parse(JSON.stringify(element.args_action));
+  //     if (args_action.repo === repo) return element;
+  //   }
+  //   return null;
+  // }
 
-  async webhookHandling(req: any): Promise<void> {
-    const userService = await this.getUserService(req.body.sender.login);
-    if (userService == null) {
-      console.error('User not found (', req.body.sender, ')');
-      return;
-    }
-    const area = await this.getArea(
-      userService,
-      req.headers['x-github-event'],
-      req.body.repository.name,
-    );
-    console.log('areaFinal: ', area);
-    if (area === null) {
-      console.error(
-        'Area not found (',
-        userService,
-        req.headers['x-github-event'],
-        ')',
-      );
-      return;
-    }
-    const Reaction = new ReactionArray();
-    Reaction.map[area.reactionId](userService, area.args_reaction);
-  }
+  // async webhookHandling(req: any): Promise<void> {
+  //   const userService = await this.getUserService(req.body.sender.login);
+  //   if (userService == null) {
+  //     console.error('User not found (', req.body.sender, ')');
+  //     return;
+  //   }
+  //   const area = await this.getArea(
+  //     userService,
+  //     req.headers['x-github-event'],
+  //     req.body.repository.name,
+  //   );
+  //   console.log('areaFinal: ', area);
+  //   if (area === null) {
+  //     console.error(
+  //       'Area not found (',
+  //       userService,
+  //       req.headers['x-github-event'],
+  //       ')',
+  //     );
+  //     return;
+  //   }
+  //   const Reaction = new ReactionArray();
+  //   Reaction.map[area.reactionId](userService, area.args_reaction);
+  // }
 }

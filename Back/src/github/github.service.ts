@@ -138,6 +138,13 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
         console.error("Area not found (", userService, req.headers['x-github-event'], ")");
         return;
       }
+      if (area.reactionId === 4) {
+        console.log("je rentre la: ", area.reactionId)
+        const userService2 = await UserServiceEntity.find({ where: { user: { id: userService.userId }, service: { id: 4 } } });
+        const Reaction = new ReactionArray
+        Reaction.map[area.reactionId](userService2, area.args_reaction);
+        return;
+      }
       const Reaction = new ReactionArray
       Reaction.map[area.reactionId](userService, area.args_reaction);
     }
