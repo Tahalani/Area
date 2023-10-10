@@ -9,7 +9,7 @@ export default function Card() {
     const [client, setClient] = useState<any>({});
 
     const getProfile = () => {
-      axios.get('http://localhost:8080/api/auth/profile/', {
+      axios.get('https://are4-51.com:8080/api/auth/profile/', {
         headers: {
           'accept': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('token'),

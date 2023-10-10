@@ -4,7 +4,7 @@ export default function Search() {
 
     const MicrosoftConnection = () => {
         window.location.href =
-          'http://localhost:8080/api/auth/Microsoft?token=' +
+          'https://are4-51.com:8080/api/auth/Microsoft?token=' +
           localStorage.getItem('token');
       }
 

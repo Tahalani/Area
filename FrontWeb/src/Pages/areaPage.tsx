@@ -19,7 +19,7 @@ export default function Area() {
   const [services, setServices] = useState<ServiceData[]>([]);
 
   const getServices = () => {
-    axios.get('http://localhost:8080/api/services/get')
+    axios.get('https://are4-51.com:8080/api/services/get')
       .then(response => {
         console.log(response.data);
         setServices(response.data);
@@ -27,11 +27,7 @@ export default function Area() {
       .catch(error => {
         console.error('Erreur lors de la requête :', error);
       });
-  // const MicrosoftConnection = () => {
-  //   window.location.href =
-  //     'https://are4-51.com:8080/api/auth/Outlook?token=' +
-  //     localStorage.getItem('token');
-  // }
+  }
 
   useEffect(() => {
     getServices();
