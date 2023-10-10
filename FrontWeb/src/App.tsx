@@ -8,6 +8,7 @@ import Profil from "./Pages/profilPage.tsx";
 import Area from "./Pages/areaPage.tsx";
 import InArea from "./Pages/inAreaPage.tsx";
 import Service from "./Pages/servicePage.tsx";
+import ReactionPage from "./Pages/reactionPage.tsx";
 import AuthSuccess from "./Pages/auth/succesPage.tsx";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../translate.tsx";
@@ -33,6 +34,7 @@ function App() {
               <Route path="/settingPage" element={<Setting />} />
               <Route path="/servicePage" element={<Service />} />
               <Route path="/inAreaPage" element={<InArea />} />
+              <Route path="/reactionPage" element={<ReactionPage />} />
               <Route path="/auth/succes" element={<AuthSuccess />} />
               <Route path="/" element={<Home />} />
               <Route path="*" element={<Navigate to="/homePage" />} />

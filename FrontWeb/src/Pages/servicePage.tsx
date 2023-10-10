@@ -2,7 +2,9 @@ import Navigationbar from "../Components/ServicePage/ServiceNavBar.tsx";
 import Card from "../Components/ServicePage/card.tsx";
 import { useServiceContext } from "../ServiceContext";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import { useAppContext } from '../AppContext';
 
 type ActionData = {
   id: number;
@@ -16,13 +18,16 @@ export default function Service() {
   if (localStorage.getItem('token') == null) {
     window.location.href = '/loginPage';
   }
+  const navigate = useNavigate();
   const { selectedService } = useServiceContext();
   const [services, setServices] = useState<ActionData[]>([]);
+  const { connected, setConnected } = useAppContext();
 
-  const GitHUbConnection = () => {
+  const AccountConnection = () => {
     window.location.href =
-    import.meta.env.VITE_DNS_NAME + ':8080/api/auth/github?token=' +
-      localStorage.getItem('token');
+    import.meta.env.VITE_DNS_NAME + ':8080/api/auth/' + selectedService.bottomText + '?token=' + localStorage.getItem('token');
+    setConnected(true);
+    navigate('/servicePage');
   }
   const url = import.meta.env.VITE_DNS_NAME + ':8080/api/actions/get?serviceId=' + selectedService.serviceId;
   const getServices = () => {
@@ -49,23 +54,32 @@ export default function Service() {
           </div>
           <div className="">
             <p style={{ fontFamily: 'merriweather', lineHeight: '1.2' }} className="mt-2 mb-2 text-[30px] text-black">{selectedService.bottomText}</p>
-            <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={GitHUbConnection}>Connect</button>
+            {/* {connected ? (
+              <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]">Connected</button>
+            ) : ( */}
+              <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={AccountConnection}>Connect</button>
+            {/* )} */}
           </div>
         </div>
+
         <div className="bg-white h-2/3 w-screen">
-          <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Area's</h1>
-          <div className="flex justify-center items-center space-x-10 mb-[2%]">
-          {services.map((service, index) => (
-            <Card
-              key={index}
-              id={service.id}
-              name={service.name}
-              args_action={service.args_action}
-              description={service.description}
-              serviceId={service.serviceId}
-            />
-          ))}
-          </div>
+          {/* {connected && (
+            <> */}
+              <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Area's</h1>
+              <div className="flex justify-center items-center space-x-10 mb-[2%]">
+                {services.map((service, index) => (
+                  <Card
+                    key={index}
+                    id={service.id}
+                    name={service.name}
+                    args_action={service.args_action}
+                    description={service.description}
+                    serviceId={service.serviceId}
+                  />
+                ))}
+              </div>
+            {/* </>
+          )} */}
         </div>
       </div>
     </>
