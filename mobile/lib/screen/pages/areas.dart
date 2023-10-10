@@ -163,7 +163,7 @@ class _MyAreasState extends State<MyAreas> {
     });
   }
 
-  void addArea() {
+  void addArea() async {
     bool done = true;
     if (areaTitleController.text.isEmpty) {
       done = false;
@@ -185,7 +185,7 @@ class _MyAreasState extends State<MyAreas> {
     }
 
     Map<String, dynamic> myJson = {
-      "token": widget.token,
+      // "token": widget.token,
       // "title": areaTitleController.text,
       "id_Action": action_args.id,
       "id_Reaction": reaction_args.id,
@@ -200,6 +200,35 @@ class _MyAreasState extends State<MyAreas> {
     };
     var body = jsonEncode(myJson);
     print(body);
+
+
+    var response = await http.post(
+      Uri.parse("https://are4-51.com:8080/api/area/create"),
+      headers: <String, String>{
+        'Authorization': 'Bearer ${widget.token}',
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    );
+
+    if (response.statusCode == 201) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Area added'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 1),
+        ),
+      );
+    } else {
+      print(response.body);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to add area'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 1),
+        ),
+      );
+    }
   }
 
   @override
