@@ -3,7 +3,6 @@ import { ServiceEntity } from 'src/entity/service.entity';
 import { ActionEntity } from 'src/entity/action.entity';
 import { ReactionEntity } from 'src/entity/reaction.entity';
 import { promises as fsPromises } from 'fs';
-import { async } from 'rxjs';
 
 
 export class InitService implements OnModuleInit {

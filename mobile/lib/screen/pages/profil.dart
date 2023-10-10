@@ -27,7 +27,7 @@ class UserProfile {
 
 class _MyProfilState extends State<MyProfil> {
   Future<UserProfile> fetchUser(String token) async {
-    var url = "http://163.172.134.80:8080/api/auth/profile";
+    var url = "https://are4-51.com:8080/api/auth/profile";
     var headers = {'Authorization': 'Bearer ${widget.token}'};
     var response = await http.get(Uri.parse(url), headers: headers);
     if (response.statusCode == 200) {
@@ -68,7 +68,7 @@ class _MyProfilState extends State<MyProfil> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil'),
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromRGBO(30, 41, 133, 1),
         actions: [
           IconButton(
               onPressed: () {

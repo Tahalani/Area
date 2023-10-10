@@ -7,10 +7,6 @@ import axios from 'axios';
 config();
 
 const tenant_id = 'common';
-const Microsoft_CLIENT_ID = '3d597da2-59ad-4fcf-bde3-f9a8f136e01f';
-const Microsoft_SCOPE_ID =
-  'api://3d597da2-59ad-4fcf-bde3-f9a8f136e01f/DataAccess';
-const Microsoft_CLIENT_SECRET = 'X7c8Q~x6G2Rvm.d1GFTcE_QXfEIjN97VHvBM1dr.';
 
 @Controller('api')
 export class MicrosoftController {
@@ -20,7 +16,7 @@ export class MicrosoftController {
   async MicrosoftAuth(@Req() req: any, @Res() res: Response) {
     const userToken = req.query.token;
     res.redirect(
-      `https://login.microsoftonline.com/${tenant_id}/oauth2/v2.0/authorize?client_id=${Microsoft_CLIENT_ID}&response_type=code&redirect_uri=http://163.172.134.80:8080/api/auth/Microsoft/callback&response_mode=query&scope=Calendars.ReadWrite User.Read Mail.ReadWrite`,
+      `https://login.microsoftonline.com/${tenant_id}/oauth2/v2.0/authorize?client_id=${process.env.Microsoft_CLIENT_ID}&response_type=code&redirect_uri=http://163.172.134.80:8080/api/auth/Microsoft/callback&response_mode=query&scope=Calendars.ReadWrite User.Read Mail.ReadWrite`,
     );
   }
 
@@ -30,7 +26,7 @@ export class MicrosoftController {
 
     const response = await axios.post(
       'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-      `client_id=${Microsoft_CLIENT_ID}&client_secret=${Microsoft_CLIENT_SECRET}&code=${req.query.code}&redirect_uri=http://163.172.134.80:8080/api/auth/Microsoft/callback&grant_type=authorization_code`,
+      // `client_id=${Microsoft_CLIENT_ID}&client_secret=${Microsoft_CLIENT_SECRET}&code=${req.query.code}&redirect_uri=http://163.172.134.80:8080/api/auth/Microsoft/callback&grant_type=authorization_code`,
       {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -45,28 +41,32 @@ export class MicrosoftController {
       subject: 'Réunion importante PSK MEHDI IL EST TROP RELOU ',
       start: {
         dateTime: '2023-10-07T15:00:00',
-        timeZone: 'UTC'
+        timeZone: 'UTC',
       },
       end: {
         dateTime: '2023-10-07T16:00:00',
-        timeZone: 'UTC'
-      }
+        timeZone: 'UTC',
+      },
     };
 
     const url = 'https://graph.microsoft.com/v1.0/me/events';
 
-    axios.post(url, eventDetails, {
-      headers: {
-        'Authorization': `Bearer ${access_token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      console.log('Événement créé avec succès:', response.data);
-    })
-    .catch(error => {
-      console.error('Erreur lors de la création de l\'événement:', error.response.data);
-    })
+    axios
+      .post(url, eventDetails, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => {
+        console.log('Événement créé avec succès:', response.data);
+      })
+      .catch((error) => {
+        console.error(
+          "Erreur lors de la création de l'événement:",
+          error.response.data,
+        );
+      });
 
     // const createSubscription = async (accessToken: any) => {
     //   console.log("je suis dans createSubscription")
@@ -100,7 +100,7 @@ export class MicrosoftController {
     //   console.error('Erreur :', error);
     // }
 
-    res.redirect(`http://localhost:8081/AreaPage`);
+    res.redirect(`https://are4-51.com:8081/AreaPage`);
   }
 
   @Post('WebHook/Microsoft')

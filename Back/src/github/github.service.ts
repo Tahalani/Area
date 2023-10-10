@@ -17,21 +17,26 @@ const jwt = require('jsonwebtoken');
 
 async function getGitHubToken({ code }: { code: string }): Promise<string | string[] | undefined> {
   const githubToken = await axios
-    .post(
-      `https://github.com/login/oauth/access_token?client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}&code=${code}`
+  .post(
+    `https://github.com/login/oauth/access_token?client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}&code=${code}`
     )
     .then((res) => res.data)
     .catch((error) => {
       throw error;
     });
-  const decoded = querystring.parse(githubToken);
-  const accessToken = decoded.access_token;
-  return accessToken;
-}
+    const decoded = querystring.parse(githubToken);
+    const accessToken = decoded.access_token;
+    return accessToken;
+  }
+  
+  
+  @Injectable()
+  export class GitHubService {
 
+    map: {[key: string]: number}  = {
+      push: 1,
+    };
 
-@Injectable()
-export class GitHubService {
     constructor(private readonly reactionGithub: ReactionGithub, private readonly actionGithub: ActionGithub) {}
 
     async getInfoUser(accessToken: string | string[] | undefined) {
@@ -101,11 +106,10 @@ export class GitHubService {
     }
 
     async getArea(userService: UserServiceEntity, event: string, repo: string): Promise<AreaEntity | null> {
-
       const area = await AreaEntity.find({
         where: {
           user: {id: userService.userId },
-          action: { id: 1 },
+          action: { id: this.map[event] },
         }
       });
 

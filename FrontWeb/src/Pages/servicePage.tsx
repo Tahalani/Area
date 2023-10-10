@@ -21,7 +21,7 @@ export default function Service() {
 
   const GitHUbConnection = () => {
     window.location.href =
-      'http://localhost:8080/api/auth/github?token=' +
+      'https://are4-51.com:8080/api/auth/github?token=' +
       localStorage.getItem('token');
   }
   const url = 'http://localhost:8080/api/actions/get?serviceId=' + selectedService.serviceId;

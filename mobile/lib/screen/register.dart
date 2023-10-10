@@ -71,7 +71,7 @@ class _MyRegisterState extends State<MyRegister> {
           lastNameborder == Colors.red) {
         return;
       }
-      var url = Uri.parse('http://163.172.134.80:8080/api/auth/register');
+      var url = Uri.parse('https://are4-51.com:8080/api/auth/register');
       var response = await http.post(url,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -216,25 +216,25 @@ class _MyRegisterState extends State<MyRegister> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ServiceButton(
-                          onPressed: () {},
-                          path: 'google.png',
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        ServiceButton(
-                          onPressed: () {},
-                          path: 'facebook.png',
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     ServiceButton(
+                    //       onPressed: () {},
+                    //       path: 'google.png',
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 20,
+                    //     ),
+                    //     ServiceButton(
+                    //       onPressed: () {},
+                    //       path: 'facebook.png',
+                    //     ),
+                    //   ],
+                    // ),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

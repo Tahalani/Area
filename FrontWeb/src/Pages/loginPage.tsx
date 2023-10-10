@@ -22,7 +22,7 @@ export default function Login() {
       password: password
     };
     console.log(data);
-    const url = 'http://localhost:8080/api/auth/login/';
+    const url = 'https://are4-51.com:8080/api/auth/login/';
   
     axios.post(url, data)
     .then(response => {

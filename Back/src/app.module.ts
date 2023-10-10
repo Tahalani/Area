@@ -10,12 +10,11 @@ import { GoogleModule } from './google/google.module';
 import { AuthModule } from './auth/auth.module';
 import { GithubModule } from './github/github.module';
 import * as dotenv from 'dotenv';
-import { MicrosoftService } from './microsoft/microsoft.service';
-import { MicrosoftController } from './microsoft/microsoft.controller';
 import { SmeeModule } from './smee/smee.module';
 import { InitService } from './initialization/initiService';
 import { CreationAreaModule } from './creation-area/creation-area.module';
 import { FrontDataModule } from './front-data/front-data.module';
+import { OutlookModule } from './outlook/outlook.module';
 
 dotenv.config();
 
@@ -42,16 +41,17 @@ dotenv.config();
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '5h' },
     }),
     AuthModule,
     GoogleModule,
     GithubModule,
+    OutlookModule,
     SmeeModule,
     CreationAreaModule,
     FrontDataModule,
   ],
-  controllers: [AppController, MicrosoftController],
-  providers: [AppService, MailingReaction, MicrosoftService, InitService],
+  controllers: [AppController],
+  providers: [AppService, MailingReaction, InitService],
 })
 export class AppModule {}
