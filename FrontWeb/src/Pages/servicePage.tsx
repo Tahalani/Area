@@ -11,13 +11,13 @@ export default function Service() {
   console.log(localStorage.getItem('token'));
   const GitHUbConnection = () => {
     window.location.href =
-      'https://are4-51.com:8080/api/auth/github?token=' +
+    import.meta.env.VITE_DNS_NAME + ':8080/api/auth/github?token=' +
       localStorage.getItem('token');
   }
 
   const createArea = () => {
     console.log("createArea")
-    axios.post('https://are4-51.com:8080/api/area/create', {
+    axios.post(import.meta.env.VITE_DNS_NAME + ':8080/api/area/create', {
       token: localStorage.getItem('token'),
       id_Action: 1,
       id_Reaction: 2,

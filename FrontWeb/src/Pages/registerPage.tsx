@@ -27,7 +27,7 @@ export default function Register() {
     };
     console.log(data);
     axios
-      .post('https://are4-51.com:8080/api/auth/register/', data)
+      .post(import.meta.env.VITE_DNS_NAME + ':8080/api/auth/register/', data)
       .then(() => {
         navigate('/loginPage');
       })
