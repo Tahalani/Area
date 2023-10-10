@@ -14,19 +14,36 @@ config();
 
 const jwt = require('jsonwebtoken');
 
-async function getOutlookToken(code: string): Promise<string | string[] | undefined> {
-  const response = await axios.post(
-    'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-    `client_id=${process.env.Microsoft_CLIENT_ID}&client_secret=${process.env.Microsoft_CLIENT_SECRET}&code=${code}&redirect_uri=${process.env.redirect_url}&grant_type=authorization_code`,
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    },
-  );
-  // TODO
-  return response.data.access_token;
+async function getOutlookToken(code: string): Promise<string | undefined | string[]> {
+  try {
+    const response = await axios.post(
+      'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+      `client_id=${process.env.Microsoft_CLIENT_ID}&client_secret=${process.env.Microsoft_CLIENT_SECRET}&code=${code}&redirect_uri=${process.env.DNS_NAME}:8080/api/auth/Outlook/callback&grant_type=authorization_code`,
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      return response.data.access_token;
+  } catch (error) {
+    console.error('Error getting token outlook');
+    return undefined;
+  }
 }
+
+async function getOutlookUserId(token: string): Promise<string | undefined> {
+  try {
+    const response = await axios.get('https://graph.microsoft.com/v1.0/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.id;
+  } catch (error) {
+    return error;
+  }
+}
+
 export class OutlookService {
   map: { [key: string]: number } = {
     push: 1,
@@ -56,19 +73,25 @@ export class OutlookService {
       return;
     }
 
-    // const OutlookToken = await getOutlookToken(code);
-    const OutlookToken = "await getOutlookToken(code)";
+    const OutlookToken = await getOutlookToken(code);
     if (OutlookToken === undefined) {
       console.error('Error getting token outlook');
+      return;
+    }
+    const OutlookUserId = await getOutlookUserId(OutlookToken.toString());
+    if (OutlookUserId === undefined) {
+      console.error('Error getting user id outlook');
       return;
     }
     try {
       const userService = UserServiceEntity.create();
       userService.user = user;
       userService.service = service;
-      userService.serviceIdentifier = "TODO user.email"; // TODO change
+      userService.serviceIdentifier = OutlookUserId;
       userService.token = OutlookToken.toString();
+      console.log('Outlook token: ', userService.token, 'Outlook user id: ', userService.serviceIdentifier, 'Outlook user: ', userService.user, 'Outlook service: ', userService.service);
       await userService.save();
+      console.log('Outlook token saved');
     } catch (error) {
       console.error('Error saving token outlook');
       return;
