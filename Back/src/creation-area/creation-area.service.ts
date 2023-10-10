@@ -47,7 +47,7 @@ export class CreationAreaService {
 
     const user: UserEntity | null = await this.getUser(req.user.email);
     if (user === null)
-      return '42 User not found';
+      return '412 User not found';
 
     const action: ActionEntity | null = await this.getAction(areaData.id_Action);
     if (action === null)

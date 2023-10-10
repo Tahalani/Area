@@ -37,7 +37,7 @@
             "params": [{"to": "mail_to", "subject": "mail_subject", "body": "mail_body"}]
                 }]
         },{
-        "name": "Outlook",
+        "name": "outlook",
         "description": "Outlook service",
         "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png",
         "reactions":[{
