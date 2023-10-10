@@ -24,7 +24,7 @@ export default function Service() {
     import.meta.env.VITE_DNS_NAME + ':8080/api/auth/github?token=' +
       localStorage.getItem('token');
   }
-  const url = 'https://are4-51.com:8080/api/actions/get?serviceId=' + selectedService.serviceId;
+  const url = import.meta.env.VITE_DNS_NAME + ':8080/api/actions/get?serviceId=' + selectedService.serviceId;
   const getServices = () => {
     axios.get(url)
       .then(response => {

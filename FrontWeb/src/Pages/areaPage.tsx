@@ -18,8 +18,10 @@ export default function Area() {
 
   const [services, setServices] = useState<ServiceData[]>([]);
 
+  const url = import.meta.env.VITE_DNS_NAME + ':8080/api/services/get';
+
   const getServices = () => {
-    axios.get('https://are4-51.com:8080/api/services/get')
+    axios.get(url)
       .then(response => {
         console.log(response.data);
         setServices(response.data);

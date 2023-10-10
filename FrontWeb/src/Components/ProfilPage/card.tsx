@@ -8,8 +8,9 @@ export default function Card() {
     const { t } = useTranslation();
     const [client, setClient] = useState<any>({});
 
+    const url = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/profile/';
     const getProfile = () => {
-      axios.get('https://are4-51.com:8080/api/auth/profile/', {
+      axios.get(url, {
         headers: {
           'accept': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('token'),

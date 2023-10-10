@@ -2,10 +2,10 @@ import { Button } from 'react-bootstrap';
 
 export default function Search() {
 
+  const url = import.meta.env.VITE_DNS_NAME + '8080/api/auth/Microsoft?token=' + localStorage.getItem('token');
+
     const MicrosoftConnection = () => {
-        window.location.href =
-          'https://are4-51.com:8080/api/auth/Microsoft?token=' +
-          localStorage.getItem('token');
+        window.location.href = url;
       }
 
     return (
