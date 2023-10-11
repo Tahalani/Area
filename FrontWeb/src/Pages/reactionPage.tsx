@@ -32,9 +32,9 @@ export default function ReactionPage() {
     axios
       .post("https://are4-51.com:8080/api/area/create", {
         id_Action: 1,
-        id_Reaction: 2,
+        id_Reaction: 4,
         argsAction: {
-          repo: "TestMVP",
+          repo: "MVP",
         },
         argsReaction: {
           ...obj,
