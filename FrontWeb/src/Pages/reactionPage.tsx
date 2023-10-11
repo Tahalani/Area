@@ -28,22 +28,21 @@ export default function ReactionPage() {
     Object.keys(textInputValues).map((key) => {
       obj[key] = textInputValues[key];
     });
-    console.log("obj === ", obj);
 
-    console.log("createArea");
     axios
-      .post("http://localhost:8080/api/area/create", {
-        token: localStorage.getItem("token"),
+      .post("https://are4-51.com:8080/api/area/create", {
         id_Action: 1,
         id_Reaction: 2,
         argsAction: {
-          repo: "areaTest",
+          repo: "TestMVP",
         },
         argsReaction: {
           ...obj,
           maintainer_can_modify: true,
         },
-      })
+      }, {headers: {
+        token: localStorage.getItem("token"),
+      }})
       .then((response) => {
         console.log(response.data);
       })
