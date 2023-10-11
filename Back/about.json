@@ -20,6 +20,10 @@
                 "description":"An issue is made on a repository",
                 "params": [{"repo": "repository_name"}]
                     }, {
+                "name": "create_branch",
+                "actionId": 4,
+                "description": "A branch is created on a repository",
+                "params": [{"repo": "repository_name"}]
                     }],
             "reactions": [{
                 "name":"create_issue",

@@ -19,6 +19,7 @@ export class ActionArray {
     1: this.githubAction.onPush,
     2: this.githubAction.onPullReq,
     3: this.githubAction.onIssues,
+    4: this.githubAction.onCreate,
   };
 }
 
