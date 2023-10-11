@@ -1,5 +1,4 @@
 import Navigationbar from "../Components/navbar.tsx";
-import Input from "../Components/ActionPage/input.tsx";
 import Parse from "../Components/ActionPage/parse.tsx";
 import { useServiceContext } from "../ServiceContext";
 import axios from 'axios';
