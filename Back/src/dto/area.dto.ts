@@ -18,6 +18,7 @@ export class ActionArray {
   map: {[key: number]: (userService: any, arg: any) => any}  = {
     1: this.githubAction.onPush,
     2: this.githubAction.onPullReq,
+    3: this.githubAction.onIssues,
   };
 }
 

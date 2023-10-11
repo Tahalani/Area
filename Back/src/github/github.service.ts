@@ -36,6 +36,7 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
     map: {[key: string]: number}  = {
       push: 1,
       pull: 2,
+      issues: 3,
     };
     
     constructor(private readonly reactionGithub: ReactionGithub, private readonly actionGithub: ActionGithub) {}
