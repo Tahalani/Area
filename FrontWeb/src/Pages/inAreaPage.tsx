@@ -1,5 +1,4 @@
 import Navigationbar from "../Components/navbar.tsx";
-import Input from "../Components/ActionPage/input.tsx";
 import Parse from "../Components/ActionPage/parse.tsx";
 import { useServiceContext } from "../ServiceContext";
 import axios from 'axios';
@@ -51,7 +50,7 @@ export default function InArea() {
   return (
     <>
     <Navigationbar/>
-      <div className="h-screen relative">
+      <div className="bg-main h-screen relative">
         <div className="bg-main h-2/4 w-screen">
           <div style={{ fontFamily: 'merriweather' }} className="flex items-center justify-center pt-6 flex-col ">
             <div>
@@ -77,7 +76,7 @@ export default function InArea() {
           </div>
           </div>
         </div>
-        <div className="flex justify-center items-center space-x-10 mb-[2%]">
+        <div className="bg-main flex justify-center items-center space-x-10 mb-[2%]">
           {reactions.map((reaction, index) => (
             <Card
               key={index}
