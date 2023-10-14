@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 volumes:
   db-data:
@@ -20,9 +20,10 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - '8080:3000'
+      - "8080:3000"
     environment:
       DB_HOST: db
+      NODE_ENV: ${NODE_ENV}
     networks:
       - back
     depends_on:
@@ -32,9 +33,11 @@ services:
     build:
       context: ./FrontWeb/
       dockerfile: Dockerfile
+    environment:
+      VITE_NODE_ENV: ${NODE_ENV}
     restart: always
     ports:
-      - '8081:5173'
+      - "8081:5173"
 
 networks:
   back:

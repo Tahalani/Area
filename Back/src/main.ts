@@ -5,14 +5,22 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as fs from 'fs';
 
 async function bootstrap() {
-  const httpsOptions = {
-    key: fs.readFileSync('./privkey.pem'),
-    cert: fs.readFileSync('./fullchain.pem'),
-  };
+  const DevMode = process.env.NODE_ENV === 'dev';
+  var app = null;
 
-  const app = await NestFactory.create(AppModule, {
-    httpsOptions,
-  });
+  if (!DevMode) {
+    const httpsOptions = {
+      key: fs.readFileSync('./privkey.pem'),
+      cert: fs.readFileSync('./fullchain.pem'),
+    };
+
+    app = await NestFactory.create(AppModule, {
+      httpsOptions,
+    });
+  } else {
+    console.log('Dev mode is set (http))');
+    app = await NestFactory.create(AppModule);
+  }
 
   const config = new DocumentBuilder()
     .setTitle('Area API')
