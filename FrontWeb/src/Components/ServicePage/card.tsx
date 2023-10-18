@@ -1,6 +1,6 @@
 import React from "react";
 import ActionsCard from "./actions.tsx";
-import { useServiceContext } from "../../ServiceContext.js";
+import { ActionData } from "../../Pages/servicePage.tsx";
 
 interface ActionsCardProps {
   id: number;
@@ -8,6 +8,7 @@ interface ActionsCardProps {
   args_action: string;
   description: string;
   serviceId: number;
+  onCardClick: (data: ActionData) => void;
 }
 
 const Card: React.FC<ActionsCardProps> = ({
@@ -16,11 +17,11 @@ const Card: React.FC<ActionsCardProps> = ({
   args_action,
   description,
   serviceId,
+  onCardClick,
 }) => {
-  const { setService } = useServiceContext();
 
   const handleServiceClick = () => {
-    setService({ id, name, args_action, description, serviceId });
+    onCardClick({ id, name, args_action, description, serviceId });
   };
 
   return (

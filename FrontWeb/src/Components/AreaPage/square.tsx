@@ -8,17 +8,8 @@ interface SquareProps {
   serviceId: number;
 }
 
-const getRandomColor = () => {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
-
 const Square: React.FC<SquareProps> = ({ topImage, bottomText }) => {
-  const backgroundColor = getRandomColor();
+  const backgroundColor = "#2e1d9c";
 
   return (
     <Link to="/servicePage">

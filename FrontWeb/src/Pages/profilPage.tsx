@@ -5,9 +5,9 @@ import { horizontalRectangleData } from "../ProfilServiceData.tsx";
 
 
 export default function Profil() {
-  if (localStorage.getItem('token') == null) {
-    window.location.href = '/loginPage';
-  }
+  // if (localStorage.getItem('token') == null) {
+  //   window.location.href = '/loginPage';
+  // }
 
   const horizontalRectangles = horizontalRectangleData.map((item, index) => (
     <HorizontalRectangle

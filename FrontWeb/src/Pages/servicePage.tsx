@@ -1,12 +1,13 @@
+import React, { useState, useEffect } from "react";
 import Navigationbar from "../Components/ServicePage/ServiceNavBar.tsx";
+import Popup from "../Components/ServicePage/popup.tsx";
 import Card from "../Components/ServicePage/card.tsx";
 import { useServiceContext } from "../ServiceContext";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from 'react';
 import { useAppContext } from '../AppContext';
 
-type ActionData = {
+export type ActionData = {
   id: number;
   name: string;
   args_action: string;
@@ -22,14 +23,24 @@ export default function Service() {
   const { selectedService } = useServiceContext();
   const [services, setServices] = useState<ActionData[]>([]);
   const { connected, setConnected } = useAppContext();
+  const [popupData, setPopupData] = useState<ActionData | null>(null);
+
+  const showPopup = (data: ActionData) => {
+    setPopupData(data);
+  };
+
+  const hidePopup = () => {
+    setPopupData(null);
+  };
 
   const AccountConnection = () => {
-    window.location.href =
-    import.meta.env.VITE_DNS_NAME + ':8080/api/auth/' + selectedService.bottomText + '?token=' + localStorage.getItem('token');
+    window.location.href = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/' + selectedService.bottomText + '?token=' + localStorage.getItem('token');
     setConnected(true);
     navigate('/servicePage');
   }
+  
   const url = import.meta.env.VITE_DNS_NAME + ':8080/api/actions/get?serviceId=' + selectedService.serviceId;
+  
   const getServices = () => {
     axios.get(url)
       .then(response => {
@@ -46,7 +57,7 @@ export default function Service() {
 
   return (
     <>
-    <Navigationbar/>
+      <Navigationbar/>
       <div className="h-screen relative">
         <div className="bg-third h-2/4 w-screen">
           <div style={{ fontFamily: 'merriweather' }} className="flex items-center justify-center h-1/2 pt-8">
@@ -54,31 +65,29 @@ export default function Service() {
           </div>
           <div className="">
             <p style={{ fontFamily: 'merriweather', lineHeight: '1.2' }} className="mt-2 mb-2 text-[30px] text-black">{selectedService.bottomText}</p>
-            {/* {connected ? (
-              <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]">Connected</button>
-            ) : ( */}
-              <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={AccountConnection}>Connect</button>
-            {/* )} */}
+            <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={AccountConnection}>Connect</button>
           </div>
         </div>
         <div className="bg-white h-2/3 w-screen">
-          {services && services.length != 10 && (
-        <>
-          <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Area's</h1>
-          <div className="flex justify-center items-center space-x-10 mb-[2%]">
-            {services.map((service, index) => (
-              <Card
-                key={index}
-                id={service.id}
-                name={service.name}
-                args_action={service.args_action}
-                description={service.description}
-                serviceId={service.serviceId}
-              />
-            ))}
-          </div>
-        </>
-      )}
+          {popupData && <Popup data={popupData} onClose={hidePopup} />}
+          {services && services.length !== 10 && !popupData && (
+            <>
+              <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Area's</h1>
+              <div className="flex justify-center items-center space-x-10 mb-[2%]">
+                {services.map((service, index) => (
+                  <Card
+                    key={index}
+                    id={service.id}
+                    name={service.name}
+                    args_action={service.args_action}
+                    description={service.description}
+                    serviceId={service.serviceId}
+                    onCardClick={showPopup}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
