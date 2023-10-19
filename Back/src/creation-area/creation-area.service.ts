@@ -69,9 +69,10 @@ export class CreationAreaService {
       area.args_action = areaData.argsAction;
       area.args_reaction = areaData.argsReaction;
 
+      console.log('THE AREA ADDED: ', area);
+
       await AreaEntity.save(area);
         const Action = new ActionArray
-        console.log("userService dans area: ", userServices);
         Action.map[action.id](userServices, areaData.argsAction);
       return 'This action adds a new area';
     } catch (error) {

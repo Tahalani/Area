@@ -24,18 +24,21 @@ export class ReactionGithub {
     }
 
     async createIssue(userService: UserServiceEntity, arg: any) {
+
+        console.log("CREATE ISSUE");
+
         const octokit = new Octokit({
             auth: userService.token,
         })
+
+        console.log("ARG: ", arg);
+        console.log("userService: ", userService);
 
         await octokit.request('POST /repos/' + userService.serviceIdentifier + '/' + arg.repo + '/issues', {
             owner: userService.serviceIdentifier,
             repo: arg.repo,
             title: arg.title,
             body: arg.body,
-            assignees: arg.assignees,
-            milestone: arg.milestone,
-            labels: arg.labels,
             headers: {
               'Authorization': `Bearer ${userService.token}`,
               'X-GitHub-Api-Version': '2022-11-28'
@@ -53,8 +56,9 @@ export class ReactionGithub {
             auth: userService.token,
         })
 
-        console.log("ARG: ", arg);
         console.log("CREATE PULL REQUEST");
+        console.log("ARG: ", arg);
+        console.log("userService: ", userService);
 
         await octokit.request('POST /repos/' + userService.serviceIdentifier + '/' + arg.repo + '/pulls', {
             owner: userService.serviceIdentifier,

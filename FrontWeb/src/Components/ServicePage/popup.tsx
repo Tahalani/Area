@@ -93,7 +93,7 @@ const url = import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get';
     });
 
     axios
-      .post("https://are4-51.com:8080/api/area/create", {
+      .post(import.meta.env.VITE_DNS_NAME + ':8080/api/area/create', {
         id_Action: data.id,
         id_Reaction: selectedReaction?.id,
         argsAction: {
@@ -104,7 +104,7 @@ const url = import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get';
           maintainer_can_modify: true,
         },
       }, {headers: {
-        token: localStorage.getItem("token"),
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
       }})
       .then((response) => {
         console.log(response.data);

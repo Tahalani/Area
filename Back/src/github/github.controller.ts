@@ -40,6 +40,7 @@ export class GitHubController {
   @Post('Webhook/GitHub')
   // mettre un guardd
   async GitHubWebhook(@Req() req: any, @Res() res: Response) {
+    console.log('Webhook GitHub');
     this.gitHubService.webhookHandling(req);
     res.send(req.user);
   }

@@ -28,8 +28,8 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
     const accessToken = decoded.access_token;
     return accessToken;
   }
-  
-  
+
+
   @Injectable()
   export class GitHubService {
 
@@ -38,7 +38,7 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
       pull: 2,
       issues: 3,
     };
-    
+
     constructor(private readonly reactionGithub: ReactionGithub, private readonly actionGithub: ActionGithub) {}
 
     async getInfoUser(accessToken: string | string[] | undefined) {
@@ -62,7 +62,9 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
     async addService(request: any): Promise<void> {
       const userMail = request.query.state; // grace à ca on sait qui a fait la demande
       const code = request.query.code; // a voir si il faut garder code ou access token
+      console.log("code: ", code);
       const GitHubAccesstoken = await getGitHubToken({ code: code });
+      console.log("GitHubAccesstoken: ", GitHubAccesstoken);
       if (GitHubAccesstoken === undefined) {
         console.error("Error getting token");
         return;
