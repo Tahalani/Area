@@ -43,7 +43,6 @@ export class InitService implements OnModuleInit {
         console.log(`Erreur lors de la création des Actions pour le service ${serviceId.name}:`, error.message);
       }
     }
-    
 
     async function createService(serviceInfo: any) {
       try {

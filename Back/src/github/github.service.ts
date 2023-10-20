@@ -72,7 +72,7 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
       this.saveToken(userMail, GitHubAccesstoken.toString(), "github");
     }
 
-    private async saveToken(email: string, token: string, serviceName: string) {
+    async saveToken(email: string, token: string, serviceName: string) {
       const user = await UserEntity.findOneBy({ email: email });
       const service = await ServiceEntity.findOneBy({ name: serviceName });
       if (user === null) {
