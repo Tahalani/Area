@@ -2,15 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 const authSpotify = () => {
-  window.location.href = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/spotify';
-  // console.log("authSpotify");
-  // axios.get('http://localhost:8080/api/auth/spotify')
-  // .then((res) => {
-  //   console.log(res);
-  // })
-  // .catch((err) => {
-  //   console.log(err);
-  // })
+  window.location.href = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/spotify' + '?token=' + localStorage.getItem('token');
 }
 
 interface HorizontalRectangleProps {
