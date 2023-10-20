@@ -44,10 +44,10 @@ export class SpotifyService {
 
         const infoUser = await this.getInfoUser(token);
 
-        console.log("user1: ", user);
-        console.log("service1: ", service);
-        console.log("infoUser4: ", infoUser.email);
-        console.log("token1: ", token);
+        if (infoUser === undefined) {
+          console.error("Error getting info user");
+          return;
+        }
 
         const userService = UserServiceEntity.create();
         userService.user = user;

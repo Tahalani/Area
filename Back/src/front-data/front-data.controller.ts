@@ -25,4 +25,10 @@ export class FrontDataController {
     async handleReactions() {
         return this.frontDataService.getReactions();
     }
+
+    @ApiOkResponse({ description: 'Return all user services' })
+    @Get('user/services/get')
+    async handleUserServices(@Query('email') email: string) {
+        return this.frontDataService.getUserServices(email);
+    }
 }
