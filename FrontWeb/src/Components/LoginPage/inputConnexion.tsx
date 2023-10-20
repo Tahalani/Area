@@ -7,7 +7,13 @@ const inputConnexion: React.FC<TextComponentProps> = (TextComponentProps) => {
   return (
     <div className="form-control w-full max-w-xl mt-6">
       <label className="label">
-        <span style={{ fontFamily: 'merriweather' }} className="label-text text-black text-lg"> {TextComponentProps.text} </span>
+        <span
+          style={{ fontFamily: "merriweather" }}
+          className="label-text text-black text-lg"
+        >
+          {" "}
+          {TextComponentProps.text}{" "}
+        </span>
       </label>
       <input
         type="text"

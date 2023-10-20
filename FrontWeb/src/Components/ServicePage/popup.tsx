@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import Parse from "../ActionPage/parse.tsx";
-import { use } from "i18next";
 import axios from "axios";
 
 type ActionData = {

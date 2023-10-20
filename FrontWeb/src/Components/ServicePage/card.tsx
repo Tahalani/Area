@@ -19,7 +19,6 @@ const Card: React.FC<ActionsCardProps> = ({
   serviceId,
   onCardClick,
 }) => {
-
   const handleServiceClick = () => {
     onCardClick({ id, name, args_action, description, serviceId });
   };
@@ -27,7 +26,13 @@ const Card: React.FC<ActionsCardProps> = ({
   return (
     <div>
       <div onClick={handleServiceClick}>
-        <ActionsCard id={id} name={name} args_action={args_action} description={description} serviceId={serviceId} />
+        <ActionsCard
+          id={id}
+          name={name}
+          args_action={args_action}
+          description={description}
+          serviceId={serviceId}
+        />
       </div>
     </div>
   );

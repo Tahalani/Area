@@ -24,7 +24,12 @@ const ServiceCase: React.FC<SquareProps> = ({
   return (
     <div>
       <div onClick={handleServiceClick}>
-        <Square topImage={topImage} bottomText={bottomText} description={description} serviceId={serviceId} />
+        <Square
+          topImage={topImage}
+          bottomText={bottomText}
+          description={description}
+          serviceId={serviceId}
+        />
       </div>
     </div>
   );
