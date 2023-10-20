@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Req } from '@nestjs/common';
 import { FrontDataService } from './front-data.service';
 import { ApiOkResponse } from '@nestjs/swagger';
 
@@ -28,7 +28,9 @@ export class FrontDataController {
 
     @ApiOkResponse({ description: 'Return all user services' })
     @Get('user/services/get')
-    async handleUserServices(@Query('email') email: string) {
-        return this.frontDataService.getUserServices(email);
+    async handleUserServices(@Req () req: any) {
+        if (req.user === undefined)
+            return "Bad Authentification";
+        return this.frontDataService.getUserServices(req.user.email);
     }
 }
