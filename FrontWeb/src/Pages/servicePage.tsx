@@ -68,12 +68,12 @@ export default function Service() {
             <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={AccountConnection}>Connect</button>
           </div>
         </div>
-        <div className="bg-white h-2/3 w-screen">
+        <div className="bg-white h-2/3 w-screen flex flex-col items-center ">
           {popupData && <Popup data={popupData} onClose={hidePopup} />}
           {services && services.length !== 10 && !popupData && (
             <>
               <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black pt-[20px] mb-[20px]">Area's</h1>
-              <div className="flex justify-center items-center space-x-10 mb-[2%]">
+              {/* <div className="flex justify-center items-center space-x-10 mb-[2%]"> */}
                 {services.map((service, index) => (
                   <Card
                     key={index}
@@ -85,7 +85,7 @@ export default function Service() {
                     onCardClick={showPopup}
                   />
                 ))}
-              </div>
+              {/* </div> */}
             </>
           )}
         </div>

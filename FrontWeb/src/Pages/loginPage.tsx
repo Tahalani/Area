@@ -43,7 +43,7 @@ export default function Login() {
         <div className="flex-grow w-1/2 bg-white card rounded-box place-items-center mt-[120px]">
           <div className="w-1/2 bg-white card rounded-box place-items-center">
             <button style={{ fontFamily: 'Arial' }}
-              className="btn btn-active text-white"
+              className="btn btn-active text-white bg-black"
               onClick={() => navigate('/registerPage')}
               >
               {t("register")}
@@ -75,7 +75,7 @@ export default function Login() {
           )}
           <div className="form-control w-full max-w-xl mt-10">
             <button style={{ fontFamily: 'Arial' }}
-              className="btn btn-active text-white"
+              className="btn btn-active text-white bg-black"
               onClick={() => getClientToken(email, password)}
             >
               {t("SignIn")}

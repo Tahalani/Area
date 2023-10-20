@@ -4,7 +4,7 @@ import axios from 'axios';
 const HorizontalRectangle: React.FC = () => {
   const [services, setServices] = useState<string[]>([]);
 
-  const url = import.meta.env.VITE_DNS_NAME + ':8080/api/user/services/get?email=areaepitech1809@gmail.com';
+  const url = import.meta.env.VITE_DNS_NAME + ':8080/api/user/services/get?token=' + localStorage.getItem('token');
 
   const getServices = () => {
     axios.get(url)
