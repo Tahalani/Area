@@ -38,9 +38,9 @@ export default function Service() {
     setConnected(true);
     navigate('/servicePage');
   }
-  
+
   const url = import.meta.env.VITE_DNS_NAME + ':8080/api/actions/get?serviceId=' + selectedService.serviceId;
-  
+
   const getServices = () => {
     axios.get(url)
       .then(response => {

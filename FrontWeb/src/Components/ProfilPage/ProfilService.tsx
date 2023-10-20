@@ -1,4 +1,17 @@
 import React from 'react';
+import axios from 'axios';
+
+const authSpotify = () => {
+  window.location.href = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/spotify';
+  // console.log("authSpotify");
+  // axios.get('http://localhost:8080/api/auth/spotify')
+  // .then((res) => {
+  //   console.log(res);
+  // })
+  // .catch((err) => {
+  //   console.log(err);
+  // })
+}
 
 interface HorizontalRectangleProps {
   name: string;
@@ -13,12 +26,14 @@ const HorizontalRectangle: React.FC<HorizontalRectangleProps> = ({
   description,
   logo_url,
 }) => {
+
   return (
     <div style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)" }} className="mb-12 bg-gray-200 p-4 w-[800px] h-[200px] flex-col justify-start items-start rounded-lg">
       <div className="w-full h-1/3 flex">
         <div className="w-1/2 flex">
           <div className="w-1/5">
             <div className="w-14 h-14">
+              <button onClick={authSpotify} className="w-full h-full rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"> Connect Spotify </button>
               <img src={logo_url} alt="Image" className="w-full h-full object-cover rounded-full" />
             </div>
           </div>

@@ -15,6 +15,7 @@ import { InitService } from './initialization/initiService';
 import { CreationAreaModule } from './creation-area/creation-area.module';
 import { FrontDataModule } from './front-data/front-data.module';
 import { OutlookModule } from './outlook/outlook.module';
+import { SpotifyModule } from './spotify/spotify.module';
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ dotenv.config();
     SmeeModule,
     CreationAreaModule,
     FrontDataModule,
+    SpotifyModule,
   ],
   controllers: [AppController],
   providers: [AppService, MailingReaction, InitService],
