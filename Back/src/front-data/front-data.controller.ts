@@ -17,7 +17,6 @@ export class FrontDataController {
     @ApiOkResponse({ description: 'Return action of the service' })
     @Get('actions/get')
     async handleActions(@Query('serviceId') serviceId: number) {
-        console.log(serviceId);
         return this.frontDataService.getActions(serviceId);
     }
 

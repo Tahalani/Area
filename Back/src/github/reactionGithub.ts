@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { Octokit } from '@octokit/rest';
-import { DataPullRequest} from './github.dto';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 
 @Injectable()
@@ -19,7 +18,7 @@ export class ReactionGithub {
         }).then((res: any) => {
             return res;
         }).catch((err: any) => {
-            console.log(err);
+            console.log("BAD REPO: ", err);
         });
     }
 

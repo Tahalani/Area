@@ -11,7 +11,7 @@ export class SpotifyService {
     private redirect_uri = `${process.env.DNS_NAME}:8080/api/auth/spotify/callback`
     private client_secret = 'a17d908f62ed4be7a113d2413585aacb'
 
-    async getInfoUser(accessToken: string | string[] | undefined) {
+    async getInfoUser(accessToken: string | string[] | undefined) : Promise<any> {
 
         const userInfo = await axios.get(
             `https://api.spotify.com/v1/me`,
@@ -52,10 +52,13 @@ export class SpotifyService {
         const userService = UserServiceEntity.create();
         userService.user = user;
         userService.service = service;
-        userService.serviceIdentifier = infoUser.email;
+        console.log("infoUser: ", infoUser);
+        console.log("infoUser.id: ", infoUser.id);
+        userService.serviceIdentifier = infoUser.id;
         userService.token = token;
 
         try {
+          console.log("Saving Spotify token...");
           await userService.save();
         } catch (error) {
           console.error("Error saving token: ", error);

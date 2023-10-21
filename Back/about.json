@@ -66,7 +66,12 @@
             "description": "Spotify service",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/768px-Spotify_logo_without_text.svg.png",
             "actions": [],
-            "reactions": []
+            "reactions": [{
+                "name": "create_playlist",
+                "reactionId": 5,
+                "description": "create a playlist",
+                "params": [{"playlist": "playlist_name"}]
+                }]
             }]
         }
 }
