@@ -22,12 +22,11 @@ export class ReactionSpotify {
             })
             .catch((error) => {
                 console.log("ERROR: ", error.response.data);
-            });
+        });
     }
 
     async addItemToPlaylist(userService: UserServiceEntity, arg: any) {
         console.log("ADD ITEM TO PLAYLIST");
-        console.log("ARGS: ", arg);
         const headers = {
             Authorization: `Bearer ${userService.token}`,
             'Content-Type': 'application/json',
@@ -43,6 +42,26 @@ export class ReactionSpotify {
             })
             .catch((error) => {
                 console.log("ERROR: ", error.response.data);
-            });
-        }
+        });
+    }
+
+    async deleteItemFromPlaylist(userService: UserServiceEntity, arg: any) {
+        console.log("DELETE ITEM FROM PLAYLIST");
+        const headers = {
+            Authorization: `Bearer ${userService.token}`,
+            'Content-Type': 'application/json',
+        };
+
+        const data = {
+            uris: [arg.item_uri]
+        };
+
+        axios.delete('https://api.spotify.com/v1/playlists/' + arg.playlist_id + '/tracks', { headers: headers, data: data })
+            .then((response) => {
+                console.log("SUCCESS: ", response.data);
+            })
+            .catch((error) => {
+                console.log("ERROR: ", error.response.data);
+        });
+    }
 }

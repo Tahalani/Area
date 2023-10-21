@@ -35,5 +35,6 @@ export class ReactionArray {
     4: this.ReactionOutlook.createEvent,
     5: this.ReactionSpotify.createPlaylist,
     6: this.ReactionSpotify.addItemToPlaylist,
+    7: this.ReactionSpotify.deleteItemFromPlaylist,
   };
 }

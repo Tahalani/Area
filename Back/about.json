@@ -76,6 +76,11 @@
                 "reactionId": 6,
                 "description": "add a track to a playlist",
                 "params": [{"playlist_id": "playlist_id", "item_uri": "item"}]
+            }, {
+                "name": "delete_item_from_playlist",
+                "reactionId": 7,
+                "description": "delete a track from a playlist",
+                "params": [{"playlist_id": "playlist_id", "item_uri": "item"}]
             }]
         }]
     }
