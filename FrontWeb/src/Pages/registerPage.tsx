@@ -12,7 +12,7 @@ export default function Register() {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const getClientToken = (
     name: string,
@@ -28,16 +28,16 @@ export default function Register() {
     };
     console.log(data);
     axios
-      .post(import.meta.env.VITE_DNS_NAME + ':8080/api/auth/register/', data)
+      .post(import.meta.env.VITE_DNS_NAME + ":8080/api/auth/register/", data)
       .then(() => {
-        setErrorMessage('');
-        navigate('/loginPage');
+        setErrorMessage("");
+        navigate("/loginPage");
       })
       .catch((error) => {
         if (error.response) {
           setErrorMessage(error.response.data.message);
         }
-        console.error('Erreur lors de la requête :', error);
+        console.error("Erreur lors de la requête :", error);
       });
   };
 
@@ -50,15 +50,24 @@ export default function Register() {
       <div className="flex bg-white flex-col h-screen lg:flex-row">
         <div className="flex-grow w-1/2 bg-white card rounded-box place-items-center mt-[70px]">
           <div className="w-1/2 bg-white card rounded-box place-items-center">
-            <button style={{ fontFamily: 'Arial' }}
-              className="btn btn-active text-white"
-              onClick={() => navigate('/loginPage')}
-              >
+            <button
+              style={{ fontFamily: "Arial" }}
+              className="btn btn-active text-white bg-black"
+              onClick={() => navigate("/loginPage")}
+            >
               {t("login")}
             </button>
           </div>
-          <h1 style={{ fontFamily: "merriweather" }} className="text-[75px] font-bold text-black">{t("RegisterMsg")}</h1>
-          <p style={{ fontFamily: "merriweather" }} className="text-[20px]"> {" "} {t("RegisterBrief")} </p>
+          <h1
+            style={{ fontFamily: "merriweather" }}
+            className="text-[75px] font-bold text-black"
+          >
+            {t("RegisterMsg")}
+          </h1>
+          <p style={{ fontFamily: "merriweather" }} className="text-[20px]">
+            {" "}
+            {t("RegisterBrief")}{" "}
+          </p>
           <div className="form-control w-1/2 max-w-xl"></div>
           <GoogleConnexion />
           <div className="flex items-center w-4/5 mt-10">
@@ -72,13 +81,11 @@ export default function Register() {
           </div>
           <InputConnexion text="Email" setVar={setEmail} />
           <InputPassword text={t("Password")} setVar={setPassword} />
-          {errorMessage && (
-            <p style={{ color: 'red' }}>{errorMessage}</p>
-          )}
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           <div className="form-control w-full max-w-xl mt-10">
             <button
               style={{ fontFamily: "Arial" }}
-              className="btn btn-active text-white"
+              className="btn btn-active text-white bg-black"
               onClick={() => getClientToken(name, surname, email, password)}
             >
               {" "}

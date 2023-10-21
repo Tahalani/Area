@@ -11,53 +11,63 @@ export default function Login() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const getClientToken = (
-    email: string,
-    password: string
-  ) => {
+  const getClientToken = (email: string, password: string) => {
     const data = {
       email: email,
-      password: password
+      password: password,
     };
     console.log(data);
-    const url = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/login/';
-  
-    axios.post(url, data)
-    .then(response => {
-        localStorage.setItem('token', response.data.access_token);
-        setErrorMessage('');
-        navigate('/profilPage');
-    })
-    .catch(error => {
-      if (error.response) {
-        setErrorMessage(error.response.data.message);
-      }
-      console.error('Erreur lors de la requête :', error);
-    });
+    const url = import.meta.env.VITE_DNS_NAME + ":8080/api/auth/login/";
+
+    axios
+      .post(url, data)
+      .then((response) => {
+        localStorage.setItem("token", response.data.access_token);
+        setErrorMessage("");
+        navigate("/profilPage");
+      })
+      .catch((error) => {
+        if (error.response) {
+          setErrorMessage(error.response.data.message);
+        }
+        console.error("Erreur lors de la requête :", error);
+      });
   };
   return (
     <>
       <div className="flex bg-white flex-col h-screen lg:flex-row">
         <div className="flex-grow w-1/2 bg-white card rounded-box place-items-center mt-[120px]">
           <div className="w-1/2 bg-white card rounded-box place-items-center">
-            <button style={{ fontFamily: 'Arial' }}
-              className="btn btn-active text-white"
-              onClick={() => navigate('/registerPage')}
-              >
+            <button
+              style={{ fontFamily: "Arial" }}
+              className="btn btn-active text-white bg-black"
+              onClick={() => navigate("/registerPage")}
+            >
               {t("register")}
             </button>
           </div>
-          <h1 style={{ fontFamily: 'merriweather' }} className="text-[75px] font-bold text-black">{t("WelcomeMsg")}</h1>
-          <p style={{ fontFamily: 'merriweather' }} className="text-[20px]">
+          <h1
+            style={{ fontFamily: "merriweather" }}
+            className="text-[75px] font-bold text-black"
+          >
+            {t("WelcomeMsg")}
+          </h1>
+          <p style={{ fontFamily: "merriweather" }} className="text-[20px]">
             {t("CatchPhrase")}
           </p>
           <div className="form-control w-1/2 max-w-xl mt-10"></div>
-          <InputConnexion text="Email" setVar={setEmail}/>
+          <InputConnexion text="Email" setVar={setEmail} />
           <div className="form-control w-full max-w-xl mt-10">
             <label className="label">
-              <span style={{ fontFamily: 'merriweather' }} className="label-text text-black text-lg"> {t("Password")} </span>
+              <span
+                style={{ fontFamily: "merriweather" }}
+                className="label-text text-black text-lg"
+              >
+                {" "}
+                {t("Password")}{" "}
+              </span>
             </label>
             <input
               type="password"
@@ -65,23 +75,25 @@ export default function Login() {
               onChange={(text) => setPassword(text.target.value)}
             />
             <label className="label">
-              <span style={{ fontFamily: 'merriweather' }} className="label-text-alt text-black">
+              <span
+                style={{ fontFamily: "merriweather" }}
+                className="label-text-alt text-black"
+              >
                 {t("ForgetPwd")}
               </span>
             </label>
           </div>
-          {errorMessage && (
-            <p style={{ color: 'red' }}>{errorMessage}</p>
-          )}
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           <div className="form-control w-full max-w-xl mt-10">
-            <button style={{ fontFamily: 'Arial' }}
-              className="btn btn-active text-white"
+            <button
+              style={{ fontFamily: "Arial" }}
+              className="btn btn-active text-white bg-black"
               onClick={() => getClientToken(email, password)}
             >
               {t("SignIn")}
             </button>
           </div>
-          <GoogleConnexion/>
+          <GoogleConnexion />
         </div>
 
         <div className="flex-grow w-1/2 bg-white card rounded-box place-items-end">

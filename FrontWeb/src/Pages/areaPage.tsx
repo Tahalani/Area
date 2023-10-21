@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Navigationbar from "../Components/navbar.tsx";
 import ServiceCase from "../Components/AreaPage/service.tsx";
 import Search from "../Components/AreaPage/search.tsx";
@@ -12,24 +12,25 @@ type ServiceData = {
 };
 
 export default function Area() {
-  if (localStorage.getItem('token') == null) {
-    window.location.href = '/loginPage';
+  if (localStorage.getItem("token") == null) {
+    window.location.href = "/loginPage";
   }
 
   const [services, setServices] = useState<ServiceData[]>([]);
 
-  const url = import.meta.env.VITE_DNS_NAME + ':8080/api/services/get';
+  const url = import.meta.env.VITE_DNS_NAME + ":8080/api/services/get";
 
   const getServices = () => {
-    axios.get(url)
-      .then(response => {
+    axios
+      .get(url)
+      .then((response) => {
         console.log(response.data);
         setServices(response.data);
       })
-      .catch(error => {
-        console.error('Erreur lors de la requête :', error);
+      .catch((error) => {
+        console.error("Erreur lors de la requête :", error);
       });
-  }
+  };
 
   useEffect(() => {
     getServices();

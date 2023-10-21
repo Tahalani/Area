@@ -32,6 +32,9 @@ export class UserServiceEntity extends BaseEntity {
   @JoinColumn()
   service: ServiceEntity;
 
+  @RelationId((userService: UserServiceEntity) => userService.service)
+  serviceId: number;
+
   @Column()
   serviceIdentifier: string;
 

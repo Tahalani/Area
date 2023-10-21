@@ -1,6 +1,7 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { FrontDataService } from './front-data.service';
 import { ApiOkResponse } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('api')
 export class FrontDataController {
@@ -24,5 +25,12 @@ export class FrontDataController {
     @Get('reactions/get')
     async handleReactions() {
         return this.frontDataService.getReactions();
+    }
+
+    @ApiOkResponse({ description: 'Return all user services' })
+    @UseGuards(AuthGuard)
+    @Get('user/services/get')
+    async handleUserServices(@Req () req: any) {
+        return this.frontDataService.getUserServices(req.user.email);
     }
 }

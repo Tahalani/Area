@@ -25,9 +25,6 @@ export class UserEntity extends BaseEntity {
   @Column()
   surname: string;
 
-  // @OneToMany(() => AreaEntity, (area) => area.user)
-  // areas: AreaEntity[];
-
   @Column()
   email: string;
 

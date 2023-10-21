@@ -23,8 +23,6 @@ export class CreationAreaService {
         return null;
       },
     );
-    console.log('action: ', action);
-    console.log('action service: ', action?.serviceId);
     return action;
   }
 

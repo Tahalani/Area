@@ -23,6 +23,8 @@ export class GitHubController {
   @UseGuards(AuthGuard)
   @Get('auth/GitHub')
   async GitHubAuth(@Req() req: any, @Res() res: Response) {
+    console.log('GitHubAuth');
+    console.log('req: ', req);
     const redirect_url = `${process.env.DNS_NAME}:8080/api/auth/GitHub/callback`
     res.redirect(
       `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${redirect_url}&scope=repo,read:user,read:org&state=${req.user.email}`,

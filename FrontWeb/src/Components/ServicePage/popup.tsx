@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import Parse from "../ActionPage/parse.tsx";
-import { use } from "i18next";
 import axios from "axios";
 
 type ActionData = {
@@ -120,10 +119,11 @@ const url = import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get';
 
   return (
     <>
-      <button className="btn" onClick={openModal}>Complete Informations</button>
+      <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black m-[30px]">{data?.description}</h1>
+      <button className="btn mt-[20px]" onClick={openModal}>Complete Informations</button>
       {data && (
         <dialog ref={modalRef} className="modal">
-          <div className="modal-box">
+          <div className="modal-box bg-grey-300">
             <form method="dialog">
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={closeModal}>✕</button>
             </form>
