@@ -64,4 +64,25 @@ export class ReactionSpotify {
                 console.log("ERROR: ", error.response.data);
         });
     }
+
+    async changePlaylistDetails(userService: UserServiceEntity, arg: any) {
+        console.log("CHANGE PLAYLIST DETAILS");
+        const headers = {
+            Authorization: `Bearer ${userService.token}`,
+            'Content-Type': 'application/json',
+        };
+
+        const data = {
+            name: arg.new_playlist_name,
+            description: arg.new_playlist_description
+        };
+
+        axios.put('https://api.spotify.com/v1/playlists/' + arg.playlist_id, data, { headers: headers })
+            .then((response) => {
+                console.log("SUCCESS: ", response.data);
+            })
+            .catch((error) => {
+                console.log("ERROR: ", error.response.data);
+        });
+    }
 }

@@ -81,6 +81,11 @@
                 "reactionId": 7,
                 "description": "delete a track from a playlist",
                 "params": [{"playlist_id": "playlist_id", "item_uri": "item"}]
+            }, {
+                "name": "change_playlist_details",
+                "reactionId": 8,
+                "description": "change the details of a playlist",
+                "params": [{"playlist_id": "playlist_id", "new_playlist_name": "new_playlist_name", "new_playlist_description": "new_playlist_description"}]
             }]
         }]
     }

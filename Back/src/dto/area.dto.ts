@@ -36,5 +36,6 @@ export class ReactionArray {
     5: this.ReactionSpotify.createPlaylist,
     6: this.ReactionSpotify.addItemToPlaylist,
     7: this.ReactionSpotify.deleteItemFromPlaylist,
+    8: this.ReactionSpotify.changePlaylistDetails
   };
 }
