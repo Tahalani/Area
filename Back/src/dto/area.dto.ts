@@ -34,5 +34,6 @@ export class ReactionArray {
     2: this.GithubReaction.createPullRequest,
     4: this.ReactionOutlook.createEvent,
     5: this.ReactionSpotify.createPlaylist,
+    6: this.ReactionSpotify.addItemToPlaylist,
   };
 }

@@ -71,7 +71,12 @@
                 "reactionId": 5,
                 "description": "create a playlist",
                 "params": [{"playlist": "playlist_name"}]
-                }]
+            }, {
+                "name": "add_item_to_playlist",
+                "reactionId": 6,
+                "description": "add a track to a playlist",
+                "params": [{"playlist_id": "playlist_id", "item_uri": "item"}]
             }]
-        }
+        }]
+    }
 }
