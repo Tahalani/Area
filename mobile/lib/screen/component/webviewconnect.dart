@@ -37,6 +37,7 @@ class _WebViewConnectState extends State<WebViewConnect> {
             onPageFinished: (String url) {},
             onWebResourceError: (WebResourceError error) {},
             onNavigationRequest: (NavigationRequest request) {
+              print(request.url);
               if (request.url.startsWith(widget.urlCallBack)) {
                 print("URL: ${request.url}");
                 Navigator.pop(context);

@@ -43,6 +43,18 @@ class _MyProfilState extends State<MyProfil> {
     }
   }
 
+  void fetchUserServices(String token) async {
+    var url = "https://are4-51.com:8080/api/user/services/get";
+    var headers = {'Authorization': 'Bearer ${widget.token}'};
+    var response = await http.get(Uri.parse(url), headers: headers);
+    if (response.statusCode == 200) {
+      final user = jsonDecode(response.body);
+      print(user);
+    } else {
+      throw Exception('Failed to load user');
+    }
+  }
+
   final lastName = TextEditingController();
   final firstName = TextEditingController();
   final email = TextEditingController();
@@ -62,6 +74,7 @@ class _MyProfilState extends State<MyProfil> {
         user = value;
       });
     });
+    fetchUserServices(widget.token);
   }
 
   Widget build(BuildContext context) {
