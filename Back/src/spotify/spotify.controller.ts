@@ -11,7 +11,7 @@ export class SpotifyController {
     @Get('auth/spotify')
     async spotifyAuth(@Req() req: any, @Res() res: Response) {
         console.log("spotifyAuth");
-        const client_id = '3f5afd10c49a439085bb7ab556fd69f8';
+        const client_id = '3f5afd10c49a439085bb7ab556fd69f8'; // TODO: Move to .env
         const redirect_uri = `${process.env.DNS_NAME}:8080/api/auth/spotify/callback`
         const scope = 'user-read-private user-read-email playlist-modify-private playlist-modify-public';
 

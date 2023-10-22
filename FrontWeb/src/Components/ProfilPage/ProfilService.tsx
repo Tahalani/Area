@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 const authSpotify = () => {
-  window.location.href = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/spotify' + '?token=' + localStorage.getItem('token');
+  window.location.href = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/instagram' + '?token=' + localStorage.getItem('token');
 }
 
 interface HorizontalRectangleProps {
@@ -25,7 +25,7 @@ const HorizontalRectangle: React.FC<HorizontalRectangleProps> = ({
         <div className="w-1/2 flex">
           <div className="w-1/5">
             <div className="w-14 h-14">
-              <button onClick={authSpotify} className="w-full h-full rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"> Connect Spotify </button>
+              <button onClick={authSpotify} className="w-full h-full rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"> Connect Instagram </button>
               <img src={logo_url} alt="Image" className="w-full h-full object-cover rounded-full" />
             </div>
           </div>
