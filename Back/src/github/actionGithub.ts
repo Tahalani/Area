@@ -5,6 +5,9 @@ import { config } from 'dotenv';
 
 config();
 
+// prod ${process.env.DNS_NAME}:8080/api/Webhook/GitHub`
+// dev url de smee https://smee.io/iDDj9mJTxmyCHTV
+
 @Injectable()
 export class ActionGithub {
     async onPush(userService: UserServiceEntity, arg: any) {
@@ -23,7 +26,7 @@ export class ActionGithub {
               'push',
             ],
             config: {
-              url: `${process.env.DNS_NAME}:8080/api/Webhook/GitHub`,
+              url: `https://smee.io/iDDj9mJTxmyCHTV`,
               content_type: 'json',
               insecure_ssl: '0'
             },
@@ -52,7 +55,7 @@ export class ActionGithub {
               'pull_request'
             ],
             config: {
-              url: `${process.env.DNS_NAME}:8080/api/Webhook/GitHub`,
+              url: `https://smee.io/iDDj9mJTxmyCHTV`,
               content_type: 'json',
               insecure_ssl: '0'
             },
@@ -80,7 +83,7 @@ export class ActionGithub {
               'issues'
             ],
             config: {
-              url: `${process.env.DNS_NAME}:8080/api/Webhook/GitHub`,
+              url: `https://smee.io/iDDj9mJTxmyCHTV`,
               content_type: 'json',
               insecure_ssl: '0'
             },
@@ -108,15 +111,15 @@ export class ActionGithub {
               'create'
             ],
             config: {
-              url: `${process.env.DNS_NAME}:8080/api/Webhook/GitHub`,
+              url: `https://smee.io/iDDj9mJTxmyCHTV`,
               content_type: 'json',
               insecure_ssl: '0'
             },
             headers: {
               'X-GitHub-Api-Version': '2022-11-28'
             }
-          })
-        } catch (error) {
+          }).then((res: any) => {console.log(res)})
+        }catch (error) {
           console.log("Already created");
         }
       }

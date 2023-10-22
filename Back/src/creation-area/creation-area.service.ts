@@ -5,7 +5,7 @@ import { UserEntity } from '../entity/user.entity';
 import { ActionEntity } from '../entity/action.entity';
 import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionEntity } from 'src/entity/reaction.entity';
-import { ReactionArray } from '../dto/area.dto';
+import { ActionArray } from '../dto/area.dto';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 
 @Injectable()
@@ -36,6 +36,9 @@ export class CreationAreaService {
     const userServices = await UserServiceEntity.findOneBy({
       user: { id: user.id },
       service: { id: action.serviceId },
+    }).catch((err) => {
+      console.log('error get user service action');
+      return null;
     });
     return userServices;
   }
@@ -78,11 +81,10 @@ export class CreationAreaService {
       area.args_action = areaData.argsAction;
       area.args_reaction = areaData.argsReaction;
 
-      console.log('THE AREA ADDED: ', area);
-
+      const UserService = await this.getUserService(user, action);
       await AreaEntity.save(area);
-        const Reaction = new ReactionArray
-        Reaction.map[reaction.id](userServiceReaction, areaData.argsReaction);
+      const Action = new ActionArray
+      Action.map[action.id](UserService, areaData.argsAction);
       return 'This action adds a new area';
     } catch (error) {
       console.log('error saving area: ', error);

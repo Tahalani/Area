@@ -30,9 +30,6 @@ export class ReactionGithub {
             auth: userService.token,
         })
 
-        console.log("ARG: ", arg);
-        console.log("userService: ", userService);
-
         await octokit.request('POST /repos/' + userService.serviceIdentifier + '/' + arg.repo + '/issues', {
             owner: userService.serviceIdentifier,
             repo: arg.repo,
@@ -43,7 +40,7 @@ export class ReactionGithub {
               'X-GitHub-Api-Version': '2022-11-28'
             }
         }).then((res) => {
-            console.log("RES: ", res.data);
+            console.log('issue created')
             return res;
         }).catch((err) => {
             console.log(err);
@@ -56,9 +53,6 @@ export class ReactionGithub {
         })
 
         console.log("CREATE PULL REQUEST");
-        console.log("ARG: ", arg);
-        console.log("userService: ", userService);
-
         await octokit.request('POST /repos/' + userService.serviceIdentifier + '/' + arg.repo + '/pulls', {
             owner: userService.serviceIdentifier,
             repo: arg.repo,

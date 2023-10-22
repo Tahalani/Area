@@ -22,7 +22,7 @@ export class SmeeModule {
     const events = smeeClient.start();
 
     events.on('message', (message: string) => {
-      console.log('Message reçu:');
+      console.log('Message reçu smee:');
       // Faites ici le traitement que vous souhaitez effectuer avec le message reçu
     });
   }
