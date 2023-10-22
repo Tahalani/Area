@@ -87,6 +87,12 @@
                 "description": "change the details of a playlist",
                 "params": [{"playlist_id": "playlist_id", "new_playlist_name": "new_playlist_name", "new_playlist_description": "new_playlist_description"}]
             }]
+        }, {
+            "name": "Instagram",
+            "description": "Instagram service",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Instagram-Icon.png/768px-Instagram-Icon.png",
+            "actions": [],
+            "reactions": []
         }]
     }
 }
