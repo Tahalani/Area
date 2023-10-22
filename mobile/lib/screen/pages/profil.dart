@@ -25,7 +25,41 @@ class UserProfile {
   });
 }
 
+class Services {
+  final String serviceName;
+  final Image image;
+
+  Services({
+    required this.serviceName,
+    required this.image,
+  });
+}
+
+List<Services> services = [
+  Services(
+    serviceName: "github",
+    image: Image.asset(
+      "assets/images/github.png",
+    ),
+  ),
+  Services(
+    serviceName: "outlook",
+    image: Image.asset(
+      "assets/images/outlook.png",
+    ),
+  ),
+  Services(
+    serviceName: "spotify",
+    image: Image.asset(
+      "assets/images/spotify.png",
+    ),
+  ),
+];
+
 class _MyProfilState extends State<MyProfil> {
+  var connectedSercices = [];
+  List<Services> connected_services = [];
+
   Future<UserProfile> fetchUser(String token) async {
     var url = "https://are4-51.com:8080/api/auth/profile";
     var headers = {'Authorization': 'Bearer ${widget.token}'};
@@ -49,7 +83,14 @@ class _MyProfilState extends State<MyProfil> {
     var response = await http.get(Uri.parse(url), headers: headers);
     if (response.statusCode == 200) {
       final user = jsonDecode(response.body);
-      print(user);
+      connectedSercices = user;
+      for (var i = 0; i < connectedSercices.length; i++) {
+        for (var j = 0; j < services.length; j++) {
+          if (connectedSercices[i] == services[j].serviceName) {
+            connected_services.add(services[j]);
+          }
+        }
+      }
     } else {
       throw Exception('Failed to load user');
     }
@@ -139,7 +180,6 @@ class _MyProfilState extends State<MyProfil> {
                         "Firstname", user.firstName, firstName, false),
                     buildTextField("Email", user.email, email, false),
                     buildTextField("Password", user.password, password, true),
-                    const SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -183,6 +223,26 @@ class _MyProfilState extends State<MyProfil> {
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(height: 5),
+                    const Text("Connected services", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 5),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: connected_services.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          leading: connected_services[index].image,
+                          title: Text(
+                            connected_services[index].serviceName,
+                            style: const TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
