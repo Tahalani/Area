@@ -39,4 +39,41 @@ export class ReactionOutlook {
         );
       });
     }
+
+    async SendMail(userService: any, arg: any) {
+      console.log('userService :', userService[0].token);
+      const access_token = userService[0].token;
+      const message = {
+        subject: `${arg.subject}`,
+        importance: 'Low',
+        body: {
+            contentType: 'HTML',
+            content: `${arg.body}`
+        },
+        toRecipients: [
+            {
+                emailAddress: {
+                    address: `${arg.to}`
+                }
+            }
+        ]
+    };
+      const url = 'https://graph.microsoft.com/v1.0/me/messages';
+      axios
+        .post(url, message, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((response) => {
+          console.log('Mail envoyé avec succès:', response.data);
+        })
+        .catch((error) => {
+          console.error(
+            "Erreur lors de l'envoi du mail",
+            error.response.data,
+          );
+        });
+      }
 }
