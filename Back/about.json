@@ -3,35 +3,35 @@
         "services": [{
             "name":"GitHub",
             "description":"GitHub service",
-            "logo_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",
             "actions": [{
-                "name":"push_on_repository",
+                "name":"push on repository",
                 "actionId": 1,
                 "description":"A push is made on a repository",
                 "params": [{"repo": "repository_name"}]
                     }, {
-                "name":"pull_request_on_repository",
+                "name":"pull request on repository",
                 "actionId": 2,
                 "description":"A pull request is made on a repository",
                 "params": [{"repo": "repository_name"}]
                     }, {
-                "name":"issue_on_repository",
+                "name":"issue on repository",
                 "actionId": 3,
                 "description":"An issue is made on a repository",
                 "params": [{"repo": "repository_name"}]
                     }, {
-                "name": "create_branch",
+                "name": "create branch",
                 "actionId": 4,
                 "description": "A branch is created on a repository",
                 "params": [{"repo": "repository_name"}]
                     }],
             "reactions": [{
-                "name":"create_issue",
+                "name":"create issue",
                 "reactionId": 1,
                 "description":"Create an issue on a repository",
                 "params": [{"repo": "repository_name", "title": "issue_title", "body": "issue_body", "assignees": "issue_assignees", "milestone":"milestones","labels": "issue_labels"}]
                     },{
-                "name":"create_pull_request",
+                "name":"create pull request",
                 "reactionId": 2,
                 "description":"Create a pull request on a repository",
                 "params": [{"repo": "repository_name", "title": "pull_request_title", "body": "pull_request_body", "head": "pull_request_head", "base": "pull_request_base"}]
@@ -40,13 +40,13 @@
             },{
             "name": "Google",
             "description": "Google service",
-            "logo_url": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png"
             },{
             "name": "Mail",
             "description": "Mail service",
-            "logo_url": "https://icon-library.com/images/mail-icon-png-white/mail-icon-png-white-18.jpg",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/fr/a/a7/Mail_%28Apple%29_logo.png",
             "reactions": [{
-                "name":"send_mail",
+                "name":"send mail",
                 "reactionId": 3,
                 "description":"Send a mail",
                 "params": [{"to": "mail_to", "subject": "mail_subject", "body": "mail_body"}]
@@ -56,7 +56,7 @@
             "description": "Outlook service",
             "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png",
             "reactions":[{
-                "name": "create_event",
+                "name": "create event",
                 "reactionId": 4,
                 "description": "Create an event in your calendar",
                 "params": [{"title": "event_title", "start": "event_start(format: YYYY/MM/DD)", "end": "event_end(format: YYYY/MM/DD)"}]
