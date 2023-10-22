@@ -36,28 +36,42 @@ export class CreationAreaService {
     const userServices = await UserServiceEntity.findOneBy({
       user: { id: user.id },
       service: { id: action.serviceId },
+    }).catch((err) => {
+      console.log('error get user service action');
+      return null;
     });
     return userServices;
   }
 
+  async getUserServiceReaction(user: UserEntity, reaction: ReactionEntity ): Promise<UserServiceEntity | null> {
+
+    const userServices = await UserServiceEntity.findOneBy({
+      user: { id: user.id },
+      service: { id: reaction.serviceId },
+    }).catch((err) => {
+      console.log('error get user service reaction');
+      return null;
+    });
+    return userServices;
+  }
 
   async createArea(areaData: areaDto, req: any): Promise<string> {
 
     const user: UserEntity | null = await this.getUser(req.user.email);
     if (user === null)
-      return '412 User not found';
+      return '409 User not found';
 
     const action: ActionEntity | null = await this.getAction(areaData.id_Action);
     if (action === null)
       return '410 Action not found';
 
-    const userServices = await this.getUserService(user, action);
-    if (userServices === null)
-      return '412 User service not found';
-
     const reaction: ReactionEntity | null = await this.getReaction(areaData.id_Reaction);
     if (reaction === null)
       return '854 Reaction not found';
+
+    const userServiceReaction = await this.getUserServiceReaction(user, reaction);
+    if (userServiceReaction === null) //TO DO ENLEVER CA SERT A QUE DALLE
+      return '414 User service not found';
 
     try {
       const area: AreaEntity = AreaEntity.create();
@@ -67,11 +81,10 @@ export class CreationAreaService {
       area.args_action = areaData.argsAction;
       area.args_reaction = areaData.argsReaction;
 
-      console.log('THE AREA ADDED: ', area);
-
+      const UserService = await this.getUserService(user, action);
       await AreaEntity.save(area);
-        const Action = new ActionArray
-        Action.map[action.id](userServices, areaData.argsAction);
+      const Action = new ActionArray
+      Action.map[action.id](UserService, areaData.argsAction);
       return 'This action adds a new area';
     } catch (error) {
       console.log('error saving area: ', error);

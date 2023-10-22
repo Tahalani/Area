@@ -37,6 +37,7 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
       push: 1,
       pull: 2,
       issues: 3,
+      create: 4,
     };
 
     constructor(private readonly reactionGithub: ReactionGithub, private readonly actionGithub: ActionGithub) {}
@@ -109,7 +110,7 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
       return userService;
     }
 
-    async getArea(userService: UserServiceEntity, event: string, repo: string): Promise<AreaEntity | null> {
+    async getArea(userService: UserServiceEntity, event: string, repo: string): Promise<AreaEntity[] | null> {
       const area = await AreaEntity.find({
         where: {
           user: {id: userService.userId },
@@ -122,12 +123,13 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
         return null;
       }
 
+      const areaFound : AreaEntity[] = [];
       for (const element of area) {
         const args_action = JSON.parse(JSON.stringify(element.args_action));
         if (args_action.repo === repo)
-          return element;
+          areaFound.push(element);
       }
-      return null;
+      return areaFound;
     }
 
     async webhookHandling(req: any): Promise<void> {
@@ -136,20 +138,18 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
         console.error("User not found (", req.body.sender, ")");
         return;
       }
+      if (req.headers['x-github-event'] === "ping") {
+        console.log("Ping received from github");
+        return;
+      }
       const area = await this.getArea(userService, req.headers['x-github-event'], req.body.repository.name);
-      console.log("areaFinal: ", area);
-      if (area === null) {
+      if (area === null || area.length === 0) {
         console.error("Area not found (", userService, req.headers['x-github-event'], ")");
         return;
       }
-      if (area.reactionId === 4) {
-        console.log("je rentre la: ", area.reactionId)
-        const userService2 = await UserServiceEntity.find({ where: { user: { id: userService.userId }, service: { id: 4 } } });
-        const Reaction = new ReactionArray
-        Reaction.map[area.reactionId](userService2, area.args_reaction);
-        return;
-      }
       const Reaction = new ReactionArray
-      Reaction.map[area.reactionId](userService, area.args_reaction);
+      for (const element of area) {
+        Reaction.map[element.reactionId](userService, element.args_reaction);
+      }
     }
 }

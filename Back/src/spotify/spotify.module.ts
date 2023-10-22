@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { SpotifyController } from './spotify.controller';
 import { SpotifyService } from './spotify.service';
 import { AuthModule } from 'src/auth/auth.module';
-// import { GithubModule } from 'src/github/github.module';
+import { ReactionSpotify } from './reactionSpotify';
 
 @Module({
   imports: [AuthModule],
   controllers: [SpotifyController],
-  providers: [SpotifyService]
+  providers: [SpotifyService, ReactionSpotify],
 })
 export class SpotifyModule {}

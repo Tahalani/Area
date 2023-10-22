@@ -7,6 +7,7 @@ import {
     PrimaryColumn,
     ManyToOne,
     OneToMany,
+    RelationId,
   } from 'typeorm';
 
 import { ServiceEntity } from './service.entity';
@@ -30,6 +31,9 @@ export class ReactionEntity extends BaseEntity {
 
   @ManyToOne(() => ServiceEntity, (service) => service.id)
   service: ServiceEntity;
+
+  @RelationId((reaction: ReactionEntity) => reaction.service)
+  serviceId: number;
 
   @Column()
   nbr_args: number;

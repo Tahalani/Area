@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+
+const authSpotify = () => {
+  window.location.href = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/instagram' + '?token=' + localStorage.getItem('token');
+}
 const HorizontalRectangle: React.FC = () => {
   const [services, setServices] = useState<string[]>([]);
 
@@ -25,6 +29,15 @@ const HorizontalRectangle: React.FC = () => {
   }, []);
 
   return (
+
+    <div style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)" }} className="mb-12 bg-gray-200 p-4 w-[800px] h-[200px] flex-col justify-start items-start rounded-lg">
+      <div className="w-full h-1/3 flex">
+        <div className="w-1/2 flex">
+          <div className="w-1/5">
+            <div className="w-14 h-14">
+              <button onClick={authSpotify} className="w-full h-full rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"> Connect Instagram </button>
+              <img src={logo_url} alt="Image" className="w-full h-full object-cover rounded-full" />
+
     <div>
       {services.map((service, index) => (
         <div

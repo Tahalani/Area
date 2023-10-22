@@ -34,7 +34,6 @@ export class FrontDataService {
     }
 
     async getUserServices(email: string) {
-        console.log("email: ", email);
         const user = await UserEntity.findOneBy({
             email: email
         });

@@ -16,6 +16,7 @@ import { CreationAreaModule } from './creation-area/creation-area.module';
 import { FrontDataModule } from './front-data/front-data.module';
 import { OutlookModule } from './outlook/outlook.module';
 import { SpotifyModule } from './spotify/spotify.module';
+import { InstagramModule } from './instagram/instagram.module';
 
 dotenv.config();
 
@@ -52,6 +53,7 @@ dotenv.config();
     CreationAreaModule,
     FrontDataModule,
     SpotifyModule,
+    InstagramModule,
   ],
   controllers: [AppController],
   providers: [AppService, MailingReaction, InitService],
