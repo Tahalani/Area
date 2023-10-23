@@ -3,7 +3,7 @@ import { UserServiceEntity } from 'src/entity/userService.entity';
 import axios from 'axios';
 
 @Injectable()
-export class ReactionOutlook {
+export class ReactionMicrosoft {
   async createEvent(userService: any, arg: any) {
 
     console.log('userService :', userService[0].token);

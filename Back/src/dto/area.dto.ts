@@ -1,7 +1,7 @@
 import { ActionGithub } from 'src/github/actionGithub';
 import { ReactionGithub } from 'src/github/reactionGithub';
 import { MailingReaction } from 'src/mailing/mailing.reaction';
-import { ReactionOutlook } from 'src/outlook/reactionOutlook';
+import { ReactionMicrosoft } from 'src/microsoft/reactionMicrosoft';
 import { ReactionSpotify } from 'src/spotify/reactionSpotify';
 
 export class areaDto {
@@ -12,10 +12,9 @@ export class areaDto {
 }
 
 export class ActionArray {
-
   private readonly githubAction = new ActionGithub();
 
-  map: {[key: number]: (userService: any, arg: any) => any}  = {
+  map: { [key: number]: (userService: any, arg: any) => any } = {
     1: this.githubAction.onPush,
     2: this.githubAction.onPullReq,
     3: this.githubAction.onIssues,
@@ -24,22 +23,20 @@ export class ActionArray {
 }
 
 export class ReactionArray {
-
   private readonly GithubReaction = new ReactionGithub();
-  private readonly ReactionOutlook = new ReactionOutlook();
+  private readonly ReactionMicrosoft = new ReactionMicrosoft();
   private readonly ReactionSpotify = new ReactionSpotify();
 
-  map: {[key: number]: (userService: any, arg: any) => any}  = {
+  map: { [key: number]: (userService: any, arg: any) => any } = {
     1: this.GithubReaction.createIssue,
     2: this.GithubReaction.createPullRequest,
-    4: this.ReactionOutlook.createEvent,
+    4: this.ReactionMicrosoft.createEvent,
     5: this.ReactionSpotify.createPlaylist,
     6: this.ReactionSpotify.addItemToPlaylist,
     7: this.ReactionSpotify.deleteItemFromPlaylist,
     8: this.ReactionSpotify.changePlaylistDetails,
-    9: this.ReactionOutlook.createDraft,
-    10: this.ReactionOutlook.createCalendarGroup,
-    11: this.ReactionOutlook.createCalendar
+    9: this.ReactionMicrosoft.createDraft,
+    10: this.ReactionMicrosoft.createCalendarGroup,
+    11: this.ReactionMicrosoft.createCalendar,
   };
 }
-  
