@@ -43,7 +43,7 @@ List<Services> services = [
     ),
   ),
   Services(
-    serviceName: "outlook",
+    serviceName: "microsoft",
     image: Image.asset(
       "assets/images/outlook.png",
     ),
@@ -52,6 +52,12 @@ List<Services> services = [
     serviceName: "spotify",
     image: Image.asset(
       "assets/images/spotify.png",
+    ),
+  ),
+  Services(
+    serviceName: "instagram",
+    image: Image.asset(
+      "assets/images/instagram.png",
     ),
   ),
 ];
@@ -225,7 +231,9 @@ class _MyProfilState extends State<MyProfil> {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    const Text("Connected services", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    const Text("Connected services",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 5),
                     ListView.builder(
                       shrinkWrap: true,

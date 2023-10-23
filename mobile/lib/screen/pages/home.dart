@@ -118,15 +118,21 @@ List<Services> services = [
     callbackUrl: "https://are4-51.com:8081",
   ),
   Services(
-    serviceName: "Outlook",
+    serviceName: "Microsoft",
     image: Image.asset("assets/images/outlook.png"),
-    url: "https://are4-51.com:8080/api/auth/Outlook",
+    url: "https://are4-51.com:8080/api/auth/Microsoft",
     callbackUrl: "https://are4-51.com:8081",
   ),
   Services(
     serviceName: "Spotify",
     image: Image.asset("assets/images/spotify.png"),
     url: "https://are4-51.com:8080/api/auth/spotify",
+    callbackUrl: "https://are4-51.com:8081",
+  ),
+  Services(
+    serviceName: "Instagram",
+    image: Image.asset("assets/images/instagram.png"),
+    url: "https://are4-51.com:8080/api/auth/instagram",
     callbackUrl: "https://are4-51.com:8081",
   ),
 ];
