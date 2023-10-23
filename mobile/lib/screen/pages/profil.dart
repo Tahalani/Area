@@ -54,6 +54,12 @@ List<Services> services = [
       "assets/images/spotify.png",
     ),
   ),
+  Services(
+    serviceName: "instagram",
+    image: Image.asset(
+      "assets/images/instagram.png",
+    ),
+  ),
 ];
 
 class _MyProfilState extends State<MyProfil> {

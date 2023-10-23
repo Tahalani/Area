@@ -129,6 +129,12 @@ List<Services> services = [
     url: "https://are4-51.com:8080/api/auth/spotify",
     callbackUrl: "https://are4-51.com:8081",
   ),
+  Services(
+    serviceName: "Instagram",
+    image: Image.asset("assets/images/instagram.png"),
+    url: "https://are4-51.com:8080/api/auth/instagram",
+    callbackUrl: "https://are4-51.com:8081",
+  ),
 ];
 
 void showDeleteConfirmationDialog(BuildContext context, int id) {
