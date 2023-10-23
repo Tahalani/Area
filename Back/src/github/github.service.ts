@@ -165,7 +165,7 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
           console.error("Reaction not found (", element.reactionId, ")");
           return;
         }
-        const userServiceReaction = await UserServiceEntity.find({ where: { user: { id: userService.userId }, service: { id: serviceEntity.id } } });
+        const userServiceReaction = await UserServiceEntity.find({ where: { user: { id: userService.userId }, service: { id: serviceEntity.serviceId } } });
         if (userServiceReaction === null) {
           console.error("User not found (", userService, ")");
           return;

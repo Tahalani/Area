@@ -14,7 +14,7 @@ import { SmeeModule } from './smee/smee.module';
 import { InitService } from './initialization/initiService';
 import { CreationAreaModule } from './creation-area/creation-area.module';
 import { FrontDataModule } from './front-data/front-data.module';
-import { OutlookModule } from './outlook/outlook.module';
+import { MicrosoftModule } from './microsoft/microsoft.module';
 import { SpotifyModule } from './spotify/spotify.module';
 import { InstagramModule } from './instagram/instagram.module';
 
@@ -33,13 +33,14 @@ dotenv.config();
       synchronize: true,
     }),
     MailerModule.forRoot({
-      transport : {
+      transport: {
         host: 'smtp.outlook.com',
         auth: {
-          user: "AreaEpitech@outlook.com",
-          pass: "PSGLDC2023" // TODO ENV VARIABLE
-        }
-      }}),
+          user: 'AreaEpitech@outlook.com',
+          pass: 'PSGLDC2023', // TODO ENV VARIABLE
+        },
+      },
+    }),
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
@@ -48,7 +49,7 @@ dotenv.config();
     AuthModule,
     GoogleModule,
     GithubModule,
-    OutlookModule,
+    MicrosoftModule,
     SmeeModule,
     CreationAreaModule,
     FrontDataModule,
