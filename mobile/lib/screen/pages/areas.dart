@@ -222,24 +222,24 @@ class _MyAreasState extends State<MyAreas> {
       body: body,
     );
 
-    // if (response.statusCode == 201) {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     const SnackBar(
-    //       content: Text('Area added'),
-    //       backgroundColor: Colors.green,
-    //       duration: Duration(seconds: 1),
-    //     ),
-    //   );
-    // } else {
-    //   print(response.body);
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     const SnackBar(
-    //       content: Text('Failed to add area'),
-    //       backgroundColor: Colors.red,
-    //       duration: Duration(seconds: 1),
-    //     ),
-    //   );
-    // }
+    if (response.statusCode == 201) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Area added'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 1),
+        ),
+      );
+    } else {
+      print(response.body);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to add area'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 1),
+        ),
+      );
+    }
   }
 
   @override
