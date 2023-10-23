@@ -199,8 +199,6 @@ class _MyAreasState extends State<MyAreas> {
     }
 
     Map<String, dynamic> myJson = {
-      // "token": widget.token,
-      // "title": areaTitleController.text,
       "id_Action": action_args.id,
       "id_Reaction": reaction_args.id,
       "argsAction": {
