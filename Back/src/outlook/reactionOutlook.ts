@@ -40,8 +40,7 @@ export class ReactionOutlook {
       });
     }
 
-    async SendMail(userService: any, arg: any) {
-      console.log('userService :', userService[0].token);
+    async createDraft(userService: any, arg: any) {
       const access_token = userService[0].token;
       const message = {
         subject: `${arg.subject}`,
@@ -67,13 +66,63 @@ export class ReactionOutlook {
           },
         })
         .then((response) => {
-          console.log('Mail envoyé avec succès:', response.data);
+          console.log('Draft crée avec succès:', response.data);
         })
         .catch((error) => {
           console.error(
-            "Erreur lors de l'envoi du mail",
+            "Erreur lors de le la création de la draft",
             error.response.data,
           );
         });
+      }
+
+      async createCalendarGroup(userService: any, arg: any) {
+        const access_token = userService[0].token;
+        const content = {
+          name: `${arg.name}`,
+        };
+
+        const url = 'https://graph.microsoft.com/v1.0/me/calendarGroups';
+        axios
+          .post(url, content, {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              'Content-Type': 'application/json',
+            },
+          })
+          .then((response) => {
+            console.log('Calendar group crée avec succès:', response.data);
+          })
+          .catch((error) => {
+            console.error(
+              "Erreur lors de le la création du calendar group",
+              error.response.data,
+            );
+          });
+      }
+
+      async createCalendar(userService: any, arg: any) {
+        const access_token = userService[0].token;
+        const content = {
+          name: `${arg.name}`,
+        };
+
+        const url = 'https://graph.microsoft.com/v1.0/me/calendars';
+        axios
+          .post(url, content, {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              'Content-Type': 'application/json',
+            },
+          })
+          .then((response) => {
+            console.log('Calendar crée avec succès:', response.data);
+          })
+          .catch((error) => {
+            console.error(
+              "Erreur lors de le la création du calendar",
+              error.response.data,
+            );
+          });
       }
 }
