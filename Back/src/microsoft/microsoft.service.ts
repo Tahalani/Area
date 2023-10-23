@@ -17,7 +17,7 @@ async function getmicrosoftToken(
   try {
     const response = await axios.post(
       'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-      `client_id=${process.env.Microsoft_CLIENT_ID}&client_secret=${process.env.Microsoft_CLIENT_SECRET}&code=${code}&redirect_uri=${process.env.DNS_NAME}:8080/api/auth/microsoft/callback&grant_type=authorization_code`,
+      `client_id=${process.env.Microsoft_CLIENT_ID}&client_secret=${process.env.Microsoft_CLIENT_SECRET}&code=${code}&redirect_uri=${process.env.DNS_NAME}:8080/api/auth/Microsoft/callback&grant_type=authorization_code`,
       {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
