@@ -118,9 +118,9 @@ List<Services> services = [
     callbackUrl: "https://are4-51.com:8081",
   ),
   Services(
-    serviceName: "Outlook",
+    serviceName: "Microsoft",
     image: Image.asset("assets/images/outlook.png"),
-    url: "https://are4-51.com:8080/api/auth/Outlook",
+    url: "https://are4-51.com:8080/api/auth/Microsoft",
     callbackUrl: "https://are4-51.com:8081",
   ),
   Services(
