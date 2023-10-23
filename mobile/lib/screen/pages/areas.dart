@@ -107,6 +107,9 @@ class _MyAreasState extends State<MyAreas> {
     var headers = {'Authorization': 'Bearer ${widget.token}'};
     return http.get(Uri.parse(url), headers: headers).then((response) {
       if (response.statusCode == 200) {
+        if (response.body == "No actions") {
+          return [];
+        }
         final actions = jsonDecode(response.body);
         return actions.map<ACTION>((action) {
           final args = jsonDecode(action['args_action']);
