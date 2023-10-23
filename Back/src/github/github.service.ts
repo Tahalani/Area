@@ -10,6 +10,7 @@ import { ActionGithub } from './actionGithub';
 import { Octokit } from '@octokit/rest';
 import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionArray } from 'src/dto/area.dto';
+import { ReactionEntity } from 'src/entity/reaction.entity';
 
 config();
 
@@ -132,6 +133,15 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
       return areaFound;
     }
 
+    async getReactionService(serviceId: number): Promise<ReactionEntity | null> {
+      const reactionService = await ReactionEntity.findOneBy({ id: serviceId });
+      if (reactionService === null) {
+        console.error("Reaction not found (", serviceId, ")");
+        return null;
+      }
+      return reactionService;
+    }
+
     async webhookHandling(req: any): Promise<void> {
       const userService = await this.getUserService(req.body.sender.login);
       if (userService == null) {
@@ -147,9 +157,20 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
         console.error("Area not found (", userService, req.headers['x-github-event'], ")");
         return;
       }
+
       const Reaction = new ReactionArray
       for (const element of area) {
-        Reaction.map[element.reactionId](userService, element.args_reaction);
+        const serviceEntity = await this.getReactionService(element.reactionId);
+        if (serviceEntity === null) {
+          console.error("Reaction not found (", element.reactionId, ")");
+          return;
+        }
+        const userServiceReaction = await UserServiceEntity.find({ where: { user: { id: userService.userId }, service: { id: serviceEntity.id } } });
+        if (userServiceReaction === null) {
+          console.error("User not found (", userService, ")");
+          return;
+        }
+        Reaction.map[element.reactionId](userServiceReaction, element.args_reaction);
       }
     }
 }

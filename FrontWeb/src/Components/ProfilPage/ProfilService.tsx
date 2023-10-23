@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 const authSpotify = () => {
   window.location.href = import.meta.env.VITE_DNS_NAME + ':8080/api/auth/instagram' + '?token=' + localStorage.getItem('token');

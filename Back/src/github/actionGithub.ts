@@ -26,7 +26,7 @@ export class ActionGithub {
               'push',
             ],
             config: {
-              url: `https://smee.io/iDDj9mJTxmyCHTV`,
+              url: `${process.env.DNS_NAME}:8080/api/Webhook/GitHub`,
               content_type: 'json',
               insecure_ssl: '0'
             },
@@ -55,7 +55,7 @@ export class ActionGithub {
               'pull_request'
             ],
             config: {
-              url: `https://smee.io/iDDj9mJTxmyCHTV`,
+              url: `${process.env.DNS_NAME}:8080/api/Webhook/GitHub`,
               content_type: 'json',
               insecure_ssl: '0'
             },
@@ -83,7 +83,7 @@ export class ActionGithub {
               'issues'
             ],
             config: {
-              url: `https://smee.io/iDDj9mJTxmyCHTV`,
+              url: `${process.env.DNS_NAME}:8080/api/Webhook/GitHub`,
               content_type: 'json',
               insecure_ssl: '0'
             },
@@ -111,7 +111,7 @@ export class ActionGithub {
               'create'
             ],
             config: {
-              url: `https://smee.io/iDDj9mJTxmyCHTV`,
+              url: `${process.env.DNS_NAME}:8080/api/Webhook/GitHub`,
               content_type: 'json',
               insecure_ssl: '0'
             },

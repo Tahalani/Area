@@ -12,8 +12,6 @@ import {
   } from 'typeorm';
 
 import { ServiceEntity } from './service.entity';
-import { UserEntity } from './user.entity';
-import { AreaEntity } from './area.entity';
 
 @Entity('Action')
 @Unique(['description'])
@@ -21,9 +19,6 @@ import { AreaEntity } from './area.entity';
 export class ActionEntity extends BaseEntity {
   @PrimaryColumn()
   id: number;
-
-  // @OneToMany(() => AreaEntity, (area) => area.id)
-  // areas: AreaEntity[];
 
   @Column()
   name: string;
