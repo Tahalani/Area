@@ -70,6 +70,17 @@
                 "reactionId": 11,
                 "description": "create a calendar",
                 "params": [{"name": "name of the calendar"}]
+                },{
+                "name": "Create Notebook",
+                "reactionId": 12,
+                "description": "create a Notebook",
+                "params": [{"displayName": "name of the notebook"}]
+                },{
+                "name": "Create Outlook Category",
+                "reactionId": 13,
+                "description": "create a category",
+                "params": [{"displayName": "name of the category"}]
+                },{
                 }]
             },{
             "name": "Spotify",

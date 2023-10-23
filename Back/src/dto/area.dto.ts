@@ -38,5 +38,7 @@ export class ReactionArray {
     9: this.ReactionMicrosoft.createDraft,
     10: this.ReactionMicrosoft.createCalendarGroup,
     11: this.ReactionMicrosoft.createCalendar,
+    12: this.ReactionMicrosoft.createNotebook,
+    13: this.ReactionMicrosoft.createOutlookCategory,
   };
 }
