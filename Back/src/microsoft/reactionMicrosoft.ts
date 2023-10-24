@@ -6,9 +6,7 @@ import axios from 'axios';
 export class ReactionMicrosoft {
   async createEvent(userService: any, arg: any) {
 
-    console.log('userService :', userService[0].token);
-
-    const access_token = userService[0].token;
+    const access_token = userService.token;
 
     const eventDetails = {
       subject: `${arg.title}`,
@@ -41,7 +39,7 @@ export class ReactionMicrosoft {
     }
 
     async createDraft(userService: any, arg: any) {
-      const access_token = userService[0].token;
+      const access_token = userService.token;
       const message = {
         subject: `${arg.subject}`,
         importance: 'Low',
@@ -77,7 +75,7 @@ export class ReactionMicrosoft {
       }
 
       async createCalendarGroup(userService: any, arg: any) {
-        const access_token = userService[0].token;
+        const access_token = userService.token;
         const content = {
           name: `${arg.name}`,
         };
@@ -102,7 +100,7 @@ export class ReactionMicrosoft {
       }
 
       async createCalendar(userService: any, arg: any) {
-        const access_token = userService[0].token;
+        const access_token = userService.token;
         const content = {
           name: `${arg.name}`,
         };
@@ -127,7 +125,7 @@ export class ReactionMicrosoft {
       }
 
       async createOutlookCategory(userService: any, arg: any) {
-        const access_token = userService[0].token;
+        const access_token = userService.token;
         const content = {
           displayName: `${arg.displayName}`,
           color : 'Preset4'

@@ -170,7 +170,7 @@ async function getGitHubToken({ code }: { code: string }): Promise<string | stri
           console.error("User not found (", userService, ")");
           return;
         }
-        Reaction.map[element.reactionId](userServiceReaction, element.args_reaction);
+        Reaction.map[element.reactionId](userServiceReaction[0], element.args_reaction);
       }
     }
 }
