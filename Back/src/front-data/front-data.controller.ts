@@ -22,8 +22,8 @@ export class FrontDataController {
 
     @ApiOkResponse({ description: 'Return all reactions' })
     @Get('reactions/get')
-    async handleReactions() {
-        return this.frontDataService.getReactions();
+    async handleReactions(@Query('serviceId') serviceId: number) {
+        return this.frontDataService.getReactions(serviceId);
     }
 
     @ApiOkResponse({ description: 'Return all user services' })

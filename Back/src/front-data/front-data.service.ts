@@ -27,9 +27,13 @@ export class FrontDataService {
         return actions;
     }
 
-    async getReactions() {
-        const reactions = await ReactionEntity.find();
-        if (reactions.length === 0)
+    async getReactions(serviceId: number) {
+        const reactions = await ReactionEntity.find({
+            where : {
+                service: { id : serviceId}
+            }
+        });
+        if (reactions === undefined || reactions === null)
             return "No reactions";
         return reactions;
     }
