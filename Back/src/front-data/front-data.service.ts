@@ -4,6 +4,7 @@ import { ReactionEntity } from 'src/entity/reaction.entity';
 import { ActionEntity } from 'src/entity/action.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 import { UserEntity } from 'src/entity/user.entity';
+import { AreaEntity } from 'src/entity/area.entity';
 
 @Injectable()
 export class FrontDataService {
@@ -31,6 +32,28 @@ export class FrontDataService {
         if (reactions.length === 0)
             return "No reactions";
         return reactions;
+    }
+
+    async getAreas(email: string) {
+        const user = await UserEntity.findOneBy({
+            email: email
+        });
+
+        if (user === undefined || user === null)
+            return "No user";
+
+        const areas = await AreaEntity.find({
+            where: {
+                user: { id: user.id }
+            }
+        });
+
+        if (areas.length === 0) {
+            console.log("pas dareas");
+            return "No areas";
+        }
+
+        return areas;
     }
 
     async getUserServices(email: string) {

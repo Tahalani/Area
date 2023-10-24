@@ -32,4 +32,11 @@ export class FrontDataController {
     async handleUserServices(@Req () req: any) {
         return this.frontDataService.getUserServices(req.user.email);
     }
+
+    @ApiOkResponse({ description: 'Return action of the service' })
+    @UseGuards(AuthGuard)
+    @Get('areas/get')
+    async handleAreas(@Req () req: any) {
+        return this.frontDataService.getAreas(req.user.email);
+    }
 }
