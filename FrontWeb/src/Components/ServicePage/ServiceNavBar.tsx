@@ -23,7 +23,7 @@ function ServiceNavbar() {
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal space-x-10 text-gray-900">
+            <ul className="text-purple-100 menu menu-horizontal space-x-10">
               <li>
                 <a
                   style={{ fontFamily: "merriweather" }}
@@ -62,7 +62,7 @@ function ServiceNavbar() {
         </div>
       </div>
       <div className="bg-third h-0.5">
-        <div className="w-1/4 ml-[37%] border-2 border-black"></div>
+        <div className="w-1/4 ml-[37%] border-2 border-purple-100"></div>
       </div>
     </>
   );

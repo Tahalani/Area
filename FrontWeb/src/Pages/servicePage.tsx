@@ -79,7 +79,7 @@ export default function Service() {
           <div className="">
             <p
               style={{ fontFamily: "merriweather", lineHeight: "1.2" }}
-              className="mt-2 mb-2 text-[30px] text-black"
+              className="mt-2 mb-2 text-[30px] text-purple-100"
             >
               {selectedService.bottomText}
             </p>

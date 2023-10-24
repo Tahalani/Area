@@ -3,6 +3,7 @@ import axios from "axios";
 
 const HorizontalRectangle: React.FC = () => {
   const [services, setServices] = useState<string[]>([]);
+  const [Image, setImage] = useState<{ name: string, description: string, logo_url: string }[] | undefined>(undefined);
 
   const url =
     import.meta.env.VITE_DNS_NAME +
@@ -20,23 +21,40 @@ const HorizontalRectangle: React.FC = () => {
       });
   };
 
+  const urlService = import.meta.env.VITE_DNS_NAME + ":8080/api/services/get";
+
+  const getServicesImage = () => {
+    axios
+      .get(urlService)
+      .then((response) => {
+        console.log(response.data);
+        setImage(response.data);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête :", error);
+      });
+  };
+
   useEffect(() => {
     getServices();
+    getServicesImage();
   }, []);
 
   return (
     <div>
-      {services.map((service, index) => (
+      {services.map((service, index) => {
+        const serviceData = Image?.find(imgService => imgService.name === service);
+        return (
         <div
           style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)" }}
-          className="mb-12 bg-gray-200 p-4 w-[800px] h-[200px] flex-col justify-start items-start rounded-lg"
+          className="mb-12 bg-gray-200 p-4 w-[800px] h-[300px] flex-col justify-start items-start rounded-lg"
         >
           <div key={index} className="w-full h-1/3 flex">
             <div className="w-1/2 flex">
               <div className="w-1/5">
                 <div className="w-14 h-14">
                   <img
-                    src={service}
+                    src={serviceData?.logo_url}
                     alt="Image"
                     className="w-full h-full object-cover rounded-full"
                   />
@@ -47,26 +65,17 @@ const HorizontalRectangle: React.FC = () => {
                   style={{ fontFamily: "merriweather" }}
                   className="text-left text-[30px] text-black"
                 >
-                  {service}
+                  {serviceData?.name}
                 </h1>
               </div>
             </div>
-            <div className="w-1/2 flex flex-col justify-center items-end pr-4">
-              <h2
-                style={{ fontFamily: "merriweather" }}
-                className="text-[25px] text-black"
-              >
-                {service}
-              </h2>
-            </div>
           </div>
-          {/* <div className="w-full h-2/3 rounded-b-lg mt-4">
-              {services.map((service, index) => (
-                <p key={index} style={{ fontFamily: 'merriweather'}} className="flex relative text-left text-[20px]">{service}</p>
-              ))}
-            </div> */}
+          <div className="w-full h-2/3 rounded-b-lg mt-4">
+            <p key={index} style={{ fontFamily: 'merriweather'}} className="flex relative text-left text-[20px]">{serviceData?.description}</p>
+          </div>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

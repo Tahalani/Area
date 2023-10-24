@@ -2,7 +2,7 @@
     "server": {
         "services": [{
             "name":"GitHub",
-            "description":"GitHub service",
+            "description":"Github est une entreprise de développement et services logiciels sise aux États-Unis. Github développe notamment la plateforme Github, la structure Electron.",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",
             "actions": [{
                 "name":"push on repository",
@@ -39,16 +39,16 @@
                 ]
             },{
             "name": "Google",
-            "description": "Google service",
+            "description": "Google est une entreprise américaine de services technologiques fondée en 1998 dans la Silicon Valley, en Californie, par Larry Page et Sergey Brin, créateurs du moteur de recherche Google. C'est une filiale de la société Alphabet depuis août 2015.",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png"
             },{
             "name": "Mail",
-            "description": "Mail service",
+            "description": "Un courrier électronique, également nommé courriel, mel ou e-mail, est un message écrit, envoyé électroniquement via un réseau informatique. On appelle messagerie électronique l'ensemble du système qui permet la transmission des courriels.",
             "logo_url": "https://upload.wikimedia.org/wikipedia/fr/a/a7/Mail_%28Apple%29_logo.png",
             "reactions": []
             },{
             "name": "Microsoft",
-            "description": "Microsoft service",
+            "description": "Microsoft Corporation est une multinationale informatique et micro-informatique américaine, fondée en 1975 par Bill Gates et Paul Allen. Microsoft fait partie des principales capitalisations boursières du NASDAQ, aux côtés d'Apple et d'Amazon. En 2018, le chiffre d'affaires s’élevait à 110,36 milliards de dollars.",
             "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png",
             "reactions":[{
                 "name": "create event",
@@ -73,7 +73,7 @@
                 }]
             },{
             "name": "Spotify",
-            "description": "Spotify service",
+            "description": "Spotify est un service suédois de streaming musical sous la forme d'un logiciel propriétaire et d'un site web. Cette plateforme de distribution numérique permet une écoute quasi instantanée de fichiers musicaux.",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/768px-Spotify_logo_without_text.svg.png",
             "actions": [],
             "reactions": [{
@@ -99,7 +99,7 @@
             }]
         }, {
             "name": "Instagram",
-            "description": "Instagram service",
+            "description": "Instagram est une application, un réseau social et un service de partage de photos et de vidéos fondés et lancés en octobre 2010 par l'Américain Kevin Systrom et le Brésilien Michel Mike Krieger.",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Instagram-Icon.png/768px-Instagram-Icon.png",
             "actions": [],
             "reactions": []
