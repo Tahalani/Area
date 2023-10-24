@@ -39,5 +39,12 @@ services:
     ports:
       - "8081:5173"
 
+  client_mobile:
+    build:
+      context: ./mobile/
+      dockerfile: Dockerfile
+    volumes:
+      - ./apk:/home/delivery
+
 networks:
   back:
