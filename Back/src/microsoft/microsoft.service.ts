@@ -6,6 +6,9 @@ import { UserServiceEntity } from 'src/entity/userService.entity';
 import { ReactionMicrosoft } from './reactionMicrosoft';
 import { ActionMicrosoft } from './actionMicrosoft';
 import { JwtService } from '@nestjs/jwt';
+import { ReactionArray } from 'src/dto/area.dto';
+import { ReactionEntity } from 'src/entity/reaction.entity';
+import { AreaEntity } from 'src/entity/area.entity';
 
 config();
 
@@ -89,16 +92,16 @@ export class MicrosoftService {
       userService.service = service;
       userService.serviceIdentifier = microsoftUserId;
       userService.token = microsoftToken.toString();
-      console.log(
-        'microsoft token: ',
-        userService.token,
-        'microsoft user id: ',
-        userService.serviceIdentifier,
-        'microsoft user: ',
-        userService.user,
-        'microsoft service: ',
-        userService.service,
-      );
+      // console.log(
+      //   'microsoft token: ',
+      //   userService.token,
+      //   'microsoft user id: ',
+      //   userService.serviceIdentifier,
+      //   'microsoft user: ',
+      //   userService.user,
+      //   'microsoft service: ',
+      //   userService.service,
+      // );
       await userService.save();
       console.log('microsoft token saved');
     } catch (error) {
@@ -106,4 +109,81 @@ export class MicrosoftService {
       return;
     }
   }
+
+  async getUserService(serviceIdentifier: string): Promise<UserServiceEntity | null> {
+    const userService = await UserServiceEntity.findOneBy({ serviceIdentifier: serviceIdentifier });
+    if (userService === null) {
+      console.error("User not found (", serviceIdentifier, ")");
+      return null;
+    }
+    return userService;
+  }
+
+  async getArea(userService: UserServiceEntity): Promise<AreaEntity[] | null> {
+    const area = await AreaEntity.find({
+      where: {
+        user: {id: userService.userId }
+      }
+    });
+
+    if (area === null) {
+      console.error("Area not found (", userService, event, ")");
+      return null;
+    }
+
+    const areaFound : AreaEntity[] = [];
+    for (const element of area) {
+      areaFound.push(element);
+    }
+    return areaFound;
+  }
+
+  async getReactionService(serviceId: number): Promise<ReactionEntity | null> {
+    const reactionService = await ReactionEntity.findOneBy({ id: serviceId });
+    if (reactionService === null) {
+      console.error("Reaction not found (", serviceId, ")");
+      return null;
+    }
+    return reactionService;
+  }
+
+  async webhookHandling(req: any): Promise<void> {
+    try {
+      const get = req.body.value[0].resource;
+    } catch (e) {
+      // not a message
+      return;
+    }    
+    const match = req.body.value[0].resource.match(/Users\/([^\/]+)\/Messages/);
+    if (match === null) {
+      console.error("Error getting user id microsoft");
+      return;
+    }
+    const userService = await this.getUserService(match[1]);
+    if (userService == null) {
+      console.error("User not found (", req.body.sender, ")");
+      return;
+    }
+    const area = await this.getArea(userService);
+    if (area === null || area.length === 0) {
+      console.error("Area not found (", userService, req.headers['x-github-event'], ")");
+      return;
+    }
+
+    const Reaction = new ReactionArray
+    for (const element of area) {
+      const serviceEntity = await this.getReactionService(element.reactionId);
+      if (serviceEntity === null) {
+        console.error("Reaction not found (", element.reactionId, ")");
+        return;
+      }
+      const userServiceReaction = await UserServiceEntity.find({ where: { user: { id: userService.userId }, service: { id: serviceEntity.serviceId } } });
+      if (userServiceReaction === null) {
+        console.error("User not found (", userService, ")");
+        return;
+      }
+      Reaction.map[element.reactionId](userServiceReaction[0], element.args_reaction);
+    }
+  }
+
 }

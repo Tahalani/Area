@@ -13,9 +13,7 @@ config();
 
 const tenant_id = 'common';
 
-
 @Controller('api')
-// mettre un guard
 export class MicrosoftController {
   constructor(private readonly MicrosoftService: MicrosoftService) {}
 
@@ -37,5 +35,13 @@ export class MicrosoftController {
   async MicrosoftAuthCallback(@Req() req: any, @Res() res: Response) {
     this.MicrosoftService.addService(req);
     res.redirect(`${process.env.DNS_NAME}:8081/AreaPage`);
+  }
+
+  @ApiExcludeEndpoint()
+  @Post("Webhook/Microsoft")
+  async MicrosoftWebhook(@Req() req: any, @Res() res: Response) {
+    console.log('MicrosoftWebhook:', req.body);
+    this.MicrosoftService.webhookHandling(req);
+    res.status(200).send(req.query.validationToken);
   }
 }

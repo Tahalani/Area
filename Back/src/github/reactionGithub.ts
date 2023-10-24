@@ -24,8 +24,6 @@ export class ReactionGithub {
 
     async createIssue(userService: UserServiceEntity, arg: any) {
 
-        console.log("CREATE ISSUE");
-
         const octokit = new Octokit({
             auth: userService.token,
         })
@@ -52,7 +50,6 @@ export class ReactionGithub {
             auth: userService.token,
         })
 
-        console.log("CREATE PULL REQUEST");
         await octokit.request('POST /repos/' + userService.serviceIdentifier + '/' + arg.repo + '/pulls', {
             owner: userService.serviceIdentifier,
             repo: arg.repo,

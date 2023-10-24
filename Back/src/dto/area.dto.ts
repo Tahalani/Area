@@ -3,6 +3,7 @@ import { ReactionGithub } from 'src/github/reactionGithub';
 import { MailingReaction } from 'src/mailing/mailing.reaction';
 import { ReactionMicrosoft } from 'src/microsoft/reactionMicrosoft';
 import { ReactionSpotify } from 'src/spotify/reactionSpotify';
+import {ActionMicrosoft} from 'src/microsoft/actionMicrosoft';
 
 export class areaDto {
   id_Action: number;
@@ -13,12 +14,15 @@ export class areaDto {
 
 export class ActionArray {
   private readonly githubAction = new ActionGithub();
+  private readonly microsoftAction = new ActionMicrosoft();
+
 
   map: { [key: number]: (userService: any, arg: any) => any } = {
     1: this.githubAction.onPush,
     2: this.githubAction.onPullReq,
     3: this.githubAction.onIssues,
     4: this.githubAction.onCreate,
+    5: this.microsoftAction.onReceiveMail,
   };
 }
 

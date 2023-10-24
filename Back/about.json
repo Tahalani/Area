@@ -50,6 +50,12 @@
             "name": "Microsoft",
             "description": "Microsoft service",
             "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png",
+            "actions" : [{
+                "name": "Receive mail",
+                "actionId": 5,
+                "description": "When you receive a mail",
+                "params": [{}]
+                }],
             "reactions":[{
                 "name": "create event",
                 "reactionId": 4,

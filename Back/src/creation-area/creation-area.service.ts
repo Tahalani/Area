@@ -55,6 +55,16 @@ export class CreationAreaService {
     return userServices;
   }
 
+  async HasMicrosoftAction(user: UserEntity) : Promise<AreaEntity[]>{
+    const areaEntity = await AreaEntity.createQueryBuilder("area")
+    .leftJoinAndSelect("area.action", "action")
+    .where("action.id = :actionId", { actionId: 5 })
+    .andWhere("area.user.id = :userId", { userId: user.id })
+    .getMany();
+
+    return areaEntity;
+  }
+
   async createArea(areaData: areaDto, req: any): Promise<string> {
 
     const user: UserEntity | null = await this.getUser(req.user.email);
@@ -69,9 +79,6 @@ export class CreationAreaService {
     if (reaction === null)
       return '854 Reaction not found';
 
-    const userServiceReaction = await this.getUserServiceReaction(user, reaction);
-    if (userServiceReaction === null) //TO DO ENLEVER CA SERT A QUE DALLE
-      return '414 User service not found';
 
     try {
       const area: AreaEntity = AreaEntity.create();
@@ -82,6 +89,10 @@ export class CreationAreaService {
       area.args_reaction = areaData.argsReaction;
 
       const UserService = await this.getUserService(user, action);
+      if (areaData.id_Action == 5 && ((await this.HasMicrosoftAction(user)).length > 0)) {
+        await AreaEntity.save(area);
+        return 'Area created but you already have a microsoft webhook';
+      }
       await AreaEntity.save(area);
       const Action = new ActionArray
       Action.map[action.id](UserService, areaData.argsAction);
@@ -89,7 +100,6 @@ export class CreationAreaService {
     } catch (error) {
       console.log('error saving area: ', error);
       return 'Error saving area';
-
     }
   }
 }
