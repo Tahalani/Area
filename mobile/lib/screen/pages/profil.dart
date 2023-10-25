@@ -88,6 +88,10 @@ class _MyProfilState extends State<MyProfil> {
     var headers = {'Authorization': 'Bearer ${widget.token}'};
     var response = await http.get(Uri.parse(url), headers: headers);
     if (response.statusCode == 200) {
+      if (response.body == "No user services") {
+        connected_services = [];
+        return;
+      }
       final user = jsonDecode(response.body);
       connectedSercices = user;
       for (var i = 0; i < connectedSercices.length; i++) {

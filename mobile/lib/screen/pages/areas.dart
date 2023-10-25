@@ -107,6 +107,9 @@ class _MyAreasState extends State<MyAreas> {
     var headers = {'Authorization': 'Bearer ${widget.token}'};
     return http.get(Uri.parse(url), headers: headers).then((response) {
       if (response.statusCode == 200) {
+        if (response.body == "No actions") {
+          return [];
+        }
         final actions = jsonDecode(response.body);
         return actions.map<ACTION>((action) {
           final args = jsonDecode(action['args_action']);
@@ -173,6 +176,17 @@ class _MyAreasState extends State<MyAreas> {
     REACTION reaction_args = reaction
         .firstWhere((reaction) => reaction.description == selectedReaction);
 
+    for (Field field in action_args.fields) {
+      if (field.getControllerValue().isEmpty) {
+        done = false;
+      }
+    }
+    for (Field field in reaction_args.fields) {
+      if (field.getControllerValue().isEmpty) {
+        done = false;
+      }
+    }
+
     if (!done) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -185,8 +199,6 @@ class _MyAreasState extends State<MyAreas> {
     }
 
     Map<String, dynamic> myJson = {
-      // "token": widget.token,
-      // "title": areaTitleController.text,
       "id_Action": action_args.id,
       "id_Reaction": reaction_args.id,
       "argsAction": {
@@ -288,10 +300,63 @@ class _MyAreasState extends State<MyAreas> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              if (selectedAction != null) FieldReaction(),
+              if (selectedAction != null) FieldServiceReaction(),
+              if (selectedService2 != null) FieldReaction(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget FieldServiceReaction() {
+    return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        children: [
+          ListTile(
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(
+                width: 2,
+                color: Color.fromRGBO(30, 41, 133, 1),
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            title: DropdownButton<String>(
+              value: selectedService2,
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedService2 = newValue;
+                  fetchReaction(widget.token).then((value) {
+                    setState(() {
+                      reaction = value;
+                    });
+                  });
+                });
+              },
+              items: scocialService.map<DropdownMenuItem<String>>(
+                (SOCIAL_SERVICES service) {
+                  return DropdownMenuItem<String>(
+                    value: service.serviceName,
+                    child: Row(
+                      children: [
+                        service.image,
+                        const SizedBox(width: 8),
+                        Text(service.serviceName),
+                      ],
+                    ),
+                  );
+                },
+              ).toList(),
+              isExpanded: true,
+              style: const TextStyle(fontSize: 16, color: Colors.black),
+              hint: const Text('Select a service'),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -317,6 +382,7 @@ class _MyAreasState extends State<MyAreas> {
               onChanged: (String? newValue) {
                 setState(() {
                   selectedService1 = newValue;
+                  selectedService2 = null;
                   selectedAction = null;
                   selectedReaction = null;
                   fetchAction(
@@ -411,11 +477,11 @@ class _MyAreasState extends State<MyAreas> {
                       action = value;
                     });
                   });
-                  fetchReaction(widget.token).then((value) {
-                    setState(() {
-                      reaction = value;
-                    });
-                  });
+                  // fetchReaction(widget.token).then((value) {
+                  //   setState(() {
+                  //     reaction = value;
+                  //   });
+                  // });
                 });
               },
               items: action.map<DropdownMenuItem<String>>(
