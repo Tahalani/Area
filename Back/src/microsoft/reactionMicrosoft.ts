@@ -125,4 +125,30 @@ export class ReactionMicrosoft {
             );
           });
       }
+
+      async createOutlookCategory(userService: any, arg: any) {
+        const access_token = userService[0].token;
+        const content = {
+          displayName: `${arg.displayName}`,
+          color : 'Preset4'
+        };
+
+        const url = 'https://graph.microsoft.com/v1.0/me/outlook/masterCategories';
+        axios
+          .post(url, content, {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              'Content-Type': 'application/json',
+            },
+          })
+          .then((response) => {
+            console.log('Outlook category crée avec succès:', response.data);
+          })
+          .catch((error) => {
+            console.error(
+              "Erreur lors de le la création de l'outlook category",
+              error.response.data,
+            );
+          });
+      }
 }

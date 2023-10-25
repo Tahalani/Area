@@ -22,8 +22,8 @@ export class FrontDataController {
 
     @ApiOkResponse({ description: 'Return all reactions' })
     @Get('reactions/get')
-    async handleReactions() {
-        return this.frontDataService.getReactions();
+    async handleReactions(@Query('serviceId') serviceId: number) {
+        return this.frontDataService.getReactions(serviceId);
     }
 
     @ApiOkResponse({ description: 'Return all user services' })
@@ -31,5 +31,12 @@ export class FrontDataController {
     @Get('user/services/get')
     async handleUserServices(@Req () req: any) {
         return this.frontDataService.getUserServices(req.user.email);
+    }
+
+    @ApiOkResponse({ description: 'Return action of the service' })
+    @UseGuards(AuthGuard)
+    @Get('areas/get')
+    async handleAreas(@Req () req: any) {
+        return this.frontDataService.getAreas(req.user.email);
     }
 }

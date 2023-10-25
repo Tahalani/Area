@@ -43,7 +43,7 @@ List<Services> services = [
     ),
   ),
   Services(
-    serviceName: "outlook",
+    serviceName: "microsoft",
     image: Image.asset(
       "assets/images/outlook.png",
     ),
@@ -52,6 +52,12 @@ List<Services> services = [
     serviceName: "spotify",
     image: Image.asset(
       "assets/images/spotify.png",
+    ),
+  ),
+  Services(
+    serviceName: "instagram",
+    image: Image.asset(
+      "assets/images/instagram.png",
     ),
   ),
 ];
@@ -122,6 +128,7 @@ class _MyProfilState extends State<MyProfil> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil'),
+        automaticallyImplyLeading: false,
         backgroundColor: const Color.fromRGBO(30, 41, 133, 1),
         actions: [
           IconButton(
@@ -225,25 +232,7 @@ class _MyProfilState extends State<MyProfil> {
                       ],
                     ),
                     const SizedBox(height: 5),
-                    const Text("Connected services", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 5),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: connected_services.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: connected_services[index].image,
-                          title: Text(
-                            connected_services[index].serviceName,
-                            style: const TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    buildServiceConnected(connected_services),
                   ],
                 ),
               ),
@@ -285,6 +274,46 @@ class _MyProfilState extends State<MyProfil> {
               color: Colors.grey,
             )),
       ),
+    );
+  }
+
+  Widget buildServiceConnected(List<Services> servicesarray) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: servicesarray.length,
+      itemBuilder: (context, index) {
+        return Card(
+          elevation: 2,
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          child: ListTile(
+            tileColor: Colors.white,
+            leading: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: servicesarray[index].image.image,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            title: const Text(
+              "You're connected to",
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
+            ),
+            subtitle: Text(
+              servicesarray[index].serviceName.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

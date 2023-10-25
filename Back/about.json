@@ -70,6 +70,12 @@
                 "reactionId": 11,
                 "description": "create a calendar",
                 "params": [{"name": "name of the calendar"}]
+                },{
+                "name": "Create Outlook Category",
+                "reactionId": 12,
+                "description": "create a category",
+                "params": [{"displayName": "name of the category"}]
+                },{
                 }]
             },{
             "name": "Spotify",
