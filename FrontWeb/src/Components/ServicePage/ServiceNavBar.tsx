@@ -17,7 +17,7 @@ function ServiceNavbar() {
           <div className="navbar-start">
             <a
               style={{ fontFamily: "Londrina" }}
-              className="text-[40px] ml-[132px] text-black"
+              className="text-[40px] ml-[132px] text-purple-100"
             >
               <Link to="/areaPage">NetQ.</Link>
             </a>

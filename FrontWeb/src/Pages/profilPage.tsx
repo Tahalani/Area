@@ -18,7 +18,7 @@ export default function Profil() {
           style={{ overflowY: "scroll", maxHeight: "730px" }}
           className="w-1/2 pt-24 text-black"
         >
-          <div className="flex flex-col">
+          <div className="flex flex-col pl-[10px]">
             <HorizontalRectangle />
           </div>
         </div>

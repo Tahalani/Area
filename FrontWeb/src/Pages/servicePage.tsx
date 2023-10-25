@@ -22,6 +22,7 @@ export default function Service() {
   const { selectedService } = useServiceContext();
   const [services, setServices] = useState<ActionData[]>([]);
   const [popupData, setPopupData] = useState<ActionData | null>(null);
+  const [connected, setConnected] = useState<string[]>([]);
 
   const showPopup = (data: ActionData) => {
     setPopupData(data);
@@ -57,7 +58,19 @@ export default function Service() {
       });
   };
 
+const getConnected = () => {
+  axios
+    .get(import.meta.env.VITE_DNS_NAME + ":8080/api/user/services/get?token=" + localStorage.getItem("token"))
+    .then((response) => {
+      setConnected(response.data);
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la requête :", error);
+    });
+};
+
   useEffect(() => {
+    getConnected();
     getServices();
   }, []);
 
@@ -86,9 +99,13 @@ export default function Service() {
             <button
               style={{ fontFamily: "merriweather" }}
               className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]"
-              onClick={AccountConnection}
+              onClick={() => {
+                if (!connected.includes(selectedService.bottomText)) {
+                  AccountConnection();
+                }
+              }}
             >
-              Connect
+              {connected.includes(selectedService.bottomText) ? "Connected" : "Connect"}
             </button>
           </div>
         </div>
