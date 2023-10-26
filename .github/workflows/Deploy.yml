@@ -23,4 +23,4 @@ jobs:
             scp_source: .
             scp_target: .
             after_script: |
-              docker-compose down && docker volume prune -af && docker-compose build & docker-compose up -d
+              docker-compose down && docker volume prune -af && docker-compose build && docker-compose up -d
