@@ -5,6 +5,7 @@ import { ActionEntity } from 'src/entity/action.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 import { UserEntity } from 'src/entity/user.entity';
 import { AreaEntity } from 'src/entity/area.entity';
+import e from 'express';
 
 @Injectable()
 export class FrontDataService {
@@ -56,8 +57,19 @@ export class FrontDataService {
             console.log("pas dareas");
             return "No areas";
         }
-
-        return areas;
+        const areaJsonArray: any[] = [];
+        for (const area of areas) {
+            const action = await ActionEntity.findOneBy({
+                id: area.actionId
+            });
+            const reaction = await ReactionEntity.findOneBy({
+                id: area.reactionId
+            });
+            if (action === undefined || action === null || reaction === undefined || reaction === null)
+                continue;
+            areaJsonArray.push({actionName: action?.name, actionId: action?.serviceId, reactionName: reaction?.name, reactionId: reaction?.serviceId});
+        }
+        return areaJsonArray;
     }
 
     async getUserServices(email: string) {
