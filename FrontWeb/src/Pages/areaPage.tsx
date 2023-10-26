@@ -3,6 +3,7 @@ import axios from "axios";
 import Navigationbar from "../Components/navbar.tsx";
 import ServiceCase from "../Components/AreaPage/service.tsx";
 import Search from "../Components/AreaPage/search.tsx";
+import "../App.css";
 
 type ServiceData = {
   logo_url: string;
@@ -17,6 +18,7 @@ export default function Area() {
   }
 
   const [services, setServices] = useState<ServiceData[]>([]);
+  const [filteredServices, setFilteredServices] = useState<ServiceData[]>([]);
 
   const url = import.meta.env.VITE_DNS_NAME + ":8080/api/services/get";
 
@@ -26,10 +28,18 @@ export default function Area() {
       .then((response) => {
         console.log(response.data);
         setServices(response.data);
+        setFilteredServices(response.data);
       })
       .catch((error) => {
         console.error("Erreur lors de la requête :", error);
       });
+  };
+
+  const filterServices = (searchValue: string) => {
+    const filtered = services.filter((service) =>
+      service.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFilteredServices(filtered);
   };
 
   useEffect(() => {
@@ -40,9 +50,9 @@ export default function Area() {
     <>
       <Navigationbar />
       <div className="h-screen relative bg-main">
-        <Search />
-        <div className="flex justify-center items-center space-x-10 mb-[2%]">
-          {services.map((service, index) => (
+        <Search onSearch={filterServices} />
+        <div className="grid-container">
+          {filteredServices.map((service, index) => (
             <ServiceCase
               key={index}
               topImage={service.logo_url}

@@ -23,6 +23,13 @@ interface PopupProps {
   onClose: () => void;
 }
 
+type ServiceData = {
+  id: number;
+  name: string;
+  description: string;
+  logo_url: string;
+};
+
 const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
   const [check, setCheck] = useState(1);
@@ -42,6 +49,8 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
   const [textInputReaction, setTextInputReaction] = useState<Record<string, string>>({});
   const [parsedReactions, setParsedReactions] = useState<Record<string, string>[]>([]);
   const [selectedReaction, setSelectedReaction] = useState<ReactionData | null>(null);
+  const [services, setServices] = useState<ServiceData[]>([]);
+  const [selectedService, setSelectedService] = useState<ServiceData | null>(null);
 
   const handleTextActionChange = (event: React.ChangeEvent<HTMLInputElement>, key: string) => {
     textInputAction[key] = event.target.value;
@@ -52,20 +61,24 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
     setTextInputReaction({ ...textInputReaction });
   }
   const addAction = () => {
-    getReactions();
     setCheck(2);
   }
 
   const handleReactionButtonClick = (reaction: ReactionData) => {
     setSelectedReaction(reaction);
     setParsedReactions(Parse(reaction.args_reaction));
+    setCheck(4);
+  }
+
+  const handleServiceButtonClick = (service: ServiceData) => {
+    setSelectedService(service);
     setCheck(3);
   }
 
-const url = import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get';
   const getReactions = () => {
-    axios.get(url)
+    axios.get(import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get?serviceId=' + selectedService?.id)
       .then(response => {
+        console.log("service sel = ", selectedService);
         setReactions(response.data);
       })
       .catch(error => {
@@ -73,9 +86,24 @@ const url = import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get';
       });
   }
 
+  const getServices = () => {
+    axios
+      .get(import.meta.env.VITE_DNS_NAME + ":8080/api/services/get")
+      .then((response) => {
+        console.log(response.data);
+        setServices(response.data);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête :", error);
+      });
+  };
+
   useEffect(() => {
-    getReactions();
-  }, []);
+    getServices();
+    if (check === 3) {
+      getReactions();
+    }
+  }, [check]);
 
   const createArea = () => {
     if (!data) {
@@ -128,6 +156,7 @@ const url = import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get';
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={closeModal}>✕</button>
             </form>
             <div>
+
             {check === 1 && (
             <div>
               <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Action</h1>
@@ -152,7 +181,21 @@ const url = import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get';
               <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={addAction}>Next</button>
             </div>
             )}
+
             {check === 2 && (
+            <div>
+              <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Services</h1>
+              <ul>
+                {services.map((service, index) => (
+                  <li key={index}>
+                    <button className="w-[80%] btn btn-outline btn-sm mb-2" onClick={() => handleServiceButtonClick(service)}>{service.name}</button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            )}
+
+            {check === 3 && (
               <div>
                 <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Reaction Choice</h1>
                 {reactions.map((reaction, index) => (
@@ -162,9 +205,10 @@ const url = import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get';
               ))}
               </div>
             )}
+
           </div>
           <div>
-          {check === 3 && (
+          {check === 4 && (
             <div>
             <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Reaction</h1>
             <ul>
