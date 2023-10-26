@@ -135,9 +135,9 @@ class _MyAreasState extends State<MyAreas> {
     });
   }
 
-  Future<List<REACTION>> fetchReaction(String token) {
+  Future<List<REACTION>> fetchReaction(String token, int serviceId) {
     List<Field> tmp = [];
-    var url = "https://are4-51.com:8080/api/reactions/get";
+    var url = "https://are4-51.com:8080/api/reactions/get?serviceId=$serviceId";
     var headers = {'Authorization': 'Bearer ${widget.token}'};
     return http.get(Uri.parse(url), headers: headers).then((response) {
       if (response.statusCode == 200) {
@@ -212,7 +212,6 @@ class _MyAreasState extends State<MyAreas> {
     };
     var body = jsonEncode(myJson);
     print(body);
-
 
     var response = await http.post(
       Uri.parse("https://are4-51.com:8080/api/area/create"),
@@ -330,7 +329,14 @@ class _MyAreasState extends State<MyAreas> {
               onChanged: (String? newValue) {
                 setState(() {
                   selectedService2 = newValue;
-                  fetchReaction(widget.token).then((value) {
+                  selectedReaction = null;
+                  fetchReaction(
+                          widget.token,
+                          scocialService
+                              .firstWhere((service) =>
+                                  service.serviceName == selectedService2)
+                              .id)
+                      .then((value) {
                     setState(() {
                       reaction = value;
                     });
@@ -477,11 +483,6 @@ class _MyAreasState extends State<MyAreas> {
                       action = value;
                     });
                   });
-                  // fetchReaction(widget.token).then((value) {
-                  //   setState(() {
-                  //     reaction = value;
-                  //   });
-                  // });
                 });
               },
               items: action.map<DropdownMenuItem<String>>(
@@ -553,7 +554,13 @@ class _MyAreasState extends State<MyAreas> {
               value: selectedReaction,
               onChanged: (String? newValue) {
                 setState(() {
-                  fetchReaction(widget.token).then((value) {
+                  fetchReaction(
+                          widget.token,
+                          scocialService
+                              .firstWhere((service) =>
+                                  service.serviceName == selectedService2)
+                              .id)
+                      .then((value) {
                     setState(() {
                       reaction = value;
                     });

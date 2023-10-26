@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screen/component/dialoglogout.dart';
 import 'package:mobile/screen/component/webviewconnect.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class myHome extends StatefulWidget {
   final String token;
@@ -50,50 +52,49 @@ class Reaction {
   });
 }
 
-List<Area> areas = [
-  Area(
+class ServicesDetails {
+  final int id;
+  final String serviceName;
+  final Image image;
+
+  ServicesDetails({
+    required this.id,
+    required this.serviceName,
+    required this.image,
+  });
+}
+
+List<ServicesDetails> servicesdetails = [
+  ServicesDetails(
     id: 1,
-    title: "AREA 1",
-    actions: Action(
-      serviceName: "Twitter",
-      actionName: "When I tweet",
-      image: Image.asset("assets/images/twitter.png"),
-    ),
-    reactions: Reaction(
-      serviceName: "Google",
-      reactionName: "Send an email",
-      image: Image.asset("assets/images/google.png"),
-    ),
-    active: true,
+    serviceName: "Github",
+    image: Image.asset("assets/images/github.png"),
   ),
-  Area(
-      id: 2,
-      title: "AREA 2",
-      actions: Action(
-        serviceName: "Facebook",
-        actionName: "When I post a photo",
-        image: Image.asset("assets/images/facebook.png"),
-      ),
-      reactions: Reaction(
-        serviceName: "Discord",
-        reactionName: "Send a message",
-        image: Image.asset("assets/images/discord.png"),
-      ),
-      active: true),
-  Area(
-      id: 3,
-      title: "AREA 3",
-      actions: Action(
-        serviceName: "Facebook",
-        actionName: "When I post a photo",
-        image: Image.asset("assets/images/facebook.png"),
-      ),
-      reactions: Reaction(
-        serviceName: "Discord",
-        reactionName: "Send a message",
-        image: Image.asset("assets/images/discord.png"),
-      ),
-      active: false),
+  ServicesDetails(
+    id: 2,
+    serviceName: "Google",
+    image: Image.asset("assets/images/google.png"),
+  ),
+  ServicesDetails(
+    id: 3,
+    serviceName: "Mail",
+    image: Image.asset("assets/images/mail.png"),
+  ),
+  ServicesDetails(
+    id: 4,
+    serviceName: "Microsoft",
+    image: Image.asset("assets/images/outlook.png"),
+  ),
+  ServicesDetails(
+    id: 5,
+    serviceName: "Spotify",
+    image: Image.asset("assets/images/spotify.png"),
+  ),
+  ServicesDetails(
+    id: 6,
+    serviceName: "Instagram",
+    image: Image.asset("assets/images/instagram.png"),
+  ),
 ];
 
 class Services {
@@ -164,7 +165,58 @@ void showDeleteConfirmationDialog(BuildContext context, int id) {
 }
 
 class _myHomeState extends State<myHome> {
+  List<Area> areasList = [];
+
+  void fetchAreas() async {
+    var url = "https://are4-51.com:8080/api/areas/get";
+    var headers = {'Authorization': 'Bearer ${widget.token}'};
+    var response = await http.get(Uri.parse(url), headers: headers);
+
+    if (response.statusCode == 200) {
+      if (response.body == "No areas") {
+        areasList = [];
+        return;
+      }
+      var areasJson = json.decode(response.body);
+      areasList = areasJson
+          .map<Area>((json) => Area(
+                id: 1,
+                title: "AREA",
+                actions: Action(
+                  serviceName: servicesdetails
+                      .firstWhere((element) => element.id == json['actionId'])
+                      .serviceName,
+                  actionName: json['actionName'],
+                  image: servicesdetails
+                      .firstWhere((element) => element.id == json['actionId'])
+                      .image,
+                ),
+                reactions: Reaction(
+                  serviceName: servicesdetails
+                      .firstWhere((element) => element.id == json['reactionId'])
+                      .serviceName,
+                  reactionName: json['reactionName'],
+                  image: servicesdetails
+                      .firstWhere((element) => element.id == json['reactionId'])
+                      .image,
+                ),
+                active: true,
+              ))
+          .toList();
+      setState(() {
+        areasList = areasList;
+      });
+    } else {
+      print("error");
+    }
+  }
+
   @override
+  void initState() {
+    super.initState();
+    fetchAreas();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(254, 254, 241, 1),
@@ -192,7 +244,7 @@ class _myHomeState extends State<myHome> {
               ),
             ),
             const SizedBox(height: 30),
-            ...areas.map((area) => areaCard(area)).toList()
+            ...areasList.map((area) => areaCard(area)).toList()
           ],
         ),
       ),
@@ -305,7 +357,7 @@ class _myHomeState extends State<myHome> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text(area.actions.actionName),
+              subtitle: Text(area.actions.actionName.toUpperCase()),
             ),
             ListTile(
               leading: area.reactions.image,
@@ -316,7 +368,7 @@ class _myHomeState extends State<myHome> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text(area.reactions.reactionName),
+              subtitle: Text(area.reactions.reactionName.toUpperCase()),
             ),
             ButtonBar(
               children: <Widget>[

@@ -60,6 +60,12 @@ List<Services> services = [
       "assets/images/instagram.png",
     ),
   ),
+  Services(
+    serviceName: "google",
+    image: Image.asset(
+      "assets/images/google.png",
+    ),
+  ),
 ];
 
 class _MyProfilState extends State<MyProfil> {
@@ -101,6 +107,9 @@ class _MyProfilState extends State<MyProfil> {
           }
         }
       }
+      setState(() {
+        connected_services = connected_services;
+      });
     } else {
       throw Exception('Failed to load user');
     }
