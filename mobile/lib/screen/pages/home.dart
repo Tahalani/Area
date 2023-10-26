@@ -76,6 +76,11 @@ List<ServicesDetails> servicesdetails = [
     image: Image.asset("assets/images/google.png"),
   ),
   ServicesDetails(
+    id: 3,
+    serviceName: "Mail",
+    image: Image.asset("assets/images/mail.png"),
+  ),
+  ServicesDetails(
     id: 4,
     serviceName: "Microsoft",
     image: Image.asset("assets/images/outlook.png"),
