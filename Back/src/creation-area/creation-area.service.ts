@@ -6,6 +6,7 @@ import { ActionEntity } from '../entity/action.entity';
 import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionEntity } from 'src/entity/reaction.entity';
 import { ActionArray } from '../dto/area.dto';
+import { ReactionArray } from '../dto/area.dto';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 
 @Injectable()
@@ -16,7 +17,6 @@ export class CreationAreaService {
   }
 
   async getAction(actionId: number): Promise<ActionEntity | null> {
-    console.log('actionId: ', actionId);
     const action = await ActionEntity.findOneBy({ id: actionId }).catch(
       (err) => {
         console.log('error get action ');
@@ -25,6 +25,7 @@ export class CreationAreaService {
     );
     return action;
   }
+
 
   async getReaction(reactionId: number): Promise<ReactionEntity | null> {
     const reaction = await ReactionEntity.findOneBy({ id: reactionId });
@@ -93,9 +94,13 @@ export class CreationAreaService {
         await AreaEntity.save(area);
         return 'Area created but you already have a microsoft webhook';
       }
+
+      // const UserServiceReaction = await this.getUserServiceReaction(user, reaction);
       await AreaEntity.save(area);
       const Action = new ActionArray
       Action.map[action.id](UserService, areaData.argsAction);
+      // const Reaction = new ReactionArray
+      // Reaction.map[reaction.id](UserServiceReaction, areaData.argsReaction);
       return 'This action adds a new area';
     } catch (error) {
       console.log('error saving area: ', error);

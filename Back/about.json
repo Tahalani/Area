@@ -120,7 +120,12 @@
             "description": "Notion est un logiciel de prise de notes et de gestion de projets. Il est disponible sur navigateur web, macOS, iOS et Android. Il est développé par Notion Labs Inc, une start-up basée à San Francisco.",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Notion_app_logo.png/768px-Notion_app_logo.png",
             "actions": [],
-            "reactions": []
+            "reactions": [{
+                "name": "create page notion",
+                "reactionId": 13,
+                "description": "create a page",
+                "params": [{"title": "title", "parent_id": "parent"}]
+            }]
         }]
     }
 }
