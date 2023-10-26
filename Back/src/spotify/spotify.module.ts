@@ -8,5 +8,6 @@ import { ReactionSpotify } from './reactionSpotify';
   imports: [AuthModule],
   controllers: [SpotifyController],
   providers: [SpotifyService, ReactionSpotify],
+  exports: [ReactionSpotify],
 })
 export class SpotifyModule {}

@@ -5,11 +5,12 @@ import { UserEntity } from '../entity/user.entity';
 import { ActionEntity } from '../entity/action.entity';
 import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionEntity } from 'src/entity/reaction.entity';
-import { ActionArray } from '../dto/area.dto';
 import { UserServiceEntity } from 'src/entity/userService.entity';
+import { ActionArray } from 'src/action/action.array';
 
 @Injectable()
 export class CreationAreaService {
+  constructor(private readonly actionArray: ActionArray) {}
   async getUser(email: string): Promise<UserEntity | null> {
     const user = await UserEntity.findOneBy({ email: email });
     return user;
@@ -31,8 +32,10 @@ export class CreationAreaService {
     return reaction;
   }
 
-  async getUserService(user: UserEntity, action: ActionEntity ): Promise<UserServiceEntity | null> {
-
+  async getUserService(
+    user: UserEntity,
+    action: ActionEntity,
+  ): Promise<UserServiceEntity | null> {
     const userServices = await UserServiceEntity.findOneBy({
       user: { id: user.id },
       service: { id: action.serviceId },
@@ -43,8 +46,10 @@ export class CreationAreaService {
     return userServices;
   }
 
-  async getUserServiceReaction(user: UserEntity, reaction: ReactionEntity ): Promise<UserServiceEntity | null> {
-
+  async getUserServiceReaction(
+    user: UserEntity,
+    reaction: ReactionEntity,
+  ): Promise<UserServiceEntity | null> {
     const userServices = await UserServiceEntity.findOneBy({
       user: { id: user.id },
       service: { id: reaction.serviceId },
@@ -55,30 +60,29 @@ export class CreationAreaService {
     return userServices;
   }
 
-  async HasMicrosoftAction(user: UserEntity) : Promise<AreaEntity[]>{
-    const areaEntity = await AreaEntity.createQueryBuilder("area")
-    .leftJoinAndSelect("area.action", "action")
-    .where("action.id = :actionId", { actionId: 5 })
-    .andWhere("area.user.id = :userId", { userId: user.id })
-    .getMany();
+  async HasMicrosoftAction(user: UserEntity): Promise<AreaEntity[]> {
+    const areaEntity = await AreaEntity.createQueryBuilder('area')
+      .leftJoinAndSelect('area.action', 'action')
+      .where('action.id = :actionId', { actionId: 5 })
+      .andWhere('area.user.id = :userId', { userId: user.id })
+      .getMany();
 
     return areaEntity;
   }
 
   async createArea(areaData: areaDto, req: any): Promise<string> {
-
     const user: UserEntity | null = await this.getUser(req.user.email);
-    if (user === null)
-      return '409 User not found';
+    if (user === null) return '409 User not found';
 
-    const action: ActionEntity | null = await this.getAction(areaData.id_Action);
-    if (action === null)
-      return '410 Action not found';
+    const action: ActionEntity | null = await this.getAction(
+      areaData.id_Action,
+    );
+    if (action === null) return '410 Action not found';
 
-    const reaction: ReactionEntity | null = await this.getReaction(areaData.id_Reaction);
-    if (reaction === null)
-      return '854 Reaction not found';
-
+    const reaction: ReactionEntity | null = await this.getReaction(
+      areaData.id_Reaction,
+    );
+    if (reaction === null) return '854 Reaction not found';
 
     try {
       const area: AreaEntity = AreaEntity.create();
@@ -89,13 +93,15 @@ export class CreationAreaService {
       area.args_reaction = areaData.argsReaction;
 
       const UserService = await this.getUserService(user, action);
-      if (areaData.id_Action == 5 && ((await this.HasMicrosoftAction(user)).length > 0)) {
+      if (
+        areaData.id_Action == 5 &&
+        (await this.HasMicrosoftAction(user)).length > 0
+      ) {
         await AreaEntity.save(area);
         return 'Area created but you already have a microsoft webhook';
       }
       await AreaEntity.save(area);
-      const Action = new ActionArray
-      Action.map[action.id](UserService, areaData.argsAction);
+      this.actionArray.map[action.id](UserService, areaData.argsAction);
       return 'This action adds a new area';
     } catch (error) {
       console.log('error saving area: ', error);
