@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screen/component/dialoglogout.dart';
 import 'package:mobile/screen/component/webviewconnect.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class myHome extends StatefulWidget {
   final String token;
@@ -164,7 +166,27 @@ void showDeleteConfirmationDialog(BuildContext context, int id) {
 }
 
 class _myHomeState extends State<myHome> {
+  List<Area> areasList = [];
+
+  void fetchAreas() async {
+    var url = "https://are4-51.com:8080/api/areas/get";
+    var headers = {'Authorization': 'Bearer ${widget.token}'};
+    var response = await http.get(Uri.parse(url), headers: headers);
+
+    if (response.statusCode == 200) {
+        var areasJson = json.decode(response.body);
+        print(areasJson);
+    } else {
+      print("error");
+    }
+  }
+
   @override
+  void initState() {
+    super.initState();
+    fetchAreas();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(254, 254, 241, 1),
