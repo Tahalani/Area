@@ -168,22 +168,36 @@ class _myHomeState extends State<myHome> {
     var response = await http.get(Uri.parse(url), headers: headers);
 
     if (response.statusCode == 200) {
-        var areasJson = json.decode(response.body);
-        areasList = areasJson.map<Area>((json) => Area(
-          id: 1,
-          title: "AREA",
-          actions: Action(
-            serviceName: servicesdetails.firstWhere((element) => element.id == json['actionId']).serviceName,
-            actionName: json['actionName'],
-            image: servicesdetails.firstWhere((element) => element.id == json['actionId']).image,
-          ),
-          reactions: Reaction(
-            serviceName: servicesdetails.firstWhere((element) => element.id == json['reactionId']).serviceName,
-            reactionName: json['reactionName'],
-            image: servicesdetails.firstWhere((element) => element.id == json['reactionId']).image,
-          ),
-          active: true,
-        )).toList();
+      if (response.body == "No areas") {
+        areasList = [];
+        return;
+      }
+      var areasJson = json.decode(response.body);
+      areasList = areasJson
+          .map<Area>((json) => Area(
+                id: 1,
+                title: "AREA",
+                actions: Action(
+                  serviceName: servicesdetails
+                      .firstWhere((element) => element.id == json['actionId'])
+                      .serviceName,
+                  actionName: json['actionName'],
+                  image: servicesdetails
+                      .firstWhere((element) => element.id == json['actionId'])
+                      .image,
+                ),
+                reactions: Reaction(
+                  serviceName: servicesdetails
+                      .firstWhere((element) => element.id == json['reactionId'])
+                      .serviceName,
+                  reactionName: json['reactionName'],
+                  image: servicesdetails
+                      .firstWhere((element) => element.id == json['reactionId'])
+                      .image,
+                ),
+                active: true,
+              ))
+          .toList();
     } else {
       print("error");
     }
