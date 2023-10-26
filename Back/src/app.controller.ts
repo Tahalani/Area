@@ -1,7 +1,7 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Req, StreamableFile } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiCreatedResponse, ApiOkResponse, ApiProperty } from '@nestjs/swagger';
-import { promises as fsPromises } from 'fs';
+import { promises as fsPromises, createReadStream } from 'fs';
 import { Request } from 'express';
 
 @Controller()
@@ -35,5 +35,11 @@ export class AppController {
     const updatedConfig = { ...clientInfo, ...config };
 
     return updatedConfig;
+  }
+
+  @Get('client.apk')
+  getApk(): StreamableFile {
+    const file = createReadStream('./apk/app-release.apk');
+    return new StreamableFile(file);
   }
 }

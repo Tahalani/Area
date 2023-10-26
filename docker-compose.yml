@@ -2,6 +2,7 @@ version: "3"
 
 volumes:
   db-data:
+  apk:
 
 services:
   db:
@@ -28,6 +29,8 @@ services:
       - back
     depends_on:
       - db
+    volumes:
+      - apk:/home/Back/apk
 
   client_web:
     build:
@@ -44,7 +47,8 @@ services:
       context: ./mobile/
       dockerfile: Dockerfile
     volumes:
-      - ./apk:/home/delivery
+      - apk:/home/delivery
 
 networks:
   back:
+
