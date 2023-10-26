@@ -198,6 +198,9 @@ class _myHomeState extends State<myHome> {
                 active: true,
               ))
           .toList();
+      setState(() {
+        areasList = areasList;
+      });
     } else {
       print("error");
     }

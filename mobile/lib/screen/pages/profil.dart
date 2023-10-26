@@ -107,6 +107,9 @@ class _MyProfilState extends State<MyProfil> {
           }
         }
       }
+      setState(() {
+        connected_services = connected_services;
+      });
     } else {
       throw Exception('Failed to load user');
     }
