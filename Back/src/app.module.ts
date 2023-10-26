@@ -17,6 +17,7 @@ import { FrontDataModule } from './front-data/front-data.module';
 import { MicrosoftModule } from './microsoft/microsoft.module';
 import { SpotifyModule } from './spotify/spotify.module';
 import { InstagramModule } from './instagram/instagram.module';
+import { NotionModule } from './notion/notion.module';
 
 dotenv.config();
 
@@ -55,6 +56,7 @@ dotenv.config();
     FrontDataModule,
     SpotifyModule,
     InstagramModule,
+    NotionModule,
   ],
   controllers: [AppController],
   providers: [AppService, MailingReaction, InitService],
