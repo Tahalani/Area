@@ -169,7 +169,6 @@ class _myHomeState extends State<myHome> {
 
     if (response.statusCode == 200) {
         var areasJson = json.decode(response.body);
-        print(areasJson);
         areasList = areasJson.map<Area>((json) => Area(
           id: 1,
           title: "AREA",
