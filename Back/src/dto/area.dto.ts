@@ -46,5 +46,6 @@ export class ReactionArray {
     11: this.ReactionMicrosoft.createCalendar,
     12: this.ReactionMicrosoft.createOutlookCategory,
     13: this.ReactionNotion.createPage,
+    14: this.ReactionNotion.commentPage,
   };
 }

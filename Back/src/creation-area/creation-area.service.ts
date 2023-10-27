@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { areaDto } from '../dto/area.dto';
-import { decode } from 'jsonwebtoken';
 import { UserEntity } from '../entity/user.entity';
 import { ActionEntity } from '../entity/action.entity';
 import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionEntity } from 'src/entity/reaction.entity';
 import { ActionArray } from '../dto/area.dto';
-import { ReactionArray } from '../dto/area.dto';
+// import { ReactionArray } from '../dto/area.dto';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 
 @Injectable()

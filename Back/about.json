@@ -124,7 +124,12 @@
                 "name": "create page notion",
                 "reactionId": 13,
                 "description": "create a page",
-                "params": [{"title": "title", "parent_id": "parent"}]
+                "params": [{"parent_id": "parent", "title": "title"}]
+                }, {
+                "name": "create comment notion",
+                "reactionId": 14,
+                "description": "create a comment",
+                "params": [{"parent_id": "parent", "comment": "comment"}]
             }]
         }]
     }
