@@ -6,9 +6,9 @@ import { UserServiceEntity } from 'src/entity/userService.entity';
 import { ReactionMicrosoft } from './reactionMicrosoft';
 import { ActionMicrosoft } from './actionMicrosoft';
 import { JwtService } from '@nestjs/jwt';
-import { ReactionArray } from 'src/dto/area.dto';
 import { ReactionEntity } from 'src/entity/reaction.entity';
 import { AreaEntity } from 'src/entity/area.entity';
+import { ReactionArray } from 'src/reaction/reaction.array';
 
 config();
 
@@ -56,6 +56,7 @@ export class MicrosoftService {
     private readonly reactionGithub: ReactionMicrosoft,
     private readonly actionmicrosoft: ActionMicrosoft,
     private readonly jwtService: JwtService,
+    private readonly reactionArray: ReactionArray,
   ) {}
 
   async addService(request: any): Promise<void> {
@@ -170,7 +171,6 @@ export class MicrosoftService {
       return;
     }
 
-    const Reaction = new ReactionArray
     for (const element of area) {
       const serviceEntity = await this.getReactionService(element.reactionId);
       if (serviceEntity === null) {
@@ -182,7 +182,7 @@ export class MicrosoftService {
         console.error("User not found (", userService, ")");
         return;
       }
-      Reaction.map[element.reactionId](userServiceReaction[0], element.args_reaction);
+      this.reactionArray.map[element.reactionId](userServiceReaction[0], element.args_reaction);
     }
   }
 
