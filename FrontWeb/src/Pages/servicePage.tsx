@@ -74,6 +74,10 @@ const getConnected = () => {
     getServices();
   }, []);
 
+  const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   return (
     <>
       <Navigationbar />
@@ -94,7 +98,7 @@ const getConnected = () => {
               style={{ fontFamily: "merriweather", lineHeight: "1.2" }}
               className="mt-2 mb-2 text-[30px] text-purple-100"
             >
-              {selectedService.bottomText}
+              {capitalizeFirstLetter(selectedService.bottomText)}
             </p>
             <button
               style={{ fontFamily: "merriweather" }}
@@ -111,7 +115,7 @@ const getConnected = () => {
         </div>
         <div className="bg-white h-2/3 w-screen flex flex-col items-center ">
           {popupData && <Popup data={popupData} onClose={hidePopup} />}
-          {services && services.length !== 10 && !popupData && (
+          {Array.isArray(services) && services.length > 0 && !popupData && (
             <>
               <h1
                 style={{ fontFamily: "merriweather" }}

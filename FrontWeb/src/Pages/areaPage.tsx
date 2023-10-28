@@ -26,7 +26,6 @@ export default function Area() {
     axios
       .get(url)
       .then((response) => {
-        console.log(response.data);
         setServices(response.data);
         setFilteredServices(response.data);
       })

@@ -26,7 +26,6 @@ export default function Register() {
       email: email,
       password: password,
     };
-    console.log(data);
     axios
       .post(import.meta.env.VITE_DNS_NAME + ":8080/api/auth/register/", data)
       .then(() => {
@@ -48,7 +47,7 @@ export default function Register() {
   return (
     <>
       <div className="flex bg-white flex-col h-screen lg:flex-row">
-        <div className="flex-grow w-1/2 bg-white card rounded-box place-items-center mt-[70px]">
+        <div className="flex-grow sm:w-full md:w-full lg:w-1/2 xl:w-1/2 bg-white card rounded-box place-items-center mt-[70px]">
           <div className="w-1/2 bg-white card rounded-box place-items-center">
             <button
               style={{ fontFamily: "Arial" }}
@@ -93,7 +92,7 @@ export default function Register() {
             </button>
           </div>
         </div>
-        <div className="flex-grow w-1/2 bg-white card rounded-box place-items-end">
+        <div className="hidden lg:block flex-grow w-1/2 bg-white card rounded-box place-items-end">
           <img
             src={registerImage}
             alt="registerImage"

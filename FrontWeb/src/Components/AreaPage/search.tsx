@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface SearchProps {
   onSearch: (searchValue: string) => void;
@@ -6,6 +7,7 @@ interface SearchProps {
 
 export default function Search({ onSearch }: SearchProps) {
   const [searchValue, setSearchValue] = useState("");
+  const { t } = useTranslation();
 
   const handleSearch = () => {
     onSearch(searchValue);
@@ -18,14 +20,14 @@ export default function Search({ onSearch }: SearchProps) {
           style={{ fontFamily: "merriweather" }}
           className="text-[30px] text-black font-bold mt-[80px]"
         >
-          Explore
+          {t("explore")}
         </h1>
       </div>
       <div className="form-control mb-10 mt-5">
         <div className="flex justify-center items-center input-group">
           <input
             type="text"
-            placeholder="Search…"
+            placeholder={t("search")}
             className="input bg-main border-black"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}

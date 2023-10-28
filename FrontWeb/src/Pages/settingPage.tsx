@@ -1,5 +1,6 @@
 import Navigationbar from "../Components/navbar.tsx";
 import LanguagesSetting from "../Components/SettingPage/languages.tsx";
+import ApkButton from "../Components/SettingPage/apkButton.tsx";
 
 export default function Setting() {
   if (localStorage.getItem("token") == null) {
@@ -11,6 +12,7 @@ export default function Setting() {
       <Navigationbar />
       <div className="flex h-screen relative bg-main">
         <div className="w-screen">
+          <ApkButton />
           <LanguagesSetting />
         </div>
       </div>

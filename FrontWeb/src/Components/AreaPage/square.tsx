@@ -11,6 +11,10 @@ interface SquareProps {
 const Square: React.FC<SquareProps> = ({ topImage, bottomText }) => {
   const backgroundColor = "#2e1d9c";
 
+  const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   return (
     <Link to="/servicePage">
       <div
@@ -48,7 +52,7 @@ const Square: React.FC<SquareProps> = ({ topImage, bottomText }) => {
           }}
           className="text-[#fff]"
         >
-          {bottomText}
+          {capitalizeFirstLetter(bottomText)}
         </div>
       </div>
     </Link>
