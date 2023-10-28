@@ -13,7 +13,7 @@ export class ReactionArray {
       private readonly reactionMicrosoft: ReactionMicrosoft,
       private readonly reactionSpotify: ReactionSpotify,
     ) {}
-  
+
     map: { [key: number]: (userService: any, arg: any) => any } = {
       1: this.githubReaction.createIssue,
       2: this.githubReaction.createPullRequest,
@@ -28,4 +28,3 @@ export class ReactionArray {
       12: this.reactionMicrosoft.createOutlookCategory,
     };
   }
-  
