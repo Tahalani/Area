@@ -10,7 +10,7 @@ import { Inject } from '@nestjs/common';
       provide: 'SmeeClientToken',
       useValue: new Client({
         source: 'https://smee.io/iDDj9mJTxmyCHTV',
-        target: 'https://are4-51.com:3000/api/Webhook/GitHub',
+        target: 'http://localhost:3000/api/Webhook/GitHub',
         logger: console,
       }),
     },

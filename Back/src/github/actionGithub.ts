@@ -26,7 +26,7 @@ export class ActionGithub {
               'push',
             ],
             config: {
-              url: `${process.env.DNS_NAME}:8080/api/Webhook/GitHub`,
+              url: 'https://smee.io/iDDj9mJTxmyCHTV',
               content_type: 'json',
               insecure_ssl: '0'
             },
@@ -35,7 +35,7 @@ export class ActionGithub {
             }
           })
         } catch (error) {
-          console.log("Already created");
+          console.log("Already created push: ", error);
         }
       }
 
@@ -64,7 +64,7 @@ export class ActionGithub {
             }
           })
         } catch (error) {
-          console.log("Already created");
+          console.log("Already created pull req: ", error);
         }
       }
       async onIssues(userService: UserServiceEntity, arg: any) {
@@ -92,7 +92,7 @@ export class ActionGithub {
             }
           })
         } catch (error) {
-          console.log("Already created");
+          console.log("Already created issues: ", error);
         }
       }
       async onCreate(userService: UserServiceEntity, arg: any) {
@@ -120,7 +120,7 @@ export class ActionGithub {
             }
           }).then((res: any) => {console.log(res)})
         }catch (error) {
-          console.log("Already created");
+          console.log("Already created create: ", error);
         }
       }
 }

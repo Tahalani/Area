@@ -10,6 +10,6 @@ import { ReactionModule } from 'src/reaction/reaction.module';
   imports: [AuthModule, forwardRef(() => ReactionModule)],
   controllers: [GitHubController],
   providers: [GitHubService, ReactionGithub, ActionGithub],
-  exports: [ReactionGithub, ActionGithub],
+  exports: [ReactionGithub, ActionGithub]
 })
 export class GithubModule {}

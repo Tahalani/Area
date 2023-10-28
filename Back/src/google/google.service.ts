@@ -51,7 +51,7 @@ export class GoogleService {
       const userService = UserServiceEntity.create();
       userService.user = user;
       userService.service = service;
-      userService.serviceIdentifier = "cc"
+      userService.serviceIdentifier = "Google hard user"
       userService.token = request.tokens.access_token;
       try {
         await userService.save();

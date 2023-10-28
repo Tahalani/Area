@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { areaDto } from '../dto/area.dto';
-import { decode } from 'jsonwebtoken';
 import { UserEntity } from '../entity/user.entity';
 import { ActionEntity } from '../entity/action.entity';
 import { AreaEntity } from 'src/entity/area.entity';
@@ -17,7 +16,6 @@ export class CreationAreaService {
   }
 
   async getAction(actionId: number): Promise<ActionEntity | null> {
-    console.log('actionId: ', actionId);
     const action = await ActionEntity.findOneBy({ id: actionId }).catch(
       (err) => {
         console.log('error get action ');
@@ -26,6 +24,7 @@ export class CreationAreaService {
     );
     return action;
   }
+
 
   async getReaction(reactionId: number): Promise<ReactionEntity | null> {
     const reaction = await ReactionEntity.findOneBy({ id: reactionId });
@@ -100,6 +99,7 @@ export class CreationAreaService {
         await AreaEntity.save(area);
         return 'Area created but you already have a microsoft webhook';
       }
+
       await AreaEntity.save(area);
       this.actionArray.map[action.id](UserService, areaData.argsAction);
       return 'This action adds a new area';
