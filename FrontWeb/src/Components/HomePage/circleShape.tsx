@@ -10,7 +10,7 @@ export default function CircleShape() {
           position: "absolute",
           bottom: "-500px",
           left: "-700px",
-        }}
+        }} className="hidden lg:block"
       />
       <div
         style={{
@@ -21,7 +21,7 @@ export default function CircleShape() {
           position: "absolute",
           bottom: "-600px",
           left: "200px",
-        }}
+        }} className="hidden lg:block"
       />
     </>
   );

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Parse from "../ActionPage/parse.tsx";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 type ActionData = {
   id: number;
@@ -33,6 +34,7 @@ type ServiceData = {
 const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
   const [check, setCheck] = useState(1);
+  const { t } = useTranslation();
 
   const openModal = () => {
     if (modalRef.current) {
@@ -78,7 +80,6 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
   const getReactions = () => {
     axios.get(import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get?serviceId=' + selectedService?.id)
       .then(response => {
-        console.log("service sel = ", selectedService);
         setReactions(response.data);
       })
       .catch(error => {
@@ -90,7 +91,6 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
     axios
       .get(import.meta.env.VITE_DNS_NAME + ":8080/api/services/get")
       .then((response) => {
-        console.log(response.data);
         setServices(response.data);
       })
       .catch((error) => {
@@ -148,7 +148,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
   return (
     <>
       <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black m-[30px]">{data?.description}</h1>
-      <button className="btn mt-[20px]" onClick={openModal}>Complete Informations</button>
+      <button className="btn mt-[20px]" onClick={openModal}>{t("completeinformation")}</button>
       {data && (
         <dialog ref={modalRef} className="modal">
           <div className="modal-box bg-grey-300">
@@ -178,7 +178,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
                   </li>
                 ))}
               </ul>
-              <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={addAction}>Next</button>
+              <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={addAction}>{t("next")}</button>
             </div>
             )}
 
@@ -197,7 +197,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
 
             {check === 3 && (
               <div>
-                <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Reaction Choice</h1>
+                <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">{t("reactionchoice")}</h1>
                 {reactions.map((reaction, index) => (
                 <div key={index}>
                   <button className="w-[80%] btn btn-outline btn-sm mb-2" onClick={() => handleReactionButtonClick(reaction)}>{reaction.name}</button>
@@ -210,7 +210,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
           <div>
           {check === 4 && (
             <div>
-            <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Reaction</h1>
+            <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">{t("reaction")}</h1>
             <ul>
               {parsedReactions && parsedReactions.map((item: any, index: any) => (
                 <li key={index}>
@@ -229,7 +229,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
                 </li>
               ))}
             </ul>
-            <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={handleSubmit} >Submit</button>
+            <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={handleSubmit} >{t("submit")}</button>
             </div>
             )}
           </div>

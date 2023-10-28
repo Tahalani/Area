@@ -3,33 +3,27 @@ import axios from "axios";
 
 const HorizontalRectangle: React.FC = () => {
   const [services, setServices] = useState<string[]>([]);
-  const [Image, setImage] = useState<
-    { name: string; description: string; logo_url: string }[] | undefined
-  >(undefined);
-
-  const url =
-    import.meta.env.VITE_DNS_NAME +
-    ":8080/api/user/services/get?token=" +
-    localStorage.getItem("token");
+  const [Image, setImage] = useState<{ name: string; description: string; logo_url: string }[] | undefined>(undefined);
 
   const getServices = () => {
     axios
-      .get(url)
+      .get(import.meta.env.VITE_DNS_NAME + ":8080/api/user/services/get?token=" + localStorage.getItem("token"))
       .then((response) => {
-        setServices(response.data);
+        if (Array.isArray(response.data)) {
+          setServices(response.data);
+        } else {
+          setServices([]);
+        }
       })
       .catch((error) => {
         console.error("Erreur lors de la requête :", error);
       });
   };
 
-  const urlService = import.meta.env.VITE_DNS_NAME + ":8080/api/services/get";
-
   const getServicesImage = () => {
     axios
-      .get(urlService)
+      .get(import.meta.env.VITE_DNS_NAME + ":8080/api/services/get")
       .then((response) => {
-        console.log(response.data);
         setImage(response.data);
       })
       .catch((error) => {
@@ -37,10 +31,18 @@ const HorizontalRectangle: React.FC = () => {
       });
   };
 
+  const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   useEffect(() => {
     getServices();
     getServicesImage();
   }, []);
+
+  if (!Array.isArray(services) || services.length === 0) {
+    return;
+  }
 
   return (
     <div>
@@ -69,7 +71,7 @@ const HorizontalRectangle: React.FC = () => {
                     style={{ fontFamily: "merriweather" }}
                     className="text-left text-[30px] text-black"
                   >
-                    {serviceData?.name}
+                    {capitalizeFirstLetter(String(serviceData?.name))}
                   </h1>
                 </div>
               </div>

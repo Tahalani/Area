@@ -15,7 +15,7 @@ export default function Home() {
       <div className="flex h-screen relative bg-main">
         <HangingBox />
         <div className="w-1/2 p-4 pl-36">
-          <img src={login_image} alt="Image" className="w-4/5 h-auto" />
+          <img src={login_image} alt="Image" className="w-4/5 h-auto hidden lg:block" />
         </div>
       </div>
       <CircleShape />

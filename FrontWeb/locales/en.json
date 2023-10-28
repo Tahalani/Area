@@ -21,5 +21,16 @@
     "name": "Name",
     "phone": "Phone",
     "profil": "Profil",
-    "setting": "Setting"
+    "setting": "Setting",
+    "apkDownload": "Download for Android",
+    "explore": "Explore",
+    "search": "Search...",
+    "completeinformation": "Complete information",
+    "next": "Next",
+    "previous": "Previous",
+    "reactionchoice": "Reaction choice",
+    "reaction": "Reaction",
+    "submit": "Submit",
+    "connected": "Connected",
+    "connect": "Connect"
 }
