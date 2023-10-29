@@ -3,6 +3,7 @@ import 'package:mobile/screen/component/dialoglogout.dart';
 import 'package:mobile/screen/component/webviewconnect.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:mobile/screen/component/serviceslist.dart';
 
 class myHome extends StatefulWidget {
   final String token;
@@ -52,102 +53,132 @@ class Reaction {
   });
 }
 
-class ServicesDetails {
-  final int id;
-  final String serviceName;
-  final Image image;
+// class ServicesDetails {
+//   final int id;
+//   final String serviceName;
+//   final Image image;
 
-  ServicesDetails({
-    required this.id,
-    required this.serviceName,
-    required this.image,
-  });
-}
+//   ServicesDetails({
+//     required this.id,
+//     required this.serviceName,
+//     required this.image,
+//   });
+// }
 
-List<ServicesDetails> servicesdetails = [
-  ServicesDetails(
-    id: 1,
-    serviceName: "Github",
-    image: Image.asset("assets/images/github.png"),
-  ),
-  ServicesDetails(
-    id: 2,
-    serviceName: "Google",
-    image: Image.asset("assets/images/google.png"),
-  ),
-  ServicesDetails(
-    id: 3,
-    serviceName: "Mail",
-    image: Image.asset("assets/images/mail.png"),
-  ),
-  ServicesDetails(
-    id: 4,
-    serviceName: "Microsoft",
-    image: Image.asset("assets/images/outlook.png"),
-  ),
-  ServicesDetails(
-    id: 5,
-    serviceName: "Spotify",
-    image: Image.asset("assets/images/spotify.png"),
-  ),
-  ServicesDetails(
-    id: 6,
-    serviceName: "Instagram",
-    image: Image.asset("assets/images/instagram.png"),
-  ),
-  ServicesDetails(
-    id: 7,
-    serviceName: "Notion",
-    image: Image.asset("assets/images/notion.png"),
-  ),
-];
+// List<ServicesDetails> servicesdetails = [
+//   ServicesDetails(
+//     id: 1,
+//     serviceName: "Github",
+//     image: Image.asset("assets/images/github.png"),
+//   ),
+//   ServicesDetails(
+//     id: 2,
+//     serviceName: "Google",
+//     image: Image.asset("assets/images/google.png"),
+//   ),
+//   ServicesDetails(
+//     id: 3,
+//     serviceName: "Mail",
+//     image: Image.asset("assets/images/mail.png"),
+//   ),
+//   ServicesDetails(
+//     id: 4,
+//     serviceName: "Microsoft",
+//     image: Image.asset("assets/images/outlook.png"),
+//   ),
+//   ServicesDetails(
+//     id: 5,
+//     serviceName: "Spotify",
+//     image: Image.asset("assets/images/spotify.png"),
+//   ),
+//   ServicesDetails(
+//     id: 6,
+//     serviceName: "Instagram",
+//     image: Image.asset("assets/images/instagram.png"),
+//   ),
+//   ServicesDetails(
+//     id: 7,
+//     serviceName: "Notion",
+//     image: Image.asset("assets/images/notion.png"),
+//   ),
+// ];
 
-class Services {
-  final String serviceName;
-  final Image image;
-  final String url;
-  final String callbackUrl;
+// class Services {
+//   final int id;
+//   final String serviceName;
+//   final Image image;
+//   final String url;
+//   final String callbackUrl;
+//   final bool auth;
 
-  Services({
-    required this.serviceName,
-    required this.image,
-    required this.url,
-    required this.callbackUrl,
-  });
-}
+//   Services({
+//     required this.id,
+//     required this.serviceName,
+//     required this.image,
+//     required this.url,
+//     required this.callbackUrl,
+//     required this.auth,
+//   });
+// }
 
-List<Services> services = [
-  Services(
-    serviceName: "Github",
-    image: Image.asset("assets/images/github.png"),
-    url: "https://are4-51.com:8080/api/auth/GitHub",
-    callbackUrl: "https://are4-51.com:8081",
-  ),
-  Services(
-    serviceName: "Microsoft",
-    image: Image.asset("assets/images/outlook.png"),
-    url: "https://are4-51.com:8080/api/auth/Microsoft",
-    callbackUrl: "https://are4-51.com:8081",
-  ),
-  Services(
-    serviceName: "Spotify",
-    image: Image.asset("assets/images/spotify.png"),
-    url: "https://are4-51.com:8080/api/auth/spotify",
-    callbackUrl: "https://are4-51.com:8081",
-  ),
-  Services(
-    serviceName: "Instagram",
-    image: Image.asset("assets/images/instagram.png"),
-    url: "https://are4-51.com:8080/api/auth/instagram",
-    callbackUrl: "https://are4-51.com:8081",
-  ),
-  Services(
-    serviceName: "Notion",
-    image: Image.asset("assets/images/notion.png"),
-    url: "https://are4-51.com:8080/api/auth/notion",
-    callbackUrl: "https://are4-51.com:8081",
-  ),
-];
+// List<Services> services = [
+//   Services(
+//     id: 1,
+//     serviceName: "Github",
+//     image: Image.asset("assets/images/github.png"),
+//     url: "https://are4-51.com:8080/api/auth/GitHub",
+//     callbackUrl: "https://are4-51.com:8081",
+//     auth: true,
+//   ),
+//   Services(
+//     id: 2,
+//     serviceName: "Google",
+//     image: Image.asset("assets/images/google.png"),
+//     url: "",
+//     callbackUrl: "",
+//     auth: false,
+//   ),
+//   Services(
+//     id: 3,
+//     serviceName: "Mail",
+//     image: Image.asset("assets/images/mail.png"),
+//     url: "",
+//     callbackUrl: "",
+//     auth: false,
+//   ),
+//   Services(
+//     id: 4,
+//     serviceName: "Microsoft",
+//     image: Image.asset("assets/images/outlook.png"),
+//     url: "https://are4-51.com:8080/api/auth/Microsoft",
+//     callbackUrl: "https://are4-51.com:8081",
+//     auth: true,
+//   ),
+//   Services(
+//     id: 5,
+//     serviceName: "Spotify",
+//     image: Image.asset("assets/images/spotify.png"),
+//     url: "https://are4-51.com:8080/api/auth/spotify",
+//     callbackUrl: "https://are4-51.com:8081",
+//     auth: true,
+//   ),
+//   Services(
+//     id: 6,
+//     serviceName: "Instagram",
+//     image: Image.asset("assets/images/instagram.png"),
+//     url: "https://are4-51.com:8080/api/auth/instagram",
+//     callbackUrl: "https://are4-51.com:8081",
+//     auth: true,
+//   ),
+//   Services(
+//     id: 7,
+//     serviceName: "Notion",
+//     image: Image.asset("assets/images/notion.png"),
+//     url: "https://are4-51.com:8080/api/auth/notion",
+//     callbackUrl: "https://are4-51.com:8081",
+//     auth: true,
+//   ),
+// ];
 
 void showDeleteConfirmationDialog(BuildContext context, int id) {
   showDialog(
@@ -194,20 +225,20 @@ class _myHomeState extends State<myHome> {
                 id: 1,
                 title: "AREA",
                 actions: Action(
-                  serviceName: servicesdetails
+                  serviceName: services
                       .firstWhere((element) => element.id == json['actionId'])
                       .serviceName,
                   actionName: json['actionName'],
-                  image: servicesdetails
+                  image: services
                       .firstWhere((element) => element.id == json['actionId'])
                       .image,
                 ),
                 reactions: Reaction(
-                  serviceName: servicesdetails
+                  serviceName: services
                       .firstWhere((element) => element.id == json['reactionId'])
                       .serviceName,
                   reactionName: json['reactionName'],
-                  image: servicesdetails
+                  image: services
                       .firstWhere((element) => element.id == json['reactionId'])
                       .image,
                 ),
@@ -279,7 +310,10 @@ class _myHomeState extends State<myHome> {
               ),
             ),
           ),
-          ...services.map((service) => servicecard(service)).toList()
+          ...services
+              .where((element) => element.auth == true)
+              .map((service) => servicecard(service))
+              .toList(),
         ],
       ),
     );
