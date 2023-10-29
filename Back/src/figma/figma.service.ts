@@ -1,4 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { UserEntity } from 'src/entity/user.entity';
+import { ServiceEntity } from 'src/entity/service.entity';
+import { UserServiceEntity } from 'src/entity/userService.entity';
 import { config } from 'dotenv';
 import axios from 'axios';
 
@@ -23,17 +26,71 @@ export class FigmaService {
         .catch(function (error) {
             console.log("error figma get access token: ", error);
         });
-        console.log("figmaToken: ", figmaToken);
         return figmaToken;
+    }
+
+    async getUserInfo(accesstoken: string) {
+        const userInfo = await axios.get('https://api.figma.com/v1/me', {
+            headers: {
+                'authorization': 'Bearer ' + accesstoken,
+                'X-FIGMA-TOKEN': accesstoken,
+            }
+        })
+        .then((res) => res.data)
+        .catch(function (error) {
+            console.log("error figma get user info: ", error);
+        });
+        return userInfo;
+    }
+
+    async saveToken(email: string, token: string, serviceIdentifier: string, serviceName: string) {
+        const user = await UserEntity.findOneBy({ email: email });
+        const service = await ServiceEntity.findOneBy({ name: serviceName });
+
+        if (user === null) {
+          console.error("User not found (", email, ")");
+          return;
+        }
+
+        if (service === null) {
+          console.error("Service not found (", serviceName, ")");
+          return;
+        }
+
+        const userService = UserServiceEntity.create();
+        userService.user = user;
+        userService.service = service;
+        userService.serviceIdentifier = serviceIdentifier;
+        userService.token = token;
+
+        try {
+          console.log("Saving Figma token...");
+          await userService.save();
+        } catch (error) {
+          console.error("Error saving token: ", error);
+          return;
+        }
     }
 
     async addService(req: any) {
         console.log("addService Figma");
-        console.log("req.query: ", req);
         const userEmail = req.query.state
         const code = req.query.code
-        console.log("code: ", code);
-        console.log("userEmail: ", userEmail);
         const figmaAccesstoken = await this.getFigmaToken(code);
+
+        if (figmaAccesstoken === undefined) {
+            console.error("Error getting figma access token");
+            return;
+        }
+
+        const accesToken = figmaAccesstoken.access_token;
+        const userInfo = await this.getUserInfo(accesToken);
+
+        if (userInfo === undefined) {
+            console.error("Error getting user info");
+            return;
+        }
+        const serviceIdentifier = userInfo.email;
+        this.saveToken(userEmail, accesToken, serviceIdentifier, "figma");
     }
 }
