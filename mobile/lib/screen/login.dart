@@ -56,16 +56,16 @@ class _MyLoginState extends State<MyLogin> {
 
       final Map<String, dynamic> responseBody = json.decode(response.body);
 
-      print(responseBody['access_token']);
-
       if (response.statusCode == 201) {
-        Navigator.pushNamed(context, 'home', arguments: responseBody['access_token'] as String);
+        Navigator.pushNamed(context, 'home',
+            arguments: responseBody['access_token'] as String);
       } else {
+        var error = responseBody['message'];
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Email or Password is incorrect'),
+          SnackBar(
+            content: Text(error),
             backgroundColor: Colors.red,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ),
         );
       }
@@ -90,7 +90,6 @@ class _MyLoginState extends State<MyLogin> {
                             color: Colors.black,
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'merryweather sans',
                           ),
                         ),
                       ],
@@ -175,9 +174,13 @@ class _MyLoginState extends State<MyLogin> {
                       children: [
                         ServiceButton(
                           onPressed: () async {
-                            final token = await Navigator.pushNamed(context, 'Webview');
-                            (token != null) ? print("token : ${token}") : print('null');
-                            Navigator.pushNamed(context, 'home', arguments: token);
+                            final token =
+                                await Navigator.pushNamed(context, 'Webview');
+                            (token != null)
+                                ? print("token : ${token}")
+                                : print('null');
+                            Navigator.pushNamed(context, 'home',
+                                arguments: token);
                           },
                           path: 'google.png',
                         ),
