@@ -84,11 +84,12 @@ class _MyRegisterState extends State<MyRegister> {
       if (response.statusCode == 201) {
         Navigator.pushNamed(context, "login");
       } else {
+        var error = json.decode(response.body)['message'];
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Failed to register'),
+          SnackBar(
+            content: Text(error),
             backgroundColor: Colors.red,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ),
         );
       }

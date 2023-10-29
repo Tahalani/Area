@@ -231,12 +231,13 @@ class _MyAreasState extends State<MyAreas> {
         ),
       );
     } else {
+      var error = json.decode(response.body)['message'];
       print(response.body);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Failed to add area'),
+        SnackBar(
+          content: Text(error),
           backgroundColor: Colors.red,
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
         ),
       );
     }
