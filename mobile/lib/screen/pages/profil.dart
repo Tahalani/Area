@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/screen/component/dialoglogout.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:mobile/screen/component/serviceslist.dart';
 
 class MyProfil extends StatefulWidget {
   final String token;
@@ -24,55 +25,6 @@ class UserProfile {
     required this.password,
   });
 }
-
-class Services {
-  final String serviceName;
-  final Image image;
-
-  Services({
-    required this.serviceName,
-    required this.image,
-  });
-}
-
-List<Services> services = [
-  Services(
-    serviceName: "github",
-    image: Image.asset(
-      "assets/images/github.png",
-    ),
-  ),
-  Services(
-    serviceName: "microsoft",
-    image: Image.asset(
-      "assets/images/outlook.png",
-    ),
-  ),
-  Services(
-    serviceName: "spotify",
-    image: Image.asset(
-      "assets/images/spotify.png",
-    ),
-  ),
-  Services(
-    serviceName: "instagram",
-    image: Image.asset(
-      "assets/images/instagram.png",
-    ),
-  ),
-  Services(
-    serviceName: "notion",
-    image: Image.asset(
-      "assets/images/notion.png",
-    ),
-  ),
-  Services(
-    serviceName: "google",
-    image: Image.asset(
-      "assets/images/google.png",
-    ),
-  ),
-];
 
 class _MyProfilState extends State<MyProfil> {
   var connectedSercices = [];
@@ -108,7 +60,7 @@ class _MyProfilState extends State<MyProfil> {
       connectedSercices = user;
       for (var i = 0; i < connectedSercices.length; i++) {
         for (var j = 0; j < services.length; j++) {
-          if (connectedSercices[i] == services[j].serviceName) {
+          if (connectedSercices[i].toUpperCase() == services[j].serviceName.toUpperCase()) {
             connected_services.add(services[j]);
           }
         }
