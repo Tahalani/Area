@@ -95,6 +95,11 @@ List<ServicesDetails> servicesdetails = [
     serviceName: "Instagram",
     image: Image.asset("assets/images/instagram.png"),
   ),
+  ServicesDetails(
+    id: 7,
+    serviceName: "Notion",
+    image: Image.asset("assets/images/notion.png"),
+  ),
 ];
 
 class Services {
@@ -134,6 +139,12 @@ List<Services> services = [
     serviceName: "Instagram",
     image: Image.asset("assets/images/instagram.png"),
     url: "https://are4-51.com:8080/api/auth/instagram",
+    callbackUrl: "https://are4-51.com:8081",
+  ),
+  Services(
+    serviceName: "Notion",
+    image: Image.asset("assets/images/notion.png"),
+    url: "https://are4-51.com:8080/api/auth/notion",
     callbackUrl: "https://are4-51.com:8081",
   ),
 ];

@@ -61,6 +61,12 @@ List<Services> services = [
     ),
   ),
   Services(
+    serviceName: "notion",
+    image: Image.asset(
+      "assets/images/notion.png",
+    ),
+  ),
+  Services(
     serviceName: "google",
     image: Image.asset(
       "assets/images/google.png",
