@@ -131,6 +131,17 @@
                 "description": "create a comment",
                 "params": [{"parent_id": "parent", "comment": "comment"}]
             }]
+        }, {
+            "name": "Figma",
+            "description": "Figma est un outil de conception d'interface utilisateur et de prototypage basé sur le Web, avec une option de partage en temps réel. Il permet aux utilisateurs de collaborer sur un projet en temps réel et de modifier le même fichier. Le logiciel est disponible pour les systèmes d'exploitation Windows et macOS.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/768px-Figma-logo.svg.png",
+            "actions": [],
+            "reactions": [{
+                "name": "Add Comment",
+                "reactionId": 15,
+                "description": "Add a comment",
+                "params": [{"file_key": "file key", "comment": "message"}]
+            }]
         }]
     }
 }

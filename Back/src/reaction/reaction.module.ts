@@ -5,6 +5,7 @@ import { GithubModule } from 'src/github/github.module';
 import { MicrosoftModule } from 'src/microsoft/microsoft.module';
 import { SpotifyModule } from 'src/spotify/spotify.module';
 import { NotionModule } from 'src/notion/notion.module';
+import { FigmaModule } from 'src/figma/figma.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { NotionModule } from 'src/notion/notion.module';
     forwardRef(() => MicrosoftModule),
     forwardRef(() => SpotifyModule),
     forwardRef(() => NotionModule),
+    forwardRef(() => FigmaModule),
   ],
   providers: [ReactionArray],
   exports: [ReactionArray],
