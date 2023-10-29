@@ -30,5 +30,7 @@ export class ReactionArray {
       12: this.reactionMicrosoft.createOutlookCategory,
       13: this.reactionNotion.createPage,
       14: this.reactionNotion.commentPage,
+      16: this.reactionSpotify.savePlaylist,
+      17: this.reactionSpotify.removePlaylist
     };
   }

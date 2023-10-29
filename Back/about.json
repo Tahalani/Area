@@ -108,7 +108,18 @@
                 "reactionId": 8,
                 "description": "change the details of a playlist",
                 "params": [{"playlist_id": "playlist_id", "new_playlist_name": "new_playlist_name", "new_playlist_description": "new_playlist_description"}]
-            }]
+            }, {
+                "name": "save playlist",
+                "reactionId": 16,
+                "description": "save a playlist on user's library",
+                "params": [{"playlist_id": "playlist_id"}]
+            }, {
+                "name": "remove playlist",
+                "reactionId": 17,
+                "description": "remove a playlist from user's library",
+                "params": [{"playlist_id": "playlist_id"}]
+            }
+        ]
         }, {
             "name": "Instagram",
             "description": "Instagram est une application, un réseau social et un service de partage de photos et de vidéos fondés et lancés en octobre 2010 par l'Américain Kevin Systrom et le Brésilien Michel Mike Krieger.",
