@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { areaDto } from '../dto/area.dto';
 import { UserEntity } from '../entity/user.entity';
 import { ActionEntity } from '../entity/action.entity';
@@ -6,6 +6,7 @@ import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionEntity } from 'src/entity/reaction.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 import { ActionArray } from 'src/action/action.array';
+
 
 @Injectable()
 export class CreationAreaService {
@@ -71,17 +72,17 @@ export class CreationAreaService {
 
   async createArea(areaData: areaDto, req: any): Promise<string> {
     const user: UserEntity | null = await this.getUser(req.user.email);
-    if (user === null) return '409 User not found';
+    if (user === null) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
 
     const action: ActionEntity | null = await this.getAction(
       areaData.id_Action,
     );
-    if (action === null) return '410 Action not found';
+    if (action === null) throw new HttpException('Action not found', HttpStatus.NOT_IMPLEMENTED);
 
     const reaction: ReactionEntity | null = await this.getReaction(
       areaData.id_Reaction,
     );
-    if (reaction === null) return '854 Reaction not found';
+    if (reaction === null) throw new HttpException('Reaction not found', HttpStatus.NOT_IMPLEMENTED);
 
     try {
       const area: AreaEntity = AreaEntity.create();
