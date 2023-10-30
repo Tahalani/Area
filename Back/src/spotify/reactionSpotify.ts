@@ -112,7 +112,7 @@ export class ReactionSpotify {
     };
 
     const data = {
-      ids: arg.playlist_id,
+      ids: [arg.playlist_id],
     };
 
     axios
@@ -125,7 +125,7 @@ export class ReactionSpotify {
         console.log('SUCCESS: ', response.data);
       })
       .catch((error) => {
-        console.log('ERROR: ', error.response.data);
+        console.log('ERROR: ', error.response);
       });
   }
 
@@ -137,11 +137,103 @@ export class ReactionSpotify {
     };
 
     const data = {
-      ids: arg.playlist_id,
+      ids: [arg.playlist_id],
     };
 
     axios
       .delete('https://api.spotify.com/v1/me/albums?ids=' + arg.playlist_id, {
+        headers: headers,
+        data: data,
+      })
+      .then((response) => {
+        console.log('SUCCESS: ', response.data);
+      })
+      .catch((error) => {
+        console.log('ERROR: ', error.response.data);
+      });
+  }
+
+  async saveAudioBook(userService: UserServiceEntity, arg: any) {
+    console.log('SAVE AUDIOBOOK');
+    const headers = {
+      Authorization: `Bearer ${userService.token}`,
+      'Content-Type': 'application/json',
+    };
+
+    axios
+      .put(
+        'https://api.spotify.com/v1/me/audiobooks?ids=' + arg.audiobook_id,
+        undefined,
+        { headers: headers },
+      )
+      .then((response) => {
+        console.log('SUCCESS: ', response.data);
+      })
+      .catch((error) => {
+        console.log('ERROR: ', error.response);
+      });
+  }
+
+  async removeAudioBook(userService: UserServiceEntity, arg: any) {
+    console.log('REMOVE AUDIOBOOK');
+    const headers = {
+      Authorization: `Bearer ${userService.token}`,
+      'Content-Type': 'application/json',
+    };
+
+    axios
+      .delete(
+        'https://api.spotify.com/v1/me/audiobooks?ids=' + arg.audiobook_id,
+        {
+          headers: headers,
+        },
+      )
+      .then((response) => {
+        console.log('SUCCESS: ', response.data);
+      })
+      .catch((error) => {
+        console.log('ERROR: ', error.response.data);
+      });
+  }
+
+  async saveEpisode(userService: UserServiceEntity, arg: any) {
+    console.log('SAVE EPISODE');
+    const headers = {
+      Authorization: `Bearer ${userService.token}`,
+      'Content-Type': 'application/json',
+    };
+
+    const data = {
+      ids: [arg.episode_id],
+    };
+
+    axios
+      .put(
+        'https://api.spotify.com/v1/me/episodes?ids=' + arg.episode_id,
+        data,
+        { headers: headers },
+      )
+      .then((response) => {
+        console.log('SUCCESS: ', response.data);
+      })
+      .catch((error) => {
+        console.log('ERROR: ', error.response);
+      });
+  }
+
+  async removeEpisode(userService: UserServiceEntity, arg: any) {
+    console.log('REMOVE EPISODE');
+    const headers = {
+      Authorization: `Bearer ${userService.token}`,
+      'Content-Type': 'application/json',
+    };
+
+    const data = {
+      ids: [arg.episode_id],
+    };
+
+    axios
+      .delete('https://api.spotify.com/v1/me/episodes?ids=' + arg.episode_id, {
         headers: headers,
         data: data,
       })

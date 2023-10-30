@@ -31,6 +31,10 @@ export class ReactionArray {
       13: this.reactionNotion.createPage,
       14: this.reactionNotion.commentPage,
       16: this.reactionSpotify.savePlaylist,
-      17: this.reactionSpotify.removePlaylist
+      17: this.reactionSpotify.removePlaylist,
+      18: this.reactionSpotify.saveAudioBook,
+      19: this.reactionSpotify.removeAudioBook,
+      20: this.reactionSpotify.saveEpisode,
+      21: this.reactionSpotify.removeEpisode,
     };
   }
