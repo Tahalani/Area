@@ -18,6 +18,7 @@ export class FigmaService {
         const figmaToken = await axios.post('https://www.figma.com/api/oauth/token', {
             client_id: client_id,
             client_secret: client_secret,
+           
             redirect_uri: redirect_uri,
             code: code,
             grant_type: 'authorization_code',
