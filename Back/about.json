@@ -40,7 +40,18 @@
             },{
             "name": "Google",
             "description": "Google est une entreprise américaine de services technologiques fondée en 1998 dans la Silicon Valley, en Californie, par Larry Page et Sergey Brin, créateurs du moteur de recherche Google. C'est une filiale de la société Alphabet depuis août 2015.",
-            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png"
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png",
+            "reactions": [{
+                "name": "Create Sheet",
+                "reactionId": 16,
+                "description": "Create a sheet",
+                "params": [{"title": "title"}]
+            },{
+                "name": "Send Email",
+                "reactionId": 17,
+                "description": "Send an email",
+                "params": [{"to": "to", "subject": "subject", "body": "body"}]
+            }]
             },{
             "name": "Mail",
             "description": "Un courrier électronique, également nommé courriel, mel ou e-mail, est un message écrit, envoyé électroniquement via un réseau informatique. On appelle messagerie électronique l'ensemble du système qui permet la transmission des courriels.",
