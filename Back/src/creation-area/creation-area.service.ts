@@ -84,6 +84,12 @@ export class CreationAreaService {
     );
     if (reaction === null) throw new HttpException('Reaction not found', HttpStatus.NOT_IMPLEMENTED);
 
+    if (await this.getUserService(user, action) == null)
+      throw new HttpException(`User not connected to service: ${action.serviceId}`, HttpStatus.NOT_ACCEPTABLE);
+
+    if (await this.getUserServiceReaction(user, reaction) == null)
+      throw new HttpException(`User not connected to service: ${reaction.serviceId}`, HttpStatus.NOT_ACCEPTABLE);
+
     try {
       const area: AreaEntity = AreaEntity.create();
       area.user = user;
