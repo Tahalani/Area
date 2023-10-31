@@ -10,11 +10,8 @@
 
 ### Setup
 
-1. Clone the repository
+1. Clone the repository or download the zip file
 
-```bash
-git clone
-```
 
 2. Install dependencies
 
@@ -52,4 +49,8 @@ flutter run
 - `assets/` - Contains all the assets of the app
   - `fonts/` - Contains all the fonts of the app
   - `images/` - Contains all the images of the app
+
+### Mobile APP Diagram
+
+<img src="docs/Mobile-Tree.png " alt="Mobile APP Diagram" width="100%">
 
