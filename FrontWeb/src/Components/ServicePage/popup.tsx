@@ -53,6 +53,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
   const [selectedReaction, setSelectedReaction] = useState<ReactionData | null>(null);
   const [services, setServices] = useState<ServiceData[]>([]);
   const [selectedService, setSelectedService] = useState<ServiceData | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleTextActionChange = (event: React.ChangeEvent<HTMLInputElement>, key: string) => {
     textInputAction[key] = event.target.value;
@@ -134,7 +135,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose }) => {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }})
       .then((response) => {
-        console.log(response.data);
+        console.log("status = ", response.status);
       })
       .catch((error) => {
         console.error("Erreur lors de la requete :", error);
