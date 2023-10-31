@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Navigationbar from "../Components/navbar.tsx";
+import NavigationbarMd from "../Components/navbarMd.tsx";
 import ServiceCase from "../Components/AreaPage/service.tsx";
 import Search from "../Components/AreaPage/search.tsx";
 import "../App.css";
@@ -28,6 +29,7 @@ export default function Area() {
       .then((response) => {
         setServices(response.data);
         setFilteredServices(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Erreur lors de la requête :", error);
@@ -47,7 +49,12 @@ export default function Area() {
 
   return (
     <>
-      <Navigationbar />
+      <div className="hidden lg:block">
+        <Navigationbar />
+      </div>
+      <div className="lg:hidden">
+        <NavigationbarMd />
+      </div>
       <div className="h-screen relative bg-main">
         <Search onSearch={filterServices} />
         <div className="grid-container">
