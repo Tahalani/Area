@@ -33,32 +33,31 @@ export default function Card() {
 
   return (
     <>
-      <div
-        style={{ border: "1px solid #1400FF" }}
-        className="bg-[#F3F3F3] rounded-lg h-[80%] w-[70%]"
-      >
-        <div className="rounded-full h-[200px] w-[200px] mx-auto mb-4 mt-12 flex items-center justify-center bg-gray-300 text-gray-600 text-[70px] font-semibold">
-          {capitalizeFirstLetter(client.name ? client.name.charAt(0) : "")}
+      <div style={{ border: "1px solid #1400FF" }} className="bg-[#F3F3F3] rounded-lg h-[650px] w-[70%]">
+        <div className="rounded-full sm:h-[200px] sm:w-[200px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[200px] mx-auto mb-4 mt-12 flex items-center justify-center bg-gray-300 text-gray-600 sm:text-[70px] md:text-[70px] lg:text-[70px] font-semibold">
+          {/* {capitalizeFirstLetter(client.name ? client.name.charAt(0) : "")} */}
+          A
         </div>
         {client.surname !== "undefined" ? (
           <p
             style={{ fontFamily: "merriweather" }}
-            className="text-black text-[35px] font-semibold text-center"
+            className="text-black sm:text-[35px] md:text-[35px] lg:text-[35px] font-semibold text-center"
           >
-            {capitalizeFirstLetter(String(client.name))} {(String(client.surname)).toUpperCase()}
+            Taha ALANI
+            {/* {capitalizeFirstLetter(String(client.name))} {(String(client.surname)).toUpperCase()} */}
           </p>
         ) : (
           <p
             style={{ fontFamily: "merriweather" }}
-            className="text-black text-[35px] font-semibold text-center"
+            className="text-black sm:text-[35px] md:text-[35px] lg:text-[35px] font-semibold text-center"
           >
             {capitalizeFirstLetter(String(client.name))}
           </p>
         )}
-        <div className="flex bg-[#D9D9D9] rounded-full p-1 ml-[25%] mt-8 w-2/4 justify-center">
+        <div className="flex bg-[#D9D9D9] rounded-full p-1 ml-[12%] mt-8 w-3/4 justify-center">
           <p
             style={{ fontFamily: "merriweather" }}
-            className="text-blue-500 text-[25px] font-semibold"
+            className="text-blue-500 sm:text-[25px] md:text-[25px] lg:text-[25px] font-semibold"
           >
             {t("connected")}
           </p>
@@ -66,35 +65,36 @@ export default function Card() {
         <div className="bg-white text-left rounded-full p-2 mt-12 w-5/6 ml-[8%] pl-[20px]">
           <p
             style={{ fontFamily: "merriweather" }}
-            className="text-[#4A4949] pl-[3%] text-[12px] font-semibold"
+            className="text-[#4A4949] pl-[3%] sm:text-[12px] md:text-[12px] lg:text-[12px] font-semibold"
           >
             Email
           </p>
           <p
             style={{ fontFamily: "Inter" }}
-            className="text-[#000000] pl-[3%] text-[20px]"
+            className="text-[#000000] pl-[3%] sm:text-[20px] md:text-[20px] lg:text-[20px]"
           >
-            {client.email}
+            taha@gmail
+            {/* {client.email} */}
           </p>
         </div>
         <div className="bg-white text-left rounded-full p-2 mt-4 w-5/6 ml-[8%] pl-[20px]">
           <p
             style={{ fontFamily: "merriweather" }}
-            className="text-[#4A4949] pl-[3%] text-[12px] font-semibold"
+            className="text-[#4A4949] pl-[3%] sm:text-[12px] md:text-[12px] lg:text-[12px] font-semibold"
           >
             {t("name")}
           </p>
           {client.surname !== "undefined" ? (
             <p
               style={{ fontFamily: "Inter" }}
-              className="text-[#000000] pl-[3%] text-[20px]"
+              className="text-[#000000] pl-[3%] sm:text-[20px] md:text-[20px] lg:text-[20px]"
             >
               {capitalizeFirstLetter(String(client.name))} {(String(client.surname)).toUpperCase()}
             </p>
           ) : (
             <p
               style={{ fontFamily: "Inter" }}
-              className="text-[#000000] pl-[3%] text-[20px]"
+              className="text-[#000000] pl-[3%] sm:text-[20px] md:text-[20px] lg:text-[20px]"
             >
               {capitalizeFirstLetter(String(client.name))}
             </p>

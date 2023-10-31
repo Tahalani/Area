@@ -53,7 +53,7 @@ const HorizontalRectangle: React.FC = () => {
         return (
           <div
             style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)" }}
-            className="mb-12 bg-gray-200 p-4 w-[800px] h-[300px] flex-col justify-start items-start rounded-lg"
+            className="mb-12 bg-gray-200 p-4 w-[100%] h-[300px] flex-col justify-start items-start rounded-lg"
           >
             <div key={index} className="w-full h-1/3 flex">
               <div className="w-1/2 flex">
