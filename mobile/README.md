@@ -52,5 +52,4 @@ flutter run
 
 ### Mobile APP Diagram
 
-<img src="../docs/Mobile-Tree.png" alt="Mobile APP Diagram" width="100%">
 
