@@ -13,7 +13,7 @@ export class SpotifyController {
         console.log("spotifyAuth");
         const client_id = '3f5afd10c49a439085bb7ab556fd69f8'; // TODO: Move to .env
         const redirect_uri = `${process.env.DNS_NAME}:8080/api/auth/spotify/callback`
-        const scope = 'user-read-private user-read-email playlist-modify-private playlist-modify-public';
+        const scope = 'user-read-private user-read-email playlist-modify-private playlist-modify-public user-library-modify';
 
         res.redirect('https://accounts.spotify.com/authorize' +
             '?response_type=code' + '&client_id=' + client_id +
