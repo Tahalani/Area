@@ -231,8 +231,18 @@ class _MyAreasState extends State<MyAreas> {
         ),
       );
     } else {
-      var error = json.decode(response.body)['message'];
-      print(response.body);
+      var error = "";
+      if (response.statusCode == 406) {
+        var getID = RegExp(r'User not connected to service: (\d+)');
+        int id = int.parse(
+            getID.firstMatch(json.decode(response.body)['message'])!.group(1)!);
+        var serviceName = scocialService
+            .firstWhere((service) => service.id == id)
+            .serviceName.toUpperCase();
+        error = "User not connected to service: $serviceName";
+      } else {
+        error = json.decode(response.body)['message'];
+      }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(error),
