@@ -19,7 +19,7 @@ export class GoogleGuard implements CanActivate {
 
   url = this.oauth2.generateAuthUrl({
     access_type: 'offline',
-    scope: ['email', 'profile'],
+    scope: ['email', 'profile', 'https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/gmail.send'],
   });
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -43,7 +43,6 @@ export class GoogleGuard implements CanActivate {
 
     const res = await auth.userinfo.get();
 
-    console.log(res.data);
     request['user'] = res.data;
     return true;
   }

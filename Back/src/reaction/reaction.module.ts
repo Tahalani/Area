@@ -6,6 +6,7 @@ import { MicrosoftModule } from 'src/microsoft/microsoft.module';
 import { SpotifyModule } from 'src/spotify/spotify.module';
 import { NotionModule } from 'src/notion/notion.module';
 import { FigmaModule } from 'src/figma/figma.module';
+import { GoogleModule } from 'src/google/google.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { FigmaModule } from 'src/figma/figma.module';
     forwardRef(() => SpotifyModule),
     forwardRef(() => NotionModule),
     forwardRef(() => FigmaModule),
+    forwardRef(() => GoogleModule),
   ],
   providers: [ReactionArray],
   exports: [ReactionArray],
