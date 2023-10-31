@@ -42,5 +42,8 @@ export class ReactionArray {
       21: this.reactionSpotify.removeEpisode,
       22: this.reactionGoogle.createSheet,
       23: this.reactionGoogle.sendEmail,
+      24: this.reactionNotion.createDatabase,
+      25: this.reactionNotion.updatePage,
+      26: this.reactionNotion.updateDatabase,
     };
   }
