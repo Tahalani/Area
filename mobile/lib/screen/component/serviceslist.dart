@@ -75,4 +75,20 @@ List<Services> services = [
     callbackUrl: "https://are4-51.com:8081",
     auth: true,
   ),
+  Services(
+    id: 8,
+    serviceName: "Figma",
+    image: Image.asset("assets/images/figma.png"),
+    url: "https://are4-51.com:8080/api/auth/figma",
+    callbackUrl: "https://are4-51.com:8081",
+    auth: true,
+  ),
+  Services(
+    id: 9,
+    serviceName: "Linear",
+    image: Image.asset("assets/images/linear.png"),
+    url: "https://are4-51.com:8080/api/auth/linear",
+    callbackUrl: "https://are4-51.com:8081",
+    auth: true,
+  ),
 ];
