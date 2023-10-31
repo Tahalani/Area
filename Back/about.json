@@ -164,6 +164,12 @@
                 "description": "Add a comment",
                 "params": [{"file_key": "file key", "comment": "message"}]
             }]
+        }, {
+            "name": "Linear",
+            "description": "Linear est un outil de gestion de projet pour les équipes logicielles. Il est construit pour accélérer le développement de logiciels en aidant les équipes à collaborer plus efficacement et à être plus productive.",
+            "logo_url": "https://brandfetch.com/linear.app/library/default/asset/idpLeRmlXj?collection=logos&view=library",
+            "actions": [],
+            "reactions": []
         }]
     }
 }
