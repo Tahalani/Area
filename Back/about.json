@@ -129,6 +129,26 @@
                 "reactionId": 17,
                 "description": "remove a playlist from user's library",
                 "params": [{"playlist_id": "playlist_id"}]
+            }, {
+                "name": "save audibook",
+                "reactionId": 18,
+                "description": "save a audibook on user's library",
+                "params": [{"audibook_id": "audibook_id"}]
+            }, {
+                "name": "remove audiobook",
+                "reactionId": 19,
+                "description": "remove a audiobook from user's library",
+                "params": [{"audiobook_id": "audiobook_id"}]
+            }, {
+                "name": "save episode",
+                "reactionId": 20,
+                "description": "save a episode on user's library",
+                "params": [{"episode_id": "episode_id"}]
+            }, {
+                "name": "remove episode",
+                "reactionId": 21,
+                "description": "remove a episode from user's library",
+                "params": [{"episode_id": "episode_id"}]
             }
         ]
         }, {
