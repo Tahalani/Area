@@ -40,7 +40,18 @@
             },{
             "name": "Google",
             "description": "Google est une entreprise américaine de services technologiques fondée en 1998 dans la Silicon Valley, en Californie, par Larry Page et Sergey Brin, créateurs du moteur de recherche Google. C'est une filiale de la société Alphabet depuis août 2015.",
-            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png"
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/800px-Google_%22G%22_Logo.svg.png",
+            "reactions": [{
+                "name": "Create Sheet",
+                "reactionId": 22,
+                "description": "Create a sheet",
+                "params": [{"title": "title"}]
+            },{
+                "name": "Send Email",
+                "reactionId": 23,
+                "description": "Send an email",
+                "params": [{"to": "to", "subject": "subject", "body": "body"}]
+            }]
             },{
             "name": "Mail",
             "description": "Un courrier électronique, également nommé courriel, mel ou e-mail, est un message écrit, envoyé électroniquement via un réseau informatique. On appelle messagerie électronique l'ensemble du système qui permet la transmission des courriels.",
@@ -108,7 +119,18 @@
                 "reactionId": 8,
                 "description": "change the details of a playlist",
                 "params": [{"playlist_id": "playlist_id", "new_playlist_name": "new_playlist_name", "new_playlist_description": "new_playlist_description"}]
-            }]
+            }, {
+                "name": "save playlist",
+                "reactionId": 16,
+                "description": "save a playlist on user's library",
+                "params": [{"playlist_id": "playlist_id"}]
+            }, {
+                "name": "remove playlist",
+                "reactionId": 17,
+                "description": "remove a playlist from user's library",
+                "params": [{"playlist_id": "playlist_id"}]
+            }
+        ]
         }, {
             "name": "Instagram",
             "description": "Instagram est une application, un réseau social et un service de partage de photos et de vidéos fondés et lancés en octobre 2010 par l'Américain Kevin Systrom et le Brésilien Michel Mike Krieger.",
@@ -131,6 +153,23 @@
                 "description": "create a comment",
                 "params": [{"parent_id": "parent", "comment": "comment"}]
             }]
+        }, {
+            "name": "Figma",
+            "description": "Figma est un outil de conception d'interface utilisateur et de prototypage basé sur le Web, avec une option de partage en temps réel. Il permet aux utilisateurs de collaborer sur un projet en temps réel et de modifier le même fichier. Le logiciel est disponible pour les systèmes d'exploitation Windows et macOS.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/768px-Figma-logo.svg.png",
+            "actions": [],
+            "reactions": [{
+                "name": "Add Comment",
+                "reactionId": 15,
+                "description": "Add a comment",
+                "params": [{"file_key": "file key", "comment": "message"}]
+            }]
+        }, {
+            "name": "Linear",
+            "description": "Linear est un outil de gestion de projet pour les équipes logicielles. Il est construit pour accélérer le développement de logiciels en aidant les équipes à collaborer plus efficacement et à être plus productive.",
+            "logo_url": "https://brandfetch.com/linear.app/library/default/asset/idpLeRmlXj?collection=logos&view=library",
+            "actions": [],
+            "reactions": []
         }]
     }
 }

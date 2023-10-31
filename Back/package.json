@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@googleapis/docs": "^2.0.5",
+    "@linear/sdk": "^9.0.1",
     "@nestjs-modules/mailer": "^1.7.1",
     "@nestjs/common": "^10.2.6",
     "@nestjs/core": "^10.0.0",

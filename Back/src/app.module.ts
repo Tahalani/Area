@@ -16,6 +16,8 @@ import { MicrosoftModule } from './microsoft/microsoft.module';
 import { SpotifyModule } from './spotify/spotify.module';
 import { InstagramModule } from './instagram/instagram.module';
 import { NotionModule } from './notion/notion.module';
+import { FigmaModule } from './figma/figma.module';
+import { LinearModule } from './linear/linear.module';
 
 dotenv.config();
 
@@ -46,6 +48,8 @@ dotenv.config();
     SpotifyModule,
     InstagramModule,
     NotionModule,
+    FigmaModule,
+    LinearModule,
   ],
   controllers: [AppController],
   providers: [AppService, InitService],
