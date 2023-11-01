@@ -7,6 +7,7 @@ import { NotionModule } from 'src/notion/notion.module';
 import { FigmaModule } from 'src/figma/figma.module';
 import { GoogleModule } from 'src/google/google.module';
 import { LinearModule } from 'src/linear/linear.module';
+import { TwitchModule } from 'src/twitch/twitch.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { LinearModule } from 'src/linear/linear.module';
     forwardRef(() => FigmaModule),
     forwardRef(() => GoogleModule),
     forwardRef(() => LinearModule),
+    forwardRef(() => TwitchModule),
   ],
   providers: [ReactionArray],
   exports: [ReactionArray],
