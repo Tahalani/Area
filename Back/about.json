@@ -53,11 +53,6 @@
                 "params": [{"to": "to", "subject": "subject", "body": "body"}]
             }]
             },{
-            "name": "Mail",
-            "description": "Un courrier électronique, également nommé courriel, mel ou e-mail, est un message écrit, envoyé électroniquement via un réseau informatique. On appelle messagerie électronique l'ensemble du système qui permet la transmission des courriels.",
-            "logo_url": "https://upload.wikimedia.org/wikipedia/fr/a/a7/Mail_%28Apple%29_logo.png",
-            "reactions": []
-            },{
             "name": "Microsoft",
             "description": "Microsoft Corporation est une multinationale informatique et micro-informatique américaine, fondée en 1975 par Bill Gates et Paul Allen. Microsoft fait partie des principales capitalisations boursières du NASDAQ, aux côtés d'Apple et d'Amazon. En 2018, le chiffre d'affaires s’élevait à 110,36 milliards de dollars.",
             "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png",

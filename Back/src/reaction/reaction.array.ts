@@ -1,5 +1,4 @@
 import { Injectable} from "@nestjs/common";
-import { MailingReaction } from "src/mailing/mailing.reaction";
 import { ReactionGithub } from "src/github/reactionGithub";
 import { ReactionMicrosoft } from "src/microsoft/reactionMicrosoft";
 import { ReactionSpotify } from "src/spotify/reactionSpotify";
@@ -10,7 +9,6 @@ import { ReactionGoogle } from "src/google/reactionGoogle";
 @Injectable()
 export class ReactionArray {
     constructor(
-      private readonly mailingReaction: MailingReaction,
       private readonly githubReaction: ReactionGithub,
       private readonly reactionMicrosoft: ReactionMicrosoft,
       private readonly reactionSpotify: ReactionSpotify,
