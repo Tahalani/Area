@@ -20,6 +20,7 @@ import { FigmaModule } from './figma/figma.module';
 import { LinearModule } from './linear/linear.module';
 import { GitlabModule } from './gitlab/gitlab.module';
 import { TwitchModule } from './twitch/twitch.module';
+import { SlackModule } from './slack/slack.module';
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ dotenv.config();
     LinearModule,
     GitlabModule,
     TwitchModule,
+    SlackModule,
   ],
   controllers: [AppController],
   providers: [AppService, InitService],
