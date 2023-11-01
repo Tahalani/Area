@@ -5,6 +5,7 @@ import { ReactionSpotify } from "src/spotify/reactionSpotify";
 import { ReactionNotion } from "src/notion/reactionNotion";
 import { ReactionFigma } from "src/figma/reactionFigma";
 import { ReactionGoogle } from "src/google/reactionGoogle";
+import { ReactionLinear } from "src/linear/reactionLinear";
 
 @Injectable()
 export class ReactionArray {
@@ -15,9 +16,10 @@ export class ReactionArray {
       private readonly reactionNotion: ReactionNotion,
       private readonly reactionFigma: ReactionFigma,
       private readonly reactionGoogle: ReactionGoogle,
+      private readonly reactionLinear: ReactionLinear,
     ) {}
 
-    map: { [key: number]: (userService: any, arg: any) => any } = {
+    map: { [key: number] : (userService: any, arg: any) => any } = {
       1: this.githubReaction.createIssue,
       2: this.githubReaction.createPullRequest,
       4: this.reactionMicrosoft.createEvent,
@@ -43,5 +45,8 @@ export class ReactionArray {
       24: this.reactionNotion.createDatabase,
       25: this.reactionNotion.updatePage,
       26: this.reactionNotion.updateDatabase,
+      27: this.reactionLinear.createIssue,
+      28: this.reactionLinear.changeDisplayName,
+      29: this.reactionLinear.createComment,
     };
   }

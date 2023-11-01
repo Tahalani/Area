@@ -197,9 +197,24 @@
         }, {
             "name": "Linear",
             "description": "Linear est un outil de gestion de projet pour les équipes logicielles. Il est construit pour accélérer le développement de logiciels en aidant les équipes à collaborer plus efficacement et à être plus productive.",
-            "logo_url": "https://brandfetch.com/linear.app/library/default/asset/idpLeRmlXj?collection=logos&view=library",
+            "logo_url": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/1f571644-39f9-4a0d-a4eb-0dd6eea62a00/f=auto,q=95,fit=scale-down,metadata=none",
             "actions": [],
-            "reactions": []
+            "reactions": [{
+                "name": "Create Issue",
+                "reactionId": 27,
+                "description": "Create an issue",
+                "params": [{"title": "title", "team_id": "team_id"}]
+            }, {
+                "name": "Change Name",
+                "reactionId": 28,
+                "description": "Change Name",
+                "params": [{"name": "name"}]
+            }, {
+                "name": "Create Comment",
+                "reactionId": 29,
+                "description": "Create a comment",
+                "params": [{"issue_id": "issue_id", "body": "body"}]
+            }]
         }]
     }
 }
