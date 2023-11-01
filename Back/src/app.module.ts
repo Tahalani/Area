@@ -18,6 +18,8 @@ import { InstagramModule } from './instagram/instagram.module';
 import { NotionModule } from './notion/notion.module';
 import { FigmaModule } from './figma/figma.module';
 import { LinearModule } from './linear/linear.module';
+import { GitlabModule } from './gitlab/gitlab.module';
+import { TwitchModule } from './twitch/twitch.module';
 
 dotenv.config();
 
@@ -50,6 +52,8 @@ dotenv.config();
     NotionModule,
     FigmaModule,
     LinearModule,
+    GitlabModule,
+    TwitchModule,
   ],
   controllers: [AppController],
   providers: [AppService, InitService],
