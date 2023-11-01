@@ -50,7 +50,7 @@ class _WebViewPageState extends State<WebViewPage> {
     final theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Flutter Simple Example'),
+          title: const Text('Google Login'),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(6.0),
             child: LinearProgressIndicator(

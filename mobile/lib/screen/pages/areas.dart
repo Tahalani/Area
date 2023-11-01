@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:mobile/screen/component/webviewconnect.dart';
+import 'package:mobile/screen/component/serviceslist.dart';
 
 class MyAreas extends StatefulWidget {
   final String token;
@@ -231,13 +233,42 @@ class _MyAreasState extends State<MyAreas> {
         ),
       );
     } else {
-      var error = json.decode(response.body)['message'];
-      print(response.body);
+      var error = "";
+      int id = 0;
+      if (response.statusCode == 406) {
+        var getID = RegExp(r'User not connected to service: (\d+)');
+        id = int.parse(
+            getID.firstMatch(json.decode(response.body)['message'])!.group(1)!);
+        var serviceName = scocialService
+            .firstWhere((service) => service.id == id)
+            .serviceName
+            .toUpperCase();
+        error = "User not connected to service: $serviceName";
+      } else {
+        error = json.decode(response.body)['message'];
+      }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(error),
           backgroundColor: Colors.red,
-          duration: const Duration(seconds: 1),
+          duration: const Duration(seconds: 2),
+          action: SnackBarAction(
+            label: 'CONNECT',
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => WebViewConnect(
+                            apiUrl: services
+                                .firstWhere((service) => service.id == id)
+                                .url,
+                            urlCallBack: services
+                                .firstWhere((service) => service.id == id)
+                                .callbackUrl,
+                            token: widget.token,
+                          )));
+            },
+          ),
         ),
       );
     }
