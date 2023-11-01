@@ -8,14 +8,14 @@ import axios from 'axios';
 config();
 
 @Injectable()
-export class FigmaService {
+export class GitlabService {
 
-    async getFigmaToken(code : string) : Promise<any | undefined> {
-        const client_id = process.env.FIGMA_CLIENT_ID
-        const client_secret = process.env.FIGMA_CLIENT_SECRET
-        const redirect_uri = `${process.env.DNS_NAME}:8080/api/auth/figma/callback`
+    async getGitlabToken(code : string) : Promise<any | undefined> {
+        const client_id = process.env.GITLAB_CLIENT_ID
+        const client_secret = process.env.GITLAB_CLIENT_SECRET
+        const redirect_uri = `${process.env.DNS_NAME}:8080/api/auth/gitlab/callback`
 
-        const figmaToken = await axios.post('https://www.figma.com/api/oauth/token', {
+        const gitlabToken = await axios.post('https://gitlab.com/oauth/token', {
             client_id: client_id,
             client_secret: client_secret,
             redirect_uri: redirect_uri,
@@ -24,21 +24,21 @@ export class FigmaService {
         })
         .then((res) => res.data)
         .catch(function (error) {
-            console.log("error figma get access token: ", error);
+            console.log("error gitlab get access token: ", error);
         });
-        return figmaToken;
+        return gitlabToken;
     }
 
     async getUserInfo(accesstoken: string) {
-        const userInfo = await axios.get('https://api.figma.com/v1/me', {
+        const userInfo = await axios.get('https://gitlab.com/api/v4/user', {
             headers: {
                 'authorization': 'Bearer ' + accesstoken,
-                'X-FIGMA-TOKEN': accesstoken,
+                'X-GitHub-Api-Version': '2022-11-28',
             }
         })
         .then((res) => res.data)
         .catch(function (error) {
-            console.log("error figma get user info: ", error);
+            console.log("error gitlab get user info: ", error);
         });
         return userInfo;
     }
@@ -48,32 +48,32 @@ export class FigmaService {
         const service = await ServiceEntity.findOneBy({ name: serviceName });
 
         if (user === null) {
-          console.error("User not found (", email, ")");
+          console.error('User not found (', email, ')');
           return;
         }
 
         if (service === null) {
-          console.error("Service not found (", serviceName, ")");
+          console.error('Service not found (', serviceName, ')');
           return;
         }
 
-        const userService = UserServiceEntity.create();
+        const userService = new UserServiceEntity();
         userService.user = user;
         userService.service = service;
-        userService.serviceIdentifier = serviceIdentifier;
         userService.token = token;
+        userService.serviceIdentifier = serviceIdentifier;
 
         try {
-          console.log("Saving Figma token...");
+          console.log("Saving Gitlab token...");
           await userService.save();
         } catch (error) {
-          console.error("Error saving token: ", error);
+          console.error('Error saving token');
           return;
         }
     }
 
     async addService(req: any) {
-        console.log("addService Figma");
+        console.log("addService Gitlab");
         const userEmail = req.query.state
         const code = req.query.code
 
@@ -82,21 +82,22 @@ export class FigmaService {
             return;
         }
 
-        const figmaAccesstoken = await this.getFigmaToken(code);
+        const gitlabAccesstoken = await this.getGitlabToken(code);
 
-        if (figmaAccesstoken === undefined) {
-            console.error("Error getting figma access token");
+        if (gitlabAccesstoken === undefined) {
+            console.error("Error getting gitlab access token");
             return;
         }
 
-        const accesToken = figmaAccesstoken.access_token;
-        const userInfo = await this.getUserInfo(accesToken);
+        const accessToken = gitlabAccesstoken.access_token;
+        const infoUser = await this.getUserInfo(accessToken);
 
-        if (userInfo === undefined) {
+        if (infoUser === undefined) {
             console.error("Error getting user info");
             return;
         }
-        const serviceIdentifier = userInfo.email;
-        this.saveToken(userEmail, accesToken, serviceIdentifier, "figma");
+
+        const serviceIdentifier = infoUser.name;
+        this.saveToken(userEmail, accessToken, serviceIdentifier, "gitlab");
     }
 }
