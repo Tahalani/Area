@@ -172,6 +172,21 @@
                 "reactionId": 14,
                 "description": "create a comment",
                 "params": [{"parent_id": "parent", "comment": "comment"}]
+            },{
+                "name": "create database",
+                "reactionId": 24,
+                "description": "create a database",
+                "params": [{"parent_id": "parent", "title": "title"}]
+            },{
+                "name": "rename Page",
+                "reactionId": 25,
+                "description": "rename a page",
+                "params": [{"page_id": "page_id", "title": "title"}]
+            },{
+                "name": "rename database",
+                "reactionId": 26,
+                "description": "rename a database",
+                "params": [{"database_id": "database_id", "title": "title"}]
             }]
         }, {
             "name": "Figma",
