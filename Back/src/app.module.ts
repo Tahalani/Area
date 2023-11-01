@@ -18,6 +18,7 @@ import { InstagramModule } from './instagram/instagram.module';
 import { NotionModule } from './notion/notion.module';
 import { FigmaModule } from './figma/figma.module';
 import { LinearModule } from './linear/linear.module';
+import { DropboxModule } from './dropbox/dropbox.module';
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ dotenv.config();
     NotionModule,
     FigmaModule,
     LinearModule,
+    DropboxModule,
   ],
   controllers: [AppController],
   providers: [AppService, InitService],
