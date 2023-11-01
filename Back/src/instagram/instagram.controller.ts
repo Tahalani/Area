@@ -2,11 +2,13 @@ import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { InstagramService } from './instagram.service';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiBearerAuth, ApiExcludeEndpoint } from '@nestjs/swagger';
 
 @Controller('api')
 export class InstagramController {
     constructor(private readonly instagramService: InstagramService) {}
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get('auth/instagram')
     async instagramAuth(@Req() req: any, @Res() res: Response) {
@@ -21,6 +23,7 @@ export class InstagramController {
         );
     }
 
+    @ApiExcludeEndpoint()
     @Get('auth/instagram/callback')
     async instagramAuthCallback(@Req() req: any, @Res() res: Response) {
         console.log("instagramAuthCallback");
