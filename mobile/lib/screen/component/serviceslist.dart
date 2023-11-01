@@ -91,4 +91,20 @@ List<Services> services = [
     callbackUrl: "https://are4-51.com:8081",
     auth: true,
   ),
+  Services(
+    id: 10,
+    serviceName: "Gitlab",
+    image: Image.asset("assets/images/gitlab.png"),
+    url: "https://are4-51.com:8080/api/auth/gitlab",
+    callbackUrl: "https://are4-51.com:8081",
+    auth: true,
+  ),
+  Services(
+    id: 11,
+    serviceName: "Twitch",
+    image: Image.asset("assets/images/twitch.png"),
+    url: "https://are4-51.com:8080/api/auth/twitch",
+    callbackUrl: "https://are4-51.com:8081",
+    auth: true,
+  ),
 ];
