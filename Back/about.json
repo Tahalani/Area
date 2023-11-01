@@ -212,6 +212,12 @@
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Twitch_logo.svg/768px-Twitch_logo.svg.png",
             "actions": [],
             "reactions": []
+        }, {
+            "name": "Slack",
+            "description": "Slack est un logiciel de messagerie instantanée et de collaboration en équipe développé par Slack Technologies. Il propose de nombreux services comme la création de groupes privés, l'envoi de messages privés et le partage de fichiers.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Slack_Icon.png/768px-Slack_Icon.png",
+            "actions": [],
+            "reactions": []
         }]
     }
 }
