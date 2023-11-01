@@ -20,7 +20,7 @@ export default function Profil() {
         <div className="sm:w-full lg:w-1/2 p-6 pt-24 sm:pl-[99px] md:pl-[198px] lg:pl-[297px] text-black">
           <Card />
         </div>
-        <div className="lg:overflow-y-auto lg:max-h-[730px] lg:w-1/2 pt-24 text-black">
+        <div className="lg:overflow-y-auto lg:max-h-[640px] lg:w-1/2 text-black mt-[95px]">
           <div className="flex flex-col p-[10px]">
             <HorizontalRectangle />
           </div>

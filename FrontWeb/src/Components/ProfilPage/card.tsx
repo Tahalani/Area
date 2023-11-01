@@ -35,16 +35,14 @@ export default function Card() {
     <>
       <div style={{ border: "1px solid #1400FF" }} className="bg-[#F3F3F3] rounded-lg h-[650px] w-[70%]">
         <div className="rounded-full sm:h-[200px] sm:w-[200px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[200px] mx-auto mb-4 mt-12 flex items-center justify-center bg-gray-300 text-gray-600 sm:text-[70px] md:text-[70px] lg:text-[70px] font-semibold">
-          {/* {capitalizeFirstLetter(client.name ? client.name.charAt(0) : "")} */}
-          A
+          {capitalizeFirstLetter(client.name ? client.name.charAt(0) : "")}
         </div>
         {client.surname !== "undefined" ? (
           <p
             style={{ fontFamily: "merriweather" }}
             className="text-black sm:text-[35px] md:text-[35px] lg:text-[35px] font-semibold text-center"
           >
-            Taha ALANI
-            {/* {capitalizeFirstLetter(String(client.name))} {(String(client.surname)).toUpperCase()} */}
+            {capitalizeFirstLetter(String(client.name))} {(String(client.surname)).toUpperCase()}
           </p>
         ) : (
           <p
@@ -73,8 +71,7 @@ export default function Card() {
             style={{ fontFamily: "Inter" }}
             className="text-[#000000] pl-[3%] sm:text-[20px] md:text-[20px] lg:text-[20px]"
           >
-            taha@gmail
-            {/* {client.email} */}
+            {client.email}
           </p>
         </div>
         <div className="bg-white text-left rounded-full p-2 mt-4 w-5/6 ml-[8%] pl-[20px]">

@@ -3,11 +3,17 @@ import axios from "axios";
 
 const HorizontalRectangle: React.FC = () => {
   const [services, setServices] = useState<string[]>([]);
-  const [Image, setImage] = useState<{ name: string; description: string; logo_url: string }[] | undefined>(undefined);
+  const [Image, setImage] = useState<
+    { name: string; description: string; logo_url: string }[] | undefined
+  >(undefined);
 
   const getServices = () => {
     axios
-      .get(import.meta.env.VITE_DNS_NAME + ":8080/api/user/services/get?token=" + localStorage.getItem("token"))
+      .get(
+        import.meta.env.VITE_DNS_NAME +
+          ":8080/api/user/services/get?token=" +
+          localStorage.getItem("token")
+      )
       .then((response) => {
         if (Array.isArray(response.data)) {
           setServices(response.data);
@@ -52,8 +58,11 @@ const HorizontalRectangle: React.FC = () => {
         );
         return (
           <div
-            style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)" }}
-            className="mb-12 bg-gray-200 p-4 w-[100%] h-[300px] flex-col justify-start items-start rounded-lg"
+            style={{
+              border: "1px solid #1400FF",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+            }}
+            className="mb-12 bg-gray-200 p-4 sm:w-[100%] md:w-[100%] lg:w-[80%] h-[270px] flex-col justify-start items-start rounded-lg"
           >
             <div key={index} className="w-full h-1/3 flex">
               <div className="w-1/2 flex">
