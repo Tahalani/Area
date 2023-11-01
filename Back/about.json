@@ -206,6 +206,12 @@
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/GitLab_Logo.svg/768px-GitLab_Logo.svg.png",
             "actions": [],
             "reactions": []
+        }, {
+            "name": "Twitch",
+            "description": "Twitch est un service de streaming et de VOD de jeu vidéo, de sport électronique et d'émissions apparentées lancé en juin 2011. Le site a été créé afin d'avoir un espace où les utilisateurs pouvaient diffuser leurs parties de jeu vidéo en direct.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Twitch_logo.svg/768px-Twitch_logo.svg.png",
+            "actions": [],
+            "reactions": []
         }]
     }
 }
