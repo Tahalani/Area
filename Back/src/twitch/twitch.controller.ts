@@ -19,7 +19,7 @@ export class TwitchController {
         const client_id= process.env.TWITCH_CLIENT_ID
         const redirect_uri = `${process.env.DNS_NAME}:8080/api/auth/twitch/callback`
         const response_type = 'code'
-        const scope = 'user:read:email chat:edit'
+        const scope = 'user:read:email chat:edit clips:edit'
 
         res.redirect('https://id.twitch.tv/oauth2/authorize' +
         '?response_type='+ response_type + '&client_id=' + client_id +
