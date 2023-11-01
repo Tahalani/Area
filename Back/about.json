@@ -200,6 +200,12 @@
             "logo_url": "https://brandfetch.com/linear.app/library/default/asset/idpLeRmlXj?collection=logos&view=library",
             "actions": [],
             "reactions": []
+        }, {
+            "name": "Gitlab",
+            "description": "GitLab est un service web de gestion de développement logiciel utilisant Git repository. Il est développé par GitLab Inc. Le code source de GitLab est disponible sous licence MIT et le logiciel est écrit en Ruby.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/GitLab_Logo.svg/768px-GitLab_Logo.svg.png",
+            "actions": [],
+            "reactions": []
         }]
     }
 }
