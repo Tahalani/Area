@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 function Navbar() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-
   const redirectToLoginPage = () => {
     navigate("/loginPage");
   };
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <>

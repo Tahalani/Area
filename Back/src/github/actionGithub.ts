@@ -26,7 +26,7 @@ export class ActionGithub {
               'push',
             ],
             config: {
-              url: 'https://smee.io/iDDj9mJTxmyCHTV',
+              url: `${process.env.DNS_NAME}:8080/api/Webhook/GitHub`,
               content_type: 'json',
               insecure_ssl: '0'
             },

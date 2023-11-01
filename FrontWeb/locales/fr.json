@@ -20,8 +20,8 @@
     "en": "Englais",
     "name": "Nom",
     "phone": "Téléphone",
-    "profil": "Profile",
-    "setting": "Parametres",
+    "profil": "Profil",
+    "setting": "Paramètres",
     "apkDownload": "Télécharger pour Android",
     "explore": "Explorer",
     "search": "Rechercher...",
@@ -32,5 +32,6 @@
     "reaction": "Réaction",
     "submit": "Envoyer",
     "connected": "Connecté",
-    "connect": "se connecter"
+    "connect": "se connecter",
+    "creationarea": "Areas créées"
 }

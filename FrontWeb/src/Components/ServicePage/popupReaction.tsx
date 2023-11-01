@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import Parse from "../ActionPage/parse.tsx";
+import Parse from "../ActionPage/parse.js";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 
@@ -20,7 +20,7 @@ type ReactionData = {
 };
 
 interface PopupProps {
-  data: ActionData | null;
+  data: ReactionData | null;
   onClose: () => void;
   onServiceCreated: (message: string) => void;
 }
@@ -32,7 +32,7 @@ type ServiceData = {
   logo_url: string;
 };
 
-const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
+const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
   const [check, setCheck] = useState(1);
   const { t } = useTranslation();
@@ -46,31 +46,31 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
     onClose();
   };
 
-  const parsedActions = data ? Parse(data.args_action) : null;
-  const [textInputAction, setTextInputAction] = useState<Record<string, string>>({});
-  const [reactions, setReactions] = useState<ReactionData[]>([]);
+  const parsedReactions = data ? Parse(data.args_reaction) : null;
   const [textInputReaction, setTextInputReaction] = useState<Record<string, string>>({});
-  const [parsedReactions, setParsedReactions] = useState<Record<string, string>[]>([]);
-  const [selectedReaction, setSelectedReaction] = useState<ReactionData | null>(null);
+  const [actions, setActions] = useState<ActionData[]>([]);
+  const [textInputAction, setTextInputAction] = useState<Record<string, string>>({});
+  const [parsedActions, setParsedActions] = useState<Record<string, string>[]>([]);
+  const [selectedAction, setSelectedAction] = useState<ActionData | null>(null);
   const [services, setServices] = useState<ServiceData[]>([]);
   const [selectedService, setSelectedService] = useState<ServiceData | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleTextActionChange = (event: React.ChangeEvent<HTMLInputElement>, key: string) => {
-    textInputAction[key] = event.target.value;
-    setTextInputAction({ ...textInputAction });
-  }
   const handleTextReactionChange = (event: React.ChangeEvent<HTMLInputElement>, key: string) => {
     textInputReaction[key] = event.target.value;
     setTextInputReaction({ ...textInputReaction });
   }
-  const addAction = () => {
+  const handleTextActionChange = (event: React.ChangeEvent<HTMLInputElement>, key: string) => {
+    textInputAction[key] = event.target.value;
+    setTextInputAction({ ...textInputAction });
+  }
+  const addReaction = () => {
     setCheck(2);
   }
 
-  const handleReactionButtonClick = (reaction: ReactionData) => {
-    setSelectedReaction(reaction);
-    setParsedReactions(Parse(reaction.args_reaction));
+  const handleActionButtonClick = (action: ActionData) => {
+    setSelectedAction(action);
+    setParsedActions(Parse(action.args_action));
     setCheck(4);
   }
 
@@ -80,7 +80,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
   }
 
   const backFirst = () => {
-    setTextInputAction({});
+    setTextInputReaction({});
     setCheck(1);
   }
 
@@ -90,16 +90,16 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
   }
 
   const backThird = () => {
-    setSelectedReaction(null);
-    setTextInputReaction({});
-    setParsedReactions([]);
+    setSelectedAction(null);
+    setTextInputAction({});
+    setParsedActions([]);
     setCheck(3);
   }
 
-  const getReactions = () => {
-    axios.get(import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get?serviceId=' + selectedService?.id)
+  const getActions = () => {
+    axios.get(import.meta.env.VITE_DNS_NAME + ':8080/api/actions/get?serviceId=' + selectedService?.id)
       .then(response => {
-        setReactions(response.data);
+        setActions(response.data);
       })
       .catch(error => {
         console.error('Erreur lors de la requête :', error);
@@ -123,7 +123,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
       closeModal();
     }
     if (check === 3) {
-      getReactions();
+      getActions();
     }
   }, [check, errorMessage]);
 
@@ -132,19 +132,19 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
       return;
     }
 
-    const objAction: Record<string, string> = {};
-    Object.keys(textInputAction).map((key) => {
-      objAction[key] = textInputAction[key];
-    });
     const objReaction: Record<string, string> = {};
     Object.keys(textInputReaction).map((key) => {
       objReaction[key] = textInputReaction[key];
     });
+    const objAction: Record<string, string> = {};
+    Object.keys(textInputAction).map((key) => {
+      objAction[key] = textInputAction[key];
+    });
 
     axios
       .post(import.meta.env.VITE_DNS_NAME + ':8080/api/area/create', {
-        id_Action: data.id,
-        id_Reaction: selectedReaction?.id,
+        id_Action: selectedAction?.id,
+        id_Reaction: data.id,
         argsAction: {
           ...objAction,
         },
@@ -184,18 +184,18 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
 
             {check === 1 && (
             <div>
-              <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Action</h1>
+              <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Reaction</h1>
               <ul>
-                {parsedActions && parsedActions.map((item, index) => (
+                {parsedReactions && parsedReactions.map((item, index) => (
                   <li key={index}>
                     {Object.keys(item).map((key) => (
                       <p key={key}>
                         <input
                           key={index}
                           type="text"
-                          value={textInputAction[`${key}`]}
+                          value={textInputReaction[`${key}`]}
                           className="mb-6 border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500"
-                          onChange={(event) => handleTextActionChange(event, key)}
+                          onChange={(event) => handleTextReactionChange(event, key)}
                           placeholder={item[key]}
                         />
                       </p>
@@ -203,7 +203,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
                   </li>
                 ))}
               </ul>
-              <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={addAction}>{t("next")}</button>
+              <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={addReaction}>{t("next")}</button>
             </div>
             )}
 
@@ -228,34 +228,34 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
                 <form method="dialog">
                   <button className="btn btn-sm btn-circle btn-ghost absolute left-2 top-2" onClick={backSecondary}>-</button>
                 </form>
-                <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">{t("reactionchoice")}</h1>
-                {reactions.map((reaction, index) => (
+                <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">{t("actionchoice")}</h1>
+                {actions.map((action, index) => (
                 <div key={index}>
-                  <button className="w-[80%] btn btn-outline btn-sm mb-2" onClick={() => handleReactionButtonClick(reaction)}>{reaction.name}</button>
+                  <button className="w-[80%] btn btn-outline btn-sm mb-2" onClick={() => handleActionButtonClick(action)}>{action.name}</button>
                 </div>
               ))}
               </div>
             )}
-          </div>
 
+          </div>
           <div>
           {check === 4 && (
             <div>
               <form method="dialog">
                 <button className="btn btn-sm btn-circle btn-ghost absolute left-2 top-2" onClick={backThird}>-</button>
               </form>
-              <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">{t("reaction")}</h1>
+              <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">{t("action")}</h1>
               <ul>
-                {parsedReactions && parsedReactions.map((item: any, index: any) => (
+                {parsedActions && parsedActions.map((item: any, index: any) => (
                   <li key={index}>
                     {Object.keys(item).map((key) => (
                       <p key={key}>
                         <input
                           key={index}
                           type="text"
-                          value={textInputReaction[`${key}`]}
+                          value={textInputAction[`${key}`]}
                           className="mb-6 border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500"
-                          onChange={(event) => handleTextReactionChange(event, key)}
+                          onChange={(event) => handleTextActionChange(event, key)}
                           placeholder={item[key]}
                         />
                       </p>
@@ -274,4 +274,4 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
   );
 };
 
-export default Popup;
+export default PopupReaction;
