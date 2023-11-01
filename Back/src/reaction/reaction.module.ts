@@ -8,6 +8,7 @@ import { FigmaModule } from 'src/figma/figma.module';
 import { GoogleModule } from 'src/google/google.module';
 import { LinearModule } from 'src/linear/linear.module';
 import { TwitchModule } from 'src/twitch/twitch.module';
+import { GitlabModule } from 'src/gitlab/gitlab.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TwitchModule } from 'src/twitch/twitch.module';
     forwardRef(() => GoogleModule),
     forwardRef(() => LinearModule),
     forwardRef(() => TwitchModule),
+    forwardRef(() => GitlabModule),
   ],
   providers: [ReactionArray],
   exports: [ReactionArray],
