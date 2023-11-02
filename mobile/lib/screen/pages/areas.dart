@@ -89,7 +89,7 @@ class _MyAreasState extends State<MyAreas> {
         return services.map<SOCIAL_SERVICES>((service) {
           return SOCIAL_SERVICES(
             id: service['id'],
-            serviceName: service['name'],
+            serviceName: service['name'].toUpperCase(),
             image: Image.network(
               service['logo_url'],
               height: 30,
