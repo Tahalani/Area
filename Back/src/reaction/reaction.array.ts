@@ -7,6 +7,7 @@ import { ReactionFigma } from "src/figma/reactionFigma";
 import { ReactionGoogle } from "src/google/reactionGoogle";
 import { ReactionLinear } from "src/linear/reactionLinear";
 import { ReactionTwitch } from "src/twitch/reactionTwitch";
+import { ReactionGitlab } from "src/gitlab/reactionGitlab";
 
 @Injectable()
 export class ReactionArray {
@@ -19,6 +20,7 @@ export class ReactionArray {
       private readonly reactionGoogle: ReactionGoogle,
       private readonly reactionLinear: ReactionLinear,
       private readonly reactionTwitch: ReactionTwitch,
+      private readonly reactionGitlab: ReactionGitlab
     ) {}
 
     map: { [key: number] : (userService: any, arg: any) => any } = {
@@ -51,5 +53,7 @@ export class ReactionArray {
       28: this.reactionLinear.changeDisplayName,
       29: this.reactionLinear.createComment,
       30: this.reactionTwitch.createClip,
+      31: this.reactionGitlab.createIssue,
+      32: this.reactionGitlab.deleteIssue,
     };
   }
