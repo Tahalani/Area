@@ -1,25 +1,29 @@
 import { Injectable} from "@nestjs/common";
-import { MailingReaction } from "src/mailing/mailing.reaction";
 import { ReactionGithub } from "src/github/reactionGithub";
 import { ReactionMicrosoft } from "src/microsoft/reactionMicrosoft";
 import { ReactionSpotify } from "src/spotify/reactionSpotify";
 import { ReactionNotion } from "src/notion/reactionNotion";
 import { ReactionFigma } from "src/figma/reactionFigma";
 import { ReactionGoogle } from "src/google/reactionGoogle";
+import { ReactionLinear } from "src/linear/reactionLinear";
+import { ReactionTwitch } from "src/twitch/reactionTwitch";
+import { ReactionGitlab } from "src/gitlab/reactionGitlab";
 
 @Injectable()
 export class ReactionArray {
     constructor(
-      private readonly mailingReaction: MailingReaction,
       private readonly githubReaction: ReactionGithub,
       private readonly reactionMicrosoft: ReactionMicrosoft,
       private readonly reactionSpotify: ReactionSpotify,
       private readonly reactionNotion: ReactionNotion,
       private readonly reactionFigma: ReactionFigma,
       private readonly reactionGoogle: ReactionGoogle,
+      private readonly reactionLinear: ReactionLinear,
+      private readonly reactionTwitch: ReactionTwitch,
+      private readonly reactionGitlab: ReactionGitlab
     ) {}
 
-    map: { [key: number]: (userService: any, arg: any) => any } = {
+    map: { [key: number] : (userService: any, arg: any) => any } = {
       1: this.githubReaction.createIssue,
       2: this.githubReaction.createPullRequest,
       4: this.reactionMicrosoft.createEvent,
@@ -42,5 +46,14 @@ export class ReactionArray {
       21: this.reactionSpotify.removeEpisode,
       22: this.reactionGoogle.createSheet,
       23: this.reactionGoogle.sendEmail,
+      24: this.reactionNotion.createDatabase,
+      25: this.reactionNotion.updatePage,
+      26: this.reactionNotion.updateDatabase,
+      27: this.reactionLinear.createIssue,
+      28: this.reactionLinear.changeDisplayName,
+      29: this.reactionLinear.createComment,
+      30: this.reactionTwitch.createClip,
+      31: this.reactionGitlab.createIssue,
+      32: this.reactionGitlab.deleteIssue,
     };
   }

@@ -69,7 +69,6 @@ export class NotionService {
         .catch((error) => {
             console.log("error get notion token: ", error);
         });
-        console.log("notionToken: ", notionToken);
         return notionToken;
     }
 

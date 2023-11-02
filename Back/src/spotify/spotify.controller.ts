@@ -2,11 +2,13 @@ import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { SpotifyService } from './spotify.service';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiExcludeEndpoint, ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('api')
 export class SpotifyController {
     constructor(private readonly spotifyService: SpotifyService) {}
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get('auth/spotify')
     async spotifyAuth(@Req() req: any, @Res() res: Response) {
@@ -21,6 +23,7 @@ export class SpotifyController {
         );
     }
 
+    @ApiExcludeEndpoint()
     @Get('auth/spotify/callback')
     async spotifyAuthCallback(@Req() req: any, @Res() res: Response) {
         this.spotifyService.addService(req);

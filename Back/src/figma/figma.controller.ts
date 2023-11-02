@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { FigmaService } from './figma.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { config } from 'dotenv';
+import { ApiBearerAuth, ApiExcludeEndpoint } from '@nestjs/swagger';
 
 config();
 
@@ -10,6 +11,7 @@ config();
 export class FigmaController {
     constructor(private readonly figmaService: FigmaService) {}
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get('auth/figma')
     async figmaAuth(@Req() req: any, @Res() res: Response) {
@@ -25,6 +27,7 @@ export class FigmaController {
         '&scope=' + scope + '&state=' + state + '&response_type=' + response_type);
     }
 
+    @ApiExcludeEndpoint()
     @Get('auth/figma/callback')
     async figmaAuthCallback(@Req() req: any, @Res() res: Response) {
         this.figmaService.addService(req);

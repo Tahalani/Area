@@ -38,6 +38,7 @@ export class AppController {
   }
 
   @Get('client.apk')
+  @ApiOkResponse({ description: 'Download the app.apk' })
   getApk(): StreamableFile {
     const file = createReadStream('./apk/app-release.apk');
     return new StreamableFile(file);

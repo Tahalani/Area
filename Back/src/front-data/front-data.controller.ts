@@ -1,32 +1,38 @@
 import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { FrontDataService } from './front-data.service';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ServiceEntity } from 'src/entity/service.entity';
+import { ActionEntity } from 'src/entity/action.entity';
+import { ReactionEntity } from 'src/entity/reaction.entity';
 
 @Controller('api')
 export class FrontDataController {
-
     constructor(private readonly frontDataService: FrontDataService) {}
 
     @ApiOkResponse({ description: 'Return all services' })
+    @ApiCreatedResponse({ type : ServiceEntity })
     @Get('services/get')
     async handleServices() {
         return this.frontDataService.getServices();
     }
 
     @ApiOkResponse({ description: 'Return action of the service' })
+    @ApiCreatedResponse({ type : ActionEntity })
     @Get('actions/get')
     async handleActions(@Query('serviceId') serviceId: number) {
         return this.frontDataService.getActions(serviceId);
     }
 
     @ApiOkResponse({ description: 'Return all reactions' })
+    @ApiCreatedResponse({ type : ReactionEntity })
     @Get('reactions/get')
     async handleReactions(@Query('serviceId') serviceId: number) {
         return this.frontDataService.getReactions(serviceId);
     }
 
     @ApiOkResponse({ description: 'Return all user services' })
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get('user/services/get')
     async handleUserServices(@Req () req: any) {
@@ -34,6 +40,7 @@ export class FrontDataController {
     }
 
     @ApiOkResponse({ description: 'Return action of the service' })
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get('areas/get')
     async handleAreas(@Req () req: any) {

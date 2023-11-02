@@ -53,11 +53,6 @@
                 "params": [{"to": "to", "subject": "subject", "body": "body"}]
             }]
             },{
-            "name": "Mail",
-            "description": "Un courrier électronique, également nommé courriel, mel ou e-mail, est un message écrit, envoyé électroniquement via un réseau informatique. On appelle messagerie électronique l'ensemble du système qui permet la transmission des courriels.",
-            "logo_url": "https://upload.wikimedia.org/wikipedia/fr/a/a7/Mail_%28Apple%29_logo.png",
-            "reactions": []
-            },{
             "name": "Microsoft",
             "description": "Microsoft Corporation est une multinationale informatique et micro-informatique américaine, fondée en 1975 par Bill Gates et Paul Allen. Microsoft fait partie des principales capitalisations boursières du NASDAQ, aux côtés d'Apple et d'Amazon. En 2018, le chiffre d'affaires s’élevait à 110,36 milliards de dollars.",
             "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png",
@@ -172,6 +167,21 @@
                 "reactionId": 14,
                 "description": "create a comment",
                 "params": [{"parent_id": "parent", "comment": "comment"}]
+            },{
+                "name": "create database",
+                "reactionId": 24,
+                "description": "create a database",
+                "params": [{"parent_id": "parent", "title": "title"}]
+            },{
+                "name": "rename Page",
+                "reactionId": 25,
+                "description": "rename a page",
+                "params": [{"page_id": "page_id", "title": "title"}]
+            },{
+                "name": "rename database",
+                "reactionId": 26,
+                "description": "rename a database",
+                "params": [{"database_id": "database_id", "title": "title"}]
             }]
         }, {
             "name": "Figma",
@@ -187,7 +197,61 @@
         }, {
             "name": "Linear",
             "description": "Linear est un outil de gestion de projet pour les équipes logicielles. Il est construit pour accélérer le développement de logiciels en aidant les équipes à collaborer plus efficacement et à être plus productive.",
-            "logo_url": "https://assets.stickpng.com/images/62c9de8994890221ddd176b8.png",
+            "logo_url": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/1f571644-39f9-4a0d-a4eb-0dd6eea62a00/f=auto,q=95,fit=scale-down,metadata=none",
+            "actions": [],
+            "reactions": [{
+                "name": "Create Issue",
+                "reactionId": 27,
+                "description": "Create an issue",
+                "params": [{"title": "title", "team_id": "team_id"}]
+            }, {
+                "name": "Change Name",
+                "reactionId": 28,
+                "description": "Change Name",
+                "params": [{"name": "name"}]
+            }, {
+                "name": "Create Comment",
+                "reactionId": 29,
+                "description": "Create a comment",
+                "params": [{"issue_id": "issue_id", "body": "body"}]
+            }]
+        }, {
+            "name": "Gitlab",
+            "description": "GitLab est un service web de gestion de développement logiciel utilisant Git repository. Il est développé par GitLab Inc. Le code source de GitLab est disponible sous licence MIT et le logiciel est écrit en Ruby.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/GitLab_icon.svg/2127px-GitLab_icon.svg.png",
+            "actions": [],
+            "reactions": [{
+                "name": "Create Issue",
+                "reactionId": 31,
+                "description": "Create a Issue",
+                "params": [{"project_id": "project_id", "title": "title", "description": "description"}]
+            }, {
+                "name": "Delete Issue",
+                "reactionId": 32,
+                "description": "Delete a Issue",
+                "params": [{"project_id": "project_id", "issue_id": "issue_id"}]
+            }]
+        }, {
+            "name": "Twitch",
+            "description": "Twitch est un service de streaming et de VOD de jeu vidéo, de sport électronique et d'émissions apparentées lancé en juin 2011. Le site a été créé afin d'avoir un espace où les utilisateurs pouvaient diffuser leurs parties de jeu vidéo en direct.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Twitch_logo.svg/768px-Twitch_logo.svg.png",
+            "actions": [],
+            "reactions": [{
+                "name": "Create Clip",
+                "reactionId": 30,
+                "description": "Create a Clip",
+                "params": [{"broadcaster_id": "broadcaster_id"}]
+            }]
+        }, {
+            "name": "Slack",
+            "description": "Slack est un logiciel de messagerie instantanée et de collaboration en équipe développé par Slack Technologies. Il propose de nombreux services comme la création de groupes privés, l'envoi de messages privés et le partage de fichiers.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Slack_Icon.png/768px-Slack_Icon.png",
+            "actions": [],
+            "reactions": []
+        },{
+            "name": "Dropbox",
+            "description": "Dropbox est un service de stockage et de partage de copies de fichiers locaux en ligne proposé par Dropbox, Inc., entreprise localisée à San Francisco, en Californie, aux États-Unis. Il permet à ses utilisateurs de mettre en ligne puis de partager des fichiers et dossiers avec d'autres personnes en utilisant des liens privés ou publics.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Dropbox_logo_2017.svg/768px-Dropbox_logo_2017.svg.png",
             "actions": [],
             "reactions": []
         }]

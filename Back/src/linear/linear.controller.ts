@@ -3,12 +3,14 @@ import { Response } from 'express';
 import { LinearService } from './linear.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { config } from 'dotenv';
+import { ApiBearerAuth, ApiExcludeEndpoint } from '@nestjs/swagger';
 
 
 @Controller('api')
 export class LinearController {
     constructor(private readonly linearService: LinearService) {}
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get('auth/linear')
     async linearAuth(@Req() req: any, @Res() res: Response) {
@@ -24,6 +26,7 @@ export class LinearController {
         '&scope=' + scope + '&state=' + state + '&response_type=' + response_type);
     }
 
+    @ApiExcludeEndpoint()
     @Get('auth/linear/callback')
     async linearAuthCallback(@Req() req: any, @Res() res: Response) {
         this.linearService.addService(req);

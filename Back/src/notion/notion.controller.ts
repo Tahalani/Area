@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { NotionService } from './notion.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { config } from 'dotenv';
+import { ApiExcludeEndpoint, ApiBearerAuth } from '@nestjs/swagger';
 
 config();
 
@@ -10,6 +11,7 @@ config();
 export class NotionController {
     constructor(private readonly notionService: NotionService) {}
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get('auth/notion')
     async notionAuth(@Req() req: any, @Res() res: Response) {
@@ -24,6 +26,7 @@ export class NotionController {
         '&redirect_uri=' + redirect_uri + '&owner=' + owner + '&state=' + req.user.email)
     }
 
+    @ApiExcludeEndpoint()
     @Get('auth/notion/callback')
     async notionAuthCallback(@Req() req: any, @Res() res: Response) {
         this.notionService.addService(req);
