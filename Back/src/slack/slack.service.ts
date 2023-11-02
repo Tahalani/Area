@@ -108,8 +108,6 @@ export class SlackService {
         const accessToken = slackAccessToken.access_token;
         const infoUser = await this.getUserInfo(accessToken);
 
-        console.log("infoUser: ", infoUser);
-
         if (infoUser.ok === false) {
             console.log("Error getting user info");
             return;
