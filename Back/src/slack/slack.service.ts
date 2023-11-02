@@ -105,7 +105,7 @@ export class SlackService {
             return;
         }
 
-        const accessToken = slackAccessToken.access_token;
+        const accessToken = slackAccessToken.authed_user.access_token;
         const infoUser = await this.getUserInfo(accessToken);
 
         if (infoUser.ok === false) {

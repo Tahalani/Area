@@ -9,6 +9,7 @@ import { GoogleModule } from 'src/google/google.module';
 import { LinearModule } from 'src/linear/linear.module';
 import { TwitchModule } from 'src/twitch/twitch.module';
 import { GitlabModule } from 'src/gitlab/gitlab.module';
+import { SlackModule } from 'src/slack/slack.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { GitlabModule } from 'src/gitlab/gitlab.module';
     forwardRef(() => LinearModule),
     forwardRef(() => TwitchModule),
     forwardRef(() => GitlabModule),
+    forwardRef(() => SlackModule),
   ],
   providers: [ReactionArray],
   exports: [ReactionArray],
