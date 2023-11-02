@@ -19,6 +19,9 @@ import { NotionModule } from './notion/notion.module';
 import { FigmaModule } from './figma/figma.module';
 import { LinearModule } from './linear/linear.module';
 import { DropboxModule } from './dropbox/dropbox.module';
+import { GitlabModule } from './gitlab/gitlab.module';
+import { TwitchModule } from './twitch/twitch.module';
+import { SlackModule } from './slack/slack.module';
 
 dotenv.config();
 
@@ -52,6 +55,9 @@ dotenv.config();
     FigmaModule,
     LinearModule,
     DropboxModule,
+    GitlabModule,
+    TwitchModule,
+    SlackModule,
   ],
   controllers: [AppController],
   providers: [AppService, InitService],

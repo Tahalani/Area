@@ -197,7 +197,55 @@
         }, {
             "name": "Linear",
             "description": "Linear est un outil de gestion de projet pour les équipes logicielles. Il est construit pour accélérer le développement de logiciels en aidant les équipes à collaborer plus efficacement et à être plus productive.",
-            "logo_url": "https://brandfetch.com/linear.app/library/default/asset/idpLeRmlXj?collection=logos&view=library",
+            "logo_url": "https://linear.app/cdn-cgi/imagedelivery/fO02fVwohEs9s9UHFwon6A/1f571644-39f9-4a0d-a4eb-0dd6eea62a00/f=auto,q=95,fit=scale-down,metadata=none",
+            "actions": [],
+            "reactions": [{
+                "name": "Create Issue",
+                "reactionId": 27,
+                "description": "Create an issue",
+                "params": [{"title": "title", "team_id": "team_id"}]
+            }, {
+                "name": "Change Name",
+                "reactionId": 28,
+                "description": "Change Name",
+                "params": [{"name": "name"}]
+            }, {
+                "name": "Create Comment",
+                "reactionId": 29,
+                "description": "Create a comment",
+                "params": [{"issue_id": "issue_id", "body": "body"}]
+            }]
+        }, {
+            "name": "Gitlab",
+            "description": "GitLab est un service web de gestion de développement logiciel utilisant Git repository. Il est développé par GitLab Inc. Le code source de GitLab est disponible sous licence MIT et le logiciel est écrit en Ruby.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/GitLab_icon.svg/2127px-GitLab_icon.svg.png",
+            "actions": [],
+            "reactions": [{
+                "name": "Create Issue",
+                "reactionId": 31,
+                "description": "Create a Issue",
+                "params": [{"project_id": "project_id", "title": "title", "description": "description"}]
+            }, {
+                "name": "Delete Issue",
+                "reactionId": 32,
+                "description": "Delete a Issue",
+                "params": [{"project_id": "project_id", "issue_id": "issue_id"}]
+            }]
+        }, {
+            "name": "Twitch",
+            "description": "Twitch est un service de streaming et de VOD de jeu vidéo, de sport électronique et d'émissions apparentées lancé en juin 2011. Le site a été créé afin d'avoir un espace où les utilisateurs pouvaient diffuser leurs parties de jeu vidéo en direct.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Twitch_logo.svg/768px-Twitch_logo.svg.png",
+            "actions": [],
+            "reactions": [{
+                "name": "Create Clip",
+                "reactionId": 30,
+                "description": "Create a Clip",
+                "params": [{"broadcaster_id": "broadcaster_id"}]
+            }]
+        }, {
+            "name": "Slack",
+            "description": "Slack est un logiciel de messagerie instantanée et de collaboration en équipe développé par Slack Technologies. Il propose de nombreux services comme la création de groupes privés, l'envoi de messages privés et le partage de fichiers.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Slack_Icon.png/768px-Slack_Icon.png",
             "actions": [],
             "reactions": []
         },{
