@@ -266,9 +266,19 @@
         },{
             "name": "Dropbox",
             "description": "Dropbox est un service de stockage et de partage de copies de fichiers locaux en ligne proposé par Dropbox, Inc., entreprise localisée à San Francisco, en Californie, aux États-Unis. Il permet à ses utilisateurs de mettre en ligne puis de partager des fichiers et dossiers avec d'autres personnes en utilisant des liens privés ou publics.",
-            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Dropbox_logo_2017.svg/768px-Dropbox_logo_2017.svg.png",
+            "logo_url": "https://images.vexels.com/media/users/3/137252/isolated/preview/4dd30992028be809395fc0a11c20d5a5-dropbox-icon-logo.png",
             "actions": [],
-            "reactions": []
+            "reactions": [{
+                "name": "Delete File",
+                "reactionId": 36,
+                "description": "Delete a File",
+                "params": [{"path": "path"}]
+            }, {
+                "name": "Copy File",
+                "reactionId": 37,
+                "description": "Copy a File",
+                "params": [{"from_path": "from_path", "to_path": "to_path"}]
+            }]
         }]
     }
 }
