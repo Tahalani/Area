@@ -218,9 +218,19 @@
         }, {
             "name": "Gitlab",
             "description": "GitLab est un service web de gestion de développement logiciel utilisant Git repository. Il est développé par GitLab Inc. Le code source de GitLab est disponible sous licence MIT et le logiciel est écrit en Ruby.",
-            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/GitLab_Logo.svg/768px-GitLab_Logo.svg.png",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/GitLab_icon.svg/2127px-GitLab_icon.svg.png",
             "actions": [],
-            "reactions": []
+            "reactions": [{
+                "name": "Create Issue",
+                "reactionId": 31,
+                "description": "Create a Issue",
+                "params": [{"project_id": "project_id", "title": "title", "description": "description"}]
+            }, {
+                "name": "Delete Issue",
+                "reactionId": 32,
+                "description": "Delete a Issue",
+                "params": [{"project_id": "project_id", "issue_id": "issue_id"}]
+            }]
         }, {
             "name": "Twitch",
             "description": "Twitch est un service de streaming et de VOD de jeu vidéo, de sport électronique et d'émissions apparentées lancé en juin 2011. Le site a été créé afin d'avoir un espace où les utilisateurs pouvaient diffuser leurs parties de jeu vidéo en direct.",
@@ -232,6 +242,18 @@
                 "description": "Create a Clip",
                 "params": [{"broadcaster_id": "broadcaster_id"}]
             }]
+        }, {
+            "name": "Slack",
+            "description": "Slack est un logiciel de messagerie instantanée et de collaboration en équipe développé par Slack Technologies. Il propose de nombreux services comme la création de groupes privés, l'envoi de messages privés et le partage de fichiers.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Slack_Icon.png/768px-Slack_Icon.png",
+            "actions": [],
+            "reactions": []
+        },{
+            "name": "Dropbox",
+            "description": "Dropbox est un service de stockage et de partage de copies de fichiers locaux en ligne proposé par Dropbox, Inc., entreprise localisée à San Francisco, en Californie, aux États-Unis. Il permet à ses utilisateurs de mettre en ligne puis de partager des fichiers et dossiers avec d'autres personnes en utilisant des liens privés ou publics.",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Dropbox_logo_2017.svg/768px-Dropbox_logo_2017.svg.png",
+            "actions": [],
+            "reactions": []
         }]
     }
 }
