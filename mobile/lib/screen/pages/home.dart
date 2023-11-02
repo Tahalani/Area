@@ -82,6 +82,18 @@ void showDeleteConfirmationDialog(BuildContext context, int id) {
 class _myHomeState extends State<myHome> {
   List<Area> areasList = [];
 
+  void deleteArea(int id) async {
+    var url = "https://are4-51.com:8080/api/areas/delete?id=$id";
+    var headers = {'Authorization': 'Bearer ${widget.token}'};
+    var response = await http.delete(Uri.parse(url), headers: headers);
+
+    if (response.statusCode == 200) {
+      print("area deleted");
+    } else {
+      print("error");
+    }
+  }
+
   void fetchAreas() async {
     var url = "https://are4-51.com:8080/api/areas/get";
     var headers = {'Authorization': 'Bearer ${widget.token}'};
@@ -93,6 +105,7 @@ class _myHomeState extends State<myHome> {
         return;
       }
       var areasJson = json.decode(response.body);
+      print(areasJson);
       areasList = areasJson
           .map<Area>((json) => Area(
                 id: 1,
