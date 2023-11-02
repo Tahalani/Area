@@ -46,7 +46,7 @@ export class SlackService {
             Authorization: 'Bearer ' + accesstoken,
         }
 
-        const userInfo = await axios.get('https://slack.com/api/users.lookupByEmail', { headers: headers })
+        const userInfo = await axios.get('https://slack.com/api/users.profile.get', { headers: headers })
         .then((res) => res.data)
         .catch(function (error) {
             console.log("error slack get user info: ", error);
@@ -56,12 +56,36 @@ export class SlackService {
     }
 
     async saveToken(email: string, token: string, serviceIdentifier: string, serviceName: string) {
-        console.log("saveToken ...");
+        const user = await UserEntity.findOne({ where: { email: email } });
+        const service = await ServiceEntity.findOne({ where: { name: serviceName } });
+
+        if (user === null) {
+            console.error('User not found (', email, ')');
+            return;
+        }
+
+        if (service === null) {
+            console.error('Service not found (', serviceName, ')');
+            return;
+        }
+
+        const userService = new UserServiceEntity();
+        userService.user = user;
+        userService.service = service;
+        userService.token = token;
+        userService.serviceIdentifier = serviceIdentifier;
+
+        try {
+            console.log("Saving Slack token...");
+            await userService.save();
+        } catch (error) {
+            console.error('Error saving token: ', error);
+            return;
+        }
     }
 
     async addService(req: any) {
         console.log("addService");
-        console.log("req: ", req);
         const userEmail = req.query.state;
         const code = req.query.code;
         if (userEmail === undefined) {
@@ -90,7 +114,7 @@ export class SlackService {
             console.log("Error getting user info");
             return;
         }
-        const serviceIdentifier = infoUser.email;
+        const serviceIdentifier = infoUser.profile.real_name;
         this.saveToken(userEmail, accessToken, serviceIdentifier, "slack");
     }
 }

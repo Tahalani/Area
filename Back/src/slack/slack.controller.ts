@@ -19,7 +19,7 @@ export class SlackController {
         const client_id= process.env.SLACK_CLIENT_ID
         const redirect_uri = `${process.env.DNS_NAME}:8080/api/auth/slack/callback`
         const response_type = 'code'
-        const scope = "users:read users:read.email"
+        const scope = "users.profile:read users:read users:read.email"
 
         res.redirect('https://slack.com/oauth/v2/authorize' +
         '?response_type='+ response_type + '&client_id=' + client_id +
