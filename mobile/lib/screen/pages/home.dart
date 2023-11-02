@@ -83,7 +83,7 @@ class _myHomeState extends State<myHome> {
   List<Area> areasList = [];
 
   void deleteArea(int id) async {
-    var url = "https://are4-51.com:8080/api/areas/delete?id=$id";
+    var url = "https://are4-51.com:8080/api/areas/delete?areaId=$id";
     var headers = {'Authorization': 'Bearer ${widget.token}'};
     var response = await http.delete(Uri.parse(url), headers: headers);
 
