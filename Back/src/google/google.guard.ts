@@ -19,8 +19,23 @@ export class GoogleGuard implements CanActivate {
 
   url = this.oauth2.generateAuthUrl({
     access_type: 'offline',
-    scope: ['email', 'profile', 'https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/gmail.send'],
+    scope: [
+      'email',
+      'profile',
+      'https://www.googleapis.com/auth/spreadsheets',
+      'https://www.googleapis.com/auth/gmail.send',
+    ],
   });
+
+  async addService(request: any, response: any) {
+    if (request.query.token === undefined) {
+      response.redirect(this.url);
+      return false;
+    } else {
+      this.url += `&state=${request.query.token}____${request.user.email}`;
+      response.redirect(this.url);
+    }
+  }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();

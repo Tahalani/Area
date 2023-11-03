@@ -12,7 +12,6 @@ import {
 config();
 
 @Controller('api')
-// mettre un guard
 export class GitHubController {
   constructor(private readonly gitHubService: GitHubService) {}
 
@@ -38,7 +37,6 @@ export class GitHubController {
 
   @ApiExcludeEndpoint()
   @Post('Webhook/GitHub')
-  // mettre un guardd
   async GitHubWebhook(@Req() req: any, @Res() res: Response) {
     console.log('Webhook GitHub recoi quelque chose: ', req.headers['x-github-event']);
     this.gitHubService.webhookHandling(req);

@@ -29,7 +29,7 @@
                 "name":"create issue",
                 "reactionId": 1,
                 "description":"Create an issue on a repository",
-                "params": [{"repo": "repository_name", "title": "issue_title", "body": "issue_body", "assignees": "issue_assignees", "milestone":"milestones","labels": "issue_labels"}]
+                "params": [{"repo": "repository_name", "title": "issue_title", "body": "issue_body"}]
                     },{
                 "name":"create pull request",
                 "reactionId": 2,
