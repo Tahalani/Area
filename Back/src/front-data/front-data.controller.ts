@@ -51,6 +51,6 @@ export class FrontDataController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
     async deleteArea(@Req() req: any) {
-        return this.frontDataService.deleteArea(req.user.sub, req.body.areaId);
+        return this.frontDataService.deleteArea(req.user.sub, req.query.areaId);
     }
 }
