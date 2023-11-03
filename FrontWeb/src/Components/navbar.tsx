@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 function Navbar() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-
   const redirectToLoginPage = () => {
     navigate("/loginPage");
   };
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -24,6 +23,14 @@ function Navbar() {
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal space-x-10 text-gray-900">
+              <li>
+                <a
+                  style={{ fontFamily: "merriweather" }}
+                  className="text-[25px]"
+                >
+                  <Link to="/creationPage">{t("creationarea")}</Link>
+                </a>
+              </li>
               <li>
                 <a
                   style={{ fontFamily: "merriweather" }}

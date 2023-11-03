@@ -21,7 +21,7 @@
     "name": "Name",
     "phone": "Phone",
     "profil": "Profil",
-    "setting": "Setting",
+    "setting": "Settings",
     "apkDownload": "Download for Android",
     "explore": "Explore",
     "search": "Search...",
@@ -32,5 +32,7 @@
     "reaction": "Reaction",
     "submit": "Submit",
     "connected": "Connected",
-    "connect": "Connect"
+    "connect": "Connect",
+    "creationarea": "My Areas",
+    "creationareabutton": "Create an Area"
 }

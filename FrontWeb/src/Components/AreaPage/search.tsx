@@ -18,27 +18,27 @@ export default function Search({ onSearch }: SearchProps) {
       <div className="flex justify-center items-center">
         <h1
           style={{ fontFamily: "merriweather" }}
-          className="text-[30px] text-black font-bold mt-[80px]"
+          className="text-[30px] text-black font-bold mt-[30px]"
         >
           {t("explore")}
         </h1>
       </div>
       <div className="form-control mb-10 mt-5">
-        <div className="flex justify-center items-center input-group">
+        <div className="text-black flex justify-center items-center input-group">
           <input
             type="text"
-            placeholder={t("search")}
             className="input bg-main border-black"
+            placeholder={t("search")}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <button className="btn btn-square bg-main" onClick={handleSearch}>
+          <button className="btn btn-square bg-main border-black" onClick={handleSearch}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
+              stroke="black"
             >
               <path
                 strokeLinecap="round"

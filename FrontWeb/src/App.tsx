@@ -7,6 +7,7 @@ import Setting from "./Pages/settingPage.tsx";
 import Profil from "./Pages/profilPage.tsx";
 import Area from "./Pages/areaPage.tsx";
 import Service from "./Pages/servicePage.tsx";
+import Creation from "./Pages/creationPage.tsx";
 import AuthSuccess from "./Pages/auth/succesPage.tsx";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../translate.tsx";
@@ -31,6 +32,7 @@ function App() {
               <Route path="/areaPage" element={<Area />} />
               <Route path="/settingPage" element={<Setting />} />
               <Route path="/servicePage" element={<Service />} />
+              <Route path="/creationPage" element={<Creation />} />
               <Route path="/auth/succes" element={<AuthSuccess />} />
               <Route path="/" element={<Home />} />
               <Route path="*" element={<Navigate to="/homePage" />} />

@@ -234,7 +234,7 @@
         }, {
             "name": "Twitch",
             "description": "Twitch est un service de streaming et de VOD de jeu vidéo, de sport électronique et d'émissions apparentées lancé en juin 2011. Le site a été créé afin d'avoir un espace où les utilisateurs pouvaient diffuser leurs parties de jeu vidéo en direct.",
-            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Twitch_logo.svg/768px-Twitch_logo.svg.png",
+            "logo_url": "https://cdn.icon-icons.com/icons2/3041/PNG/512/twitch_logo_icon_189242.png",
             "actions": [],
             "reactions": [{
                 "name": "Create Clip",
@@ -266,7 +266,7 @@
         },{
             "name": "Dropbox",
             "description": "Dropbox est un service de stockage et de partage de copies de fichiers locaux en ligne proposé par Dropbox, Inc., entreprise localisée à San Francisco, en Californie, aux États-Unis. Il permet à ses utilisateurs de mettre en ligne puis de partager des fichiers et dossiers avec d'autres personnes en utilisant des liens privés ou publics.",
-            "logo_url": "https://images.vexels.com/media/users/3/137252/isolated/preview/4dd30992028be809395fc0a11c20d5a5-dropbox-icon-logo.png",
+            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Dropbox_Icon.svg/826px-Dropbox_Icon.svg.png",
             "actions": [],
             "reactions": [{
                 "name": "Delete File",
