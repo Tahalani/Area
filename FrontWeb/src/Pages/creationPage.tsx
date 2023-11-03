@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navigationbar from "../Components/navbar.tsx";
 import NavigationbarMd from "../Components/navbarMd.tsx";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 interface Area {
@@ -23,9 +24,11 @@ export default function Creation() {
     window.location.href = "/loginPage";
   }
 
+  const navigate = useNavigate();
   const [areaData, setAreaData] = useState<Area[]>([]);
   const [servicesData, setServicesData] = useState<Service[]>([]);
   const { t } = useTranslation();
+  const [check, setCheck] = useState(1);
 
   const getAreaCreated = () => {
     axios
@@ -36,6 +39,10 @@ export default function Creation() {
       )
       .then((response) => {
         setAreaData(response.data);
+        console.log("test = ", response.data);
+        if (!Array.isArray(response.data)) {
+          setCheck(2);
+        }
       })
       .catch((error) => {
         console.error("Erreur lors de la requête :", error);
@@ -66,7 +73,8 @@ export default function Creation() {
       <div className="lg:hidden">
         <NavigationbarMd />
       </div>
-      <div className="bg-main h-full relative">
+      {check === 1 && (
+      <div className="bg-main h-screen">
         <h1 className="font-bold text-[30px] text-black p-[40px]">{t("creationarea")}</h1>
         <div style={{ margin: "0 20%" }} className="bg-blue-100 pt-[30px] pb-[30px] pl-[10px] pr-[10px]">
           <ul>
@@ -110,6 +118,19 @@ export default function Creation() {
           </ul>
         </div>
       </div>
+      )}
+      {check === 2 && (
+        <div className="bg-main h-screen">
+          <h1 className="font-bold text-[30px] text-black p-[40px]">{t("creationarea")}</h1>
+          <button
+              style={{ fontFamily: "merriweather" }}
+              className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn btn-lg text-white rounded-full font-bold mt-[5%]"
+              onClick={() => {navigate("/areaPage")}}
+            >
+              {t("creationareabutton")}
+            </button>
+        </div>
+      )}
     </>
   );
 }

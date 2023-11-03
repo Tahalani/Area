@@ -33,5 +33,6 @@
     "submit": "Submit",
     "connected": "Connected",
     "connect": "Connect",
-    "creationarea": "Area's created"
+    "creationarea": "My Areas",
+    "creationareabutton": "Create an Area"
 }

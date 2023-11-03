@@ -17,7 +17,7 @@
     "LastName": "Nom",
     "langue": "Langues",
     "fr": "Français",
-    "en": "Englais",
+    "en": "Anglais",
     "name": "Nom",
     "phone": "Téléphone",
     "profil": "Profil",
@@ -33,5 +33,6 @@
     "submit": "Envoyer",
     "connected": "Connecté",
     "connect": "se connecter",
-    "creationarea": "Areas créées"
+    "creationarea": "Mes Areas",
+    "creationareabutton": "Créer une Area"
 }

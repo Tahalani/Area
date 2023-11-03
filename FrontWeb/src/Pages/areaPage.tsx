@@ -45,9 +45,6 @@ export default function Area() {
     );
     setFilteredServices(filtered);
   };
-  const redirectToCreationPage = () => {
-    navigate("/creationPage");
-  };
 
   useEffect(() => {
     getServices();
@@ -62,13 +59,6 @@ export default function Area() {
         <NavigationbarMd />
       </div>
       <div className="h-full relative bg-main">
-        <button
-          style={{ fontFamily: "merriweather" }}
-          className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[10px]"
-          onClick={redirectToCreationPage}
-        >
-          {t("creationarea")}
-        </button>
         <Search onSearch={filterServices} />
         <div className="grid-container">
           {filteredServices.map((service, index) => (

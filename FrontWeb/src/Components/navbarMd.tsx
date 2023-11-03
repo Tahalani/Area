@@ -34,6 +34,9 @@ function NavbarMd() {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-main rounded-box w-52 text-black"
           >
             <li>
+              <Link to="/creationPage">{t("creationarea")}</Link>
+            </li>
+            <li>
               <Link to="/areaPage">Services</Link>
             </li>
             <li>
