@@ -6,7 +6,7 @@ const GoogleConnexion = () => {
 
   const GoogleConnexion = () => {
     window.location.href =
-      import.meta.env.VITE_DNS_NAME + ":8080/api/auth/google";
+      import.meta.env.VITE_DNS_NAME + ":8080/api/auth/google/Register";
   };
   return (
     <div className="form-control w-1/2 max-w-xl mt-10">

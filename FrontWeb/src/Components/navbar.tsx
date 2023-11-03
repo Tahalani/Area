@@ -28,6 +28,14 @@ function Navbar() {
                   style={{ fontFamily: "merriweather" }}
                   className="text-[25px]"
                 >
+                  <Link to="/creationPage">{t("creationarea")}</Link>
+                </a>
+              </li>
+              <li>
+                <a
+                  style={{ fontFamily: "merriweather" }}
+                  className="text-[25px]"
+                >
                   <Link to="/areaPage">Services</Link>
                 </a>
               </li>

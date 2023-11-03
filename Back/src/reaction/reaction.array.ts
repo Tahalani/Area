@@ -8,6 +8,8 @@ import { ReactionGoogle } from "src/google/reactionGoogle";
 import { ReactionLinear } from "src/linear/reactionLinear";
 import { ReactionTwitch } from "src/twitch/reactionTwitch";
 import { ReactionGitlab } from "src/gitlab/reactionGitlab";
+import { ReactionSlack } from "src/slack/reactionSlack";
+import { ReactionDropbox } from "src/dropbox/reactionDropbox";
 
 @Injectable()
 export class ReactionArray {
@@ -20,7 +22,9 @@ export class ReactionArray {
       private readonly reactionGoogle: ReactionGoogle,
       private readonly reactionLinear: ReactionLinear,
       private readonly reactionTwitch: ReactionTwitch,
-      private readonly reactionGitlab: ReactionGitlab
+      private readonly reactionGitlab: ReactionGitlab,
+      private readonly reactionSlack: ReactionSlack,
+      private readonly reactionDropbox: ReactionDropbox
     ) {}
 
     map: { [key: number] : (userService: any, arg: any) => any } = {
@@ -55,5 +59,10 @@ export class ReactionArray {
       30: this.reactionTwitch.createClip,
       31: this.reactionGitlab.createIssue,
       32: this.reactionGitlab.deleteIssue,
+      33: this.reactionSlack.sendMessage,
+      34: this.reactionSlack.leaveChannel,
+      35: this.reactionSlack.renameChannel,
+      36: this.reactionDropbox.deleteFile,
+      37: this.reactionDropbox.copyFile
     };
   }

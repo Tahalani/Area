@@ -8,14 +8,14 @@ config();
 
 @Controller('api')
 export class DropboxController {
-    constructor(private readonly DropboxService: DropboxService) {}
+  constructor(private readonly DropboxService: DropboxService) {}
 
-    @Get('auth/Dropbox')
-    @UseGuards(AuthGuard)
-    async DropboxAuth(@Req() req: any, @Res() res: Response) {
-        const authUrl = `https://www.dropbox.com/oauth2/authorize?client_id=${process.env.DROPBOX_CLIENT_ID}&redirect_uri=${process.env.DNS_NAME}:8080/api/auth/dropbox/callback&response_type=code&state=${req.user.email}`;
-        res.redirect(authUrl);
-    }
+  @Get('auth/Dropbox')
+  @UseGuards(AuthGuard)
+  async DropboxAuth(@Req() req: any, @Res() res: Response) {
+    const authUrl = `https://www.dropbox.com/oauth2/authorize?client_id=${process.env.DROPBOX_CLIENT_ID}&redirect_uri=${process.env.DNS_NAME}:8080/api/auth/dropbox/callback&response_type=code&state=${req.user.email}`;
+    res.redirect(authUrl);
+  }
 
   @Get('auth/Dropbox/callback')
   async DropboxAuthCallback(@Req() req: any, @Res() res: Response) {

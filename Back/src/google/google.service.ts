@@ -1,10 +1,9 @@
 import { GoogleUser } from 'src/dto/user.dto';
 import { UserEntity } from 'src/entity/user.entity';
 import { AuthService, TokenAnswer } from 'src/auth/auth.service';
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Req } from '@nestjs/common';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
-
 
 type CustomRequest = Request & { user: GoogleUser, tokens: Token };
 
@@ -21,6 +20,7 @@ type Token = {
 @Injectable()
 export class GoogleService {
     constructor(private readonly authService: AuthService) {}
+
     async registerGoogleUser(googleUserData: GoogleUser): Promise<TokenAnswer> {
         const findUser = await UserEntity.findOneBy({ email: googleUserData.email });
         if (findUser === null) {
@@ -37,8 +37,14 @@ export class GoogleService {
         };
     }
 
-    async saveToken(request: CustomRequest) {
-      const user = await UserEntity.findOneBy({ email: request.user.email });
+    async  saveToken(request: any) {
+      let user;
+      if (request.query.state !== undefined) {
+        const email = request.query.state.split('____')[1];
+        user = await UserEntity.findOneBy({ email: email });
+      } else {
+        user = await UserEntity.findOneBy({ email: request.user.email });
+      }
       const service = await ServiceEntity.findOneBy({ name: 'google' });
       if (user === null) {
         console.log("User not found");
@@ -55,8 +61,8 @@ export class GoogleService {
       userService.token = request.tokens.access_token;
       try {
         await userService.save();
+        return request.query.state.split('____')[0];
       } catch (error) {
-        console.log("Error saving token");
         return;
       }
     }

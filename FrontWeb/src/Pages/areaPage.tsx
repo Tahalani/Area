@@ -61,7 +61,7 @@ export default function Area() {
       <div className="lg:hidden">
         <NavigationbarMd />
       </div>
-      <div className="h-full relative bg-main">
+      <div className="h-screen relative bg-main">
         <button
           style={{ fontFamily: "merriweather" }}
           className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[10px]"

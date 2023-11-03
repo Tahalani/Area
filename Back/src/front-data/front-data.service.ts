@@ -67,7 +67,7 @@ export class FrontDataService {
             });
             if (action === undefined || action === null || reaction === undefined || reaction === null)
                 continue;
-            areaJsonArray.push({actionName: action?.name, actionId: action?.serviceId, reactionName: reaction?.name, reactionId: reaction?.serviceId});
+            areaJsonArray.push({actionName: action?.name, actionId: action?.serviceId, reactionName: reaction?.name, reactionId: reaction?.serviceId, areaId: area.id});
         }
         return areaJsonArray;
     }
@@ -105,5 +105,20 @@ export class FrontDataService {
         }
 
         return servicesArray;
+    }
+
+    async deleteArea(userId: number, areaId: number) {
+        if (userId === undefined || userId === null === undefined || areaId === null)
+            return "Area not found";
+        const areas = await AreaEntity.find({
+            where: {
+                user: { id: userId },
+                id: areaId
+            }
+        });
+        if (areas.length === 0)
+            return "Area not found";
+        await AreaEntity.remove(areas);
+        return "Area deleted";
     }
 }
