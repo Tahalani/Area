@@ -247,13 +247,38 @@
             "description": "Slack est un logiciel de messagerie instantanée et de collaboration en équipe développé par Slack Technologies. Il propose de nombreux services comme la création de groupes privés, l'envoi de messages privés et le partage de fichiers.",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Slack_Icon.png/768px-Slack_Icon.png",
             "actions": [],
-            "reactions": []
+            "reactions": [{
+                "name": "Send Message",
+                "reactionId": 33,
+                "description": "Send a Message",
+                "params": [{"channel": "channel", "text": "text"}]
+            }, {
+                "name": "Leave Channel",
+                "reactionId": 34,
+                "description": "Leave a Channel",
+                "params": [{"channel": "channel"}]
+            }, {
+                "name": "Rename Channel",
+                "reactionId": 35,
+                "description": "Rename a Channel",
+                "params": [{"channel": "channel", "name": "name"}]
+            }]
         },{
             "name": "Dropbox",
             "description": "Dropbox est un service de stockage et de partage de copies de fichiers locaux en ligne proposé par Dropbox, Inc., entreprise localisée à San Francisco, en Californie, aux États-Unis. Il permet à ses utilisateurs de mettre en ligne puis de partager des fichiers et dossiers avec d'autres personnes en utilisant des liens privés ou publics.",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Dropbox_Icon.svg/826px-Dropbox_Icon.svg.png",
             "actions": [],
-            "reactions": []
+            "reactions": [{
+                "name": "Delete File",
+                "reactionId": 36,
+                "description": "Delete a File",
+                "params": [{"path": "path"}]
+            }, {
+                "name": "Copy File",
+                "reactionId": 37,
+                "description": "Copy a File",
+                "params": [{"from_path": "from_path", "to_path": "to_path"}]
+            }]
         }]
     }
 }

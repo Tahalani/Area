@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards, Delete, Res } from '@nestjs/common';
 import { FrontDataService } from './front-data.service';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
@@ -45,5 +45,12 @@ export class FrontDataController {
     @Get('areas/get')
     async handleAreas(@Req () req: any) {
         return this.frontDataService.getAreas(req.user.email);
+    }
+
+    @Delete('areas/delete')
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard)
+    async deleteArea(@Req() req: any) {
+        return this.frontDataService.deleteArea(req.user.sub, req.body.areaId);
     }
 }
