@@ -89,7 +89,7 @@ class _MyAreasState extends State<MyAreas> {
         return services.map<SOCIAL_SERVICES>((service) {
           return SOCIAL_SERVICES(
             id: service['id'],
-            serviceName: service['name'],
+            serviceName: service['name'].toUpperCase(),
             image: Image.network(
               service['logo_url'],
               height: 30,
@@ -383,7 +383,14 @@ class _MyAreasState extends State<MyAreas> {
                       children: [
                         service.image,
                         const SizedBox(width: 8),
-                        Text(service.serviceName),
+                        Text(
+                          service.serviceName,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   );
@@ -444,7 +451,14 @@ class _MyAreasState extends State<MyAreas> {
                       children: [
                         service.image,
                         const SizedBox(width: 8),
-                        Text(service.serviceName),
+                        Text(
+                          service.serviceName,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   );
