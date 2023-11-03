@@ -58,7 +58,7 @@ export default function Area() {
       <div className="lg:hidden">
         <NavigationbarMd />
       </div>
-      <div className="h-full relative bg-main">
+      <div className="h-screen relative bg-main">
         <Search onSearch={filterServices} />
         <div className="grid-container">
           {filteredServices.map((service, index) => (

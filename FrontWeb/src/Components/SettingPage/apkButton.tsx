@@ -4,22 +4,15 @@ import axios from "axios";
 export default function ApkButton() {
   const { t } = useTranslation();
 
-  const installApk = () => {
-    axios
-      .get(import.meta.env.VITE_DNS_NAME + ":8080/client.apk")
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la requête :", error);
-      });
+  const handleDownloadAPK = () => {
+    window.location.href = "https://are4-51.com:8080/client.apk";
   };
 
   return (
     <>
       <div className="flex items-center justify-center mt-10">
         <button
-          onClick={installApk}
+          onClick={handleDownloadAPK}
           className="btn btn-primary bg-secondary text-white font-bold py-2 px-4 rounded-full"
         >
           <svg

@@ -4,11 +4,13 @@ import NavigationbarMd from "../Components/navbarMd.tsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import DeleteCard from "../Components/CreationPage/popupDelete.tsx";
 
 interface Area {
   id: number;
   actionId: number;
   actionName: string;
+  areaId: number;
   reactionId: number;
   reactionName: string;
 }
@@ -81,7 +83,7 @@ export default function Creation() {
             {areaData.map((item, index) => (
               <li key={index}>
                 <div className="flex space-x-4 m-[10px]">
-                  <div className="flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md">
+                <div className="flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md relative">
                     <div className="w-1/5">
                       {servicesData.find(service => service.id === item.actionId)?.logo_url && (
                         <img
@@ -95,9 +97,10 @@ export default function Creation() {
                       {item.actionName}
                     </div>
                   </div>
-                  <div className="text-4xl text-blue-500 flex items-center">
+                  {/* <div className="text-4xl text-blue-500 flex items-center">
                     &#10148;
-                  </div>
+                  </div> */}
+                  <DeleteCard areaMap={item} />
                   <div className="flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md">
                     <div className="w-1/5">
                       {servicesData.find(service => service.id === item.reactionId)?.logo_url && (
