@@ -31,9 +31,9 @@ List<Services> services = [
     id: 2,
     serviceName: "Google",
     image: Image.asset("assets/images/google.png"),
-    url: "",
-    callbackUrl: "",
-    auth: false,
+    url: "https://are4-51.com:8080/api/auth/google",
+    callbackUrl: "https://are4-51.com:8081",
+    auth: true,
   ),
   Services(
     id: 3,
