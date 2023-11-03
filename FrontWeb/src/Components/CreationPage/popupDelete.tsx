@@ -26,13 +26,10 @@ function DeleteCard({ areaMap }: { areaMap: Area }) {
 
   const deleteArea = (data: Area) => {
     axios
-      .delete(import.meta.env.VITE_DNS_NAME + ":8080/api/areas/delete", {
+      .delete(import.meta.env.VITE_DNS_NAME + ":8080/api/areas/delete?areaId=" + data.areaId, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
-        data: {
-          AreaId: data.areaId,
-        }
       })
       .then((response) => {
         console.log(response);
