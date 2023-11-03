@@ -41,7 +41,6 @@ export default function Creation() {
       )
       .then((response) => {
         setAreaData(response.data);
-        console.log("test = ", response.data);
         if (!Array.isArray(response.data)) {
           setCheck(2);
         }

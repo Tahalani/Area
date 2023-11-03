@@ -3,6 +3,8 @@ import axios from "axios";
 import Navigationbar from "../Components/navbar.tsx";
 import NavigationbarMd from "../Components/navbarMd.tsx";
 import ServiceCase from "../Components/AreaPage/service.tsx";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Search from "../Components/AreaPage/search.tsx";
 import "../App.css";
 
@@ -18,6 +20,8 @@ export default function Area() {
     window.location.href = "/loginPage";
   }
 
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const [services, setServices] = useState<ServiceData[]>([]);
   const [filteredServices, setFilteredServices] = useState<ServiceData[]>([]);
 
@@ -41,6 +45,9 @@ export default function Area() {
     );
     setFilteredServices(filtered);
   };
+  const redirectToCreationPage = () => {
+    navigate("/creationPage");
+  };
 
   useEffect(() => {
     getServices();
@@ -55,6 +62,13 @@ export default function Area() {
         <NavigationbarMd />
       </div>
       <div className="h-screen relative bg-main">
+        <button
+          style={{ fontFamily: "merriweather" }}
+          className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[10px]"
+          onClick={redirectToCreationPage}
+        >
+          {t("creationarea")}
+        </button>
         <Search onSearch={filterServices} />
         <div className="grid-container">
           {filteredServices.map((service, index) => (
