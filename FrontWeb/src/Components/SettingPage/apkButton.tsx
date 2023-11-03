@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import axios from "axios";
 
 export default function ApkButton() {
   const { t } = useTranslation();
