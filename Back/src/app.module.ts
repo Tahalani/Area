@@ -32,7 +32,7 @@ dotenv.config();
       host: process.env.DB_HOST,
       port: 5432,
       username: 'postgres',
-      password: 'helloworld', // TODO ENV VARIABLE
+      password: process.env.DB_PASSWORD,
       database: 'postgres',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
