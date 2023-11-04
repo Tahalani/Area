@@ -35,7 +35,7 @@ type ServiceData = {
 
 const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameService }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
-  const [check, setCheck] = useState(1);
+  const [check, setCheck] = useState(5);
   const [isConnected, setIsConnected] = useState(0);
   const { t } = useTranslation();
   const parsedActions = data ? Parse(data.args_action) : null;
@@ -48,6 +48,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
   const [selectedService, setSelectedService] = useState<ServiceData | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [userServices, setUserServices] = useState<string[]>([]);
+  const [nameArea, setNameArea] = useState<string>("");
 
   const openModal = () => {
     console.log(userServices)
@@ -76,6 +77,10 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
     setCheck(2);
   }
 
+  const addAreaName = () => {
+    setCheck(1);
+  }
+
   const handleReactionButtonClick = (reaction: ReactionData) => {
     setSelectedReaction(reaction);
     setParsedReactions(Parse(reaction.args_reaction));
@@ -96,6 +101,12 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
   const backFirst = () => {
     setTextInputAction({});
     setCheck(1);
+  }
+  
+  const backFive = () => {
+    setNameArea("");
+    setTextInputAction({});
+    setCheck(5);
   }
 
   const backSecondary = () => {
@@ -182,6 +193,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
       .post(import.meta.env.VITE_DNS_NAME + ':8080/api/area/create', {
         id_Action: data.id,
         id_Reaction: selectedReaction?.id,
+        areaName: nameArea,
         argsAction: {
           ...objAction,
         },
@@ -224,8 +236,31 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
             </form>
             <div>
 
+            {check === 5 && (
+              <div>
+                <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">{t("Name of the Area")}</h1>
+                <input
+                  type="text"
+                  value={nameArea}
+                  onChange={(event) => setNameArea(event.target.value)}
+                  className="mb-6 border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500"
+                  placeholder={t("Enter the Name of the Area")}
+                />
+                <button
+                  style={{ fontFamily: 'merriweather' }}
+                  className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]"
+                  onClick={addAreaName}
+                >
+                  {t("next")}
+                </button>
+              </div>
+            )}
+
             {check === 1 && (
             <div>
+              <form method="dialog">
+                <button className="btn btn-sm btn-circle btn-ghost absolute left-2 top-2" onClick={backFive}>-</button>
+              </form>
               <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Action</h1>
               <ul>
                 {parsedActions && parsedActions.map((item, index) => (

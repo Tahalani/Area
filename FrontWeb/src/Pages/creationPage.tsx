@@ -13,6 +13,7 @@ interface Area {
   areaId: number;
   reactionId: number;
   reactionName: string;
+  areaName: string;
 }
 
 interface Service {
@@ -76,51 +77,69 @@ export default function Creation() {
         <NavigationbarMd />
       </div>
       {check === 1 && (
-      <div className="bg-main dark:bg-slate-800 h-screen">
-        <h1 className="font-bold text-[30px] text-black dark:text-white p-[40px]">{t("creationarea")}</h1>
-        <div style={{ margin: "0 20%" }} className="rounded-lg overflow-y-auto max-h-[600px] pt-[30px] pb-[30px] pl-[10px] pr-[10px]">
-          <ul>
-            {areaData.map((item, index) => (
-              <li key={index}>
-                <div className="flex space-x-4 m-[10px]">
-                <div className="rounded-full flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md relative">
-                    <div className="w-1/5">
-                      {servicesData.find(service => service.id === item.actionId)?.logo_url && (
-                        <img
-                          src={servicesData.find(service => service.id === item.actionId)?.logo_url}
-                          alt={servicesData.find(service => service.id === item.actionId)?.name}
-                          className="w-12 h-12 mr-4"
-                        />
-                      )}
+        <div className="bg-main dark:bg-slate-800 h-screen">
+          <h1 className="font-bold text-[30px] dark:text-white text-black dark-text-white p-[40px]">
+            {t("creationarea")}
+          </h1>
+          <div
+            style={{ margin: "0 20%" }}
+            className="rounded-lg overflow-y-auto max-h-[600px]"
+          >
+            <ul>
+              {areaData.map((item, index) => (
+                <div className="">
+                <li key={index} className="bg-[#F3F3F3] dark:bg-slate-500 mb-6 border border-solid border-gray-300 relative">
+                  <h1 className="font-bold text-[30px] text-black dark-text-white mb-[10px]">
+                    {item.areaName}
+                  </h1>
+                  <div className="mr-[20%] ml-[20%] h-[100px] flex flex-row mb-[20px]">
+                    <div className="flex w-[10%] items-center justify-center">
+                      <img
+                        src={servicesData.find((service) => service.id === item.actionId)?.logo_url}
+                        alt={servicesData.find((service) => service.id === item.actionId)?.name}
+                        className="max-w-full max-h-full"
+                      />
                     </div>
-                    <div className="w-4/5 text-[20px] font-bold">
-                      {item.actionName}
+                    <div className="w-[35%] flex-col">
+                      <div className="h-1/2 font-bold pl-2 text-[20px] dark:text-white text-gray-800 flex items-center">
+                        {servicesData.find((service) => service.id === item.actionId)?.name}
+                      </div>
+                      <div className="h-1/2 pl-2 text-[20px] text-gray-800 dark:text-gray-100 flex items-center">
+                        {item.actionName}
+                      </div>
+                    </div>
+                    <div className="w-[10%]">
+                      <div className="text-[60px] text-gray-800 items-center justify-center">
+                        &#10148;
+                      </div>
+                    </div>
+                    <div className="w-[10%]">
+                    </div>
+                    <div className="flex w-[10%] items-center justify-center">
+                      <img
+                        src={servicesData.find((service) => service.id === item.reactionId)?.logo_url}
+                        alt={servicesData.find((service) => service.id === item.reactionId)?.name}
+                        className="max-w-full max-h-full"
+                      />
+                    </div>
+                    <div className="w-[25%] flex-col">
+                      <div className="h-1/2 font-bold pl-2 text-[20px] dark:text-white text-gray-800 flex items-center">
+                        {servicesData.find((service) => service.id === item.reactionId)?.name}
+                      </div>
+                      <div className="h-1/2 pl-2 text-[20px] text-gray-800 dark:text-gray-100 flex items-center">
+                        {item.reactionName}
+                      </div>
                     </div>
                   </div>
-                  {/* <div className="text-4xl text-blue-500 flex items-center">
-                    &#10148;
-                  </div> */}
-                  <DeleteCard areaMap={item} />
-                  <div className="rounded-full flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md">
-                    <div className="w-1/5">
-                      {servicesData.find(service => service.id === item.reactionId)?.logo_url && (
-                        <img
-                          src={servicesData.find(service => service.id === item.reactionId)?.logo_url}
-                          alt={servicesData.find(service => service.id === item.reactionId)?.name}
-                          className="w-12 h-12 mr-4"
-                        />
-                      )}
-                    </div>
-                    <div className="w-4/5 text-[20px] font-bold">
-                      {item.reactionName}
-                    </div>
+                  <div className="absolute bottom-0 right-0 p-2 text-red-600">
+                    <DeleteCard areaMap={item} />
                   </div>
+                </li>
                 </div>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
       )}
       {check === 2 && (
         <div className="bg-main dark:bg-slate-800 h-screen">

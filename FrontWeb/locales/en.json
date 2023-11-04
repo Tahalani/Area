@@ -42,5 +42,7 @@
     "delete": "Delete",
     "You are not connected": "You are not connected",
     "sombre": "Dark",
-    "clair": "Light"
+    "clair": "Light",
+    "Name of the Area": "Name of the Area",
+    "Enter the Name of the Area": "Enter the Name of the Area"
 }

@@ -42,5 +42,7 @@
     "delete": "Supprimer",
     "You are not connected": "Vous n'êtes pas connecté",
     "sombre": "Sombre",
-    "clair": "Clair"
+    "clair": "Clair",
+    "Name of the Area": "Nom de l'Area",
+    "Enter the Name of the Area": "Entrez le nom de l'Area"
 }

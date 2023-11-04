@@ -35,7 +35,7 @@ type ServiceData = {
 
 const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameService }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
-  const [check, setCheck] = useState(1);
+  const [check, setCheck] = useState(5);
   const [isConnected, setIsConnected] = useState(0);
   const { t } = useTranslation();
   const parsedReactions = data ? Parse(data.args_reaction) : null;
@@ -48,6 +48,7 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
   const [selectedService, setSelectedService] = useState<ServiceData | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [userServices, setUserServices] = useState<string[]>([]);
+  const [nameArea, setNameArea] = useState<string>("");
 
   const openModal = () => {
     console.log(userServices)
@@ -76,6 +77,10 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
     setCheck(2);
   }
 
+  const addAreaName = () => {
+    setCheck(1);
+  }
+
   const handleActionButtonClick = (action: ActionData) => {
     setSelectedAction(action);
     setParsedActions(Parse(action.args_action));
@@ -91,6 +96,12 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
     } else {
       setIsConnected(1);
     }
+  }
+
+  const backFive = () => {
+    setNameArea("");
+    setTextInputReaction({});
+    setCheck(5);
   }
 
   const backFirst = () => {
@@ -182,6 +193,7 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
       .post(import.meta.env.VITE_DNS_NAME + ':8080/api/area/create', {
         id_Action: selectedAction?.id,
         id_Reaction: data.id,
+        areaName: nameArea,
         argsAction: {
           ...objAction,
         },
@@ -226,6 +238,9 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
 
             {check === 1 && (
             <div>
+              <form method="dialog">
+                <button className="btn btn-sm btn-circle btn-ghost absolute left-2 top-2" onClick={backFive}>-</button>
+              </form>
               <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Reaction</h1>
               <ul>
                 {parsedReactions && parsedReactions.map((item, index) => (
@@ -247,6 +262,26 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
               </ul>
               <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={addReaction}>{t("next")}</button>
             </div>
+            )}
+
+            {check === 5 && (
+              <div>
+                <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">{t("Name of the Area")}</h1>
+                <input
+                  type="text"
+                  value={nameArea}
+                  onChange={(event) => setNameArea(event.target.value)}
+                  className="mb-6 border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500"
+                  placeholder={t("Enter the Name of the Area")}
+                />
+                <button
+                  style={{ fontFamily: 'merriweather' }}
+                  className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]"
+                  onClick={addAreaName}
+                >
+                  {t("next")}
+                </button>
+              </div>
             )}
 
             {check === 2 && (
