@@ -29,7 +29,7 @@ export class ReactionNotion {
             console.log('Page Notion Created')
             return res;
         }).catch((err) => {
-            console.log(err);
+            console.log(err.body);
         });
     }
 
@@ -54,7 +54,7 @@ export class ReactionNotion {
             console.log('Comment Notion Created')
             return res;
         }).catch((err) => {
-            console.log(err);
+            console.log(err.body);
         });
     }
 
@@ -108,7 +108,7 @@ export class ReactionNotion {
                 console.log('Database Notion Created')
                 return res;
             }).catch((err) => {
-                console.log(err);
+                console.log(err.body);
             });
     }
 
@@ -135,7 +135,7 @@ export class ReactionNotion {
                 console.log('Page Notion Updated')
                 return res;
             }).catch((err) => {
-                console.log(err);
+                console.log(err.body);
             });
     }
 
@@ -186,7 +186,7 @@ export class ReactionNotion {
             console.log('Database Notion Updated')
             return res;
         }).catch((err) => {
-            console.log(err);
+            console.log(err.body);
         });
     }
 }

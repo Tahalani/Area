@@ -15,7 +15,7 @@ export class ReactionSpotify {
       name: arg.playlist,
     };
 
-    axios
+    await axios
       .post(
         'https://api.spotify.com/v1/users/' +
           userService.serviceIdentifier +
@@ -42,7 +42,7 @@ export class ReactionSpotify {
       uris: [arg.item_uri],
     };
 
-    axios
+    await axios
       .post(
         'https://api.spotify.com/v1/playlists/' + arg.playlist_id + '/tracks',
         data,
@@ -67,7 +67,7 @@ export class ReactionSpotify {
       uris: [arg.item_uri],
     };
 
-    axios
+    await axios
       .delete(
         'https://api.spotify.com/v1/playlists/' + arg.playlist_id + '/tracks',
         { headers: headers, data: data },
@@ -92,7 +92,7 @@ export class ReactionSpotify {
       description: arg.new_playlist_description,
     };
 
-    axios
+    await axios
       .put('https://api.spotify.com/v1/playlists/' + arg.playlist_id, data, {
         headers: headers,
       })
@@ -115,7 +115,7 @@ export class ReactionSpotify {
       ids: [arg.playlist_id],
     };
 
-    axios
+    await axios
       .put(
         'https://api.spotify.com/v1/me/albums?ids=' + arg.playlist_id,
         data,
@@ -125,7 +125,7 @@ export class ReactionSpotify {
         console.log('SUCCESS: ', response.data);
       })
       .catch((error) => {
-        console.log('ERROR: ', error.response);
+        console.log('ERROR: ', error.response.data);
       });
   }
 
@@ -140,7 +140,7 @@ export class ReactionSpotify {
       ids: [arg.playlist_id],
     };
 
-    axios
+    await axios
       .delete('https://api.spotify.com/v1/me/albums?ids=' + arg.playlist_id, {
         headers: headers,
         data: data,
@@ -160,7 +160,7 @@ export class ReactionSpotify {
       'Content-Type': 'application/json',
     };
 
-    axios
+    await axios
       .put(
         'https://api.spotify.com/v1/me/audiobooks?ids=' + arg.audiobook_id,
         undefined,
@@ -170,7 +170,7 @@ export class ReactionSpotify {
         console.log('SUCCESS: ', response.data);
       })
       .catch((error) => {
-        console.log('ERROR: ', error.response);
+        console.log('ERROR: ', error.response.data);
       });
   }
 
@@ -181,7 +181,7 @@ export class ReactionSpotify {
       'Content-Type': 'application/json',
     };
 
-    axios
+    await axios
       .delete(
         'https://api.spotify.com/v1/me/audiobooks?ids=' + arg.audiobook_id,
         {
@@ -207,7 +207,7 @@ export class ReactionSpotify {
       ids: [arg.episode_id],
     };
 
-    axios
+    await axios
       .put(
         'https://api.spotify.com/v1/me/episodes?ids=' + arg.episode_id,
         data,
@@ -217,7 +217,7 @@ export class ReactionSpotify {
         console.log('SUCCESS: ', response.data);
       })
       .catch((error) => {
-        console.log('ERROR: ', error.response);
+        console.log('ERROR: ', error.response.data);
       });
   }
 
@@ -232,7 +232,7 @@ export class ReactionSpotify {
       ids: [arg.episode_id],
     };
 
-    axios
+    await axios
       .delete('https://api.spotify.com/v1/me/episodes?ids=' + arg.episode_id, {
         headers: headers,
         data: data,
