@@ -23,6 +23,7 @@ interface PopupProps {
   data: ActionData | null;
   onClose: () => void;
   onServiceCreated: (message: string) => void;
+  nameService: string;
 }
 
 type ServiceData = {
@@ -32,20 +33,11 @@ type ServiceData = {
   logo_url: string;
 };
 
-const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
+const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameService }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
   const [check, setCheck] = useState(1);
+  const [isConnected, setIsConnected] = useState(0);
   const { t } = useTranslation();
-
-  const openModal = () => {
-    if (modalRef.current) {
-      modalRef.current.showModal();
-    }
-  };
-  const closeModal = () => {
-    onClose();
-  };
-
   const parsedActions = data ? Parse(data.args_action) : null;
   const [textInputAction, setTextInputAction] = useState<Record<string, string>>({});
   const [reactions, setReactions] = useState<ReactionData[]>([]);
@@ -55,6 +47,22 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
   const [services, setServices] = useState<ServiceData[]>([]);
   const [selectedService, setSelectedService] = useState<ServiceData | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [userServices, setUserServices] = useState<string[]>([]);
+
+  const openModal = () => {
+    console.log(userServices)
+    if (!userServices.includes(nameService)) {
+      setIsConnected(1);
+      return;
+    }
+    else if (modalRef.current) {
+      modalRef.current.showModal();
+    }
+  };
+
+  const closeModal = () => {
+    onClose();
+  };
 
   const handleTextActionChange = (event: React.ChangeEvent<HTMLInputElement>, key: string) => {
     textInputAction[key] = event.target.value;
@@ -75,8 +83,14 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
   }
 
   const handleServiceButtonClick = (service: ServiceData) => {
-    setSelectedService(service);
-    setCheck(3);
+    if (userServices.includes(service.name)) {
+      setSelectedService(service);
+      setCheck(3);
+      setIsConnected(0);
+      return;
+    } else {
+      setIsConnected(1);
+    }
   }
 
   const backFirst = () => {
@@ -100,6 +114,9 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
     axios.get(import.meta.env.VITE_DNS_NAME + ':8080/api/reactions/get?serviceId=' + selectedService?.id)
       .then(response => {
         setReactions(response.data);
+        if (!Array.isArray(response.data) || response.data.length === 0) {
+          setReactions([]);
+        }
       })
       .catch(error => {
         console.error('Erreur lors de la requête :', error);
@@ -119,6 +136,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
 
   useEffect(() => {
     getServices();
+    getUserServices();
     if (errorMessage) {
       closeModal();
     }
@@ -126,6 +144,25 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
       getReactions();
     }
   }, [check, errorMessage]);
+
+  const getUserServices = () => {
+    axios
+      .get(
+        import.meta.env.VITE_DNS_NAME +
+          ":8080/api/user/services/get?token=" +
+          localStorage.getItem("token")
+      )
+      .then((response) => {
+        if (Array.isArray(response.data)) {
+          setUserServices(response.data);
+        } else {
+          setUserServices([]);
+        }
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête :", error);
+      });
+  };
 
   const createArea = () => {
     if (!data) {
@@ -172,8 +209,13 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
 
   return (
     <>
-      <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black m-[30px]">{data?.description}</h1>
+      <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-black dark:text-white m-[30px]">{data?.description}</h1>
       <button className="btn mt-[20px] bg-secondary text-white" onClick={openModal}>{t("completeinformation")}</button>
+      {isConnected === 1 && (
+        <div>
+          <p style={{ fontFamily: 'merriweather' }} className="font-semibold text-[15px] text-red-500 mt-[10px]">{t("You are not connected")}</p>
+        </div>
+      )}
       {data && (
         <dialog ref={modalRef} className="modal">
           <div className="modal-box bg-grey-300">
@@ -220,6 +262,11 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated }) => {
                   </li>
                 ))}
               </ul>
+              {isConnected === 1 && (
+                <div>
+                  <p style={{ fontFamily: 'merriweather' }} className="font-semibold text-[15px] text-red-500 mt-[10px]">{t("You are not connected")}</p>
+                </div>
+              )}
             </div>
             )}
 
