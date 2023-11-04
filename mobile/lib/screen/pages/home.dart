@@ -55,6 +55,8 @@ class Reaction {
 
 class _myHomeState extends State<myHome> {
   List<Area> areasList = [];
+  var connected_services = [];
+  List<Services> filterServices = services;
 
   void deleteArea(int id) async {
     var url = "https://are4-51.com:8080/api/areas/delete?areaId=$id";
@@ -155,9 +157,29 @@ class _myHomeState extends State<myHome> {
     }
   }
 
+  void fetchconnectedservices() async {
+    var url = "https://are4-51.com:8080/api/user/services/get";
+    var headers = {'Authorization': 'Bearer ${widget.token}'};
+    var response = await http.get(Uri.parse(url), headers: headers);
+
+    if (response.statusCode == 200) {
+      if (response.body == "No user services") {
+        connected_services = [];
+        return;
+      }
+      final user = jsonDecode(response.body);
+      setState(() {
+        connected_services = user;
+      });
+    } else {
+      print("FETCH connected services error");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchconnectedservices();
     fetchAreas();
   }
 
@@ -180,11 +202,13 @@ class _myHomeState extends State<myHome> {
         padding: const EdgeInsets.only(left: 15, top: 20, right: 15),
         child: ListView(
           children: [
-            const Text(
-              "My Areas",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
+            const Center(
+              child: Text(
+                "My Areas",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(height: 30),
@@ -210,19 +234,45 @@ class _myHomeState extends State<myHome> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
+          DrawerHeader(
+            decoration: const BoxDecoration(
               color: Color.fromRGBO(30, 41, 133, 1),
             ),
-            child: Text(
-              'Services',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
+            child: TextField(
+              decoration: InputDecoration(
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(
+                    color: Colors.white,
+                    width: 3,
+                  ),
+                ),
+                fillColor: Colors.white,
+                labelText: 'Search a service',
+                labelStyle: const TextStyle(color: Colors.white),
+                hintStyle: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              onChanged: (value) => {
+                setState(() {
+                  filterServices = services
+                      .where((element) => element.serviceName
+                          .toLowerCase()
+                          .contains(value.toLowerCase()))
+                      .toList();
+                })
+              },
             ),
           ),
-          ...services
+          ...filterServices
               .where((element) => element.auth == true)
               .map((service) => servicecard(service))
               .toList(),
@@ -248,7 +298,7 @@ class _myHomeState extends State<myHome> {
             ListTile(
               leading: service.image,
               title: Text(
-                service.serviceName,
+                service.serviceName.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -269,9 +319,14 @@ class _myHomeState extends State<myHome> {
                                 )));
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(30, 41, 133, 1),
+                    backgroundColor:
+                        (connected_services.contains(service.serviceName))
+                            ? Colors.green
+                            : const Color.fromRGBO(30, 41, 133, 1),
                   ),
-                  child: const Text('Connect'),
+                  child: (connected_services.contains(service.serviceName))
+                      ? const Text('Connected')
+                      : const Text('Connect'),
                 ),
               ],
             ),

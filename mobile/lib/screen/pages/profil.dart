@@ -157,7 +157,8 @@ class _MyProfilState extends State<MyProfil> {
                         "Firstname", user.firstName, firstName, false),
                     buildTextField("Email", user.email, email, false),
                     const SizedBox(height: 5),
-                    buildServiceConnected(connected_services),
+                    ...connected_services
+                        .map((e) => buildServiceConnected(e))
                   ],
                 ),
               ),
@@ -195,43 +196,37 @@ class _MyProfilState extends State<MyProfil> {
         ));
   }
 
-  Widget buildServiceConnected(List<Services> servicesarray) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: servicesarray.length,
-      itemBuilder: (context, index) {
-        return Card(
-          elevation: 2,
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          child: ListTile(
-            tileColor: Colors.white,
-            leading: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: servicesarray[index].image.image,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            title: const Text(
-              "You're connected to",
-              style: TextStyle(
-                fontSize: 18.0,
-              ),
-            ),
-            subtitle: Text(
-              servicesarray[index].serviceName.toUpperCase(),
-              style: const TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-              ),
+  Widget buildServiceConnected(Services servicesarray) {
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      child: ListTile(
+        tileColor: Colors.white,
+        leading: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: servicesarray.image.image,
+              fit: BoxFit.cover,
             ),
           ),
-        );
-      },
+        ),
+        title: const Text(
+          "You're connected to",
+          style: TextStyle(
+            fontSize: 18.0,
+          ),
+        ),
+        subtitle: Text(
+          servicesarray.serviceName.toUpperCase(),
+          style: const TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -317,7 +317,7 @@ class _MyAreasState extends State<MyAreas> {
                 ),
               ),
               const Text(
-                "ACTION",
+                "IF",
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
@@ -328,7 +328,7 @@ class _MyAreasState extends State<MyAreas> {
               if (selectedService1 != null) FieldAction(),
               const SizedBox(height: 20),
               const Text(
-                "REACTION",
+                "THEN",
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
