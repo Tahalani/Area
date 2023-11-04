@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Navigationbar from "../Components/ServicePage/ServiceNavBar.tsx";
-import NavigationbarMd from "../Components/navbarMd.tsx";
+import NavigationbarMd from "../Components/ServicePage/ServiceNavBarMd.tsx";
 import Popup from "../Components/ServicePage/popup.tsx";
 import PopupReaction from "../Components/ServicePage/popupReaction.tsx";
 import Card from "../Components/ServicePage/card.tsx";
@@ -127,6 +127,7 @@ export default function Service() {
   };
 
   useEffect(() => {
+    document.body.classList.add("disable-scroll");
     getConnected();
     getServices();
     getReactions();
@@ -174,7 +175,7 @@ export default function Service() {
             </button>
           </div>
         </div>
-        <div className="bg-white h-2/3 w-screen flex flex-col items-center">
+        <div className="bg-white dark:bg-slate-800 h-2/3 w-screen flex flex-col items-center">
           {serviceMessage && (
             <div className="alert alert-success text-[20px] text-white text-center font-bold flex items-center justify-center">
               <svg
@@ -198,7 +199,7 @@ export default function Service() {
               <div>
                 <h1
                   style={{ fontFamily: "merriweather" }}
-                  className="font-semibold text-[30px] text-black pt-[20px]"
+                  className="font-semibold text-[30px] text-black dark:text-white pt-[20px]"
                 >
                   Area's
                 </h1>
@@ -214,14 +215,14 @@ export default function Service() {
                 <button
                   style={{ fontFamily: "merriweather" }}
                   onClick={() => setButtonVariable(1)}
-                  className="m-2 bg-secondary text-white px-4 py-2 rounded-full"
+                  className="m-2 bg-[#2e1d9c] text-white px-4 py-2 rounded-full"
                 >
                   Actions
                 </button>
                 <button
                   style={{ fontFamily: "merriweather" }}
                   onClick={() => setButtonVariable(2)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-full"
+                  className="bg-secondary text-white px-4 py-2 rounded-full"
                 >
                   Reactions
                 </button>
@@ -233,6 +234,7 @@ export default function Service() {
               data={popupData}
               onClose={hidePopup}
               onServiceCreated={handleServiceCreated}
+              nameService={selectedService.bottomText}
             />
           )}
           {popupDataReaction && (
@@ -240,6 +242,7 @@ export default function Service() {
               data={popupDataReaction}
               onClose={hidePopupReaction}
               onServiceCreated={handleServiceCreated}
+              nameService={selectedService.bottomText}
             />
           )}
           <div className="max-h-[170px] overflow-y-auto">

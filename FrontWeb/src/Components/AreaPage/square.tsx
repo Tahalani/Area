@@ -1,14 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaCheck } from "react-icons/fa";
 
 interface SquareProps {
   topImage: string;
   bottomText: string;
   description: string;
   serviceId: number;
+  showCheckmark: boolean;
 }
 
-const Square: React.FC<SquareProps> = ({ topImage, bottomText }) => {
+const Square: React.FC<SquareProps> = ({
+  topImage,
+  bottomText,
+  showCheckmark,
+}) => {
   const backgroundColor = "#2e1d9c";
 
   const capitalizeFirstLetter = (str: string) => {
@@ -22,6 +28,7 @@ const Square: React.FC<SquareProps> = ({ topImage, bottomText }) => {
           borderRadius: "10%",
           backgroundColor,
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+          position: "relative",
         }}
         className="w-[200px] h-[200px]"
       >
@@ -45,6 +52,20 @@ const Square: React.FC<SquareProps> = ({ topImage, bottomText }) => {
         >
           {capitalizeFirstLetter(bottomText)}
         </div>
+        {showCheckmark && (
+          <div
+            style={{
+              position: "absolute",
+              top: "0",
+              right: "0",
+              background: "green",
+              borderRadius: "50%",
+              padding: "4px",
+            }}
+          >
+            <FaCheck style={{ color: "white" }} />
+          </div>
+        )}
       </div>
     </Link>
   );

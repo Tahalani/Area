@@ -20,15 +20,33 @@ export default function Area() {
 
   const [services, setServices] = useState<ServiceData[]>([]);
   const [filteredServices, setFilteredServices] = useState<ServiceData[]>([]);
-
-  const url = import.meta.env.VITE_DNS_NAME + ":8080/api/services/get";
+  const [userServices, setUserServices] = useState<string[]>([]);
 
   const getServices = () => {
     axios
-      .get(url)
+      .get(import.meta.env.VITE_DNS_NAME + ":8080/api/services/get")
       .then((response) => {
         setServices(response.data);
         setFilteredServices(response.data);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête :", error);
+      });
+  };
+
+  const getUserServices = () => {
+    axios
+      .get(
+        import.meta.env.VITE_DNS_NAME +
+          ":8080/api/user/services/get?token=" +
+          localStorage.getItem("token")
+      )
+      .then((response) => {
+        if (Array.isArray(response.data)) {
+          setUserServices(response.data);
+        } else {
+          setUserServices([]);
+        }
       })
       .catch((error) => {
         console.error("Erreur lors de la requête :", error);
@@ -43,7 +61,9 @@ export default function Area() {
   };
 
   useEffect(() => {
+    document.body.classList.add("disable-scroll");
     getServices();
+    getUserServices();
   }, []);
 
   return (
@@ -54,7 +74,7 @@ export default function Area() {
       <div className="lg:hidden">
         <NavigationbarMd />
       </div>
-      <div className="h-screen relative bg-main">
+      <div className="h-screen relative bg-main dark:bg-slate-800">
         <Search onSearch={filterServices} />
         <div className="grid-container max-h-[450px] overflow-y-auto">
           {filteredServices.map((service, index) => (
@@ -64,6 +84,7 @@ export default function Area() {
               bottomText={service.name}
               description={service.description}
               serviceId={service.id}
+              userServices={userServices}
             />
           ))}
         </div>

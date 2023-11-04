@@ -62,6 +62,7 @@ export default function Creation() {
   };
 
   useEffect(() => {
+    document.body.classList.add("disable-scroll");
     getAreaCreated();
     getServicesImage();
   }, []);
@@ -75,9 +76,9 @@ export default function Creation() {
         <NavigationbarMd />
       </div>
       {check === 1 && (
-      <div className="bg-main h-screen">
-        <h1 className="font-bold text-[30px] text-black p-[40px]">{t("creationarea")}</h1>
-        <div style={{ margin: "0 20%" }} className="rounded-lg overflow-y-auto max-h-[600px] bg-blue-100 pt-[30px] pb-[30px] pl-[10px] pr-[10px]">
+      <div className="bg-main dark:bg-slate-800 h-screen">
+        <h1 className="font-bold text-[30px] text-black dark:text-white p-[40px]">{t("creationarea")}</h1>
+        <div style={{ margin: "0 20%" }} className="rounded-lg overflow-y-auto max-h-[600px] pt-[30px] pb-[30px] pl-[10px] pr-[10px]">
           <ul>
             {areaData.map((item, index) => (
               <li key={index}>
@@ -122,8 +123,8 @@ export default function Creation() {
       </div>
       )}
       {check === 2 && (
-        <div className="bg-main h-screen">
-          <h1 className="font-bold text-[30px] text-black p-[40px]">{t("creationarea")}</h1>
+        <div className="bg-main dark:bg-slate-800 h-screen">
+          <h1 className="font-bold text-[30px] dark:text-white text-black p-[40px]">{t("creationarea")}</h1>
           <button
               style={{ fontFamily: "merriweather" }}
               className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn btn-lg text-white rounded-full font-bold mt-[5%]"

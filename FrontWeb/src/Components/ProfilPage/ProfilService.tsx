@@ -62,7 +62,7 @@ const HorizontalRectangle: React.FC = () => {
               border: "1px solid #1400FF",
               boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
             }}
-            className="mb-12 bg-gray-200 p-4 sm:w-[100%] md:w-[100%] lg:w-[80%] h-[270px] flex-col justify-start items-start rounded-lg"
+            className="mb-12 bg-gray-200 dark:bg-slate-500 p-4 sm:w-[100%] md:w-[100%] lg:w-[80%] h-[270px] flex-col justify-start items-start rounded-lg"
           >
             <div key={index} className="w-full h-1/3 flex">
               <div className="w-1/2 flex">
@@ -78,7 +78,7 @@ const HorizontalRectangle: React.FC = () => {
                 <div className="w-4/5 ml-auto pt-2">
                   <h1
                     style={{ fontFamily: "merriweather" }}
-                    className="text-left text-[30px] text-black"
+                    className="text-left text-[30px] dark:text-white text-black"
                   >
                     {capitalizeFirstLetter(String(serviceData?.name))}
                   </h1>
@@ -89,7 +89,7 @@ const HorizontalRectangle: React.FC = () => {
               <p
                 key={index}
                 style={{ fontFamily: "merriweather" }}
-                className="flex relative text-left text-[20px]"
+                className="flex relative text-left dark:text-[#d4cece] text-[20px]"
               >
                 {serviceData?.description}
               </p>
