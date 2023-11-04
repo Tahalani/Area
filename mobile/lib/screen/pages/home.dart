@@ -202,11 +202,13 @@ class _myHomeState extends State<myHome> {
         padding: const EdgeInsets.only(left: 15, top: 20, right: 15),
         child: ListView(
           children: [
-            const Text(
-              "My Areas",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
+            const Center(
+              child: Text(
+                "My Areas",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(height: 30),
