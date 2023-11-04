@@ -97,7 +97,9 @@ export class CreationAreaService {
       area.reaction = reaction;
       area.args_action = areaData.argsAction;
       area.args_reaction = areaData.argsReaction;
+      area.areaName = areaData.areaName !== undefined ? areaData.areaName : '';
 
+      console.log('area: ', area);
       const UserService = await this.getUserService(user, action);
       if (
         areaData.id_Action == 5 &&

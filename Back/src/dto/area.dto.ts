@@ -3,4 +3,5 @@ export class areaDto {
   id_Reaction: number;
   argsAction: object;
   argsReaction: object;
+  areaName: string;
 }
