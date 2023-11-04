@@ -56,6 +56,7 @@ class Reaction {
 class _myHomeState extends State<myHome> {
   List<Area> areasList = [];
   var connected_services = [];
+  List<Services> filterServices = services;
 
   void deleteArea(int id) async {
     var url = "https://are4-51.com:8080/api/areas/delete?areaId=$id";
@@ -231,29 +232,45 @@ class _myHomeState extends State<myHome> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
+          DrawerHeader(
+            decoration: const BoxDecoration(
               color: Color.fromRGBO(30, 41, 133, 1),
             ),
-            child: ListTile(
-              title: Text(
-                'NETQ.',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-              subtitle: Text(
-                'SERVICES',
-                style: TextStyle(
+            child: TextField(
+              decoration: InputDecoration(
+                prefixIcon: const Icon(
+                  Icons.search,
                   color: Colors.white,
-                  fontSize: 18,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(
+                    color: Colors.white,
+                    width: 3,
+                  ),
+                ),
+                fillColor: Colors.white,
+                labelText: 'Search a service',
+                labelStyle: const TextStyle(color: Colors.white),
+                hintStyle: const TextStyle(
+                  color: Colors.white,
                 ),
               ),
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              onChanged: (value) => {
+                setState(() {
+                  filterServices = services
+                      .where((element) => element.serviceName
+                          .toLowerCase()
+                          .contains(value.toLowerCase()))
+                      .toList();
+                })
+              },
             ),
           ),
-          ...services
+          ...filterServices
               .where((element) => element.auth == true)
               .map((service) => servicecard(service))
               .toList(),
@@ -300,10 +317,10 @@ class _myHomeState extends State<myHome> {
                                 )));
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: (connected_services
-                            .contains(service.serviceName))
-                        ? Colors.green
-                        : const Color.fromRGBO(30, 41, 133, 1),
+                    backgroundColor:
+                        (connected_services.contains(service.serviceName))
+                            ? Colors.green
+                            : const Color.fromRGBO(30, 41, 133, 1),
                   ),
                   child: (connected_services.contains(service.serviceName))
                       ? const Text('Connected')
