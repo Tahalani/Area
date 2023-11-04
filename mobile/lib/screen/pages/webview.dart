@@ -45,7 +45,7 @@ class _WebViewPageState extends State<WebViewPage> {
             },
           ),
         )
-        ..loadRequest(Uri.parse('https://are4-51.com:8080/api/auth/google'));
+        ..loadRequest(Uri.parse('https://are4-51.com:8080/api/auth/google/Register'));
 
     final theme = Theme.of(context);
     return Scaffold(
