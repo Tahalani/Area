@@ -159,7 +159,6 @@ class _MyProfilState extends State<MyProfil> {
                     const SizedBox(height: 5),
                     ...connected_services
                         .map((e) => buildServiceConnected(e))
-                    // buildServiceConnected(connected_services),
                   ],
                 ),
               ),
