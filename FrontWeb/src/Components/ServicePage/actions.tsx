@@ -13,8 +13,8 @@ const ActionsCard: React.FC<SquareProps> = ({ name }) => {
 
   return (
     <div
-      style={{ backgroundColor, width: "400px", height: "50px" }}
-      className="mb-[2%] flex flex-col shadow-md rounded-2xl"
+      style={{ backgroundColor}}
+      className="w-[400px] h-[50px] mb-[2%] flex flex-col shadow-md rounded-2xl"
     >
       <div
         style={{ fontFamily: "merriweather" }}

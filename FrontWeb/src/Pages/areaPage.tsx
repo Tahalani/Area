@@ -3,8 +3,6 @@ import axios from "axios";
 import Navigationbar from "../Components/navbar.tsx";
 import NavigationbarMd from "../Components/navbarMd.tsx";
 import ServiceCase from "../Components/AreaPage/service.tsx";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import Search from "../Components/AreaPage/search.tsx";
 import "../App.css";
 
@@ -20,19 +18,35 @@ export default function Area() {
     window.location.href = "/loginPage";
   }
 
-  const { t } = useTranslation();
-  const navigate = useNavigate();
   const [services, setServices] = useState<ServiceData[]>([]);
   const [filteredServices, setFilteredServices] = useState<ServiceData[]>([]);
-
-  const url = import.meta.env.VITE_DNS_NAME + ":8080/api/services/get";
+  const [userServices, setUserServices] = useState<string[]>([]);
 
   const getServices = () => {
     axios
-      .get(url)
+      .get(import.meta.env.VITE_DNS_NAME + ":8080/api/services/get")
       .then((response) => {
         setServices(response.data);
         setFilteredServices(response.data);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête :", error);
+      });
+  };
+
+  const getUserServices = () => {
+    axios
+      .get(
+        import.meta.env.VITE_DNS_NAME +
+          ":8080/api/user/services/get?token=" +
+          localStorage.getItem("token")
+      )
+      .then((response) => {
+        if (Array.isArray(response.data)) {
+          setUserServices(response.data);
+        } else {
+          setUserServices([]);
+        }
       })
       .catch((error) => {
         console.error("Erreur lors de la requête :", error);
@@ -45,12 +59,11 @@ export default function Area() {
     );
     setFilteredServices(filtered);
   };
-  const redirectToCreationPage = () => {
-    navigate("/creationPage");
-  };
 
   useEffect(() => {
+    document.body.classList.add("disable-scroll");
     getServices();
+    getUserServices();
   }, []);
 
   return (
@@ -61,16 +74,9 @@ export default function Area() {
       <div className="lg:hidden">
         <NavigationbarMd />
       </div>
-      <div className="h-screen relative bg-main">
-        <button
-          style={{ fontFamily: "merriweather" }}
-          className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[10px]"
-          onClick={redirectToCreationPage}
-        >
-          {t("creationarea")}
-        </button>
+      <div className="h-screen relative bg-main dark:bg-slate-800">
         <Search onSearch={filterServices} />
-        <div className="grid-container">
+        <div className="grid-container max-h-[450px] overflow-y-auto">
           {filteredServices.map((service, index) => (
             <ServiceCase
               key={index}
@@ -78,6 +84,7 @@ export default function Area() {
               bottomText={service.name}
               description={service.description}
               serviceId={service.id}
+              userServices={userServices}
             />
           ))}
         </div>

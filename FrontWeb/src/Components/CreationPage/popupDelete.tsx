@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface Area {
   id: number;
@@ -13,14 +13,13 @@ interface Area {
 
 function DeleteCard({ areaMap }: { areaMap: Area }) {
   const [isModalVisible, setModalVisible] = useState(false);
-  const navigate = useNavigate();
+  const { t } = useTranslation();
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
   const validateArea = (areaMap: Area) => {
     deleteArea(areaMap);
-    navigate("/creationPage");
     setModalVisible(!isModalVisible);
   };
 
@@ -47,7 +46,7 @@ function DeleteCard({ areaMap }: { areaMap: Area }) {
         className="rounded-full block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button"
       >
-        Delete
+        {t("delete")}
       </button>
 
       {isModalVisible && (
@@ -97,21 +96,21 @@ function DeleteCard({ areaMap }: { areaMap: Area }) {
                   />
                 </svg>
                 <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Are you sure you want to delete this area?
+                  {t("Are you sure you want to delete this area?")}
                 </h3>
                 <button
                   onClick={() => validateArea(areaMap)}
                   type="button"
                   className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                 >
-                  Yes, I'm sure
+                  {t("Yes, I m sure")}
                 </button>
                 <button
                   onClick={toggleModal}
                   type="button"
                   className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover-text-white dark:hover-bg-gray-600 dark:focus:ring-gray-600"
                 >
-                  No, cancel
+                  {t("No, cancel")}
                 </button>
               </div>
             </div>

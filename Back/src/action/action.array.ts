@@ -15,5 +15,9 @@ export class ActionArray {
       3: this.githubAction.onIssues,
       4: this.githubAction.onCreate,
       5: this.microsoftAction.onReceiveMail,
+      6: this.githubAction.onDeleteBranch,
+      7: this.githubAction.onIssues,
+      8: this.githubAction.onPullReq,
+      9: this.githubAction.onStarCreated,
     };
   }
