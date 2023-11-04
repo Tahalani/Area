@@ -53,32 +53,6 @@ class Reaction {
   });
 }
 
-void showDeleteConfirmationDialog(BuildContext context, int id) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Delete Area'),
-        content: Text('Are you sure you want to delete this area $id ?'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              print("delete area $id");
-            },
-            child: const Text('Yes'),
-          ),
-        ],
-      );
-    },
-  );
-}
-
 class _myHomeState extends State<myHome> {
   List<Area> areasList = [];
 
@@ -88,10 +62,52 @@ class _myHomeState extends State<myHome> {
     var response = await http.delete(Uri.parse(url), headers: headers);
 
     if (response.statusCode == 200) {
-      print("area deleted");
+      setState(() {
+        areasList.removeWhere((element) => element.id == id);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Area deleted successfully'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 1),
+        ),
+      );
     } else {
-      print("error");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error deleting area'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 1),
+        ),
+      );
     }
+  }
+
+  void showDeleteConfirmationDialog(BuildContext context, int id) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Delete Area'),
+          content: Text('Are you sure you want to delete this area $id ?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                deleteArea(id);
+                Navigator.pop(context);
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void fetchAreas() async {
@@ -108,8 +124,8 @@ class _myHomeState extends State<myHome> {
       print(areasJson);
       areasList = areasJson
           .map<Area>((json) => Area(
-                id: 1,
-                title: "AREA",
+                id: json['areaId'],
+                title: "AREA ${json['areaId']}",
                 actions: Action(
                   serviceName: services
                       .firstWhere((element) => element.id == json['actionId'])
