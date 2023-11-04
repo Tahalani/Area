@@ -22,6 +22,7 @@ import { DropboxModule } from './dropbox/dropbox.module';
 import { GitlabModule } from './gitlab/gitlab.module';
 import { TwitchModule } from './twitch/twitch.module';
 import { SlackModule } from './slack/slack.module';
+import { MediumModule } from './medium/medium.module';
 
 dotenv.config();
 
@@ -58,6 +59,7 @@ dotenv.config();
     GitlabModule,
     TwitchModule,
     SlackModule,
+    MediumModule,
   ],
   controllers: [AppController],
   providers: [AppService, InitService],

@@ -76,7 +76,7 @@ export class SlackService {
         userService.serviceIdentifier = serviceIdentifier;
 
         try {
-            console.log("Saving Slack token...");
+            console.log("Saving Slack token ...");
             await userService.save();
         } catch (error) {
             console.error('Error saving token: ', error);
