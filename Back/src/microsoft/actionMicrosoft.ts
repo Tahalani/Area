@@ -12,10 +12,10 @@ export class ActionMicrosoft {
       notificationUrl: 'http://localhost:8080/api/Webhook/Microsoft',
       lifecycleNotificationUrl: 'http://localhost:8080/api/Webhook/Microsoft',
       resource: "/me/mailfolders('inbox')/messages",
-      expirationDateTime: '2023-10-26T11:00:00.0000000Z', // TODO: change to 1 day
+      expirationDateTime: '2023-10-26T11:00:00.0000000Z',
       clientState: 'SecretClientState',
     };
-    axios
+    await axios
       .post(url, subscription, {
         headers: {
           Authorization: `Bearer ${access_token}`,

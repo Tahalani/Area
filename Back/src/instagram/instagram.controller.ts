@@ -13,7 +13,7 @@ export class InstagramController {
     @Get('auth/instagram')
     async instagramAuth(@Req() req: any, @Res() res: Response) {
         console.log("instagramAuth");
-        const client_id = '700910664921744'; // TODO: Move to .env
+        const client_id = `${process.env.INSTAGRAM_CLIENT_ID}`;
         const redirect_uri = `${process.env.DNS_NAME}:8080/api/auth/instagram/callback`
 
         res.redirect('https://api.instagram.com/oauth/authorize' +

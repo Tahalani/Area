@@ -10,7 +10,7 @@ export class ReactionGitlab {
     const headers = {
       Authorization: `Bearer ${userService.token}`,
     };
-    axios
+    await axios
       .post(
         'https://gitlab.com/api/v4/projects/' +
           arg.project_id +
@@ -33,7 +33,7 @@ export class ReactionGitlab {
     const headers = {
       Authorization: `Bearer ${userService.token}`,
     };
-    axios
+    await axios
       .delete(
         'https://gitlab.com/api/v4/projects/' +
           arg.project_id +

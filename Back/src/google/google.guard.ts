@@ -32,8 +32,7 @@ export class GoogleGuard implements CanActivate {
       response.redirect(this.url);
       return false;
     } else {
-      this.url += `&state=${request.query.token}____${request.user.email}`;
-      response.redirect(this.url);
+      response.redirect(this.url + `&state=${request.query.token}____${request.user.email}`);
     }
   }
 

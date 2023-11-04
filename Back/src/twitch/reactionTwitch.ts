@@ -9,7 +9,7 @@ export class ReactionTwitch {
       Authorization: `Bearer ${userService.token}`,
       'Client-Id': process.env.TWITCH_CLIENT_ID,
     };
-    axios
+    await axios
       .post(
         'https://api.twitch.tv/helix/clips?broadcaster_id=' +
           arg.broadcaster_id,
@@ -17,7 +17,7 @@ export class ReactionTwitch {
         { headers: headers },
       )
       .then((response) => {
-        console.log("Clip created");
+        console.log('Clip created');
       })
       .catch((error) => {
         console.log(error.response.data);
