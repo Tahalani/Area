@@ -38,14 +38,16 @@ async function getGitHubToken({
 export class GitHubService {
   map: { [key: string]: number } = {
     push: 1,
-    pull: 2,
-    issues: 3,
+    pull_requestopened: 2,
+    pull_requestclosed: 8,
+    issuesopened: 3,
+    issuesclosed: 7,
     create: 4,
+    delete: 6,
+    starcreated: 9,
   };
 
   constructor(
-    private readonly reactionGithub: ReactionGithub,
-    private readonly actionGithub: ActionGithub,
     private readonly reactionArray: ReactionArray,
   ) {}
 
@@ -129,6 +131,10 @@ export class GitHubService {
     event: string,
     repo: string,
   ): Promise<AreaEntity[] | null> {
+    if (this.map[event] === undefined) {
+      console.error('Event not found (', event, ')');
+      return null;
+    }
     const area = await AreaEntity.find({
       where: {
         user: { id: userService.userId },
@@ -170,7 +176,7 @@ export class GitHubService {
     }
     const area = await this.getArea(
       userService,
-      req.headers['x-github-event'],
+      req.body.action !== undefined ? req.headers['x-github-event'] + req.body.action : req.headers['x-github-event'],
       req.body.repository.name,
     );
     if (area === null || area.length === 0) {

@@ -3,8 +3,6 @@ import {
     PrimaryGeneratedColumn,
     Column,
     BaseEntity,
-    OneToOne,
-    JoinColumn,
     ManyToOne,
     RelationId,
   } from 'typeorm';
@@ -32,6 +30,9 @@ export class AreaEntity extends BaseEntity {
 
   @RelationId((area: AreaEntity) => area.reaction)
   reactionId: number;
+
+  @Column()
+  areaName: string;
 
   @Column({ type: 'jsonb' })
   args_action: Object;

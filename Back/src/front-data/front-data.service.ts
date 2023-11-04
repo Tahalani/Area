@@ -67,7 +67,7 @@ export class FrontDataService {
             });
             if (action === undefined || action === null || reaction === undefined || reaction === null)
                 continue;
-            areaJsonArray.push({actionName: action?.name, actionId: action?.serviceId, reactionName: reaction?.name, reactionId: reaction?.serviceId, areaId: area.id});
+            areaJsonArray.push({actionName: action?.name, actionId: action?.serviceId, reactionName: reaction?.name, reactionId: reaction?.serviceId, areaId: area.id, areaName: area.areaName});
         }
         return areaJsonArray;
     }

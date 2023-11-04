@@ -10,7 +10,7 @@ export class ReactionSlack{
       "Content-Type": 'application/x-www-form-urlencoded',
       Authorization: `Bearer ${userService.token}`,
     };
-    axios
+    await axios
       .post(
         'https://slack.com/api/chat.postMessage?channel=' + arg.channel + '&text=' + arg.text,
         {},
@@ -30,7 +30,7 @@ export class ReactionSlack{
       "Content-Type": 'application/x-www-form-urlencoded',
       Authorization: `Bearer ${userService.token}`,
     };
-    axios
+    await axios
       .post(
         'https://slack.com/api/conversations.leave?channel=' + arg.channel,
         {},
@@ -50,7 +50,7 @@ export class ReactionSlack{
       "Content-Type": 'application/x-www-form-urlencoded',
       Authorization: `Bearer ${userService.token}`,
     };
-    axios
+    await axios
       .post(
         'https://slack.com/api/conversations.rename?channel=' + arg.channel + '&name=' + arg.name,
         {},

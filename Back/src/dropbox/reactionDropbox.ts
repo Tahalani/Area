@@ -9,7 +9,7 @@ export class ReactionDropbox {
       Authorization: `Bearer ${userService.token}`,
       'Content-Type': 'application/json',
     };
-    axios
+    await axios
       .post(
         'https://api.dropboxapi.com/2/files/delete_v2',
         {
@@ -30,7 +30,7 @@ export class ReactionDropbox {
       Authorization: `Bearer ${userService.token}`,
       'Content-Type': 'application/json',
     };
-    axios
+    await axios
       .post(
         'https://api.dropboxapi.com/2/files/copy_v2',
         {
