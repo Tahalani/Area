@@ -33,7 +33,7 @@ export default function Card() {
 
   return (
     <>
-      <div style={{ border: "1px solid #1400FF" }} className="bg-[#F3F3F3] rounded-lg h-[650px] w-[70%]">
+      <div style={{ border: "1px solid #1400FF", boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",}} className="bg-[#F3F3F3] rounded-lg h-[650px] w-[70%]">
         <div className="rounded-full sm:h-[200px] sm:w-[200px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[200px] mx-auto mb-4 mt-12 flex items-center justify-center bg-gray-300 text-gray-600 sm:text-[70px] md:text-[70px] lg:text-[70px] font-semibold">
           {capitalizeFirstLetter(client.name ? client.name.charAt(0) : "")}
         </div>

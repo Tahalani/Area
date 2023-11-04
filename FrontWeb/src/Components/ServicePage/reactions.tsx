@@ -9,13 +9,8 @@ interface SquareProps {
 }
 
 const ReactionsCard: React.FC<SquareProps> = ({ name }) => {
-  const backgroundColor = "#2e1d9c";
-
   return (
-    <div
-      style={{ backgroundColor, width: "400px", height: "50px" }}
-      className="mb-[2%] flex flex-col shadow-md rounded-2xl"
-    >
+    <div className="w-[400px] h-[50px] bg-blue-500 mb-[2%] flex flex-col shadow-md rounded-2xl">
       <div
         style={{ fontFamily: "merriweather" }}
         className="text-[#fff] flex items-center justify-center"

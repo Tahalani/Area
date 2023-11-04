@@ -1,6 +1,5 @@
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 export default function LanguagesSetting() {
   const { t } = useTranslation();
@@ -17,24 +16,26 @@ export default function LanguagesSetting() {
         <div className="navbar-start"></div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal space-x-10 text-gray-900">
-            <li>
-              <a style={{ fontFamily: "merriweather" }} className="text-[30px] border border-black font-bold inline-block" >
-                <Link to="/settingPage" onClick={() => changeLanguageEn("fr")}>{t("fr")}</Link>
-              </a>
-            </li>
-            <li>
-              <a
-                style={{ fontFamily: "merriweather" }}
-                className="text-[30px] border border-black font-bold inline-block"
-                href="/settingPage"
-                onClick={(e) => {
-                  e.preventDefault();
-                  changeLanguageEn("en");
-                }}
-              >
-                {t("en")}
-              </a>
-            </li>
+            <button
+              style={{ fontFamily: "merriweather" }}
+              className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn btn-lg text-white rounded-full font-bold mt-[20px]"
+              onClick={(e) => {
+                e.preventDefault();
+                changeLanguageEn("fr");
+              }}
+            >
+              {t("fr")}
+            </button>
+            <button
+              style={{ fontFamily: "merriweather" }}
+              className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn btn-lg text-white rounded-full font-bold mt-[20px]"
+              onClick={(e) => {
+                e.preventDefault();
+                changeLanguageEn("en");
+              }}
+            >
+              {t("en")}
+            </button>
           </ul>
         </div>
         <div className="navbar-end"></div>

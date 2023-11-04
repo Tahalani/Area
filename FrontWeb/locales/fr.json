@@ -34,5 +34,10 @@
     "connected": "Connecté",
     "connect": "se connecter",
     "creationarea": "Mes Areas",
-    "creationareabutton": "Créer une Area"
+    "creationareabutton": "Créer une Area",
+    "all": "Tous",
+    "Are you sure you want to delete this area?": "Êtes-vous sûr de vouloir supprimer cette area ?",
+    "Yes, I m sure": "Oui, je suis sûr",
+    "No, cancel": "Non, annuler",
+    "delete": "Supprimer"
 }

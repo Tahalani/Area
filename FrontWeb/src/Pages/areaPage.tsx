@@ -56,7 +56,7 @@ export default function Area() {
       </div>
       <div className="h-screen relative bg-main">
         <Search onSearch={filterServices} />
-        <div className="grid-container">
+        <div className="grid-container max-h-[450px] overflow-y-auto">
           {filteredServices.map((service, index) => (
             <ServiceCase
               key={index}
