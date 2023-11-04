@@ -34,5 +34,13 @@
     "connected": "Connected",
     "connect": "Connect",
     "creationarea": "My Areas",
-    "creationareabutton": "Create an Area"
+    "creationareabutton": "Create an Area",
+    "all": "All",
+    "Are you sure you want to delete this area?": "Are you sure you want to delete this area?",
+    "yes, I m sure": "Yes, I'm sure",
+    "No, cancel": "No, cancel",
+    "delete": "Delete",
+    "You are not connected": "You are not connected",
+    "sombre": "Dark",
+    "clair": "Light"
 }

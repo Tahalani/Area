@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navigationbar from "../Components/navbar.tsx";
 import Card from "../Components/ProfilPage/card.tsx";
 import HorizontalRectangle from "../Components/ProfilPage/ProfilService.tsx";
@@ -7,6 +8,9 @@ export default function Profil() {
   if (localStorage.getItem("token") == null) {
     window.location.href = "/loginPage";
   }
+  useEffect(() => {
+    document.body.classList.add("disable-scroll");
+  }, []);
 
   return (
     <>
@@ -16,7 +20,7 @@ export default function Profil() {
       <div className="lg:hidden">
         <NavigationbarMd />
       </div>
-      <div className="flex sm:h-full lg:h-screen md:h-full relative bg-main sm:flex-col md:flex-col lg:flex-row">
+      <div className="flex sm:h-full lg:h-screen md:h-full relative bg-main dark:bg-slate-800 sm:flex-col md:flex-col lg:flex-row">
         <div className="sm:w-full lg:w-1/2 p-6 pt-24 sm:pl-[99px] md:pl-[198px] lg:pl-[297px] text-black">
           <Card />
         </div>

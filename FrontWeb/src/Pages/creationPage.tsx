@@ -41,7 +41,6 @@ export default function Creation() {
       )
       .then((response) => {
         setAreaData(response.data);
-        console.log("test = ", response.data);
         if (!Array.isArray(response.data)) {
           setCheck(2);
         }
@@ -63,6 +62,7 @@ export default function Creation() {
   };
 
   useEffect(() => {
+    document.body.classList.add("disable-scroll");
     getAreaCreated();
     getServicesImage();
   }, []);
@@ -76,14 +76,14 @@ export default function Creation() {
         <NavigationbarMd />
       </div>
       {check === 1 && (
-      <div className="bg-main h-screen">
-        <h1 className="font-bold text-[30px] text-black p-[40px]">{t("creationarea")}</h1>
-        <div style={{ margin: "0 20%" }} className="bg-blue-100 pt-[30px] pb-[30px] pl-[10px] pr-[10px]">
+      <div className="bg-main dark:bg-slate-800 h-screen">
+        <h1 className="font-bold text-[30px] text-black dark:text-white p-[40px]">{t("creationarea")}</h1>
+        <div style={{ margin: "0 20%" }} className="rounded-lg overflow-y-auto max-h-[600px] pt-[30px] pb-[30px] pl-[10px] pr-[10px]">
           <ul>
             {areaData.map((item, index) => (
               <li key={index}>
                 <div className="flex space-x-4 m-[10px]">
-                <div className="flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md relative">
+                <div className="rounded-full flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md relative">
                     <div className="w-1/5">
                       {servicesData.find(service => service.id === item.actionId)?.logo_url && (
                         <img
@@ -101,7 +101,7 @@ export default function Creation() {
                     &#10148;
                   </div> */}
                   <DeleteCard areaMap={item} />
-                  <div className="flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md">
+                  <div className="rounded-full flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md">
                     <div className="w-1/5">
                       {servicesData.find(service => service.id === item.reactionId)?.logo_url && (
                         <img
@@ -123,8 +123,8 @@ export default function Creation() {
       </div>
       )}
       {check === 2 && (
-        <div className="bg-main h-screen">
-          <h1 className="font-bold text-[30px] text-black p-[40px]">{t("creationarea")}</h1>
+        <div className="bg-main dark:bg-slate-800 h-screen">
+          <h1 className="font-bold text-[30px] dark:text-white text-black p-[40px]">{t("creationarea")}</h1>
           <button
               style={{ fontFamily: "merriweather" }}
               className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn btn-lg text-white rounded-full font-bold mt-[5%]"

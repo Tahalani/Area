@@ -12,17 +12,17 @@ function Navbar() {
   return (
     <>
       <div className="w-screen">
-        <div className="navbar w-full pt-10 bg-main">
+        <div className="navbar w-full pt-10 bg-main dark:bg-slate-800">
           <div className="navbar-start">
             <a
               style={{ fontFamily: "Londrina" }}
-              className="text-[40px] ml-[132px] text-black"
+              className="text-[40px] ml-[132px] text-black dark:text-white"
             >
               <Link to="/areaPage">NetQ.</Link>
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal space-x-10 text-gray-900">
+            <ul className="menu menu-horizontal space-x-10 dark:text-white text-gray-900">
               <li>
                 <a
                   style={{ fontFamily: "merriweather" }}
@@ -68,8 +68,8 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <div className="bg-white h-0.5">
-        <div className="w-1/4 ml-[37%] border-2 border-black"></div>
+      <div className="bg-white dark:bg-slate-800 h-0.5">
+        <div className="w-1/4 ml-[37%] border-2 border-black dark:border-white"></div>
       </div>
     </>
   );

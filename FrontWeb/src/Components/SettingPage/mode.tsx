@@ -1,16 +1,20 @@
-import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 
-export default function LanguagesSetting() {
+export default function ModeSetting() {
   const { t } = useTranslation();
-  const changeLanguageEn = (lng: string) => {
-    i18n.changeLanguage(lng);
+
+  const enableDarkMode = () => {
+    document.documentElement.classList.add('dark');
+  };
+
+  const disableDarkMode = () => {
+    document.documentElement.classList.remove('dark');
   };
 
   return (
     <>
       <div className="flex justify-center items-center">
-        <h1 style={{ fontFamily: "merriweather" }} className="text-[30px] text-black dark:text-white font-bold mt-[80px]">{t("langue")}</h1>
+        <h1 style={{ fontFamily: "merriweather" }} className="text-[30px] text-black dark:text-white font-bold mt-[80px]">Mode</h1>
       </div>
       <div className="navbar w-full pt-10 bg-main dark:bg-slate-800">
         <div className="navbar-start"></div>
@@ -19,22 +23,16 @@ export default function LanguagesSetting() {
             <button
               style={{ fontFamily: "merriweather" }}
               className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn btn-lg text-white rounded-full font-bold mt-[20px]"
-              onClick={(e) => {
-                e.preventDefault();
-                changeLanguageEn("fr");
-              }}
+              onClick={enableDarkMode}
             >
-              {t("fr")}
+              {t("sombre")}
             </button>
             <button
               style={{ fontFamily: "merriweather" }}
               className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn btn-lg text-white rounded-full font-bold mt-[20px]"
-              onClick={(e) => {
-                e.preventDefault();
-                changeLanguageEn("en");
-              }}
+              onClick={disableDarkMode}
             >
-              {t("en")}
+              {t("clair")}
             </button>
           </ul>
         </div>

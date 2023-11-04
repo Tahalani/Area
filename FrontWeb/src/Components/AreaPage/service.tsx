@@ -1,12 +1,13 @@
 import React from "react";
-import Square from "./square.js";
-import { useServiceContext } from "../../ServiceContext.js";
+import Square from "./square.tsx"; // Assurez-vous que le chemin vers Square est correct
+import { useServiceContext } from "../../ServiceContext.tsx"; // Assurez-vous que le chemin vers le context est correct
 
 interface SquareProps {
   topImage: string;
   bottomText: string;
   description: string;
   serviceId: number;
+  userServices: string[];
 }
 
 const ServiceCase: React.FC<SquareProps> = ({
@@ -14,8 +15,11 @@ const ServiceCase: React.FC<SquareProps> = ({
   bottomText,
   description,
   serviceId,
+  userServices,
 }) => {
   const { setService } = useServiceContext();
+
+  const isServiceInUserServices = userServices.includes(bottomText);
 
   const handleServiceClick = () => {
     setService({ topImage, bottomText, description, serviceId });
@@ -29,6 +33,7 @@ const ServiceCase: React.FC<SquareProps> = ({
           bottomText={bottomText}
           description={description}
           serviceId={serviceId}
+          showCheckmark={isServiceInUserServices}
         />
       </div>
     </div>
