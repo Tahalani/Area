@@ -322,8 +322,10 @@ class _MyAreasState extends State<MyAreas> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 20),
               FieldServiceAction(),
               if (selectedService1 != null) FieldAction(),
+              const SizedBox(height: 20),
               const Text(
                 "THEN",
                 style: TextStyle(
@@ -331,6 +333,7 @@ class _MyAreasState extends State<MyAreas> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 20),
               if (selectedAction != null) FieldServiceReaction(),
               if (selectedService2 != null) FieldReaction(),
             ],
