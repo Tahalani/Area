@@ -76,7 +76,7 @@ export class MediumService {
             return;
         }
 
-        const serviceIdentifier = infoUser.data.username;
+        const serviceIdentifier = infoUser.data.id;
         this.saveToken(userEmail, process.env.MEDIUM_TOKEN, serviceIdentifier, 'medium');
     }
 }
