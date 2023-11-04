@@ -156,7 +156,6 @@ class _MyProfilState extends State<MyProfil> {
                     buildTextField(
                         "Firstname", user.firstName, firstName, false),
                     buildTextField("Email", user.email, email, false),
-                    buildTextField("Password", user.password, password, true),
                     const SizedBox(height: 5),
                     buildServiceConnected(connected_services),
                   ],
