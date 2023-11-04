@@ -115,4 +115,12 @@ List<Services> services = [
     callbackUrl: "https://are4-51.com:8081",
     auth: true,
   ),
+  Services(
+    id: 13,
+    serviceName: "medium",
+    image: Image.asset("assets/images/medium.png"),
+    url: "https://are4-51.com:8080/api/auth/medium",
+    callbackUrl: "https://are4-51.com:8081",
+    auth: true,
+  ),
 ];
