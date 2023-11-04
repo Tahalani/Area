@@ -125,7 +125,7 @@ class _myHomeState extends State<myHome> {
       areasList = areasJson
           .map<Area>((json) => Area(
                 id: json['areaId'],
-                title: "AREA ${json['areaId']}",
+                title: json['areaName'],
                 actions: Action(
                   serviceName: services
                       .firstWhere((element) => element.id == json['actionId'])
