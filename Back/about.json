@@ -5,24 +5,44 @@
             "description":"Github est une entreprise de développement et services logiciels sise aux États-Unis. Github développe notamment la plateforme Github, la structure Electron.",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",
             "actions": [{
-                "name":"push on repository",
+                "name":"push added",
                 "actionId": 1,
                 "description":"A push is made on a repository",
                 "params": [{"repo": "repository_name"}]
                     }, {
-                "name":"pull request on repository",
+                "name":"pull request created",
                 "actionId": 2,
                 "description":"A pull request is made on a repository",
                 "params": [{"repo": "repository_name"}]
                     }, {
-                "name":"issue on repository",
+                "name":"issue created",
                 "actionId": 3,
                 "description":"An issue is made on a repository",
                 "params": [{"repo": "repository_name"}]
                     }, {
-                "name": "create branch",
+                "name": "branch/tag created",
                 "actionId": 4,
-                "description": "A branch is created on a repository",
+                "description": "A branch or a tag is created on a repository",
+                "params": [{"repo": "repository_name"}]
+                    },{
+                "name": "branch/tag deleted",
+                "actionId": 6,
+                "description": "A branch or a tag is deleted on a repository",
+                "params": [{"repo": "repository_name"}]
+                    },{
+                "name": "issue deleted",
+                "actionId": 7,
+                "description": "An issue is deleted on a repository",
+                "params": [{"repo": "repository_name"}]
+                    },{
+                "name": "pull request deleted",
+                "actionId": 8,
+                "description": "A pull request is deleted on a repository",
+                "params": [{"repo": "repository_name"}]
+                    }, {
+                "name": "star created",
+                "actionId": 9,
+                "description": "A star is created on a repository",
                 "params": [{"repo": "repository_name"}]
                     }],
             "reactions": [{
