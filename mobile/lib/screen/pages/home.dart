@@ -55,6 +55,7 @@ class Reaction {
 
 class _myHomeState extends State<myHome> {
   List<Area> areasList = [];
+  var connected_services = [];
 
   void deleteArea(int id) async {
     var url = "https://are4-51.com:8080/api/areas/delete?areaId=$id";
@@ -155,9 +156,29 @@ class _myHomeState extends State<myHome> {
     }
   }
 
+  void fetchconnectedservices() async {
+    var url = "https://are4-51.com:8080/api/user/services/get";
+    var headers = {'Authorization': 'Bearer ${widget.token}'};
+    var response = await http.get(Uri.parse(url), headers: headers);
+
+    if (response.statusCode == 200) {
+      if (response.body == "No user services") {
+        connected_services = [];
+        return;
+      }
+      final user = jsonDecode(response.body);
+      setState(() {
+        connected_services = user;
+      });
+    } else {
+      print("FETCH connected services error");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchconnectedservices();
     fetchAreas();
   }
 
@@ -214,11 +235,21 @@ class _myHomeState extends State<myHome> {
             decoration: BoxDecoration(
               color: Color.fromRGBO(30, 41, 133, 1),
             ),
-            child: Text(
-              'Services',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
+            child: ListTile(
+              title: Text(
+                'NETQ.',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+              subtitle: Text(
+                'SERVICES',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
               ),
             ),
           ),
@@ -248,7 +279,7 @@ class _myHomeState extends State<myHome> {
             ListTile(
               leading: service.image,
               title: Text(
-                service.serviceName,
+                service.serviceName.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -269,9 +300,14 @@ class _myHomeState extends State<myHome> {
                                 )));
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(30, 41, 133, 1),
+                    backgroundColor: (connected_services
+                            .contains(service.serviceName))
+                        ? Colors.green
+                        : const Color.fromRGBO(30, 41, 133, 1),
                   ),
-                  child: const Text('Connect'),
+                  child: (connected_services.contains(service.serviceName))
+                      ? const Text('Connected')
+                      : const Text('Connect'),
                 ),
               ],
             ),
