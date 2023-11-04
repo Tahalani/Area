@@ -60,7 +60,8 @@ class _MyProfilState extends State<MyProfil> {
       connectedSercices = user;
       for (var i = 0; i < connectedSercices.length; i++) {
         for (var j = 0; j < services.length; j++) {
-          if (connectedSercices[i].toUpperCase() == services[j].serviceName.toUpperCase()) {
+          if (connectedSercices[i].toUpperCase() ==
+              services[j].serviceName.toUpperCase()) {
             connected_services.add(services[j]);
           }
         }
@@ -133,75 +134,28 @@ class _MyProfilState extends State<MyProfil> {
                     Center(
                       child: Stack(
                         children: [
-                          Container(
-                            width: 130,
-                            height: 130,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 4, color: Colors.white),
-                              boxShadow: [
-                                BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1),
-                                )
-                              ],
-                              shape: BoxShape.circle,
-                              image: null,
+                          CircleAvatar(
+                            backgroundColor: Colors.black.withOpacity(0.1),
+                            radius: 60,
+                            child: Text(
+                              (user.firstName.isNotEmpty)
+                                  ? user.lastName[0].toUpperCase()
+                                  : "?",
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     buildTextField("Lastname", user.lastName, lastName, false),
                     buildTextField(
                         "Firstname", user.firstName, firstName, false),
                     buildTextField("Email", user.email, email, false),
-                    buildTextField("Password", user.password, password, true),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        OutlinedButton(
-                          onPressed: () {
-                            email.clear();
-                            password.clear();
-                            firstName.clear();
-                            lastName.clear();
-                          },
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 50),
-                            backgroundColor: Colors.grey[200],
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                          ),
-                          child: const Text(
-                            "CANCEL",
-                            style: TextStyle(
-                              fontSize: 15,
-                              letterSpacing: 2,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            padding: const EdgeInsets.symmetric(horizontal: 50),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                          ),
-                          child: const Text(
-                            "SAVE",
-                            style: TextStyle(
-                              fontSize: 15,
-                              letterSpacing: 2,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     const SizedBox(height: 5),
                     buildServiceConnected(connected_services),
                   ],
@@ -217,35 +171,28 @@ class _MyProfilState extends State<MyProfil> {
   Widget buildTextField(String label, String placeholder,
       TextEditingController controller, bool isPassword) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
-      child: TextField(
-        controller: controller,
-        obscureText: isPassword ? _isHidden : false,
-        decoration: InputDecoration(
-            suffixIcon: isPassword
-                ? IconButton(
-                    icon: Icon(
-                      _isHidden ? Icons.visibility : Icons.visibility_off,
-                      color: Colors.grey,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _isHidden = !_isHidden;
-                      });
-                    },
-                  )
-                : null,
-            contentPadding: const EdgeInsets.only(bottom: 5),
-            labelText: label,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
+        padding: const EdgeInsets.only(bottom: 20),
+        child: TextField(
+          controller: controller,
+          obscureText: isPassword ? _isHidden : false,
+          decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
             hintText: placeholder,
             hintStyle: const TextStyle(
-              fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.grey,
-            )),
-      ),
-    );
+              fontSize: 18,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: const BorderSide(
+                color: Color.fromRGBO(30, 41, 133, 1),
+                width: 5,
+              ),
+            ),
+          ),
+          enabled: false,
+        ));
   }
 
   Widget buildServiceConnected(List<Services> servicesarray) {

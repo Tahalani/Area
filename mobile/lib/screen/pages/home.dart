@@ -125,7 +125,7 @@ class _myHomeState extends State<myHome> {
       areasList = areasJson
           .map<Area>((json) => Area(
                 id: json['areaId'],
-                title: "AREA ${json['areaId']}",
+                title: json['areaName'],
                 actions: Action(
                   serviceName: services
                       .firstWhere((element) => element.id == json['actionId'])
@@ -188,6 +188,16 @@ class _myHomeState extends State<myHome> {
               ),
             ),
             const SizedBox(height: 30),
+            if (areasList.isEmpty)
+              const Center(
+                child: Text(
+                  "No areas created",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ...areasList.map((area) => areaCard(area)).toList()
           ],
         ),

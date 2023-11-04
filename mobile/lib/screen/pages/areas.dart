@@ -201,6 +201,7 @@ class _MyAreasState extends State<MyAreas> {
     }
 
     Map<String, dynamic> myJson = {
+      "areaName": areaTitleController.text,
       "id_Action": action_args.id,
       "id_Reaction": reaction_args.id,
       "argsAction": {
@@ -316,21 +317,24 @@ class _MyAreasState extends State<MyAreas> {
                 ),
               ),
               const Text(
-                "IF",
+                "ACTION",
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 20),
               FieldServiceAction(),
               if (selectedService1 != null) FieldAction(),
+              const SizedBox(height: 20),
               const Text(
-                "THEN",
+                "REACTION",
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 20),
               if (selectedAction != null) FieldServiceReaction(),
               if (selectedService2 != null) FieldReaction(),
             ],
