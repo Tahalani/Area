@@ -9,6 +9,7 @@ export default function Profil() {
   if (localStorage.getItem("token") == null) {
     window.location.href = "/loginPage";
   }
+
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
 
   useEffect(() => {

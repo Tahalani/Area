@@ -15,6 +15,7 @@ const Square: React.FC<SquareProps> = ({
   bottomText,
   showCheckmark,
 }) => {
+
   const capitalizeFirstLetter = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };

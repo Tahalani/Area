@@ -17,6 +17,7 @@ const ServiceCase: React.FC<SquareProps> = ({
   serviceId,
   userServices,
 }) => {
+
   const { setService } = useServiceContext();
   const isServiceInUserServices = userServices.includes(bottomText);
   const handleServiceClick = () => {

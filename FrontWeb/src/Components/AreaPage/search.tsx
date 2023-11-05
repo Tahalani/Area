@@ -16,10 +16,7 @@ export default function Search({ onSearch }: SearchProps) {
   return (
     <div className="w-screen">
       <div className="flex justify-center items-center">
-        <h1
-          style={{ fontFamily: "merriweather" }}
-          className="text-[30px] text-black dark:text-white font-bold mt-[30px]"
-        >
+        <h1 style={{ fontFamily: "merriweather" }} className="text-[30px] text-black dark:text-white font-bold mt-[30px]">
           {t("explore")}
         </h1>
       </div>

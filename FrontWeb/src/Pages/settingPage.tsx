@@ -9,6 +9,7 @@ export default function Setting() {
   if (localStorage.getItem("token") == null) {
     window.location.href = "/loginPage";
   }
+
   useEffect(() => {
     document.body.classList.add("disable-scroll");
   }, []);

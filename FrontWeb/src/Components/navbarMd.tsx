@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 function NavbarMd() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   const redirectToLoginPage = () => {
     navigate("/loginPage");
   };

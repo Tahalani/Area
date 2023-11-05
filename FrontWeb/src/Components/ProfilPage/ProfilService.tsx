@@ -3,9 +3,7 @@ import axios from "axios";
 
 const HorizontalRectangle: React.FC = () => {
   const [services, setServices] = useState<string[]>([]);
-  const [Image, setImage] = useState<
-    { name: string; description: string; logo_url: string }[] | undefined
-  >(undefined);
+  const [Image, setImage] = useState<{ name: string; description: string; logo_url: string }[] | undefined>(undefined);
 
   const getServices = () => {
     axios

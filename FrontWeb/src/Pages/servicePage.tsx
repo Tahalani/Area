@@ -30,16 +30,17 @@ export default function Service() {
   if (localStorage.getItem("token") == null) {
     window.location.href = "/loginPage";
   }
+
   const navigate = useNavigate();
   const { selectedService } = useServiceContext();
   const [services, setServices] = useState<ActionData[]>([]);
   const [popupData, setPopupData] = useState<ActionData | null>(null);
-  const [popupDataReaction, setPopupDataReaction] =
-    useState<ReactionData | null>(null);
+  const [popupDataReaction, setPopupDataReaction] = useState<ReactionData | null>(null);
   const [connected, setConnected] = useState<string[]>([]);
   const { t } = useTranslation();
   const [reactions, setReactions] = useState<ReactionData[]>([]);
   const [buttonVariable, setButtonVariable] = useState(0);
+  const [serviceMessage, setServiceMessage] = useState<string>("");
 
   const showPopup = (data: ActionData) => {
     setPopupData(data);
@@ -96,8 +97,6 @@ export default function Service() {
   const capitalizeFirstLetter = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
-
-  const [serviceMessage, setServiceMessage] = useState<string>("");
 
   const handleServiceCreated = (message: string) => {
     setServiceMessage(message);
