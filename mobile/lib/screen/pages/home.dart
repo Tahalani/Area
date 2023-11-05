@@ -309,6 +309,9 @@ class _myHomeState extends State<myHome> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
+                    if (connected_services.contains(service.serviceName) && service.serviceName == "google") {
+                      return;
+                    }
                     Navigator.push(
                         context,
                         MaterialPageRoute(
