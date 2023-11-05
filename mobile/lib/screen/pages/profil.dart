@@ -182,7 +182,6 @@ class _MyProfilState extends State<MyProfil> {
             filled: true,
             hintText: placeholder,
             hintStyle: const TextStyle(
-              // fontWeight: FontWeight.bold,
               color: Colors.black,
               fontSize: 18,
             ),
