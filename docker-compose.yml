@@ -38,6 +38,9 @@ services:
       dockerfile: Dockerfile
     environment:
       VITE_NODE_ENV: ${NODE_ENV}
+    depends_on:
+      - server
+      - client_mobile
     restart: always
     ports:
       - "8081:5173"
