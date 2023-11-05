@@ -19,5 +19,7 @@ export class ActionArray {
       7: this.githubAction.onIssues,
       8: this.githubAction.onPullReq,
       9: this.githubAction.onStarCreated,
+      10: this.githubAction.onCommentCreated,
+      11: this.githubAction.onMemberAdded,
     };
   }

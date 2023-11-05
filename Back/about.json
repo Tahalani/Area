@@ -44,6 +44,16 @@
                 "actionId": 9,
                 "description": "A star is created on a repository",
                 "params": [{"repo": "repository_name"}]
+                    },{
+                "name": "Issues/Pull requests comment added",
+                "actionId": 10,
+                "description": "A comment is added on an issue or a pull request",
+                "params": [{"repo": "repository_name"}]
+                    },{
+                "name": "member added",
+                "actionId": 11,
+                "description": "A member is added on a repository",
+                "params": [{"repo": "repository_name"}]
                     }],
             "reactions": [{
                 "name":"create issue",
@@ -76,12 +86,7 @@
             "name": "Microsoft",
             "description": "Microsoft Corporation est une multinationale informatique et micro-informatique américaine, fondée en 1975 par Bill Gates et Paul Allen. Microsoft fait partie des principales capitalisations boursières du NASDAQ, aux côtés d'Apple et d'Amazon. En 2018, le chiffre d'affaires s’élevait à 110,36 milliards de dollars.",
             "logo_url": "https://download.logo.wine/logo/Microsoft_Outlook/Microsoft_Outlook-Logo.wine.png",
-            "actions" : [{
-                "name": "Receive mail",
-                "actionId": 5,
-                "description": "When you receive a mail",
-                "params": [{}]
-                }],
+            "actions" : [],
             "reactions":[{
                 "name": "create event",
                 "reactionId": 4,
