@@ -8,7 +8,7 @@ import {
 import { GoogleService } from './google.service';
 import { GoogleGuard } from './google.guard';
 import { Response } from 'express';
-import { ApiExcludeEndpoint, ApiOkResponse } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiOkResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { config } from 'dotenv';
 import { AuthGuard } from 'src/auth/auth.guard';
 
@@ -24,12 +24,16 @@ export class GoogleController {
   @ApiOkResponse({
     description: 'Endpoint to redirect to google authentification',
   })
+  @ApiBearerAuth()
   @Get('google')
   @UseGuards(AuthGuard)
   async googleAddService(@Req() req: any) {
     await this.googleGuard.addService(req, req.res);
   }
 
+  @ApiOkResponse({
+    description: 'Endpoint to redirect to google authentification to register a new user',
+  })
   @Get('google/Register')
   @UseGuards(GoogleGuard)
   async googleAuth(@Req() req: any) {}

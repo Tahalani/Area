@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { GitlabService } from './gitlab.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { config } from 'dotenv';
-import { ApiBearerAuth, ApiExcludeEndpoint } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiExcludeEndpoint, ApiOkResponse } from '@nestjs/swagger';
 
 config()
 
@@ -12,6 +12,7 @@ export class GitlabController {
     constructor(private readonly gitlabService: GitlabService) {}
 
     @ApiBearerAuth()
+    @ApiOkResponse({"description": "Endpoint to redirect to Gitlab authentification"})
     @UseGuards(AuthGuard)
     @Get('auth/gitlab')
     async gitlabAuth(@Req() req: any, @Res() res: Response) {
@@ -26,6 +27,7 @@ export class GitlabController {
         '&scope=' + scope + '&state=' + state + '&response_type=' + response_type);
     }
 
+    @ApiExcludeEndpoint()
     @Get('auth/gitlab/callback')
     async gitlabAuthCallback(@Req() req: any, @Res() res: Response) {
         this.gitlabService.addService(req);

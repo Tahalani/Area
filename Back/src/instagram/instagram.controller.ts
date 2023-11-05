@@ -2,7 +2,7 @@ import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { InstagramService } from './instagram.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ApiBearerAuth, ApiExcludeEndpoint } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiExcludeEndpoint, ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('api')
 export class InstagramController {
@@ -11,6 +11,7 @@ export class InstagramController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get('auth/instagram')
+    @ApiOkResponse({"description": "Endpoint to redirect to Instagram authentification"})
     async instagramAuth(@Req() req: any, @Res() res: Response) {
         console.log("instagramAuth");
         const client_id = `${process.env.INSTAGRAM_CLIENT_ID}`;

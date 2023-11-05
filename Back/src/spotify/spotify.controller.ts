@@ -2,7 +2,7 @@ import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { SpotifyService } from './spotify.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { ApiExcludeEndpoint, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
 import { config } from 'dotenv';
 
 config();
@@ -14,6 +14,7 @@ export class SpotifyController {
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get('auth/spotify')
+    @ApiOkResponse({"description": "Endpoint to redirect to Spotify authentification"})
     async spotifyAuth(@Req() req: any, @Res() res: Response) {
         console.log("spotifyAuth");
         const client_id = `${process.env.SPOTIFY_CLIENT_ID}`;
