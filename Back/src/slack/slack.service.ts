@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import { UserEntity } from 'src/entity/user.entity';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
+import { QueryFailedError } from 'typeorm';
 import axios from 'axios';
 
 config();
@@ -76,11 +77,28 @@ export class SlackService {
         userService.serviceIdentifier = serviceIdentifier;
 
         try {
-            console.log("Saving Slack token ...");
+            console.log("save token Slack ...");
             await userService.save();
-        } catch (error) {
-            console.error('Error saving token: ', error);
-            return;
+          } catch (error) {
+            if (error instanceof QueryFailedError && error.message.includes('duplicate key value violates unique constraint')) {
+              const existingEntity = await UserServiceEntity.findOne({
+                where: {
+                  user: { id: user.id },
+                  service: { id: service.id },
+                },
+            });
+            if (existingEntity) {
+              existingEntity.token = token
+              try {
+                console.log("update token Slack ...");
+                await existingEntity.save();
+              } catch (error) {
+                console.error('Error updating token for user ', user.id, ' and service ', service.id);
+                console.error(error);
+              }
+              return;
+            }
+          }
         }
     }
 

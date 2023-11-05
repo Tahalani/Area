@@ -3,6 +3,7 @@ import { UserEntity } from 'src/entity/user.entity';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
 import { config } from 'dotenv';
+import { QueryFailedError } from 'typeorm';
 import axios from 'axios';
 
 config();
@@ -64,11 +65,28 @@ export class FigmaService {
         userService.token = token;
 
         try {
-          console.log("Saving Figma token...");
-          await userService.save();
-        } catch (error) {
-          console.error("Error saving token: ", error);
-          return;
+            console.log("save token Figma ...");
+            await userService.save();
+          } catch (error) {
+            if (error instanceof QueryFailedError && error.message.includes('duplicate key value violates unique constraint')) {
+              const existingEntity = await UserServiceEntity.findOne({
+                where: {
+                  user: { id: user.id },
+                  service: { id: service.id },
+                },
+            });
+            if (existingEntity) {
+              existingEntity.token = token
+              try {
+                console.log("update token Figma ...");
+                await existingEntity.save();
+              } catch (error) {
+                console.error('Error updating token for user ', user.id, ' and service ', service.id);
+                console.error(error);
+              }
+              return;
+            }
+          }
         }
     }
 

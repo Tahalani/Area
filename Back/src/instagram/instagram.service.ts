@@ -3,6 +3,7 @@ import axios from 'axios';
 import { UserEntity } from 'src/entity/user.entity';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
+import { QueryFailedError } from 'typeorm';
 
 @Injectable()
 export class InstagramService {
@@ -47,11 +48,29 @@ export class InstagramService {
         userService.token = token;
 
         try {
+          console.log("save token Instagram ...");
           await userService.save();
-          console.log("User service instagram saved");
         } catch (error) {
-          console.error("Error saving user service instagram: ", error);
+          if (error instanceof QueryFailedError && error.message.includes('duplicate key value violates unique constraint')) {
+            const existingEntity = await UserServiceEntity.findOne({
+              where: {
+                user: { id: user.id },
+                service: { id: service.id },
+              },
+          });
+          if (existingEntity) {
+            existingEntity.token = token
+            try {
+              console.log("update token Instagram ...");
+              await existingEntity.save();
+            } catch (error) {
+              console.error('Error updating token for user ', user.id, ' and service ', service.id);
+              console.error(error);
+            }
+            return;
+          }
         }
+      }
     }
 
     async getInstagramToken({ code }: { code: string }): Promise<string | undefined> {

@@ -9,6 +9,7 @@ import { Octokit } from '@octokit/rest';
 import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionEntity } from 'src/entity/reaction.entity';
 import { ReactionArray } from 'src/reaction/reaction.array';
+import { QueryFailedError, getRepository } from 'typeorm';
 
 config();
 
@@ -73,11 +74,9 @@ export class GitHubService {
   }
 
   async addService(request: any): Promise<void> {
-    const userMail = request.query.state; // grace à ca on sait qui a fait la demande
-    const code = request.query.code; // a voir si il faut garder code ou access token
-    console.log('code: ', code);
+    const userMail = request.query.state;
+    const code = request.query.code;
     const GitHubAccesstoken = await getGitHubToken({ code: code });
-    console.log('GitHubAccesstoken: ', GitHubAccesstoken);
     if (GitHubAccesstoken === undefined) {
       console.error('Error getting token');
       return;
@@ -106,10 +105,28 @@ export class GitHubService {
     userService.token = token;
 
     try {
+      console.log('save token Github ...');
       await userService.save();
     } catch (error) {
-      console.error('Error saving token');
-      return;
+        if (error instanceof QueryFailedError && error.message.includes('duplicate key value violates unique constraint')) {
+          const existingEntity = await UserServiceEntity.findOne({
+            where: {
+              user: { id: user.id },
+              service: { id: service.id },
+            },
+        });
+        if (existingEntity) {
+          existingEntity.token = token
+          try {
+            console.log("update token Github ...");
+            await existingEntity.save();
+          } catch (error) {
+            console.error('Error updating token for user ', user.id, ' and service ', service.id);
+            console.error(error);
+          }
+          return;
+        }
+      }
     }
   }
 

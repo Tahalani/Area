@@ -59,6 +59,11 @@ export default function Service() {
   };
 
   const AccountConnection = () => {
+    console.log("AccountConnection");
+    if (connected.includes(selectedService.bottomText) && selectedService.bottomText == "google") {
+      console.log("google already connected");
+      return
+    }
     window.location.href =
       import.meta.env.VITE_DNS_NAME +
       ":8080/api/auth/" +
@@ -162,9 +167,7 @@ export default function Service() {
               style={{ fontFamily: "merriweather" }}
               className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn btn-lg text-white rounded-full font-bold mt-[20px]"
               onClick={() => {
-                if (!connected.includes(selectedService.bottomText)) {
                   AccountConnection();
-                }
               }}
             >
               {connected.includes(selectedService.bottomText)

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { UserEntity } from 'src/entity/user.entity';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
+import { QueryFailedError } from 'typeorm';
 
 @Injectable()
 export class SpotifyService {
@@ -58,12 +59,29 @@ export class SpotifyService {
         userService.token = token;
 
         try {
-          console.log("Saving Spotify token...");
+          console.log("save token Spotify ...");
           await userService.save();
         } catch (error) {
-          console.error("Error saving token: ", error);
-          return;
+          if (error instanceof QueryFailedError && error.message.includes('duplicate key value violates unique constraint')) {
+            const existingEntity = await UserServiceEntity.findOne({
+              where: {
+                user: { id: user.id },
+                service: { id: service.id },
+              },
+          });
+          if (existingEntity) {
+            existingEntity.token = token
+            try {
+              console.log("update token Spotify ...");
+              await existingEntity.save();
+            } catch (error) {
+              console.error('Error updating token for user ', user.id, ' and service ', service.id);
+              console.error(error);
+            }
+            return;
+          }
         }
+      }
       }
 
     async getSpotifyToken({ code }: { code: string }): Promise<string | string[] | undefined> {

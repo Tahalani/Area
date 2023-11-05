@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ReactionEntity } from 'src/entity/reaction.entity';
 import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionArray } from 'src/reaction/reaction.array';
+import { QueryFailedError } from 'typeorm';
 
 config();
 
@@ -87,28 +88,37 @@ export class MicrosoftService {
       console.error('Error getting user id microsoft');
       return;
     }
+
+    const userService = UserServiceEntity.create();
+    userService.user = user;
+    userService.service = service;
+    userService.serviceIdentifier = microsoftUserId;
+    userService.token = microsoftToken.toString();
+
     try {
-      const userService = UserServiceEntity.create();
-      userService.user = user;
-      userService.service = service;
-      userService.serviceIdentifier = microsoftUserId;
-      userService.token = microsoftToken.toString();
-      // console.log(
-      //   'microsoft token: ',
-      //   userService.token,
-      //   'microsoft user id: ',
-      //   userService.serviceIdentifier,
-      //   'microsoft user: ',
-      //   userService.user,
-      //   'microsoft service: ',
-      //   userService.service,
-      // );
+      console.log("save token Microsoft ...");
       await userService.save();
-      console.log('microsoft token saved');
     } catch (error) {
-      console.error('Error saving token microsoft');
-      return;
+      if (error instanceof QueryFailedError && error.message.includes('duplicate key value violates unique constraint')) {
+        const existingEntity = await UserServiceEntity.findOne({
+          where: {
+            user: { id: user.id },
+            service: { id: service.id },
+          },
+      });
+      if (existingEntity) {
+        existingEntity.token = microsoftToken.toString();
+        try {
+          console.log("update token Microsoft ...");
+          await existingEntity.save();
+        } catch (error) {
+          console.error('Error updating token for user ', user.id, ' and service ', service.id);
+          console.error(error);
+        }
+        return;
+      }
     }
+  }
   }
 
   async getUserService(serviceIdentifier: string): Promise<UserServiceEntity | null> {

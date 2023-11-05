@@ -14,7 +14,7 @@ export class InstagramController {
     @ApiOkResponse({"description": "Endpoint to redirect to Instagram authentification"})
     async instagramAuth(@Req() req: any, @Res() res: Response) {
         console.log("instagramAuth");
-        const client_id = `${process.env.INSTAGRAM_CLIENT_ID}`;
+        const client_id = `${process.env.INSTA_CLIENT_ID}`;
         const redirect_uri = `${process.env.DNS_NAME}:8080/api/auth/instagram/callback`
 
         res.redirect('https://api.instagram.com/oauth/authorize' +
