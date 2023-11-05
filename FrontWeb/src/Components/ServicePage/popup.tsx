@@ -35,7 +35,7 @@ type ServiceData = {
 
 const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameService }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
-  const [check, setCheck] = useState(1);
+  const [check, setCheck] = useState(5);
   const [isConnected, setIsConnected] = useState(0);
   const { t } = useTranslation();
   const parsedActions = data ? Parse(data.args_action) : null;
@@ -48,9 +48,10 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
   const [selectedService, setSelectedService] = useState<ServiceData | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [userServices, setUserServices] = useState<string[]>([]);
+  const [nameArea, setNameArea] = useState<string>("");
+  const [isField, setIsField] = useState(0);
 
   const openModal = () => {
-    console.log(userServices)
     if (!userServices.includes(nameService)) {
       setIsConnected(1);
       return;
@@ -73,7 +74,21 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
     setTextInputReaction({ ...textInputReaction });
   }
   const addAction = () => {
+    if (Object.keys(textInputAction).length === 0) {
+      setIsField(1);
+      return;
+    }
     setCheck(2);
+    setIsField(0);
+  }
+
+  const addAreaName = () => {
+    if (nameArea === "") {
+      setIsField(1);
+      return;
+    }
+    setCheck(1);
+    setIsField(0);
   }
 
   const handleReactionButtonClick = (reaction: ReactionData) => {
@@ -96,6 +111,12 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
   const backFirst = () => {
     setTextInputAction({});
     setCheck(1);
+  }
+  
+  const backFive = () => {
+    setNameArea("");
+    setTextInputAction({});
+    setCheck(5);
   }
 
   const backSecondary = () => {
@@ -134,17 +155,6 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
       });
   };
 
-  useEffect(() => {
-    getServices();
-    getUserServices();
-    if (errorMessage) {
-      closeModal();
-    }
-    if (check === 3) {
-      getReactions();
-    }
-  }, [check, errorMessage]);
-
   const getUserServices = () => {
     axios
       .get(
@@ -182,6 +192,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
       .post(import.meta.env.VITE_DNS_NAME + ':8080/api/area/create', {
         id_Action: data.id,
         id_Reaction: selectedReaction?.id,
+        areaName: nameArea,
         argsAction: {
           ...objAction,
         },
@@ -204,8 +215,24 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
   };
 
   const handleSubmit = () => {
+    if (Object.keys(textInputReaction).length === 0) {
+      setIsField(1);
+      return;
+    }
+    setIsField(0);
     createArea();
   };
+
+  useEffect(() => {
+    getServices();
+    getUserServices();
+    if (errorMessage) {
+      closeModal();
+    }
+    if (check === 3) {
+      getReactions();
+    }
+  }, [check, errorMessage]);
 
   return (
     <>
@@ -224,8 +251,36 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
             </form>
             <div>
 
+            {check === 5 && (
+              <div className="flex flex-col items-center">
+                <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">{t("Name of the Area")}</h1>
+                <input
+                  type="text"
+                  value={nameArea}
+                  onChange={(event) => setNameArea(event.target.value)}
+                  className="mb-6 border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500"
+                  placeholder={t("Enter the Name of the Area")}
+                />
+                <button
+                  style={{ fontFamily: 'merriweather' }}
+                  className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]"
+                  onClick={addAreaName}
+                >
+                  {t("next")}
+                </button>
+                {isField === 1 && (
+                <div>
+                  <p style={{ fontFamily: 'merriweather' }} className="font-semibold text-[15px] text-red-500 mt-[10px]">{t("Complétez tous les champs de texte.")}</p>
+                </div>
+                )}
+              </div>
+            )}
+
             {check === 1 && (
             <div>
+              <form method="dialog">
+                <button className="btn btn-sm btn-circle btn-ghost absolute left-2 top-2" onClick={backFive}>-</button>
+              </form>
               <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">Action</h1>
               <ul>
                 {parsedActions && parsedActions.map((item, index) => (
@@ -246,6 +301,11 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
                 ))}
               </ul>
               <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={addAction}>{t("next")}</button>
+              {isField === 1 && (
+                <div>
+                  <p style={{ fontFamily: 'merriweather' }} className="font-semibold text-[15px] text-red-500 mt-[10px]">{t("Complétez tous les champs de texte.")}</p>
+                </div>
+              )}
             </div>
             )}
 
@@ -311,6 +371,11 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
                 ))}
               </ul>
               <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={handleSubmit} >{t("submit")}</button>
+              {isField === 1 && (
+                <div>
+                  <p style={{ fontFamily: 'merriweather' }} className="font-semibold text-[15px] text-red-500 mt-[10px]">{t("Complétez tous les champs de texte.")}</p>
+                </div>
+              )}
             </div>
             )}
           </div>

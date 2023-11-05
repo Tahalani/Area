@@ -1,59 +1,62 @@
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 function Navbar() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const redirectToLoginPage = () => {
     navigate("/loginPage");
   };
-  const { t } = useTranslation();
-  const navigate = useNavigate();
 
   return (
     <>
       <div className="w-screen">
         <div className="navbar w-full pt-10 bg-main dark:bg-slate-800">
           <div className="navbar-start">
-            <a
-              style={{ fontFamily: "Londrina" }}
-              className="text-[40px] ml-[132px] text-black dark:text-white"
-            >
-              <Link to="/areaPage">NetQ.</Link>
-            </a>
+            <Link to="/areaPage" style={{ fontFamily: "Londrina" }}>
+              <span className="text-[40px] ml-[132px] text-black dark:text-white">
+                NetQ.
+              </span>
+            </Link>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal space-x-10 dark:text-white text-gray-900">
               <li>
-                <a
+                <Link
+                  to="/creationPage"
                   style={{ fontFamily: "merriweather" }}
                   className="text-[25px]"
                 >
-                  <Link to="/creationPage">{t("creationarea")}</Link>
-                </a>
+                  {t("creationarea")}
+                </Link>
               </li>
               <li>
-                <a
+                <Link
+                  to="/areaPage"
                   style={{ fontFamily: "merriweather" }}
                   className="text-[25px]"
                 >
-                  <Link to="/areaPage">Services</Link>
-                </a>
+                  Services
+                </Link>
               </li>
               <li>
-                <a
+                <Link
+                  to="/profilPage"
                   style={{ fontFamily: "merriweather" }}
                   className="text-[25px]"
                 >
-                  <Link to="/profilPage">{t("profil")}</Link>
-                </a>
+                  {t("profil")}
+                </Link>
               </li>
               <li>
-                <a
+                <Link
+                  to="/settingPage"
                   style={{ fontFamily: "merriweather" }}
                   className="text-[25px]"
                 >
-                  <Link to="/settingPage">{t("setting")}</Link>
-                </a>
+                  {t("setting")}
+                </Link>
               </li>
             </ul>
           </div>
