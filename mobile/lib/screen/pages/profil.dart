@@ -127,6 +127,7 @@ class _MyProfilState extends State<MyProfil> {
                   width: 1,
                 ),
               ),
+              color: Colors.grey[200],
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -135,7 +136,7 @@ class _MyProfilState extends State<MyProfil> {
                       child: Stack(
                         children: [
                           CircleAvatar(
-                            backgroundColor: Colors.black.withOpacity(0.1),
+                            backgroundColor: Colors.white,
                             radius: 60,
                             child: Text(
                               (user.firstName.isNotEmpty)
@@ -181,7 +182,8 @@ class _MyProfilState extends State<MyProfil> {
             filled: true,
             hintText: placeholder,
             hintStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
+              // fontWeight: FontWeight.bold,
+              color: Colors.black,
               fontSize: 18,
             ),
             border: OutlineInputBorder(

@@ -363,7 +363,7 @@ class _myHomeState extends State<myHome> {
             ListTile(
               leading: area.actions.image,
               title: Text(
-                area.actions.serviceName,
+                area.actions.serviceName.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -374,7 +374,7 @@ class _myHomeState extends State<myHome> {
             ListTile(
               leading: area.reactions.image,
               title: Text(
-                area.reactions.serviceName,
+                area.reactions.serviceName.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
