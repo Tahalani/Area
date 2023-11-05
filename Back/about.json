@@ -65,8 +65,12 @@
                 "reactionId": 2,
                 "description":"Create a pull request on a repository",
                 "params": [{"repo": "repository_name", "title": "pull_request_title", "body": "pull_request_body", "head": "pull_request_head", "base": "pull_request_base"}]
-                    }
-                ]
+                }, {
+                "name": "Create comment Issue",
+                "reactionId": 43,
+                "description": "Create a comment on an issue",
+                "params": [{"repo": "repository_name", "issue_id": "issue id", "body": "body"}]
+                }]
             },{
             "name": "Google",
             "description": "Google est une entreprise américaine de services technologiques fondée en 1998 dans la Silicon Valley, en Californie, par Larry Page et Sergey Brin, créateurs du moteur de recherche Google. C'est une filiale de la société Alphabet depuis août 2015.",
@@ -249,12 +253,32 @@
                 "name": "Create Issue",
                 "reactionId": 31,
                 "description": "Create a Issue",
-                "params": [{"project_id": "project_id", "title": "title", "description": "description"}]
+                "params": [{"project_id": "project id", "title": "title", "description": "description"}]
             }, {
                 "name": "Delete Issue",
                 "reactionId": 32,
                 "description": "Delete a Issue",
-                "params": [{"project_id": "project_id", "issue_id": "issue_id"}]
+                "params": [{"project_id": "project id", "issue_id": "issue id"}]
+            }, {
+                "name": "Create Branch",
+                "reactionId": 39,
+                "description": "Create a Branch",
+                "params": [{"project_id": "project id", "branch_name": "branch name", "ref": "ref"}]
+            }, {
+                "name": "Delete Branch",
+                "reactionId": 40,
+                "description": "Delete a Branch",
+                "params": [{"project_id": "project id", "branch_name": "branch name"}]
+            }, {
+                "name": "Create Merge Request",
+                "reactionId": 41,
+                "description": "Create a Merge Request",
+                "params": [{"project_id": "project id", "source_branch": "source branch", "target_branch": "target branch", "title": "title", "description": "description"}]
+            }, {
+                "name": "Delete Merge Request",
+                "reactionId": 42,
+                "description": "Delete a Merge Request",
+                "params": [{"project_id": "project id", "merge_request_id": "merge request id"}]
             }]
         }, {
             "name": "Twitch",
