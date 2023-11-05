@@ -112,7 +112,7 @@ export default function Creation() {
                     <div className="absolute top-2 right-2 p-2 text-red-600">
                       <DeleteCard areaMap={item} />
                     </div>
-                    <h1 className="font-bold pt-[10px] text-[30px] text-black dark-text-white mb-[10px]">
+                    <h1 className="font-bold pt-[10px] text-[30px] dark:text-white text-black dark-text-white mb-[10px]">
                       {item.areaName}
                     </h1>
                     <div className="mr-[20%] ml-[20%] h-[100px] flex flex-row mb-[20px]">
