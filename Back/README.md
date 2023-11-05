@@ -1,73 +1,95 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Projet Area - BACK
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Présentation global des technologies
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![Screenshot](https://imageupload.io/ib/uApZNL3SxJexJz6_1699195103.png)
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Notre projet utilise **PostgreSQL** comme base de données, **Nest.js** pour le backend, **React** avec TypeScript pour l'interface web, et **Flutter** pour l'application mobile. Tout est déployé via **Docker** sur un serveur en ligne pour garantir une performance optimale.
 
-## Installation
 
-```bash
-$ npm install
+## Ajout d'un service
+
+
+Dans le répertoire *Back/src* taper les commandes suivantes :
+
+```
+nest g ServiceName module
+nest g ServiceName controller
+nest g ServiceName service
+```
+### Dans le fichier **ServiceName.controller.ts** :
+
+Ajouter deux routes :
+
+*/api/auth/ServiceName*
+Cette route permettra de rediriger la requete de l'utilisateur vers la page de login du service. Il faudra rajouter une variable state à l'url qui contient l'email de l'user, mettre en redirect_uri la route **/api/ServiceName/Callback** et mettre les bons paramètre et bon scope relative au Service.
+
+*/api/ServiceName/Callback* Cette route recevra les informations de connection de l'user au service
+
+#### voici un exemple :
+
+```ts
+@Get('auth/ServiceName')
+async ServiceNameAuth(@Req() req: any, @Res() res: Response) {
+const redirect_url = `${process.env.DNS_NAME}:8080/api/auth/ServiceName/callback`;
+res.redirect(
+    `https://urlOauthDuService.com/?lesDifferentsParams&redirect_url=${redirect_url}&state=${req.user.email},
+);
+}
+
+@ApiExcludeEndpoint()
+@Get('auth/ServiName/callback')
+async ServiceNameAuthCallback(@Req() req: any, @Res() res: Response) {
+this.ServiceName.addService(req);
+res.redirect(`${process.env.DNS_NAME}:8081/AreaPage`);
+}
 ```
 
-## Running the app
+### Dans le fichier **ServiceName.service.ts** :
 
-```bash
-# development
-$ npm run start
+Vous allez désormais ajouter une method addService dans la classe.
 
-# watch mode
-$ npm run start:dev
+Cette dernière a pour but de parser la réponse reçu par le service, et associé dans la base de donné le service et l'user (avec également le token de l'user sur ce service)
 
-# production mode
-$ npm run start:prod
+#### voici un exemple simple:
+```ts
+async addService(req: any) {
+    console.log("addService");
+    if (req.query.token === undefined)
+        return ("error")
+    const accessToken = req.query.token;
+    const infoUser = await this.getUserInfo(accessToken); ## fonction qui récupère l'utilisateur (plusieurs exemple disponible dans le code)
+
+    if (infoUser === undefined) {
+        console.log("Error getting user info");
+        return;
+    }
+    const serviceIdentifier = infoUser.profile.real_name;
+    this.saveToken(req.user.email, accessToken, serviceIdentifier, "serviceName");
+}
+
+async saveToken(email: string, token: string, serviceIdentifier: string, serviceName: string) {
+    const user = await UserEntity.findOne({ where: { email: email } });
+    const service = await ServiceEntity.findOne({ where: { name: serviceName } });
+
+    if (user === null || service === null) {
+        console.error('User or Service not found (', email, ')');
+        return;
+    }
+    const userService = new UserServiceEntity(), userService.user = user, userService.service = service, userService.token = token, userService.serviceIdentifier = serviceIdentifier;
+
+
+    try {
+        console.log("Saving Slack token ...");
+        await userService.save();
+    } catch (error) {
+        console.error('Error saving token: ', error);
+        return;
+    }
+}
 ```
 
-## Test
+Désormais vous avez juste à rajouter des actions et des reactions à votre service.
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Vous avez énormément dans d'exemple d'ajouts d'actions et de réactions dans le répertoire *Back/src/UnService/* action ou reaction
