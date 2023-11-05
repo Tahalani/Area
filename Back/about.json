@@ -309,7 +309,12 @@
             "description": "Medium est une plateforme de blogs américaine, lancée en août 2012 par Evan Williams, cofondateur de Twitter. Medium est une plateforme de publication de billets de blog, qui permet aux utilisateurs inscrits de publier des articles sur une multitude de sujets.",
             "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Medium_logo_Monogram.svg/768px-Medium_logo_Monogram.svg.png",
             "actions": [],
-            "reactions": []
+            "reactions": [{
+                "name": "Create Post",
+                "reactionId": 38,
+                "description": "Create a Post",
+                "params": [{"title": "title" , "content": "content"}]
+            }]
         }]
     }
 }

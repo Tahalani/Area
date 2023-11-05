@@ -11,6 +11,7 @@ import { TwitchModule } from 'src/twitch/twitch.module';
 import { GitlabModule } from 'src/gitlab/gitlab.module';
 import { SlackModule } from 'src/slack/slack.module';
 import { DropboxModule } from 'src/dropbox/dropbox.module';
+import { MediumModule } from 'src/medium/medium.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { DropboxModule } from 'src/dropbox/dropbox.module';
     forwardRef(() => GitlabModule),
     forwardRef(() => SlackModule),
     forwardRef(() => DropboxModule),
+    forwardRef(() => MediumModule),
   ],
   providers: [ReactionArray],
   exports: [ReactionArray],

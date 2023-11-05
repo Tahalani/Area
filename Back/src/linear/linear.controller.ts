@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { LinearService } from './linear.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { config } from 'dotenv';
-import { ApiBearerAuth, ApiExcludeEndpoint } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiExcludeEndpoint, ApiOkResponse } from '@nestjs/swagger';
 
 
 @Controller('api')
@@ -12,6 +12,7 @@ export class LinearController {
 
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
+    @ApiOkResponse({"description": "Endpoint to redirect to Linear authentification"})
     @Get('auth/linear')
     async linearAuth(@Req() req: any, @Res() res: Response) {
         console.log("linearAuth");

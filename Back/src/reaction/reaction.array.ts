@@ -10,6 +10,7 @@ import { ReactionTwitch } from "src/twitch/reactionTwitch";
 import { ReactionGitlab } from "src/gitlab/reactionGitlab";
 import { ReactionSlack } from "src/slack/reactionSlack";
 import { ReactionDropbox } from "src/dropbox/reactionDropbox";
+import { ReactionMedium } from "src/medium/reactionMedium";
 
 @Injectable()
 export class ReactionArray {
@@ -24,7 +25,8 @@ export class ReactionArray {
       private readonly reactionTwitch: ReactionTwitch,
       private readonly reactionGitlab: ReactionGitlab,
       private readonly reactionSlack: ReactionSlack,
-      private readonly reactionDropbox: ReactionDropbox
+      private readonly reactionDropbox: ReactionDropbox,
+      private readonly reactionMedium: ReactionMedium
     ) {}
 
     map: { [key: number] : (userService: any, arg: any) => any } = {
@@ -63,6 +65,7 @@ export class ReactionArray {
       34: this.reactionSlack.leaveChannel,
       35: this.reactionSlack.renameChannel,
       36: this.reactionDropbox.deleteFile,
-      37: this.reactionDropbox.copyFile
+      37: this.reactionDropbox.copyFile,
+      38: this.reactionMedium.createPost
     };
   }

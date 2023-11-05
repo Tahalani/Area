@@ -4,9 +4,8 @@ import axios, { Axios } from 'axios';
 
 @Injectable()
 export class ReactionGitlab {
-  
+
   async createIssue(userService: UserServiceEntity, arg: any) {
-    console.log(userService.token)
     const headers = {
       Authorization: `Bearer ${userService.token}`,
     };
