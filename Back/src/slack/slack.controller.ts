@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { SlackService } from './slack.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { config } from 'dotenv';
-import { ApiExcludeEndpoint, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
 
 config();
 
@@ -13,6 +13,7 @@ export class SlackController {
 
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
+    @ApiOkResponse({"description": "Endpoint to redirect to Slack authentification"})
     @Get('auth/slack')
     async slackAuth(@Req() req: any, @Res() res: Response) {
         console.log("slackAuth");

@@ -13,6 +13,7 @@ interface Area {
   areaId: number;
   reactionId: number;
   reactionName: string;
+  areaName: string;
 }
 
 interface Service {
@@ -61,6 +62,10 @@ export default function Creation() {
       });
   };
 
+  const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   useEffect(() => {
     document.body.classList.add("disable-scroll");
     getAreaCreated();
@@ -76,62 +81,88 @@ export default function Creation() {
         <NavigationbarMd />
       </div>
       {check === 1 && (
-      <div className="bg-main dark:bg-slate-800 h-screen">
-        <h1 className="font-bold text-[30px] text-black dark:text-white p-[40px]">{t("creationarea")}</h1>
-        <div style={{ margin: "0 20%" }} className="rounded-lg overflow-y-auto max-h-[600px] pt-[30px] pb-[30px] pl-[10px] pr-[10px]">
-          <ul>
-            {areaData.map((item, index) => (
-              <li key={index}>
-                <div className="flex space-x-4 m-[10px]">
-                <div className="rounded-full flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md relative">
-                    <div className="w-1/5">
-                      {servicesData.find(service => service.id === item.actionId)?.logo_url && (
+        <div className="bg-main dark:bg-slate-800 h-screen">
+          <div className="flex justify-center items-center">
+            <h1 className="font-bold ml-[20%] mr-[20%] text-[30px] dark:text-white text-black dark-text-white p-[40px]">{t("creationarea")}</h1>
+            <div className="absolute top-1/5 right-1/3">
+              <button
+                style={{ fontFamily: "merriweather" }}
+                className="shadow-2xl bg-secondary btn btn-md text-white rounded-full font-bold"
+                onClick={() => {navigate("/areaPage")}}
+              >
+                {t("creationareabutton")}
+              </button>
+            </div>
+          </div>
+          <div className="mr-[20%] ml-[20%] rounded-lg overflow-y-auto max-h-[600px]" >
+            <ul>
+              {areaData.map((item, index) => (
+                <div className="">
+                  <li
+                    key={index}
+                    className="bg-[#F3F3F3] dark:bg-slate-500 mb-6 border border-solid border-gray-300 relative"
+                  >
+                    <div className="absolute top-2 right-2 p-2 text-red-600">
+                      <DeleteCard areaMap={item} />
+                    </div>
+                    <h1 className="font-bold pt-[10px] text-[30px] dark:text-white text-black dark-text-white mb-[10px]">{item.areaName}</h1>
+                    <div className="mr-[20%] ml-[20%] h-[100px] flex flex-row mb-[20px]">
+                      <div className="flex w-[10%] items-center justify-center">
                         <img
-                          src={servicesData.find(service => service.id === item.actionId)?.logo_url}
-                          alt={servicesData.find(service => service.id === item.actionId)?.name}
-                          className="w-12 h-12 mr-4"
+                          src={servicesData.find((service) => service.id === item.actionId)?.logo_url}
+                          alt={servicesData.find((service) => service.id === item.actionId)?.name}
+                          className="max-w-full max-h-full"
                         />
-                      )}
-                    </div>
-                    <div className="w-4/5 text-[20px] font-bold">
-                      {item.actionName}
-                    </div>
-                  </div>
-                  {/* <div className="text-4xl text-blue-500 flex items-center">
-                    &#10148;
-                  </div> */}
-                  <DeleteCard areaMap={item} />
-                  <div className="rounded-full flex-1 flex text-left justify-center items-center flex-row bg-secondary p-4 text-white rounded-md">
-                    <div className="w-1/5">
-                      {servicesData.find(service => service.id === item.reactionId)?.logo_url && (
+                      </div>
+                      <div className="relative w-[35%] flex-col">
+                        <div className="h-2/3 bottom-0 left-0 h-1/2 font-bold pl-2 pt-[5px] text-[20px] dark:text-white text-gray-800 flex items-center">
+                          {capitalizeFirstLetter(String(servicesData.find((service) => service.id === item.actionId)?.name))}
+                        </div>
+                        <div className="h-1/3 pl-2 text-[20px] text-gray-800 dark:text-gray-100 flex items-center">
+                          {item.actionName}
+                        </div>
+                      </div>
+                      <div className="w-[10%]">
+                        <div className="text-[60px] text-gray-800 items-center justify-center">
+                          &#10148;
+                        </div>
+                      </div>
+                      <div className="w-[10%]"></div>
+                      <div className="flex w-[10%] items-center justify-center">
                         <img
-                          src={servicesData.find(service => service.id === item.reactionId)?.logo_url}
-                          alt={servicesData.find(service => service.id === item.reactionId)?.name}
-                          className="w-12 h-12 mr-4"
+                          src={servicesData.find((service) => service.id === item.reactionId)?.logo_url}
+                          alt={servicesData.find((service) => service.id === item.reactionId)?.name}
+                          className="max-w-full max-h-full"
                         />
-                      )}
+                      </div>
+                      <div className="relative w-[25%] flex-col">
+                        <div className="h-2/3 bottom-0 left-0 h-1/2 font-bold pl-2 pt-[5px] text-[20px] dark:text-white text-gray-800 flex items-center">
+                          {capitalizeFirstLetter(String(servicesData.find((service) => service.id === item.reactionId)?.name))}
+                        </div>
+                        <div className="h-1/3 pl-2 text-[20px] text-gray-800 dark:text-gray-100 flex items-center">
+                          {item.reactionName}
+                        </div>
+                      </div>
                     </div>
-                    <div className="w-4/5 text-[20px] font-bold">
-                      {item.reactionName}
-                    </div>
-                  </div>
+                  </li>
                 </div>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
       )}
       {check === 2 && (
         <div className="bg-main dark:bg-slate-800 h-screen">
-          <h1 className="font-bold text-[30px] dark:text-white text-black p-[40px]">{t("creationarea")}</h1>
+          <h1 className="font-bold text-[30px] dark:text-white text-black p-[40px]">
+            {t("creationarea")}
+          </h1>
           <button
-              style={{ fontFamily: "merriweather" }}
-              className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn btn-lg text-white rounded-full font-bold mt-[5%]"
-              onClick={() => {navigate("/areaPage")}}
-            >
-              {t("creationareabutton")}
-            </button>
+            style={{ fontFamily: "merriweather" }}
+            className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn btn-lg text-white rounded-full font-bold mt-[5%]"
+            onClick={() => {navigate("/areaPage")}}
+          >
+            {t("creationareabutton")}
+          </button>
         </div>
       )}
     </>

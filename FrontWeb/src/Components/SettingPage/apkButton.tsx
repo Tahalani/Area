@@ -9,10 +9,12 @@ export default function ApkButton() {
 
   return (
     <>
-      <div className="flex items-center justify-center mt-10">
+      <div className="flex justify-center items-center">
+        <h1 style={{ fontFamily: "merriweather" }} className=" text-[30px] bg-main dark:bg-slate-800 text-black dark:text-white font-bold mt-[-20px] mb-[48px] pl-[20px] pr-[20px]">{t("apkDownload")}</h1>
+      </div>
         <button
           onClick={handleDownloadAPK}
-          className="btn btn-primary bg-secondary text-white font-bold py-2 px-4 rounded-full"
+          className="btn btn-primary bg-secondary text-white mt-[10px] font-bold py-2 px-4 rounded-full"
         >
           <svg
             className="w-6 h-6 mr-2"
@@ -25,9 +27,8 @@ export default function ApkButton() {
           >
             <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
           </svg>
-          {t("apkDownload")}
+          {t("download for free")}
         </button>
-      </div>
     </>
   );
 }

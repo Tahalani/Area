@@ -30,16 +30,17 @@ export default function Service() {
   if (localStorage.getItem("token") == null) {
     window.location.href = "/loginPage";
   }
+
   const navigate = useNavigate();
   const { selectedService } = useServiceContext();
   const [services, setServices] = useState<ActionData[]>([]);
   const [popupData, setPopupData] = useState<ActionData | null>(null);
-  const [popupDataReaction, setPopupDataReaction] =
-    useState<ReactionData | null>(null);
+  const [popupDataReaction, setPopupDataReaction] = useState<ReactionData | null>(null);
   const [connected, setConnected] = useState<string[]>([]);
   const { t } = useTranslation();
   const [reactions, setReactions] = useState<ReactionData[]>([]);
   const [buttonVariable, setButtonVariable] = useState(0);
+  const [serviceMessage, setServiceMessage] = useState<string>("");
 
   const showPopup = (data: ActionData) => {
     setPopupData(data);
@@ -67,14 +68,9 @@ export default function Service() {
     navigate("/servicePage");
   };
 
-  const url =
-    import.meta.env.VITE_DNS_NAME +
-    ":8080/api/actions/get?serviceId=" +
-    selectedService.serviceId;
-
   const getServices = () => {
     axios
-      .get(url)
+      .get(import.meta.env.VITE_DNS_NAME + ":8080/api/actions/get?serviceId=" + selectedService.serviceId)
       .then((response) => {
         setServices(response.data);
       })
@@ -102,8 +98,6 @@ export default function Service() {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  const [serviceMessage, setServiceMessage] = useState<string>("");
-
   const handleServiceCreated = (message: string) => {
     setServiceMessage(message);
     setTimeout(() => {
@@ -127,6 +121,9 @@ export default function Service() {
   };
 
   useEffect(() => {
+    if (selectedService === null) {
+      window.location.href = "/areaPage";
+    }
     document.body.classList.add("disable-scroll");
     getConnected();
     getServices();
@@ -141,6 +138,7 @@ export default function Service() {
       <div className="lg:hidden">
         <NavigationbarMd />
       </div>
+      {selectedService && (
       <div className="h-screen relative">
         <div className="bg-third h-2/4 w-screen">
           <div
@@ -150,7 +148,7 @@ export default function Service() {
             <img
               src={selectedService.topImage}
               alt="Image en haut"
-              style={{ maxWidth: "100%", maxHeight: "100%" }}
+              className="max-h-[100%] max-w-[100%]"
             />
           </div>
           <div className="">
@@ -293,6 +291,7 @@ export default function Service() {
           </div>
         </div>
       </div>
+      )};
     </>
   );
 }

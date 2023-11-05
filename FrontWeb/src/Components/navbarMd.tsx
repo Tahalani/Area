@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 function NavbarMd() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   const redirectToLoginPage = () => {
     navigate("/loginPage");
   };
@@ -49,19 +49,21 @@ function NavbarMd() {
         </div>
       </div>
       <div className="navbar-center">
-        <a style={{ fontFamily: "Londrina" }} className="btn btn-ghost normal-case text-[40px] text-black dark:text-white"><Link to="/areaPage">NetQ.</Link></a>
+        <span style={{ fontFamily: "Londrina" }} className="btn btn-ghost normal-case text-[40px] text-black dark:text-white">
+          <Link to="/areaPage">NetQ.</Link>
+        </span>
       </div>
       <div className="navbar-end">
-        <a
+        <button
           style={{ fontFamily: "merriweather" }}
           className="pl-[30px] pr-[30px] bg-secondary btn text-white rounded-full font-bold"
           onClick={redirectToLoginPage}
         >
           {t("Logout")}
-        </a>
+        </button>
       </div>
     </div>
   );
-};
+}
 
 export default NavbarMd;

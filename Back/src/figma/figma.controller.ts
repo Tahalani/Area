@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { FigmaService } from './figma.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { config } from 'dotenv';
-import { ApiBearerAuth, ApiExcludeEndpoint } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiExcludeEndpoint, ApiOkResponse } from '@nestjs/swagger';
 
 config();
 
@@ -11,6 +11,7 @@ config();
 export class FigmaController {
     constructor(private readonly figmaService: FigmaService) {}
 
+    @ApiOkResponse({"description": "Endpoint to redirect to Figma authentification"})
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Get('auth/figma')

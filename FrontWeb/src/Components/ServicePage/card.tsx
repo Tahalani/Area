@@ -19,6 +19,7 @@ const Card: React.FC<ActionsCardProps> = ({
   serviceId,
   onCardClick,
 }) => {
+
   const handleServiceClick = () => {
     onCardClick({ id, name, args_action, description, serviceId });
   };

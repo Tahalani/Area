@@ -45,6 +45,28 @@ export class ReactionGithub {
         });
     }
 
+    async createComment(userService: UserServiceEntity, arg: any) {
+        const octokit = new Octokit({
+            auth: userService.token,
+        })
+
+        await octokit.request('POST /repos/' + userService.serviceIdentifier + '/' + arg.repo + '/issues/' + arg.issue_id + '/comments', {
+            owner: userService.serviceIdentifier,
+            repo: arg.repo,
+            issue_number: arg.issue_id,
+            body: arg.body,
+            headers: {
+              'Authorization': `Bearer ${userService.token}`,
+              'X-GitHub-Api-Version': '2022-11-28'
+            }
+        }).then((res) => {
+            console.log('comment created')
+            return res;
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
     async createPullRequest(userService: UserServiceEntity, arg: any) {
         const octokit = new Octokit({
             auth: userService.token,

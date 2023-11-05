@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { NotionService } from './notion.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { config } from 'dotenv';
-import { ApiExcludeEndpoint, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
 
 config();
 
@@ -13,6 +13,7 @@ export class NotionController {
 
     @ApiBearerAuth()
     @UseGuards(AuthGuard)
+    @ApiOkResponse({"description": "Endpoint to redirect to Notion authentification"})
     @Get('auth/notion')
     async notionAuth(@Req() req: any, @Res() res: Response) {
         console.log("notionAuth");

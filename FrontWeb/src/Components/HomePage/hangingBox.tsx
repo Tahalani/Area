@@ -11,16 +11,10 @@ export default function HangingBox() {
   return (
     <>
       <div className="lg:w-2/3 p-6 text-left pt-16 text-black pl-[132px]">
-        <h1
-          style={{ fontFamily: "merriweather" }}
-          className="font-semibold sm:text-[30px] md:text-[50px] lg:text-[75px]"
-        >
+        <h1 style={{ fontFamily: "merriweather" }} className="font-semibold sm:text-[30px] md:text-[50px] lg:text-[75px]">
           {t("WelcomeMsg2")}
         </h1>
-        <p
-          style={{ fontFamily: "merriweather", lineHeight: "1.2" }}
-          className="text-3xl mt-8 mb-4 sm:text-[18px] md:text-[30px] lg:text-[42px]"
-        >
+        <p style={{ fontFamily: "merriweather", lineHeight: "1.2" }} className="text-3xl mt-8 mb-4 sm:text-[18px] md:text-[30px] lg:text-[42px]" >
           {t("HangingBox")}
         </p>
         <button

@@ -1,28 +1,8 @@
 export default function CircleShape() {
   return (
     <>
-      <div
-        style={{
-          width: "1500px",
-          height: "800px",
-          backgroundColor: "#4F43DA",
-          borderRadius: "50%",
-          position: "absolute",
-          bottom: "-500px",
-          left: "-700px",
-        }} className="hidden lg:block"
-      />
-      <div
-        style={{
-          width: "2000px",
-          height: "800px",
-          backgroundColor: "#1E2985",
-          borderRadius: "50%",
-          position: "absolute",
-          bottom: "-600px",
-          left: "200px",
-        }} className="hidden lg:block"
-      />
+      <div style={{ borderRadius: "50%" }} className="hidden lg:block w-[1500px] h-[800px] bg-[#4F43DA] absolute bottom-[-500px] left-[-700px]"/>
+      <div style={{ borderRadius: "50%" }} className="hidden lg:block w-[2000px] h-[800px] bg-[#1E2985] absolute bottom-[-600px] left-[200px]"/>
     </>
   );
 }

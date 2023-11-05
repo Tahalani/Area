@@ -10,7 +10,7 @@ export default function LanguagesSetting() {
   return (
     <>
       <div className="flex justify-center items-center">
-        <h1 style={{ fontFamily: "merriweather" }} className="text-[30px] text-black dark:text-white font-bold mt-[80px]">{t("langue")}</h1>
+        <h1 style={{ fontFamily: "merriweather" }} className="text-[40px] text-black dark:text-white font-bold mt-[80px]">{t("langue")}</h1>
       </div>
       <div className="navbar w-full pt-10 bg-main dark:bg-slate-800">
         <div className="navbar-start"></div>

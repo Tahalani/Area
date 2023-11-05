@@ -66,6 +66,11 @@ export class ReactionArray {
       35: this.reactionSlack.renameChannel,
       36: this.reactionDropbox.deleteFile,
       37: this.reactionDropbox.copyFile,
-      38: this.reactionMedium.createPost
+      38: this.reactionMedium.createPost,
+      39: this.reactionGitlab.createBranch,
+      40: this.reactionGitlab.deleteBranch,
+      41: this.reactionGitlab.createMergeRequest,
+      42: this.reactionGitlab.deleteMergeRequest,
+      43: this.githubReaction.createComment,
     };
   }

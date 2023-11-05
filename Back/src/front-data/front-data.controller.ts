@@ -1,6 +1,6 @@
-import { Controller, Get, Query, Req, UseGuards, Delete, Res } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards, Delete, Res, HttpException } from '@nestjs/common';
 import { FrontDataService } from './front-data.service';
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { ActionEntity } from 'src/entity/action.entity';
@@ -49,6 +49,9 @@ export class FrontDataController {
 
     @Delete('areas/delete')
     @ApiBearerAuth()
+    @ApiParam({ name: 'areaId', type: 'number' })
+    @ApiNotFoundResponse({ description: 'Area not found'})
+    @ApiOkResponse({ description: 'Area deleted'}) 
     @UseGuards(AuthGuard)
     async deleteArea(@Req() req: any) {
         return this.frontDataService.deleteArea(req.user.sub, req.query.areaId);

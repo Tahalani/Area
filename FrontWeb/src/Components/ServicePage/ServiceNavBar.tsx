@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 function ServiceNavbar() {
@@ -15,57 +14,61 @@ function ServiceNavbar() {
       <div className="w-screen">
         <div className="navbar w-full pt-10 bg-third">
           <div className="navbar-start">
-            <a
+            <span
               style={{ fontFamily: "Londrina" }}
               className="text-[40px] ml-[132px] text-purple-100"
             >
               <Link to="/areaPage">NetQ.</Link>
-            </a>
+            </span>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="text-purple-100 menu menu-horizontal space-x-10">
               <li>
-                <a
+                <Link
                   style={{ fontFamily: "merriweather" }}
                   className="text-[25px]"
+                  to="/creationPage"
                 >
-                  <Link to="/creationPage">{t("creationarea")}</Link>
-                </a>
+                  {t("creationarea")}
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   style={{ fontFamily: "merriweather" }}
                   className="text-[25px]"
+                  to="/areaPage"
                 >
-                  <Link to="/areaPage">Services</Link>
-                </a>
+                  Services
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   style={{ fontFamily: "merriweather" }}
                   className="text-[25px]"
+                  to="/profilPage"
                 >
-                  <Link to="/profilPage">{t("profil")}</Link>
-                </a>
+                  {t("profil")}
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   style={{ fontFamily: "merriweather" }}
                   className="text-[25px]"
+                  to="/settingPage"
                 >
-                  <Link to="/settingPage">{t("setting")}</Link>
-                </a>
+                  {t("setting")}
+                </Link>
               </li>
             </ul>
           </div>
           <div className="navbar-end">
-            <a
+            <button
               style={{ fontFamily: "merriweather" }}
               className="pl-[30px] pr-[30px] bg-secondary btn mr-36 text-white rounded-full font-bold"
               onClick={redirectToLoginPage}
             >
               {t("Logout")}
-            </a>
+            </button>
           </div>
         </div>
       </div>

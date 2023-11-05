@@ -5,8 +5,6 @@ import { config } from 'dotenv';
 import { UserEntity } from 'src/entity/user.entity';
 import { ServiceEntity } from 'src/entity/service.entity';
 import { UserServiceEntity } from 'src/entity/userService.entity';
-import { ReactionGithub } from './reactionGithub';
-import { ActionGithub } from './actionGithub';
 import { Octokit } from '@octokit/rest';
 import { AreaEntity } from 'src/entity/area.entity';
 import { ReactionEntity } from 'src/entity/reaction.entity';
@@ -45,6 +43,8 @@ export class GitHubService {
     create: 4,
     delete: 6,
     starcreated: 9,
+    issue_commentcreated: 10,
+    memberadded: 11,
   };
 
   constructor(
