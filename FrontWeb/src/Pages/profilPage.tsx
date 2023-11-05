@@ -3,14 +3,29 @@ import Navigationbar from "../Components/navbar.tsx";
 import Card from "../Components/ProfilPage/card.tsx";
 import HorizontalRectangle from "../Components/ProfilPage/ProfilService.tsx";
 import NavigationbarMd from "../Components/navbarMd.tsx";
+import { useState } from "react";
 
 export default function Profil() {
   if (localStorage.getItem("token") == null) {
     window.location.href = "/loginPage";
   }
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
+
   useEffect(() => {
-    document.body.classList.add("disable-scroll");
-  }, []);
+    if (isLargeScreen) {
+      document.body.classList.add("disable-scroll");
+    } else {
+      document.body.classList.remove("disable-scroll");
+    }
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isLargeScreen]);
+
 
   return (
     <>

@@ -22,7 +22,7 @@
     "phone": "Phone",
     "profil": "Profil",
     "setting": "Settings",
-    "apkDownload": "Download for Android",
+    "apkDownload": "Install apk for Android",
     "explore": "Explore",
     "search": "Search...",
     "completeinformation": "Complete information",
@@ -44,5 +44,7 @@
     "sombre": "Dark",
     "clair": "Light",
     "Name of the Area": "Name of the Area",
-    "Enter the Name of the Area": "Enter the Name of the Area"
+    "Enter the Name of the Area": "Enter the Name of the Area",
+    "download for free": "Download for free",
+    "Complétez tous les champs de texte.": "Complete all text fields."
 }

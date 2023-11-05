@@ -21,11 +21,31 @@ export default function Setting() {
       <div className="lg:hidden">
         <NavigationbarMd />
       </div>
-      <div className="flex h-screen relative bg-main dark:bg-slate-800">
-        <div className="w-screen">
+      <div className="flex h-screen bg-main dark:bg-slate-800">
+        <div className="w-1/2">
+        <div className="mt-[85px] pb-[50px] m-[90px] rounded-3xl border border-solid border-gray-800 dark:border-white">
           <ApkButton />
+        </div>
+        <div className="mt-[85px] pb-[50px] m-[90px] rounded-3xl border border-solid border-gray-800 dark:border-white">
           <LanguagesSetting />
-          <ModeSetting />
+        </div>
+        </div>
+        <div className="w-1/2">
+          <div className="mt-[85px] pb-[50px] m-[90px] rounded-3xl border border-solid border-gray-800 dark:border-white">
+            <ModeSetting />
+            <div className="space-x-[100px] flex justify-center items-center">
+              <img
+                src="./src/assets/darkmode.png"
+                alt="moon"
+                className="w-[300px] h-[436px] rounded-2xl"
+              />
+              <img
+              src="./src/assets/modeclair.png"
+              alt="moon"
+              className="w-[300px] h-[436px] rounded-2xl"
+            />
+            </div>
+          </div>
         </div>
       </div>
     </>

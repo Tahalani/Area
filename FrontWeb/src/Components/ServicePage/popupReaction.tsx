@@ -49,6 +49,7 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
   const [errorMessage, setErrorMessage] = useState("");
   const [userServices, setUserServices] = useState<string[]>([]);
   const [nameArea, setNameArea] = useState<string>("");
+  const [isField, setIsField] = useState(0);
 
   const openModal = () => {
     console.log(userServices)
@@ -74,11 +75,21 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
     setTextInputAction({ ...textInputAction });
   }
   const addReaction = () => {
+    if (Object.keys(textInputReaction).length !== parsedReactions?.length) {
+      setIsField(1);
+      return;
+    }
     setCheck(2);
+    setIsField(0);
   }
 
   const addAreaName = () => {
+    if (nameArea === "") {
+      setIsField(1);
+      return;
+    }
     setCheck(1);
+    setIsField(0);
   }
 
   const handleActionButtonClick = (action: ActionData) => {
@@ -216,6 +227,11 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
   };
 
   const handleSubmit = () => {
+    if (Object.keys(textInputAction).length !== parsedActions?.length) {
+      setIsField(1);
+      return;
+    }
+    setIsField(0);
     createArea();
   };
 
@@ -261,11 +277,16 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
                 ))}
               </ul>
               <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={addReaction}>{t("next")}</button>
+              {isField === 1 && (
+                <div>
+                  <p style={{ fontFamily: 'merriweather' }} className="font-semibold text-[15px] text-red-500 mt-[10px]">{t("Complétez tous les champs de texte.")}</p>
+                </div>
+                )}
             </div>
             )}
 
             {check === 5 && (
-              <div>
+              <div className="flex flex-col items-center">
                 <h1 style={{ fontFamily: 'merriweather' }} className="font-semibold text-[30px] text-white mb-[20px]">{t("Name of the Area")}</h1>
                 <input
                   type="text"
@@ -281,6 +302,11 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
                 >
                   {t("next")}
                 </button>
+                {isField === 1 && (
+                <div>
+                  <p style={{ fontFamily: 'merriweather' }} className="font-semibold text-[15px] text-red-500 mt-[10px]">{t("Complétez tous les champs de texte.")}</p>
+                </div>
+                )}
               </div>
             )}
 
@@ -346,6 +372,11 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
                 ))}
               </ul>
               <button style={{ fontFamily: 'merriweather' }} className="shadow-2xl pl-[30px] pr-[30px] bg-secondary btn-lg text-white rounded-full font-bold mt-[5%]" onClick={handleSubmit} >{t("submit")}</button>
+              {isField === 1 && (
+                <div>
+                  <p style={{ fontFamily: 'merriweather' }} className="font-semibold text-[15px] text-red-500 mt-[10px]">{t("Complétez tous les champs de texte.")}</p>
+                </div>
+                )}
             </div>
             )}
           </div>
