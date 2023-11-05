@@ -58,14 +58,20 @@ export default function Service() {
     setPopupDataReaction(null);
   };
 
-  const AccountConnection = () => {
-    window.location.href =
-      import.meta.env.VITE_DNS_NAME +
-      ":8080/api/auth/" +
-      selectedService.bottomText +
-      "?token=" +
-      localStorage.getItem("token");
-    navigate("/servicePage");
+  const AccountConnection = async () => {
+    try {
+      await axios.get(
+        import.meta.env.VITE_DNS_NAME +
+          ":8080/api/auth/" +
+          selectedService.bottomText +
+          "?token=" +
+          localStorage.getItem("token")
+      );
+  
+      navigate("/servicePage");
+    } catch (error) {
+      console.error("Erreur lors de la requête :", error);
+    }
   };
 
   const getServices = () => {
