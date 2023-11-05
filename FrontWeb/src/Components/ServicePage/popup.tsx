@@ -52,7 +52,6 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
   const [isField, setIsField] = useState(0);
 
   const openModal = () => {
-    console.log(userServices)
     if (!userServices.includes(nameService)) {
       setIsConnected(1);
       return;
@@ -75,7 +74,7 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
     setTextInputReaction({ ...textInputReaction });
   }
   const addAction = () => {
-    if (Object.keys(textInputAction).length !== parsedActions?.length) {
+    if (Object.keys(textInputAction).length === 0) {
       setIsField(1);
       return;
     }
@@ -156,17 +155,6 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
       });
   };
 
-  useEffect(() => {
-    getServices();
-    getUserServices();
-    if (errorMessage) {
-      closeModal();
-    }
-    if (check === 3) {
-      getReactions();
-    }
-  }, [check, errorMessage]);
-
   const getUserServices = () => {
     axios
       .get(
@@ -227,13 +215,24 @@ const Popup: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, nameServ
   };
 
   const handleSubmit = () => {
-    if (Object.keys(textInputReaction).length !== parsedReactions?.length) {
+    if (Object.keys(textInputReaction).length === 0) {
       setIsField(1);
       return;
     }
     setIsField(0);
     createArea();
   };
+
+  useEffect(() => {
+    getServices();
+    getUserServices();
+    if (errorMessage) {
+      closeModal();
+    }
+    if (check === 3) {
+      getReactions();
+    }
+  }, [check, errorMessage]);
 
   return (
     <>

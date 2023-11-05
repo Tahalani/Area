@@ -58,6 +58,7 @@ const HorizontalRectangle: React.FC = () => {
         );
         return (
           <div
+            key={index}
             style={{
               border: "1px solid #1400FF",
               boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",

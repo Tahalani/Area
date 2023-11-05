@@ -67,14 +67,9 @@ export default function Service() {
     navigate("/servicePage");
   };
 
-  const url =
-    import.meta.env.VITE_DNS_NAME +
-    ":8080/api/actions/get?serviceId=" +
-    selectedService.serviceId;
-
   const getServices = () => {
     axios
-      .get(url)
+      .get(import.meta.env.VITE_DNS_NAME + ":8080/api/actions/get?serviceId=" + selectedService.serviceId)
       .then((response) => {
         setServices(response.data);
       })
@@ -127,6 +122,9 @@ export default function Service() {
   };
 
   useEffect(() => {
+    if (selectedService === null) {
+      window.location.href = "/areaPage";
+    }
     document.body.classList.add("disable-scroll");
     getConnected();
     getServices();
@@ -141,6 +139,7 @@ export default function Service() {
       <div className="lg:hidden">
         <NavigationbarMd />
       </div>
+      {selectedService && (
       <div className="h-screen relative">
         <div className="bg-third h-2/4 w-screen">
           <div
@@ -150,7 +149,7 @@ export default function Service() {
             <img
               src={selectedService.topImage}
               alt="Image en haut"
-              style={{ maxWidth: "100%", maxHeight: "100%" }}
+              className="max-h-[100%] max-w-[100%]"
             />
           </div>
           <div className="">
@@ -293,6 +292,7 @@ export default function Service() {
           </div>
         </div>
       </div>
+      )};
     </>
   );
 }

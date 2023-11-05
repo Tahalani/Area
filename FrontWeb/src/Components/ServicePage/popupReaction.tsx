@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import Parse from "../ActionPage/parse.js";
+import Parse from "../ActionPage/parse.tsx";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 
@@ -52,8 +52,6 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
   const [isField, setIsField] = useState(0);
 
   const openModal = () => {
-    console.log(userServices)
-    console.log(nameService)
     if (!userServices.includes(nameService)) {
       setIsConnected(1);
       return;
@@ -75,7 +73,7 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
     setTextInputAction({ ...textInputAction });
   }
   const addReaction = () => {
-    if (Object.keys(textInputReaction).length !== parsedReactions?.length) {
+    if (Object.keys(textInputReaction).length === 0) {
       setIsField(1);
       return;
     }
@@ -156,17 +154,6 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
       });
   };
 
-  useEffect(() => {
-    getServices();
-    getUserServices();
-    if (errorMessage) {
-      closeModal();
-    }
-    if (check === 3) {
-      getActions();
-    }
-  }, [check, errorMessage]);
-
   const getUserServices = () => {
     axios
       .get(
@@ -227,13 +214,25 @@ const PopupReaction: React.FC<PopupProps> = ({ data, onClose, onServiceCreated, 
   };
 
   const handleSubmit = () => {
-    if (Object.keys(textInputAction).length !== parsedActions?.length) {
+    if (Object.keys(textInputAction).length === 0) {
       setIsField(1);
       return;
     }
     setIsField(0);
     createArea();
   };
+
+
+  useEffect(() => {
+    getServices();
+    getUserServices();
+    if (errorMessage) {
+      closeModal();
+    }
+    if (check === 3) {
+      getActions();
+    }
+  }, [check, errorMessage]);
 
   return (
     <>

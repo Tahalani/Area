@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 interface Area {
   id: number;
@@ -14,6 +15,8 @@ interface Area {
 function DeleteCard({ areaMap }: { areaMap: Area }) {
   const [isModalVisible, setModalVisible] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -23,19 +26,22 @@ function DeleteCard({ areaMap }: { areaMap: Area }) {
     setModalVisible(!isModalVisible);
   };
 
-  const deleteArea = (data: Area) => {
-    axios
-      .delete(import.meta.env.VITE_DNS_NAME + ":8080/api/areas/delete?areaId=" + data.areaId, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la requete :", error);
-      });
+  const deleteArea = async (data: Area) => {
+    try {
+      await axios.delete(
+        import.meta.env.VITE_DNS_NAME +
+          ":8080/api/areas/delete?areaId=" +
+          data.areaId,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      navigate("/servicePage");
+    } catch (error) {
+      console.error("Erreur lors de la requete :", error);
+    }
   };
 
   return (
@@ -71,9 +77,9 @@ function DeleteCard({ areaMap }: { areaMap: Area }) {
                 >
                   <path
                     stroke="white"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   />
                 </svg>
@@ -89,9 +95,9 @@ function DeleteCard({ areaMap }: { areaMap: Area }) {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                   />
                 </svg>

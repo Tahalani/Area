@@ -26,7 +26,6 @@ export default function Profil() {
     };
   }, [isLargeScreen]);
 
-
   return (
     <>
       <div className="hidden lg:block">
